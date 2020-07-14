@@ -344,6 +344,11 @@ namespace imgdanke
 
 		private void BuildFilesInSourceFolderList()
 		{
+			if ( !Directory.Exists(SourceFolderPathTextBox.Text) )
+			{
+				return;
+			}
+
 			FilesInSourceFolderListBox.DataSource = GetImageFiles(SourceFolderPathTextBox.Text).OrderByAlphaNumeric(DirectoryOrderer.GetFileName).ToList();
 			FilesInSourceFolderListBox.DisplayMember = "Name";
 			FilesInSourceFolderListBox.ValueMember = "Name";
