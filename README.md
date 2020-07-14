@@ -1,11 +1,11 @@
 # imgdanke
 A small GUI wrapper utility around [imagemagick](https://imagemagick.org/index.php) and [pingo](https://css-ig.net/pingo) for image optimization.
 
-![image](https://user-images.githubusercontent.com/12800223/87361304-8396f800-c531-11ea-977b-c717d1123cb5.png)
+![image](https://user-images.githubusercontent.com/12800223/87372171-85ba8000-c54c-11ea-9e5f-8af9587151d3.png)
 
 ## Table of Contents
  * [Technical Details](#technical-details)
- * [Tutorial](#tutorial)
+ * [Documentation](#tutorial)
    * [Input/Output Setup](#input-output-setup)
      * [Source Folder Path](#source-folder-path)
      * [Output Folder Path](#output-folder-path)
@@ -54,7 +54,7 @@ It also makes use of these packages:
 Using Onova, the program will automatically check for new releases on Github and prompt the user to install on startup.
 Settings are stored in the config file located next to the .exe (after first startup) called `imgdanke_UserConfig.json`.
 
-# Tutorial
+# Documentation
 ## Input Output Setup
 ### Source Folder Path
 Click the button and select a folder with images in it.
@@ -96,7 +96,7 @@ This sets `-posterize 2` and will produce a 1bpp black and white image.
 #### 4bpp (16 colors)
 This sets `-posterize 16` and will produce a 4bpp grayscale image.
 #### 8bpp (256 colors)
-This sets `-posterize 256` and will produce an 8bpp grayscale image.
+This does not set `-posterize 256` as it is redundant because `-colorspace Gray` will handle it.
 ### Color Presets
 *Please note that the pingo options tend to produce a better result than the magick options for color images 8bpp and lower.*
 `-pngpalette` does not work past 256 colors.
