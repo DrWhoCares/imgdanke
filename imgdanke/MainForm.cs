@@ -357,10 +357,12 @@ namespace imgdanke
 			if ( FilesInSourceFolderListBox.SelectedIndices.Count > 0 )
 			{
 				UnselectAllItemsInListBox(FilesInSourceFolderListBox);
+				MassFileSelectorButton.Text = "Select All";
 			}
 			else
 			{
 				SelectAllInListBox(FilesInSourceFolderListBox);
+				MassFileSelectorButton.Text = "Unselect All";
 			}
 		}
 
