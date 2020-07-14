@@ -201,14 +201,17 @@ namespace imgdanke
 				case PresetSettings.Gray8Bpp:
 					EightBppGrayPresetRadioButton.Checked = true;
 					break;
+				case PresetSettings.PingoColor4Bpp:
+					PingoFourBppColorPresetRadioButton.Checked = true;
+					break;
+				case PresetSettings.PingoColor8Bpp:
+					PingoEightBppColorPresetRadioButton.Checked = true;
+					break;
 				case PresetSettings.MagickColor4Bpp:
 					MagickFourBppColorPresetRadioButton.Checked = true;
 					break;
 				case PresetSettings.MagickColor8Bpp:
 					MagickEightBppColorPresetRadioButton.Checked = true;
-					break;
-				case PresetSettings.PingoColor8Bpp:
-					PingoEightBppColorPresetRadioButton.Checked = true;
 					break;
 
 				default: break;

@@ -285,9 +285,9 @@ namespace imgdanke
 		Gray4Bpp,
 		Gray8Bpp,
 		PingoColor4Bpp,
+		PingoColor8Bpp,
 		MagickColor4Bpp,
-		MagickColor8Bpp,
-		PingoColor8Bpp
+		MagickColor8Bpp
 	}
 
 	internal enum MagickDitherOptions
