@@ -284,7 +284,8 @@ namespace imgdanke
 		Gray1Bpp,
 		Gray4Bpp,
 		Gray8Bpp,
-		Color4Bpp,
+		PingoColor4Bpp,
+		MagickColor4Bpp,
 		MagickColor8Bpp,
 		PingoColor8Bpp
 	}

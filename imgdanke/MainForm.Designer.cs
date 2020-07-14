@@ -50,6 +50,7 @@
 			this.MagickColorspaceComboBox = new System.Windows.Forms.ComboBox();
 			this.MagickDitherComboBox = new System.Windows.Forms.ComboBox();
 			this.PingoSettingsGroupBox = new System.Windows.Forms.GroupBox();
+			this.PingoOptimizationLevelLabel = new System.Windows.Forms.Label();
 			this.PingoPNGPaletteComboBox = new System.Windows.Forms.ComboBox();
 			this.PingoStripCheckBox = new System.Windows.Forms.CheckBox();
 			this.PingoSARadioButton = new System.Windows.Forms.RadioButton();
@@ -61,7 +62,7 @@
 			this.CustomPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.MagickEightBppColorPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.ColorPresetsLabel = new System.Windows.Forms.Label();
-			this.FourBppColorPresetRadioButton = new System.Windows.Forms.RadioButton();
+			this.MagickFourBppColorPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.GrayscalePresetsLabel = new System.Windows.Forms.Label();
 			this.OneBppGrayPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.NoPresetRadioButton = new System.Windows.Forms.RadioButton();
@@ -76,6 +77,7 @@
 			this.PingoCommandLabel = new System.Windows.Forms.Label();
 			this.PingoCommandTextBox = new System.Windows.Forms.TextBox();
 			this.ProcessingCancelButton = new System.Windows.Forms.Button();
+			this.PingoFourBppColorPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -311,6 +313,7 @@
 			// 
 			// PingoSettingsGroupBox
 			// 
+			this.PingoSettingsGroupBox.Controls.Add(this.PingoOptimizationLevelLabel);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoPNGPaletteComboBox);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoStripCheckBox);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoSARadioButton);
@@ -324,6 +327,16 @@
 			this.PingoSettingsGroupBox.TabIndex = 6;
 			this.PingoSettingsGroupBox.TabStop = false;
 			this.PingoSettingsGroupBox.Text = "pingo Settings";
+			// 
+			// PingoOptimizationLevelLabel
+			// 
+			this.PingoOptimizationLevelLabel.AutoSize = true;
+			this.PingoOptimizationLevelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.PingoOptimizationLevelLabel.Location = new System.Drawing.Point(8, 97);
+			this.PingoOptimizationLevelLabel.Name = "PingoOptimizationLevelLabel";
+			this.PingoOptimizationLevelLabel.Size = new System.Drawing.Size(17, 13);
+			this.PingoOptimizationLevelLabel.TabIndex = 10;
+			this.PingoOptimizationLevelLabel.Text = "-s";
 			// 
 			// PingoPNGPaletteComboBox
 			// 
@@ -405,19 +418,20 @@
             "-s7",
             "-s8",
             "-s9"});
-			this.PingoOptimizationLevelComboBox.Location = new System.Drawing.Point(6, 93);
+			this.PingoOptimizationLevelComboBox.Location = new System.Drawing.Point(30, 93);
 			this.PingoOptimizationLevelComboBox.Name = "PingoOptimizationLevelComboBox";
-			this.PingoOptimizationLevelComboBox.Size = new System.Drawing.Size(91, 21);
+			this.PingoOptimizationLevelComboBox.Size = new System.Drawing.Size(47, 21);
 			this.PingoOptimizationLevelComboBox.TabIndex = 6;
 			this.PingoOptimizationLevelComboBox.SelectedIndexChanged += new System.EventHandler(this.PingoOptimizationLevelComboBox_SelectedIndexChanged);
 			// 
 			// PresetSettingsGroupBox
 			// 
+			this.PresetSettingsGroupBox.Controls.Add(this.PingoFourBppColorPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.PingoEightBppColorPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.CustomPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.MagickEightBppColorPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.ColorPresetsLabel);
-			this.PresetSettingsGroupBox.Controls.Add(this.FourBppColorPresetRadioButton);
+			this.PresetSettingsGroupBox.Controls.Add(this.MagickFourBppColorPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.GrayscalePresetsLabel);
 			this.PresetSettingsGroupBox.Controls.Add(this.OneBppGrayPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.NoPresetRadioButton);
@@ -434,12 +448,12 @@
 			// PingoEightBppColorPresetRadioButton
 			// 
 			this.PingoEightBppColorPresetRadioButton.AutoSize = true;
-			this.PingoEightBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 204);
+			this.PingoEightBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 180);
 			this.PingoEightBppColorPresetRadioButton.Name = "PingoEightBppColorPresetRadioButton";
-			this.PingoEightBppColorPresetRadioButton.Size = new System.Drawing.Size(145, 17);
+			this.PingoEightBppColorPresetRadioButton.Size = new System.Drawing.Size(142, 17);
 			this.PingoEightBppColorPresetRadioButton.TabIndex = 14;
 			this.PingoEightBppColorPresetRadioButton.TabStop = true;
-			this.PingoEightBppColorPresetRadioButton.Text = "8 bpp (256 colors) (pingo)";
+			this.PingoEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, pingo)";
 			this.PingoEightBppColorPresetRadioButton.UseVisualStyleBackColor = true;
 			this.PingoEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoEightBppColorPresetRadioButton_CheckedChanged);
 			// 
@@ -458,12 +472,12 @@
 			// MagickEightBppColorPresetRadioButton
 			// 
 			this.MagickEightBppColorPresetRadioButton.AutoSize = true;
-			this.MagickEightBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 181);
+			this.MagickEightBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 226);
 			this.MagickEightBppColorPresetRadioButton.Name = "MagickEightBppColorPresetRadioButton";
-			this.MagickEightBppColorPresetRadioButton.Size = new System.Drawing.Size(153, 17);
+			this.MagickEightBppColorPresetRadioButton.Size = new System.Drawing.Size(150, 17);
 			this.MagickEightBppColorPresetRadioButton.TabIndex = 6;
 			this.MagickEightBppColorPresetRadioButton.TabStop = true;
-			this.MagickEightBppColorPresetRadioButton.Text = "8 bpp (256 colors) (magick)";
+			this.MagickEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, magick)";
 			this.MagickEightBppColorPresetRadioButton.UseVisualStyleBackColor = true;
 			this.MagickEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickEightBppColorPresetRadioButton_CheckedChanged);
 			// 
@@ -477,17 +491,17 @@
 			this.ColorPresetsLabel.TabIndex = 13;
 			this.ColorPresetsLabel.Text = "Color Presets:";
 			// 
-			// FourBppColorPresetRadioButton
+			// MagickFourBppColorPresetRadioButton
 			// 
-			this.FourBppColorPresetRadioButton.AutoSize = true;
-			this.FourBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 158);
-			this.FourBppColorPresetRadioButton.Name = "FourBppColorPresetRadioButton";
-			this.FourBppColorPresetRadioButton.Size = new System.Drawing.Size(104, 17);
-			this.FourBppColorPresetRadioButton.TabIndex = 5;
-			this.FourBppColorPresetRadioButton.TabStop = true;
-			this.FourBppColorPresetRadioButton.Text = "4 bpp (16 colors)";
-			this.FourBppColorPresetRadioButton.UseVisualStyleBackColor = true;
-			this.FourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.FourBppColorPresetRadioButton_CheckedChanged);
+			this.MagickFourBppColorPresetRadioButton.AutoSize = true;
+			this.MagickFourBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 203);
+			this.MagickFourBppColorPresetRadioButton.Name = "MagickFourBppColorPresetRadioButton";
+			this.MagickFourBppColorPresetRadioButton.Size = new System.Drawing.Size(144, 17);
+			this.MagickFourBppColorPresetRadioButton.TabIndex = 5;
+			this.MagickFourBppColorPresetRadioButton.TabStop = true;
+			this.MagickFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, magick)";
+			this.MagickFourBppColorPresetRadioButton.UseVisualStyleBackColor = true;
+			this.MagickFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickFourBppColorPresetRadioButton_CheckedChanged);
 			// 
 			// GrayscalePresetsLabel
 			// 
@@ -653,6 +667,18 @@
 			this.ProcessingCancelButton.Visible = false;
 			this.ProcessingCancelButton.Click += new System.EventHandler(this.ProcessingCancelButton_Click);
 			// 
+			// PingoFourBppColorPresetRadioButton
+			// 
+			this.PingoFourBppColorPresetRadioButton.AutoSize = true;
+			this.PingoFourBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 158);
+			this.PingoFourBppColorPresetRadioButton.Name = "PingoFourBppColorPresetRadioButton";
+			this.PingoFourBppColorPresetRadioButton.Size = new System.Drawing.Size(136, 17);
+			this.PingoFourBppColorPresetRadioButton.TabIndex = 15;
+			this.PingoFourBppColorPresetRadioButton.TabStop = true;
+			this.PingoFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, pingo)";
+			this.PingoFourBppColorPresetRadioButton.UseVisualStyleBackColor = true;
+			this.PingoFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoFourBppColorPresetRadioButton_CheckedChanged);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -711,7 +737,7 @@
 		private System.Windows.Forms.GroupBox PresetSettingsGroupBox;
 		private System.Windows.Forms.RadioButton NoPresetRadioButton;
 		private System.Windows.Forms.RadioButton MagickEightBppColorPresetRadioButton;
-		private System.Windows.Forms.RadioButton FourBppColorPresetRadioButton;
+		private System.Windows.Forms.RadioButton MagickFourBppColorPresetRadioButton;
 		private System.Windows.Forms.RadioButton OneBppGrayPresetRadioButton;
 		private System.Windows.Forms.RadioButton EightBppGrayPresetRadioButton;
 		private System.Windows.Forms.RadioButton FourBppGrayPresetRadioButton;
@@ -743,6 +769,8 @@
 		private System.Windows.Forms.TextBox OutputExtensionTextBox;
 		private System.Windows.Forms.Button ProcessingCancelButton;
 		private System.Windows.Forms.ComboBox PingoPNGPaletteComboBox;
+		private System.Windows.Forms.Label PingoOptimizationLevelLabel;
+		private System.Windows.Forms.RadioButton PingoFourBppColorPresetRadioButton;
 	}
 }
 

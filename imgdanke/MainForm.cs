@@ -201,8 +201,8 @@ namespace imgdanke
 				case PresetSettings.Gray8Bpp:
 					EightBppGrayPresetRadioButton.Checked = true;
 					break;
-				case PresetSettings.Color4Bpp:
-					FourBppColorPresetRadioButton.Checked = true;
+				case PresetSettings.MagickColor4Bpp:
+					MagickFourBppColorPresetRadioButton.Checked = true;
 					break;
 				case PresetSettings.MagickColor8Bpp:
 					MagickEightBppColorPresetRadioButton.Checked = true;
@@ -559,14 +559,54 @@ namespace imgdanke
 			PingoStripCheckBox.Checked = true;
 		}
 
-		private void FourBppColorPresetRadioButton_CheckedChanged(object sender, EventArgs e)
+		private void PingoFourBppColorPresetRadioButton_CheckedChanged(object sender, EventArgs e)
 		{
-			if ( !FourBppColorPresetRadioButton.Checked )
+			if ( !PingoFourBppColorPresetRadioButton.Checked )
 			{
 				return;
 			}
 
-			CONFIG.PresetSetting = PresetSettings.Color4Bpp;
+			CONFIG.PresetSetting = PresetSettings.PingoColor4Bpp;
+			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.Invalid;
+			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
+			MagickColorsTextBox.Text = "";
+			MagickDepthTextBox.Text = "";
+			MagickPosterizeTextBox.Text = "";
+			MagickNormalizeCheckBox.Checked = true;
+			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == "24");
+			PingoSBRadioButton.Checked = true;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoStripCheckBox.Checked = true;
+		}
+
+		private void PingoEightBppColorPresetRadioButton_CheckedChanged(object sender, EventArgs e)
+		{
+			if ( !PingoEightBppColorPresetRadioButton.Checked )
+			{
+				return;
+			}
+
+			CONFIG.PresetSetting = PresetSettings.PingoColor8Bpp;
+			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.Invalid;
+			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
+			MagickColorsTextBox.Text = "";
+			MagickDepthTextBox.Text = "";
+			MagickPosterizeTextBox.Text = "";
+			MagickNormalizeCheckBox.Checked = true;
+			PingoPNGPaletteComboBox.SelectedIndex = PingoPNGPaletteComboBox.Items.Count - 1;
+			PingoSBRadioButton.Checked = true;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoStripCheckBox.Checked = true;
+		}
+
+		private void MagickFourBppColorPresetRadioButton_CheckedChanged(object sender, EventArgs e)
+		{
+			if ( !MagickFourBppColorPresetRadioButton.Checked )
+			{
+				return;
+			}
+
+			CONFIG.PresetSetting = PresetSettings.MagickColor4Bpp;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
 			MagickColorsTextBox.Text = "16";
@@ -597,26 +637,6 @@ namespace imgdanke
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
-			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = true;
-		}
-
-		private void PingoEightBppColorPresetRadioButton_CheckedChanged(object sender, EventArgs e)
-		{
-			if ( !PingoEightBppColorPresetRadioButton.Checked )
-			{
-				return;
-			}
-
-			CONFIG.PresetSetting = PresetSettings.PingoColor8Bpp;
-			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.Invalid;
-			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.Invalid;
-			MagickColorsTextBox.Text = "";
-			MagickDepthTextBox.Text = "";
-			MagickPosterizeTextBox.Text = "";
-			MagickNormalizeCheckBox.Checked = true;
-			PingoPNGPaletteComboBox.SelectedIndex = PingoPNGPaletteComboBox.Items.Count - 1;
-			PingoSBRadioButton.Checked = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
 		}
