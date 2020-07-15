@@ -43,6 +43,7 @@ namespace imgdanke
 		private static readonly UserConfig CONFIG = UserConfig.LoadConfig();
 		private static bool ShouldCancelProcessing = false;
 		private static bool IsInitializing = false;
+		private static bool ShouldDelayUpdatingCommands = false;
 
 		public MainForm()
 		{
@@ -311,6 +312,31 @@ namespace imgdanke
 			return !string.IsNullOrWhiteSpace(CONFIG.PingoCommandString);
 		}
 
+		private static bool VerifyReadyToApply()
+		{
+			return VerifyOutputSettingsAreValid()
+				&& (VerifyMagickCommandIsReadyAndValid() || VerifyPingoCommandIsReadyAndValid());
+		}
+
+		private static bool VerifyOutputSettingsAreValid()
+		{
+			return VerifySourceFolderPathIsValid()
+				&& VerifyOutputFolderPathIsValid()
+				&& VerifyOutputExtensionIsValid();
+		}
+
+		private static bool VerifyMagickCommandIsReadyAndValid()
+		{
+			return VerifyImagemagickPathIsValid()
+				&& VerifyMagickCommandIsValid();
+		}
+
+		private static bool VerifyPingoCommandIsReadyAndValid()
+		{
+			return VerifyPingoPathIsValid()
+				&& VerifyPingoCommandIsValid();
+		}
+
 		#endregion
 
 		#region UIEvents
@@ -463,6 +489,7 @@ namespace imgdanke
 				return;
 			}
 
+			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.None;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.Invalid;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.Invalid;
@@ -475,6 +502,9 @@ namespace imgdanke
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
+			MagickCommandTextBox.Text = ConstructMagickCommandString();
+			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			ShouldDelayUpdatingCommands = false;
 		}
 
 		private void CustomPresetRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -484,6 +514,7 @@ namespace imgdanke
 				return;
 			}
 
+			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.Custom;
 			MagickDitherComboBox.SelectedIndex = GetIndexOfStringInComboBox(MagickDitherComboBox, CONFIG.MagickDither);
 			MagickColorspaceComboBox.SelectedIndex = GetIndexOfStringInComboBox(MagickColorspaceComboBox, CONFIG.MagickColorspace);
@@ -496,6 +527,9 @@ namespace imgdanke
 			PingoSARadioButton.Checked = CONFIG.PingoAdditionalChecks == PingoAdditionalChecks.sa;
 			PingoOptimizationLevelComboBox.SelectedIndex = GetIndexOfStringInComboBox(PingoOptimizationLevelComboBox, CONFIG.PingoOptimizeLevel);
 			PingoStripCheckBox.Checked = CONFIG.ShouldUsePingoStrip;
+			MagickCommandTextBox.Text = ConstructMagickCommandString();
+			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			ShouldDelayUpdatingCommands = false;
 		}
 
 		private static int GetIndexOfStringInComboBox(ComboBox comboBox, string item)
@@ -511,6 +545,7 @@ namespace imgdanke
 				return;
 			}
 
+			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.Gray1Bpp;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.Gray;
@@ -523,6 +558,9 @@ namespace imgdanke
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
+			MagickCommandTextBox.Text = ConstructMagickCommandString();
+			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			ShouldDelayUpdatingCommands = false;
 		}
 
 		private void FourBppGrayPresetRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -532,6 +570,7 @@ namespace imgdanke
 				return;
 			}
 
+			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.Gray4Bpp;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.Gray;
@@ -544,6 +583,9 @@ namespace imgdanke
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
+			MagickCommandTextBox.Text = ConstructMagickCommandString();
+			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			ShouldDelayUpdatingCommands = false;
 		}
 
 		private void EightBppGrayPresetRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -553,6 +595,7 @@ namespace imgdanke
 				return;
 			}
 
+			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.Gray8Bpp;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.Gray;
@@ -565,6 +608,9 @@ namespace imgdanke
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
+			MagickCommandTextBox.Text = ConstructMagickCommandString();
+			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			ShouldDelayUpdatingCommands = false;
 		}
 
 		private void PingoFourBppColorPresetRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -574,6 +620,7 @@ namespace imgdanke
 				return;
 			}
 
+			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.PingoColor4Bpp;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.Invalid;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
@@ -585,6 +632,9 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
+			MagickCommandTextBox.Text = ConstructMagickCommandString();
+			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			ShouldDelayUpdatingCommands = false;
 		}
 
 		private void PingoEightBppColorPresetRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -594,6 +644,7 @@ namespace imgdanke
 				return;
 			}
 
+			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.PingoColor8Bpp;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.Invalid;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
@@ -605,6 +656,9 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
+			MagickCommandTextBox.Text = ConstructMagickCommandString();
+			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			ShouldDelayUpdatingCommands = false;
 		}
 
 		private void MagickFourBppColorPresetRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -614,6 +668,7 @@ namespace imgdanke
 				return;
 			}
 
+			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.MagickColor4Bpp;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
@@ -626,6 +681,9 @@ namespace imgdanke
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
+			MagickCommandTextBox.Text = ConstructMagickCommandString();
+			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			ShouldDelayUpdatingCommands = false;
 		}
 
 		private void MagickEightBppColorPresetRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -635,6 +693,7 @@ namespace imgdanke
 				return;
 			}
 
+			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.MagickColor8Bpp;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
@@ -647,6 +706,9 @@ namespace imgdanke
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
+			MagickCommandTextBox.Text = ConstructMagickCommandString();
+			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			ShouldDelayUpdatingCommands = false;
 		}
 
 		#endregion
@@ -661,7 +723,11 @@ namespace imgdanke
 			}
 
 			CONFIG.MagickDither = MagickDitherComboBox.SelectedItem == null ? "" : MagickDitherComboBox.SelectedItem.ToString();
-			MagickCommandTextBox.Text = ConstructMagickCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				MagickCommandTextBox.Text = ConstructMagickCommandString();
+			}
 		}
 
 		private void MagickColorspaceComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -672,7 +738,11 @@ namespace imgdanke
 			}
 
 			CONFIG.MagickColorspace = MagickColorspaceComboBox.SelectedItem == null ? "" : MagickColorspaceComboBox.SelectedItem.ToString();
-			MagickCommandTextBox.Text = ConstructMagickCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				MagickCommandTextBox.Text = ConstructMagickCommandString();
+			}
 		}
 
 		private void MagickColorsTextBox_TextChanged(object sender, EventArgs e)
@@ -688,7 +758,11 @@ namespace imgdanke
 			}
 
 			CONFIG.MagickColorsValue = string.IsNullOrWhiteSpace(MagickColorsTextBox.Text) ? 0 : int.Parse(MagickColorsTextBox.Text);
-			MagickCommandTextBox.Text = ConstructMagickCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				MagickCommandTextBox.Text = ConstructMagickCommandString();
+			}
 		}
 
 		private void MagickDepthTextBox_TextChanged(object sender, EventArgs e)
@@ -704,7 +778,11 @@ namespace imgdanke
 			}
 
 			CONFIG.MagickDepthValue = string.IsNullOrWhiteSpace(MagickDepthTextBox.Text) ? 0 : int.Parse(MagickDepthTextBox.Text);
-			MagickCommandTextBox.Text = ConstructMagickCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				MagickCommandTextBox.Text = ConstructMagickCommandString();
+			}
 		}
 
 		private void MagickPosterizeTextBox_TextChanged(object sender, EventArgs e)
@@ -720,7 +798,11 @@ namespace imgdanke
 			}
 
 			CONFIG.MagickPosterizeValue = string.IsNullOrWhiteSpace(MagickPosterizeTextBox.Text) ? 0 : int.Parse(MagickPosterizeTextBox.Text);
-			MagickCommandTextBox.Text = ConstructMagickCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				MagickCommandTextBox.Text = ConstructMagickCommandString();
+			}
 		}
 
 		private void MagickNormalizeCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -731,7 +813,11 @@ namespace imgdanke
 			}
 
 			CONFIG.ShouldUseMagickNormalize = MagickNormalizeCheckBox.Checked;
-			MagickCommandTextBox.Text = ConstructMagickCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				MagickCommandTextBox.Text = ConstructMagickCommandString();
+			}
 		}
 
 		#endregion
@@ -751,7 +837,11 @@ namespace imgdanke
 			PingoSBRadioButton.Enabled = value > 0;
 			PingoSARadioButton.Enabled = value > 0;
 			CONFIG.PingoPNGPaletteValue = value;
-			PingoCommandTextBox.Text = ConstructPingoCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				PingoCommandTextBox.Text = ConstructPingoCommandString();
+			}
 		}
 
 		private void PingoSBRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -762,7 +852,11 @@ namespace imgdanke
 			}
 
 			CONFIG.PingoAdditionalChecks = PingoAdditionalChecks.sb;
-			PingoCommandTextBox.Text = ConstructPingoCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				PingoCommandTextBox.Text = ConstructPingoCommandString();
+			}
 		}
 
 		private void PingoSARadioButton_CheckedChanged(object sender, EventArgs e)
@@ -773,7 +867,11 @@ namespace imgdanke
 			}
 
 			CONFIG.PingoAdditionalChecks = PingoAdditionalChecks.sa;
-			PingoCommandTextBox.Text = ConstructPingoCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				PingoCommandTextBox.Text = ConstructPingoCommandString();
+			}
 		}
 
 		private void PingoOptimizationLevelComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -784,7 +882,11 @@ namespace imgdanke
 			}
 
 			CONFIG.PingoOptimizeLevel = PingoOptimizationLevelComboBox.SelectedItem == null ? "" : PingoOptimizationLevelComboBox.SelectedItem.ToString();
-			PingoCommandTextBox.Text = ConstructPingoCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				PingoCommandTextBox.Text = ConstructPingoCommandString();
+			}
 		}
 
 		private void PingoStripCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -795,7 +897,11 @@ namespace imgdanke
 			}
 
 			CONFIG.ShouldUsePingoStrip = PingoStripCheckBox.Checked;
-			PingoCommandTextBox.Text = ConstructPingoCommandString();
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				PingoCommandTextBox.Text = ConstructPingoCommandString();
+			}
 		}
 
 		#endregion
@@ -947,25 +1053,13 @@ namespace imgdanke
 
 		private void MagickCommandTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if ( string.IsNullOrWhiteSpace(MagickCommandTextBox.Text) )
-			{
-				CONFIG.MagickCommandString = "";
-				return;
-			}
-
-			CONFIG.MagickCommandString = MagickCommandTextBox.Text;
+			CONFIG.MagickCommandString = string.IsNullOrWhiteSpace(MagickCommandTextBox.Text) ? "" : MagickCommandTextBox.Text;
 			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void PingoCommandTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if ( string.IsNullOrWhiteSpace(PingoCommandTextBox.Text) )
-			{
-				CONFIG.PingoCommandString = "";
-				return;
-			}
-
-			CONFIG.PingoCommandString = PingoCommandTextBox.Text;
+			CONFIG.PingoCommandString = string.IsNullOrWhiteSpace(PingoCommandTextBox.Text) ? "" : PingoCommandTextBox.Text;
 			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
@@ -980,11 +1074,6 @@ namespace imgdanke
 
 		#region Processing
 
-		private bool VerifyReadyToApply()
-		{
-			return !string.IsNullOrEmpty(MagickCommandTextBox.Text) && Directory.Exists(SourceFolderPathTextBox.Text);
-		}
-
 		private void ApplyButton_Click(object sender, EventArgs e)
 		{
 			ToggleUI(false);
@@ -997,9 +1086,12 @@ namespace imgdanke
 				return;
 			}
 
-			CallCommandOnFiles(imgFiles, MagickCommandTextBox.Text, true, StatusMessageLabel);
-			
-			if ( !ShouldCancelProcessing )
+			if ( !ShouldCancelProcessing && VerifyMagickCommandIsReadyAndValid() )
+			{
+				CallCommandOnFiles(imgFiles, MagickCommandTextBox.Text, true, StatusMessageLabel);
+			}
+
+			if ( !ShouldCancelProcessing && VerifyPingoCommandIsReadyAndValid() )
 			{
 				CallCommandOnFiles(imgFiles, PingoCommandTextBox.Text, false, StatusMessageLabel);
 			}
