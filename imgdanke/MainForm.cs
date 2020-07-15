@@ -1153,7 +1153,7 @@ namespace imgdanke
 
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
-				FileName = "CMD.exe",
+				FileName = "cmd.exe",
 				UseShellExecute = false,
 				CreateNoWindow = true
 			};
