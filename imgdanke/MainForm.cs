@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -14,8 +15,8 @@ namespace imgdanke
 {
 	public partial class MainForm : Form
 	{
-		private const string MAGICK_FILENAME = "magick.exe";
-		private const string PINGO_FILENAME = "pingo.exe";
+		private static string MAGICK_FILENAME = "magick.exe";
+		private static string PINGO_FILENAME = "pingo.exe";
 
 		private static readonly BindingList<KeyValuePair<string, string>> PNG_PALETTE_ITEMS = new BindingList<KeyValuePair<string, string>>
 		{
@@ -51,6 +52,7 @@ namespace imgdanke
 			Text = "imgdanke - v" + typeof(MainForm).Assembly.GetName().Version;
 			CheckForProgramUpdates();
 			IsInitializing = true;
+			InitializeBinaryFilenames();
 			InitializePingoPNGPaletteComboBox();
 			InitializeWithConfigValues();
 			IsInitializing = false;
@@ -99,6 +101,15 @@ namespace imgdanke
 			catch ( Exception e )
 			{
 				MessageBox.Show("Checking for updates threw an exception:\n\"" + e.Message + "\"\n\nYou may not be able to access api.github.com. You can safely continue using this offline.", "Error Checking For Update", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
+		}
+
+		private static void InitializeBinaryFilenames()
+		{
+			if ( RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX) )
+			{
+				MAGICK_FILENAME = "magick";
+				PINGO_FILENAME = "pingo";
 			}
 		}
 
