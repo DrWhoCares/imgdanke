@@ -1099,12 +1099,12 @@ namespace imgdanke
 
 			if ( !ShouldCancelProcessing && VerifyMagickCommandIsReadyAndValid() )
 			{
-				CallCommandOnFiles(imgFiles, MagickCommandTextBox.Text, true, StatusMessageLabel);
+				imgFiles = CallMagickCommand(imgFiles, MagickCommandTextBox.Text, StatusMessageLabel);
 			}
 
 			if ( !ShouldCancelProcessing && VerifyPingoCommandIsReadyAndValid() )
 			{
-				CallCommandOnFiles(imgFiles, PingoCommandTextBox.Text, false, StatusMessageLabel);
+				CallPingoCommand(imgFiles, PingoCommandTextBox.Text, StatusMessageLabel);
 			}
 
 			BuildFilesInSourceFolderList();
@@ -1142,38 +1142,28 @@ namespace imgdanke
 								|| s.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase));
 		}
 
-		private static void CallCommandOnFiles(List<FileInfo> imgFiles, string commandString, bool isMagickCommand, Label statusLabel)
+		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel)
 		{
-			if ( string.IsNullOrWhiteSpace(commandString) )
-			{
-				return;
-			}
-
-			bool doesCommandSpecifyOutput = commandString.Contains("%2");
-
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
 				FileName = "cmd.exe",
 				UseShellExecute = false,
-				CreateNoWindow = true
+				CreateNoWindow = true,
+				WorkingDirectory = CONFIG.SourceFolderPath
 			};
+
+			List<FileInfo> newImgFiles = new List<FileInfo>();
 
 			foreach ( FileInfo img in imgFiles )
 			{
 				startInfo.Arguments = "/C " + commandString;
 				string originalFilename = img.FullName;
-				string tempFilename = "";
+				string tempFilename = CONFIG.OutputFolderPath + "\\" + img.Name.Replace(img.Extension, "") + ".tmp" + CONFIG.OutputExtension;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
+				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
+				statusLabel.Text = "Processing magick command on \"" + img.FullName + "\".";
 
-				if ( doesCommandSpecifyOutput )
-				{
-					tempFilename = img.FullName.Replace(img.Extension, "") + ".tmp" + CONFIG.OutputExtension;
-					startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
-				}
-
-				string commandType = isMagickCommand ? "magick" : "pingo";
-				statusLabel.Text = "Processing " + commandType + " command on \"" + img.FullName + "\".";
-				Process process = Process.Start(startInfo);
+				using Process process = Process.Start(startInfo);
 				process.Start();
 
 				while ( !process.HasExited )
@@ -1183,31 +1173,37 @@ namespace imgdanke
 					if ( ShouldCancelProcessing )
 					{
 						process.Close();
-						process.Dispose();
 						break;
 					}
 				}
 
 				if ( ShouldCancelProcessing )
 				{
-					return;
+					return new List<FileInfo>();
 				}
 
-				if ( isMagickCommand )
+				string newLocation = tempFilename.Replace(".tmp", "");
+
+				if ( newLocation == img.FullName )
 				{
-					if ( doesCommandSpecifyOutput )
-					{
-						File.Delete(originalFilename);
-
-						while ( !IsFileReady(tempFilename) )
-						{
-							Application.DoEvents();
-						}
-
-						File.Move(tempFilename, tempFilename.Replace(".tmp", ""));
-					}
+					File.Delete(originalFilename);
 				}
+
+				while ( !IsFileReady(tempFilename) )
+				{
+					Application.DoEvents();
+				}
+
+				if ( File.Exists(newLocation) )
+				{
+					File.Delete(newLocation);
+				}
+
+				File.Move(tempFilename, newLocation);
+				newImgFiles.Add(new FileInfo(newLocation));
 			}
+
+			return newImgFiles;
 		}
 
 		private static bool IsFileReady(string filename)
@@ -1216,12 +1212,43 @@ namespace imgdanke
 			try
 			{
 				using FileStream inputStream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.None);
-
 				return inputStream.Length > 0;
 			}
 			catch ( Exception )
 			{
 				return false;
+			}
+		}
+
+		private static void CallPingoCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel)
+		{
+			ProcessStartInfo startInfo = new ProcessStartInfo
+			{
+				FileName = "cmd.exe",
+				UseShellExecute = false,
+				CreateNoWindow = true,
+				WorkingDirectory = CONFIG.OutputFolderPath
+			};
+
+			foreach ( FileInfo img in imgFiles )
+			{
+				startInfo.Arguments = "/C " + commandString;
+				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
+
+				statusLabel.Text = "Processing pingo command on \"" + img.FullName + "\".";
+				using Process process = Process.Start(startInfo);
+				process.Start();
+
+				while ( !process.HasExited )
+				{
+					Application.DoEvents();
+
+					if ( ShouldCancelProcessing )
+					{
+						process.Close();
+						break;
+					}
+				}
 			}
 		}
 
