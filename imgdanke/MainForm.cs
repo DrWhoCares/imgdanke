@@ -66,7 +66,7 @@ namespace imgdanke
 
 		#region Initialization
 
-		private async void CheckForProgramUpdates()
+		private static async void CheckForProgramUpdates()
 		{
 			using UpdateManager updateManager = new UpdateManager(
 				new GithubPackageResolver("DrWhoCares", "imgdanke", "imgdanke_*.zip"),
@@ -225,8 +225,6 @@ namespace imgdanke
 				case PresetSettings.MagickColor8Bpp:
 					MagickEightBppColorPresetRadioButton.Checked = true;
 					break;
-
-				default: break;
 			}
 		}
 
