@@ -367,14 +367,9 @@ namespace imgdanke
 
 		private void SourceFolderPathTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if ( string.IsNullOrWhiteSpace(SourceFolderPathTextBox.Text) )
-			{
-				CONFIG.SourceFolderPath = "";
-				return;
-			}
-
 			CONFIG.SourceFolderPath = SourceFolderPathTextBox.Text;
 			BuildFilesInSourceFolderList();
+			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void BuildFilesInSourceFolderList()
@@ -467,24 +462,14 @@ namespace imgdanke
 
 		private void OutputFolderPathTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if ( string.IsNullOrWhiteSpace(OutputFolderPathTextBox.Text) )
-			{
-				CONFIG.OutputFolderPath = "";
-				return;
-			}
-
 			CONFIG.OutputFolderPath = OutputFolderPathTextBox.Text;
+			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void OutputExtensionTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if ( string.IsNullOrWhiteSpace(OutputExtensionTextBox.Text) )
-			{
-				CONFIG.OutputExtension = "";
-				return;
-			}
-
 			CONFIG.OutputExtension = OutputExtensionTextBox.Text;
+			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
 		#endregion
