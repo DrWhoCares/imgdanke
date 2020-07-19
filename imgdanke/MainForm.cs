@@ -1144,7 +1144,7 @@ namespace imgdanke
 				string tempFilename = CONFIG.OutputFolderPath + "\\" + img.Name.Replace(img.Extension, "") + ".tmp" + CONFIG.OutputExtension;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
-				statusLabel.Text = "Processing magick command on \"" + img.FullName + "\".";
+				statusLabel.Text = "Processing magick command on \"" + img.Name + "\".";
 
 				using Process process = Process.Start(startInfo);
 				process.Start();
@@ -1218,7 +1218,7 @@ namespace imgdanke
 				startInfo.Arguments = "/C " + commandString;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 
-				statusLabel.Text = "Processing pingo command on \"" + img.FullName + "\".";
+				statusLabel.Text = "Processing pingo command on \"" + img.Name + "\".";
 				using Process process = Process.Start(startInfo);
 				process.Start();
 
