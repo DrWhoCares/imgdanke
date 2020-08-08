@@ -175,7 +175,7 @@
 			// StatusMessageLabel
 			// 
 			this.StatusMessageLabel.AutoSize = true;
-			this.StatusMessageLabel.Location = new System.Drawing.Point(88, 108);
+			this.StatusMessageLabel.Location = new System.Drawing.Point(168, 107);
 			this.StatusMessageLabel.Name = "StatusMessageLabel";
 			this.StatusMessageLabel.Size = new System.Drawing.Size(374, 13);
 			this.StatusMessageLabel.TabIndex = 5;
@@ -742,7 +742,7 @@
 			// 
 			this.ProcessingCancelButton.Enabled = false;
 			this.ProcessingCancelButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.ProcessingCancelButton.Location = new System.Drawing.Point(716, 103);
+			this.ProcessingCancelButton.Location = new System.Drawing.Point(87, 102);
 			this.ProcessingCancelButton.Name = "ProcessingCancelButton";
 			this.ProcessingCancelButton.Size = new System.Drawing.Size(75, 23);
 			this.ProcessingCancelButton.TabIndex = 12;
