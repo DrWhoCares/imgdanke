@@ -363,7 +363,7 @@
 			this.PingoSettingsGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.PingoSettingsGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.PingoSettingsGroupBox.Name = "PingoSettingsGroupBox";
-			this.PingoSettingsGroupBox.Size = new System.Drawing.Size(150, 249);
+			this.PingoSettingsGroupBox.Size = new System.Drawing.Size(155, 249);
 			this.PingoSettingsGroupBox.TabIndex = 6;
 			this.PingoSettingsGroupBox.TabStop = false;
 			this.PingoSettingsGroupBox.Text = "pingo Settings";
@@ -495,7 +495,7 @@
 			this.PresetSettingsGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.PresetSettingsGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.PresetSettingsGroupBox.Name = "PresetSettingsGroupBox";
-			this.PresetSettingsGroupBox.Size = new System.Drawing.Size(202, 249);
+			this.PresetSettingsGroupBox.Size = new System.Drawing.Size(157, 249);
 			this.PresetSettingsGroupBox.TabIndex = 4;
 			this.PresetSettingsGroupBox.TabStop = false;
 			this.PresetSettingsGroupBox.Text = "Preset Settings";
@@ -628,7 +628,7 @@
 			this.FilesInSourceFolderGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.FilesInSourceFolderGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.FilesInSourceFolderGroupBox.Name = "FilesInSourceFolderGroupBox";
-			this.FilesInSourceFolderGroupBox.Size = new System.Drawing.Size(296, 249);
+			this.FilesInSourceFolderGroupBox.Size = new System.Drawing.Size(336, 249);
 			this.FilesInSourceFolderGroupBox.TabIndex = 6;
 			this.FilesInSourceFolderGroupBox.TabStop = false;
 			this.FilesInSourceFolderGroupBox.Text = "Files in Source Folder";
@@ -636,6 +636,8 @@
 			// FileUIAndFileListSplitContainer
 			// 
 			this.FileUIAndFileListSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.FileUIAndFileListSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.FileUIAndFileListSplitContainer.IsSplitterFixed = true;
 			this.FileUIAndFileListSplitContainer.Location = new System.Drawing.Point(3, 16);
 			this.FileUIAndFileListSplitContainer.Name = "FileUIAndFileListSplitContainer";
 			this.FileUIAndFileListSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -650,7 +652,8 @@
 			// FileUIAndFileListSplitContainer.Panel2
 			// 
 			this.FileUIAndFileListSplitContainer.Panel2.Controls.Add(this.FilesInSourceFolderListBox);
-			this.FileUIAndFileListSplitContainer.Size = new System.Drawing.Size(290, 230);
+			this.FileUIAndFileListSplitContainer.Panel2MinSize = 201;
+			this.FileUIAndFileListSplitContainer.Size = new System.Drawing.Size(330, 230);
 			this.FileUIAndFileListSplitContainer.SplitterDistance = 25;
 			this.FileUIAndFileListSplitContainer.TabIndex = 14;
 			// 
@@ -708,7 +711,7 @@
 			this.FilesInSourceFolderListBox.Location = new System.Drawing.Point(0, 0);
 			this.FilesInSourceFolderListBox.Name = "FilesInSourceFolderListBox";
 			this.FilesInSourceFolderListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(290, 201);
+			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(330, 201);
 			this.FilesInSourceFolderListBox.TabIndex = 0;
 			this.FilesInSourceFolderListBox.TabStop = false;
 			this.FilesInSourceFolderListBox.SelectedIndexChanged += new System.EventHandler(this.FilesInSourceFolderListBox_SelectedIndexChanged);
@@ -753,7 +756,6 @@
 			this.MainSplitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.MainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.MainSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-			this.MainSplitContainer.IsSplitterFixed = true;
 			this.MainSplitContainer.Location = new System.Drawing.Point(0, 0);
 			this.MainSplitContainer.Name = "MainSplitContainer";
 			this.MainSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -761,6 +763,7 @@
 			// MainSplitContainer.Panel1
 			// 
 			this.MainSplitContainer.Panel1.Controls.Add(this.OutputAndSettingsSplitContainer);
+			this.MainSplitContainer.Panel1MinSize = 346;
 			// 
 			// MainSplitContainer.Panel2
 			// 
@@ -771,6 +774,7 @@
 			this.MainSplitContainer.Panel2.Controls.Add(this.ApplyButton);
 			this.MainSplitContainer.Panel2.Controls.Add(this.PingoCommandTextBox);
 			this.MainSplitContainer.Panel2.Controls.Add(this.StatusMessageLabel);
+			this.MainSplitContainer.Panel2MinSize = 135;
 			this.MainSplitContainer.Size = new System.Drawing.Size(800, 485);
 			this.MainSplitContainer.SplitterDistance = 346;
 			this.MainSplitContainer.TabIndex = 13;
@@ -778,6 +782,8 @@
 			// OutputAndSettingsSplitContainer
 			// 
 			this.OutputAndSettingsSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.OutputAndSettingsSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.OutputAndSettingsSplitContainer.IsSplitterFixed = true;
 			this.OutputAndSettingsSplitContainer.Location = new System.Drawing.Point(0, 0);
 			this.OutputAndSettingsSplitContainer.Name = "OutputAndSettingsSplitContainer";
 			this.OutputAndSettingsSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -790,10 +796,12 @@
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.OutputFolderPathTextBox);
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.SourceFolderPathTextBox);
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.OutputFolderPathButton);
+			this.OutputAndSettingsSplitContainer.Panel1MinSize = 91;
 			// 
 			// OutputAndSettingsSplitContainer.Panel2
 			// 
 			this.OutputAndSettingsSplitContainer.Panel2.Controls.Add(this.SettingsAndFilesSplitContainer);
+			this.OutputAndSettingsSplitContainer.Panel2MinSize = 249;
 			this.OutputAndSettingsSplitContainer.Size = new System.Drawing.Size(798, 344);
 			this.OutputAndSettingsSplitContainer.SplitterDistance = 91;
 			this.OutputAndSettingsSplitContainer.TabIndex = 10;
@@ -807,12 +815,14 @@
 			// SettingsAndFilesSplitContainer.Panel1
 			// 
 			this.SettingsAndFilesSplitContainer.Panel1.Controls.Add(this.PresetsAndSettingsSplitContainer);
+			this.SettingsAndFilesSplitContainer.Panel1MinSize = 458;
 			// 
 			// SettingsAndFilesSplitContainer.Panel2
 			// 
 			this.SettingsAndFilesSplitContainer.Panel2.Controls.Add(this.FilesInSourceFolderGroupBox);
+			this.SettingsAndFilesSplitContainer.Panel2MinSize = 336;
 			this.SettingsAndFilesSplitContainer.Size = new System.Drawing.Size(798, 249);
-			this.SettingsAndFilesSplitContainer.SplitterDistance = 498;
+			this.SettingsAndFilesSplitContainer.SplitterDistance = 458;
 			this.SettingsAndFilesSplitContainer.TabIndex = 7;
 			// 
 			// PresetsAndSettingsSplitContainer
@@ -824,12 +834,14 @@
 			// PresetsAndSettingsSplitContainer.Panel1
 			// 
 			this.PresetsAndSettingsSplitContainer.Panel1.Controls.Add(this.PresetSettingsGroupBox);
+			this.PresetsAndSettingsSplitContainer.Panel1MinSize = 157;
 			// 
 			// PresetsAndSettingsSplitContainer.Panel2
 			// 
 			this.PresetsAndSettingsSplitContainer.Panel2.Controls.Add(this.MagickAndPingoSplitContainer);
-			this.PresetsAndSettingsSplitContainer.Size = new System.Drawing.Size(498, 249);
-			this.PresetsAndSettingsSplitContainer.SplitterDistance = 202;
+			this.PresetsAndSettingsSplitContainer.Panel2MinSize = 297;
+			this.PresetsAndSettingsSplitContainer.Size = new System.Drawing.Size(458, 249);
+			this.PresetsAndSettingsSplitContainer.SplitterDistance = 157;
 			this.PresetsAndSettingsSplitContainer.TabIndex = 7;
 			// 
 			// MagickAndPingoSplitContainer
@@ -841,11 +853,13 @@
 			// MagickAndPingoSplitContainer.Panel1
 			// 
 			this.MagickAndPingoSplitContainer.Panel1.Controls.Add(this.ImagemagickSettingsGroupBox);
+			this.MagickAndPingoSplitContainer.Panel1MinSize = 138;
 			// 
 			// MagickAndPingoSplitContainer.Panel2
 			// 
 			this.MagickAndPingoSplitContainer.Panel2.Controls.Add(this.PingoSettingsGroupBox);
-			this.MagickAndPingoSplitContainer.Size = new System.Drawing.Size(292, 249);
+			this.MagickAndPingoSplitContainer.Panel2MinSize = 155;
+			this.MagickAndPingoSplitContainer.Size = new System.Drawing.Size(297, 249);
 			this.MagickAndPingoSplitContainer.SplitterDistance = 138;
 			this.MagickAndPingoSplitContainer.TabIndex = 7;
 			// 
