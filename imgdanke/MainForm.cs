@@ -628,8 +628,11 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == "24");
+			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = false;
+			PingoSBRadioButton.Enabled = true;
 			PingoSBRadioButton.Checked = true;
+			PingoSARadioButton.Enabled = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
@@ -653,8 +656,11 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = PingoPNGPaletteComboBox.Items.Count - 1;
+			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = true;
+			PingoSBRadioButton.Enabled = true;
 			PingoSBRadioButton.Checked = true;
+			PingoSARadioButton.Enabled = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
