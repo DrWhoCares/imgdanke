@@ -47,6 +47,7 @@ namespace imgdanke
 		#endregion
 
 		#region Member Variables
+
 		#region Internal
 
 		private string _imagemagickPathToExe;
@@ -146,6 +147,7 @@ namespace imgdanke
 		}
 
 		#endregion
+
 		#region Imagemagick Settings
 		private string _magickDither;
 
@@ -231,6 +233,18 @@ namespace imgdanke
 			set
 			{
 				_pingoPNGPaletteValue = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldUsePingoNoDithering;
+
+		public bool ShouldUsePingoNoDithering
+		{
+			get => _shouldUsePingoNoDithering;
+			set
+			{
+				_shouldUsePingoNoDithering = value;
 				SaveConfig();
 			}
 		}

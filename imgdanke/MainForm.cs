@@ -492,6 +492,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
+			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
@@ -517,6 +518,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = CONFIG.MagickPosterizeValue > 0 ? CONFIG.MagickPosterizeValue.ToString() : "";
 			MagickNormalizeCheckBox.Checked = CONFIG.ShouldUseMagickNormalize;
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == CONFIG.PingoPNGPaletteValue.ToString());
+			PingoNoDitheringCheckBox.Checked = CONFIG.ShouldUsePingoNoDithering;
 			PingoSBRadioButton.Checked = CONFIG.PingoAdditionalChecks == PingoAdditionalChecks.sb;
 			PingoSARadioButton.Checked = CONFIG.PingoAdditionalChecks == PingoAdditionalChecks.sa;
 			PingoOptimizationLevelComboBox.SelectedIndex = GetIndexOfStringInComboBox(PingoOptimizationLevelComboBox, CONFIG.PingoOptimizeLevel);
@@ -548,6 +550,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "2";
 			MagickNormalizeCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
+			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
@@ -573,6 +576,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "16";
 			MagickNormalizeCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
+			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
@@ -598,6 +602,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
+			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
@@ -623,6 +628,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == "24");
+			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
@@ -647,6 +653,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = PingoPNGPaletteComboBox.Items.Count - 1;
+			PingoNoDitheringCheckBox.Checked = true;
 			PingoSBRadioButton.Checked = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
 			PingoStripCheckBox.Checked = true;
@@ -671,6 +678,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "256";
 			MagickNormalizeCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
+			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
@@ -696,6 +704,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "256";
 			MagickNormalizeCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
+			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
@@ -828,9 +837,25 @@ namespace imgdanke
 			int value = PingoPNGPaletteComboBox.SelectedItem == null || string.IsNullOrWhiteSpace(PingoPNGPaletteComboBox.SelectedValue.ToString())
 				? 0 : int.Parse(PingoPNGPaletteComboBox.SelectedValue.ToString());
 
+			PingoNoDitheringCheckBox.Enabled = value > 0;
 			PingoSBRadioButton.Enabled = value > 0;
 			PingoSARadioButton.Enabled = value > 0;
 			CONFIG.PingoPNGPaletteValue = value;
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				PingoCommandTextBox.Text = ConstructPingoCommandString();
+			}
+		}
+
+		private void PingoNoDitheringCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if ( IsInitializing )
+			{
+				return;
+			}
+
+			CONFIG.ShouldUsePingoNoDithering = PingoNoDitheringCheckBox.Checked;
 
 			if ( !ShouldDelayUpdatingCommands )
 			{
@@ -990,6 +1015,11 @@ namespace imgdanke
 			{
 				command += "-pngpalette=" + CONFIG.PingoPNGPaletteValue + " ";
 
+				if ( CONFIG.ShouldUsePingoNoDithering )
+				{
+					command += "-nodithering ";
+				}
+
 				switch ( CONFIG.PingoAdditionalChecks )
 				{
 					case PingoAdditionalChecks.None:
@@ -1027,6 +1057,7 @@ namespace imgdanke
 			}
 
 			CONFIG.PingoPNGPaletteValue = pngPaletteValue > 0 && pngPaletteValue <= 100 ? pngPaletteValue : 0;
+			CONFIG.ShouldUsePingoNoDithering = PingoNoDitheringCheckBox.Checked;
 
 			if ( PingoSBRadioButton.Checked )
 			{

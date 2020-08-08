@@ -30,6 +30,7 @@ A small GUI wrapper utility around [imagemagick](https://imagemagick.org/index.p
      * [-normalize](#-normalize)
    * [Pingo Settings](#pingo-settings)
      * [-pngpalette](#-pngpalette)
+       * [-nodithering](#-nodithering)
        * [-sb](#-sb)
        * [-sa](#-sa)
      * [-s](#-s)
@@ -205,6 +206,8 @@ Uses a set number of bins, so the options provided to you are the different bits
 
 </details>
 
+#### -nodithering
+Disables dithering when performing lossy operations. Can potentially produce a smaller, and more accurate result when using `-pngpalette` values of `75` (184c) or greater. More extensive testing needs to be done to find appropriate recommendations. Enabled by default for the 8bpp color, pingo preset.
 #### -sb
 Runs through a more stringent set of tests to produce a better result. This is recommended over `-sa`.
 #### -sa

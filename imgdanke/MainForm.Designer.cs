@@ -50,6 +50,7 @@
 			this.MagickColorspaceComboBox = new System.Windows.Forms.ComboBox();
 			this.MagickDitherComboBox = new System.Windows.Forms.ComboBox();
 			this.PingoSettingsGroupBox = new System.Windows.Forms.GroupBox();
+			this.PingoNoDitheringCheckBox = new System.Windows.Forms.CheckBox();
 			this.PingoOptimizationLevelLabel = new System.Windows.Forms.Label();
 			this.PingoPNGPaletteComboBox = new System.Windows.Forms.ComboBox();
 			this.PingoStripCheckBox = new System.Windows.Forms.CheckBox();
@@ -58,6 +59,7 @@
 			this.PingoPNGPaletteLabel = new System.Windows.Forms.Label();
 			this.PingoOptimizationLevelComboBox = new System.Windows.Forms.ComboBox();
 			this.PresetSettingsGroupBox = new System.Windows.Forms.GroupBox();
+			this.PingoFourBppColorPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.PingoEightBppColorPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.CustomPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.MagickEightBppColorPresetRadioButton = new System.Windows.Forms.RadioButton();
@@ -69,28 +71,59 @@
 			this.EightBppGrayPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.FourBppGrayPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.FilesInSourceFolderGroupBox = new System.Windows.Forms.GroupBox();
-			this.OutputExtensionLabel = new System.Windows.Forms.Label();
-			this.OutputExtensionTextBox = new System.Windows.Forms.TextBox();
-			this.RefreshFileListButton = new System.Windows.Forms.Button();
+			this.FileUIAndFileListSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.MassFileSelectorButton = new System.Windows.Forms.Button();
+			this.OutputExtensionLabel = new System.Windows.Forms.Label();
+			this.RefreshFileListButton = new System.Windows.Forms.Button();
+			this.OutputExtensionTextBox = new System.Windows.Forms.TextBox();
 			this.FilesInSourceFolderListBox = new System.Windows.Forms.ListBox();
 			this.PingoCommandLabel = new System.Windows.Forms.Label();
 			this.PingoCommandTextBox = new System.Windows.Forms.TextBox();
 			this.ProcessingCancelButton = new System.Windows.Forms.Button();
-			this.PingoFourBppColorPresetRadioButton = new System.Windows.Forms.RadioButton();
+			this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.OutputAndSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.SettingsAndFilesSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.PresetsAndSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.MagickAndPingoSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
 			this.FilesInSourceFolderGroupBox.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.FileUIAndFileListSplitContainer)).BeginInit();
+			this.FileUIAndFileListSplitContainer.Panel1.SuspendLayout();
+			this.FileUIAndFileListSplitContainer.Panel2.SuspendLayout();
+			this.FileUIAndFileListSplitContainer.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
+			this.MainSplitContainer.Panel1.SuspendLayout();
+			this.MainSplitContainer.Panel2.SuspendLayout();
+			this.MainSplitContainer.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.OutputAndSettingsSplitContainer)).BeginInit();
+			this.OutputAndSettingsSplitContainer.Panel1.SuspendLayout();
+			this.OutputAndSettingsSplitContainer.Panel2.SuspendLayout();
+			this.OutputAndSettingsSplitContainer.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.SettingsAndFilesSplitContainer)).BeginInit();
+			this.SettingsAndFilesSplitContainer.Panel1.SuspendLayout();
+			this.SettingsAndFilesSplitContainer.Panel2.SuspendLayout();
+			this.SettingsAndFilesSplitContainer.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.PresetsAndSettingsSplitContainer)).BeginInit();
+			this.PresetsAndSettingsSplitContainer.Panel1.SuspendLayout();
+			this.PresetsAndSettingsSplitContainer.Panel2.SuspendLayout();
+			this.PresetsAndSettingsSplitContainer.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.MagickAndPingoSplitContainer)).BeginInit();
+			this.MagickAndPingoSplitContainer.Panel1.SuspendLayout();
+			this.MagickAndPingoSplitContainer.Panel2.SuspendLayout();
+			this.MagickAndPingoSplitContainer.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MagickCommandTextBox
 			// 
+			this.MagickCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.MagickCommandTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.MagickCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.MagickCommandTextBox.Location = new System.Drawing.Point(12, 374);
+			this.MagickCommandTextBox.Location = new System.Drawing.Point(6, 30);
 			this.MagickCommandTextBox.Name = "MagickCommandTextBox";
-			this.MagickCommandTextBox.Size = new System.Drawing.Size(776, 20);
+			this.MagickCommandTextBox.Size = new System.Drawing.Size(785, 20);
 			this.MagickCommandTextBox.TabIndex = 7;
 			this.MagickCommandTextBox.TextChanged += new System.EventHandler(this.MagickCommandTextBox_TextChanged);
 			// 
@@ -98,7 +131,7 @@
 			// 
 			this.MagickCommandLabel.AutoSize = true;
 			this.MagickCommandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.MagickCommandLabel.Location = new System.Drawing.Point(13, 351);
+			this.MagickCommandLabel.Location = new System.Drawing.Point(7, 7);
 			this.MagickCommandLabel.Name = "MagickCommandLabel";
 			this.MagickCommandLabel.Size = new System.Drawing.Size(155, 20);
 			this.MagickCommandLabel.TabIndex = 1;
@@ -107,7 +140,7 @@
 			// SourceFolderPathButton
 			// 
 			this.SourceFolderPathButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.SourceFolderPathButton.Location = new System.Drawing.Point(12, 27);
+			this.SourceFolderPathButton.Location = new System.Drawing.Point(2, 23);
 			this.SourceFolderPathButton.Name = "SourceFolderPathButton";
 			this.SourceFolderPathButton.Size = new System.Drawing.Size(32, 21);
 			this.SourceFolderPathButton.TabIndex = 0;
@@ -117,11 +150,13 @@
 			// 
 			// SourceFolderPathTextBox
 			// 
+			this.SourceFolderPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.SourceFolderPathTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.SourceFolderPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.SourceFolderPathTextBox.Location = new System.Drawing.Point(50, 27);
+			this.SourceFolderPathTextBox.Location = new System.Drawing.Point(40, 23);
 			this.SourceFolderPathTextBox.Name = "SourceFolderPathTextBox";
-			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(738, 20);
+			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(750, 20);
 			this.SourceFolderPathTextBox.TabIndex = 1;
 			this.SourceFolderPathTextBox.TextChanged += new System.EventHandler(this.SourceFolderPathTextBox_TextChanged);
 			// 
@@ -129,7 +164,7 @@
 			// 
 			this.ApplyButton.Enabled = false;
 			this.ApplyButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.ApplyButton.Location = new System.Drawing.Point(12, 446);
+			this.ApplyButton.Location = new System.Drawing.Point(6, 102);
 			this.ApplyButton.Name = "ApplyButton";
 			this.ApplyButton.Size = new System.Drawing.Size(75, 23);
 			this.ApplyButton.TabIndex = 8;
@@ -140,7 +175,7 @@
 			// StatusMessageLabel
 			// 
 			this.StatusMessageLabel.AutoSize = true;
-			this.StatusMessageLabel.Location = new System.Drawing.Point(94, 452);
+			this.StatusMessageLabel.Location = new System.Drawing.Point(88, 108);
 			this.StatusMessageLabel.Name = "StatusMessageLabel";
 			this.StatusMessageLabel.Size = new System.Drawing.Size(374, 13);
 			this.StatusMessageLabel.TabIndex = 5;
@@ -148,18 +183,20 @@
 			// 
 			// OutputFolderPathTextBox
 			// 
+			this.OutputFolderPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.OutputFolderPathTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.OutputFolderPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.OutputFolderPathTextBox.Location = new System.Drawing.Point(50, 75);
+			this.OutputFolderPathTextBox.Location = new System.Drawing.Point(40, 71);
 			this.OutputFolderPathTextBox.Name = "OutputFolderPathTextBox";
-			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(738, 20);
+			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(750, 20);
 			this.OutputFolderPathTextBox.TabIndex = 3;
 			this.OutputFolderPathTextBox.TextChanged += new System.EventHandler(this.OutputFolderPathTextBox_TextChanged);
 			// 
 			// OutputFolderPathButton
 			// 
 			this.OutputFolderPathButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.OutputFolderPathButton.Location = new System.Drawing.Point(12, 74);
+			this.OutputFolderPathButton.Location = new System.Drawing.Point(2, 70);
 			this.OutputFolderPathButton.Name = "OutputFolderPathButton";
 			this.OutputFolderPathButton.Size = new System.Drawing.Size(32, 21);
 			this.OutputFolderPathButton.TabIndex = 2;
@@ -171,7 +208,7 @@
 			// 
 			this.SourceFolderPathLabel.AutoSize = true;
 			this.SourceFolderPathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.SourceFolderPathLabel.Location = new System.Drawing.Point(13, 4);
+			this.SourceFolderPathLabel.Location = new System.Drawing.Point(3, 0);
 			this.SourceFolderPathLabel.Name = "SourceFolderPathLabel";
 			this.SourceFolderPathLabel.Size = new System.Drawing.Size(169, 20);
 			this.SourceFolderPathLabel.TabIndex = 8;
@@ -181,7 +218,7 @@
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(13, 51);
+			this.label1.Location = new System.Drawing.Point(3, 47);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(167, 20);
 			this.label1.TabIndex = 9;
@@ -198,10 +235,11 @@
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickNormalizeCheckBox);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickColorspaceComboBox);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickDitherComboBox);
+			this.ImagemagickSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.ImagemagickSettingsGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
-			this.ImagemagickSettingsGroupBox.Location = new System.Drawing.Point(218, 101);
+			this.ImagemagickSettingsGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.ImagemagickSettingsGroupBox.Name = "ImagemagickSettingsGroupBox";
-			this.ImagemagickSettingsGroupBox.Size = new System.Drawing.Size(136, 247);
+			this.ImagemagickSettingsGroupBox.Size = new System.Drawing.Size(138, 249);
 			this.ImagemagickSettingsGroupBox.TabIndex = 5;
 			this.ImagemagickSettingsGroupBox.TabStop = false;
 			this.ImagemagickSettingsGroupBox.Text = "Imagemagick Settings";
@@ -313,6 +351,7 @@
 			// 
 			// PingoSettingsGroupBox
 			// 
+			this.PingoSettingsGroupBox.Controls.Add(this.PingoNoDitheringCheckBox);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoOptimizationLevelLabel);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoPNGPaletteComboBox);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoStripCheckBox);
@@ -320,19 +359,34 @@
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoSBRadioButton);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoPNGPaletteLabel);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoOptimizationLevelComboBox);
+			this.PingoSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.PingoSettingsGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
-			this.PingoSettingsGroupBox.Location = new System.Drawing.Point(360, 101);
+			this.PingoSettingsGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.PingoSettingsGroupBox.Name = "PingoSettingsGroupBox";
-			this.PingoSettingsGroupBox.Size = new System.Drawing.Size(145, 247);
+			this.PingoSettingsGroupBox.Size = new System.Drawing.Size(150, 249);
 			this.PingoSettingsGroupBox.TabIndex = 6;
 			this.PingoSettingsGroupBox.TabStop = false;
 			this.PingoSettingsGroupBox.Text = "pingo Settings";
+			// 
+			// PingoNoDitheringCheckBox
+			// 
+			this.PingoNoDitheringCheckBox.AutoSize = true;
+			this.PingoNoDitheringCheckBox.Enabled = false;
+			this.PingoNoDitheringCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.PingoNoDitheringCheckBox.Location = new System.Drawing.Point(6, 46);
+			this.PingoNoDitheringCheckBox.Name = "PingoNoDitheringCheckBox";
+			this.PingoNoDitheringCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.PingoNoDitheringCheckBox.Size = new System.Drawing.Size(93, 17);
+			this.PingoNoDitheringCheckBox.TabIndex = 16;
+			this.PingoNoDitheringCheckBox.Text = "nodithering-";
+			this.PingoNoDitheringCheckBox.UseVisualStyleBackColor = true;
+			this.PingoNoDitheringCheckBox.CheckedChanged += new System.EventHandler(this.PingoNoDitheringCheckBox_CheckedChanged);
 			// 
 			// PingoOptimizationLevelLabel
 			// 
 			this.PingoOptimizationLevelLabel.AutoSize = true;
 			this.PingoOptimizationLevelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PingoOptimizationLevelLabel.Location = new System.Drawing.Point(8, 97);
+			this.PingoOptimizationLevelLabel.Location = new System.Drawing.Point(8, 118);
 			this.PingoOptimizationLevelLabel.Name = "PingoOptimizationLevelLabel";
 			this.PingoOptimizationLevelLabel.Size = new System.Drawing.Size(17, 13);
 			this.PingoOptimizationLevelLabel.TabIndex = 10;
@@ -353,7 +407,7 @@
 			// 
 			this.PingoStripCheckBox.AutoSize = true;
 			this.PingoStripCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PingoStripCheckBox.Location = new System.Drawing.Point(6, 120);
+			this.PingoStripCheckBox.Location = new System.Drawing.Point(6, 141);
 			this.PingoStripCheckBox.Name = "PingoStripCheckBox";
 			this.PingoStripCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.PingoStripCheckBox.Size = new System.Drawing.Size(54, 17);
@@ -367,7 +421,7 @@
 			this.PingoSARadioButton.AutoSize = true;
 			this.PingoSARadioButton.Enabled = false;
 			this.PingoSARadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PingoSARadioButton.Location = new System.Drawing.Point(6, 71);
+			this.PingoSARadioButton.Location = new System.Drawing.Point(6, 92);
 			this.PingoSARadioButton.Name = "PingoSARadioButton";
 			this.PingoSARadioButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.PingoSARadioButton.Size = new System.Drawing.Size(42, 17);
@@ -382,7 +436,7 @@
 			this.PingoSBRadioButton.AutoSize = true;
 			this.PingoSBRadioButton.Enabled = false;
 			this.PingoSBRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PingoSBRadioButton.Location = new System.Drawing.Point(6, 48);
+			this.PingoSBRadioButton.Location = new System.Drawing.Point(6, 69);
 			this.PingoSBRadioButton.Name = "PingoSBRadioButton";
 			this.PingoSBRadioButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.PingoSBRadioButton.Size = new System.Drawing.Size(42, 17);
@@ -418,7 +472,7 @@
             "-s7",
             "-s8",
             "-s9"});
-			this.PingoOptimizationLevelComboBox.Location = new System.Drawing.Point(30, 93);
+			this.PingoOptimizationLevelComboBox.Location = new System.Drawing.Point(30, 114);
 			this.PingoOptimizationLevelComboBox.Name = "PingoOptimizationLevelComboBox";
 			this.PingoOptimizationLevelComboBox.Size = new System.Drawing.Size(47, 21);
 			this.PingoOptimizationLevelComboBox.TabIndex = 6;
@@ -437,13 +491,25 @@
 			this.PresetSettingsGroupBox.Controls.Add(this.NoPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.EightBppGrayPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.FourBppGrayPresetRadioButton);
+			this.PresetSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.PresetSettingsGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
-			this.PresetSettingsGroupBox.Location = new System.Drawing.Point(12, 101);
+			this.PresetSettingsGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.PresetSettingsGroupBox.Name = "PresetSettingsGroupBox";
-			this.PresetSettingsGroupBox.Size = new System.Drawing.Size(200, 247);
+			this.PresetSettingsGroupBox.Size = new System.Drawing.Size(202, 249);
 			this.PresetSettingsGroupBox.TabIndex = 4;
 			this.PresetSettingsGroupBox.TabStop = false;
 			this.PresetSettingsGroupBox.Text = "Preset Settings";
+			// 
+			// PingoFourBppColorPresetRadioButton
+			// 
+			this.PingoFourBppColorPresetRadioButton.AutoSize = true;
+			this.PingoFourBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 158);
+			this.PingoFourBppColorPresetRadioButton.Name = "PingoFourBppColorPresetRadioButton";
+			this.PingoFourBppColorPresetRadioButton.Size = new System.Drawing.Size(136, 17);
+			this.PingoFourBppColorPresetRadioButton.TabIndex = 15;
+			this.PingoFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, pingo)";
+			this.PingoFourBppColorPresetRadioButton.UseVisualStyleBackColor = true;
+			this.PingoFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoFourBppColorPresetRadioButton_CheckedChanged);
 			// 
 			// PingoEightBppColorPresetRadioButton
 			// 
@@ -452,7 +518,6 @@
 			this.PingoEightBppColorPresetRadioButton.Name = "PingoEightBppColorPresetRadioButton";
 			this.PingoEightBppColorPresetRadioButton.Size = new System.Drawing.Size(142, 17);
 			this.PingoEightBppColorPresetRadioButton.TabIndex = 14;
-			this.PingoEightBppColorPresetRadioButton.TabStop = true;
 			this.PingoEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, pingo)";
 			this.PingoEightBppColorPresetRadioButton.UseVisualStyleBackColor = true;
 			this.PingoEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoEightBppColorPresetRadioButton_CheckedChanged);
@@ -464,7 +529,6 @@
 			this.CustomPresetRadioButton.Name = "CustomPresetRadioButton";
 			this.CustomPresetRadioButton.Size = new System.Drawing.Size(135, 17);
 			this.CustomPresetRadioButton.TabIndex = 1;
-			this.CustomPresetRadioButton.TabStop = true;
 			this.CustomPresetRadioButton.Text = "Custom (Save Settings)";
 			this.CustomPresetRadioButton.UseVisualStyleBackColor = true;
 			this.CustomPresetRadioButton.CheckedChanged += new System.EventHandler(this.CustomPresetRadioButton_CheckedChanged);
@@ -476,7 +540,6 @@
 			this.MagickEightBppColorPresetRadioButton.Name = "MagickEightBppColorPresetRadioButton";
 			this.MagickEightBppColorPresetRadioButton.Size = new System.Drawing.Size(150, 17);
 			this.MagickEightBppColorPresetRadioButton.TabIndex = 6;
-			this.MagickEightBppColorPresetRadioButton.TabStop = true;
 			this.MagickEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, magick)";
 			this.MagickEightBppColorPresetRadioButton.UseVisualStyleBackColor = true;
 			this.MagickEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickEightBppColorPresetRadioButton_CheckedChanged);
@@ -498,7 +561,6 @@
 			this.MagickFourBppColorPresetRadioButton.Name = "MagickFourBppColorPresetRadioButton";
 			this.MagickFourBppColorPresetRadioButton.Size = new System.Drawing.Size(144, 17);
 			this.MagickFourBppColorPresetRadioButton.TabIndex = 5;
-			this.MagickFourBppColorPresetRadioButton.TabStop = true;
 			this.MagickFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, magick)";
 			this.MagickFourBppColorPresetRadioButton.UseVisualStyleBackColor = true;
 			this.MagickFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickFourBppColorPresetRadioButton_CheckedChanged);
@@ -520,7 +582,6 @@
 			this.OneBppGrayPresetRadioButton.Name = "OneBppGrayPresetRadioButton";
 			this.OneBppGrayPresetRadioButton.Size = new System.Drawing.Size(98, 17);
 			this.OneBppGrayPresetRadioButton.TabIndex = 2;
-			this.OneBppGrayPresetRadioButton.TabStop = true;
 			this.OneBppGrayPresetRadioButton.Text = "1 bpp (2 colors)";
 			this.OneBppGrayPresetRadioButton.UseVisualStyleBackColor = true;
 			this.OneBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.OneBppGrayPresetRadioButton_CheckedChanged);
@@ -528,6 +589,7 @@
 			// NoPresetRadioButton
 			// 
 			this.NoPresetRadioButton.AutoSize = true;
+			this.NoPresetRadioButton.Checked = true;
 			this.NoPresetRadioButton.Location = new System.Drawing.Point(5, 19);
 			this.NoPresetRadioButton.Name = "NoPresetRadioButton";
 			this.NoPresetRadioButton.Size = new System.Drawing.Size(72, 17);
@@ -544,7 +606,6 @@
 			this.EightBppGrayPresetRadioButton.Name = "EightBppGrayPresetRadioButton";
 			this.EightBppGrayPresetRadioButton.Size = new System.Drawing.Size(110, 17);
 			this.EightBppGrayPresetRadioButton.TabIndex = 4;
-			this.EightBppGrayPresetRadioButton.TabStop = true;
 			this.EightBppGrayPresetRadioButton.Text = "8 bpp (256 colors)";
 			this.EightBppGrayPresetRadioButton.UseVisualStyleBackColor = true;
 			this.EightBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.EightBppGrayPresetRadioButton_CheckedChanged);
@@ -556,62 +617,48 @@
 			this.FourBppGrayPresetRadioButton.Name = "FourBppGrayPresetRadioButton";
 			this.FourBppGrayPresetRadioButton.Size = new System.Drawing.Size(104, 17);
 			this.FourBppGrayPresetRadioButton.TabIndex = 3;
-			this.FourBppGrayPresetRadioButton.TabStop = true;
 			this.FourBppGrayPresetRadioButton.Text = "4 bpp (16 colors)";
 			this.FourBppGrayPresetRadioButton.UseVisualStyleBackColor = true;
 			this.FourBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.FourBppGrayPresetRadioButton_CheckedChanged);
 			// 
 			// FilesInSourceFolderGroupBox
 			// 
-			this.FilesInSourceFolderGroupBox.Controls.Add(this.OutputExtensionLabel);
-			this.FilesInSourceFolderGroupBox.Controls.Add(this.OutputExtensionTextBox);
-			this.FilesInSourceFolderGroupBox.Controls.Add(this.RefreshFileListButton);
-			this.FilesInSourceFolderGroupBox.Controls.Add(this.MassFileSelectorButton);
-			this.FilesInSourceFolderGroupBox.Controls.Add(this.FilesInSourceFolderListBox);
+			this.FilesInSourceFolderGroupBox.Controls.Add(this.FileUIAndFileListSplitContainer);
+			this.FilesInSourceFolderGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.FilesInSourceFolderGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
-			this.FilesInSourceFolderGroupBox.Location = new System.Drawing.Point(511, 101);
+			this.FilesInSourceFolderGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.FilesInSourceFolderGroupBox.Name = "FilesInSourceFolderGroupBox";
-			this.FilesInSourceFolderGroupBox.Size = new System.Drawing.Size(277, 242);
+			this.FilesInSourceFolderGroupBox.Size = new System.Drawing.Size(296, 249);
 			this.FilesInSourceFolderGroupBox.TabIndex = 6;
 			this.FilesInSourceFolderGroupBox.TabStop = false;
 			this.FilesInSourceFolderGroupBox.Text = "Files in Source Folder";
 			// 
-			// OutputExtensionLabel
+			// FileUIAndFileListSplitContainer
 			// 
-			this.OutputExtensionLabel.AutoSize = true;
-			this.OutputExtensionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.OutputExtensionLabel.Location = new System.Drawing.Point(160, 22);
-			this.OutputExtensionLabel.Name = "OutputExtensionLabel";
-			this.OutputExtensionLabel.Size = new System.Drawing.Size(71, 13);
-			this.OutputExtensionLabel.TabIndex = 10;
-			this.OutputExtensionLabel.Text = "Output Ext:";
+			this.FileUIAndFileListSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.FileUIAndFileListSplitContainer.Location = new System.Drawing.Point(3, 16);
+			this.FileUIAndFileListSplitContainer.Name = "FileUIAndFileListSplitContainer";
+			this.FileUIAndFileListSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
 			// 
-			// OutputExtensionTextBox
+			// FileUIAndFileListSplitContainer.Panel1
 			// 
-			this.OutputExtensionTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.OutputExtensionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.OutputExtensionTextBox.Location = new System.Drawing.Point(233, 18);
-			this.OutputExtensionTextBox.Name = "OutputExtensionTextBox";
-			this.OutputExtensionTextBox.Size = new System.Drawing.Size(34, 20);
-			this.OutputExtensionTextBox.TabIndex = 10;
-			this.OutputExtensionTextBox.TextChanged += new System.EventHandler(this.OutputExtensionTextBox_TextChanged);
+			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.MassFileSelectorButton);
+			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.OutputExtensionLabel);
+			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.RefreshFileListButton);
+			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.OutputExtensionTextBox);
 			// 
-			// RefreshFileListButton
+			// FileUIAndFileListSplitContainer.Panel2
 			// 
-			this.RefreshFileListButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.RefreshFileListButton.Location = new System.Drawing.Point(83, 17);
-			this.RefreshFileListButton.Name = "RefreshFileListButton";
-			this.RefreshFileListButton.Size = new System.Drawing.Size(71, 21);
-			this.RefreshFileListButton.TabIndex = 13;
-			this.RefreshFileListButton.Text = "Refresh List";
-			this.RefreshFileListButton.UseVisualStyleBackColor = true;
-			this.RefreshFileListButton.Click += new System.EventHandler(this.RefreshFileListButton_Click);
+			this.FileUIAndFileListSplitContainer.Panel2.Controls.Add(this.FilesInSourceFolderListBox);
+			this.FileUIAndFileListSplitContainer.Size = new System.Drawing.Size(290, 230);
+			this.FileUIAndFileListSplitContainer.SplitterDistance = 25;
+			this.FileUIAndFileListSplitContainer.TabIndex = 14;
 			// 
 			// MassFileSelectorButton
 			// 
 			this.MassFileSelectorButton.Enabled = false;
 			this.MassFileSelectorButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.MassFileSelectorButton.Location = new System.Drawing.Point(6, 17);
+			this.MassFileSelectorButton.Location = new System.Drawing.Point(3, 3);
 			this.MassFileSelectorButton.Name = "MassFileSelectorButton";
 			this.MassFileSelectorButton.Size = new System.Drawing.Size(71, 21);
 			this.MassFileSelectorButton.TabIndex = 12;
@@ -619,17 +666,49 @@
 			this.MassFileSelectorButton.UseVisualStyleBackColor = true;
 			this.MassFileSelectorButton.Click += new System.EventHandler(this.MassFileSelectorButton_Click);
 			// 
+			// OutputExtensionLabel
+			// 
+			this.OutputExtensionLabel.AutoSize = true;
+			this.OutputExtensionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.OutputExtensionLabel.Location = new System.Drawing.Point(157, 8);
+			this.OutputExtensionLabel.Name = "OutputExtensionLabel";
+			this.OutputExtensionLabel.Size = new System.Drawing.Size(71, 13);
+			this.OutputExtensionLabel.TabIndex = 10;
+			this.OutputExtensionLabel.Text = "Output Ext:";
+			// 
+			// RefreshFileListButton
+			// 
+			this.RefreshFileListButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.RefreshFileListButton.Location = new System.Drawing.Point(80, 3);
+			this.RefreshFileListButton.Name = "RefreshFileListButton";
+			this.RefreshFileListButton.Size = new System.Drawing.Size(71, 21);
+			this.RefreshFileListButton.TabIndex = 13;
+			this.RefreshFileListButton.Text = "Refresh List";
+			this.RefreshFileListButton.UseVisualStyleBackColor = true;
+			this.RefreshFileListButton.Click += new System.EventHandler(this.RefreshFileListButton_Click);
+			// 
+			// OutputExtensionTextBox
+			// 
+			this.OutputExtensionTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.OutputExtensionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.OutputExtensionTextBox.Location = new System.Drawing.Point(230, 4);
+			this.OutputExtensionTextBox.Name = "OutputExtensionTextBox";
+			this.OutputExtensionTextBox.Size = new System.Drawing.Size(34, 20);
+			this.OutputExtensionTextBox.TabIndex = 10;
+			this.OutputExtensionTextBox.TextChanged += new System.EventHandler(this.OutputExtensionTextBox_TextChanged);
+			// 
 			// FilesInSourceFolderListBox
 			// 
 			this.FilesInSourceFolderListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
 			this.FilesInSourceFolderListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.FilesInSourceFolderListBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.FilesInSourceFolderListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.FilesInSourceFolderListBox.FormattingEnabled = true;
 			this.FilesInSourceFolderListBox.HorizontalScrollbar = true;
-			this.FilesInSourceFolderListBox.Location = new System.Drawing.Point(0, 45);
+			this.FilesInSourceFolderListBox.Location = new System.Drawing.Point(0, 0);
 			this.FilesInSourceFolderListBox.Name = "FilesInSourceFolderListBox";
 			this.FilesInSourceFolderListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(277, 197);
+			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(290, 201);
 			this.FilesInSourceFolderListBox.TabIndex = 0;
 			this.FilesInSourceFolderListBox.TabStop = false;
 			this.FilesInSourceFolderListBox.SelectedIndexChanged += new System.EventHandler(this.FilesInSourceFolderListBox_SelectedIndexChanged);
@@ -638,7 +717,7 @@
 			// 
 			this.PingoCommandLabel.AutoSize = true;
 			this.PingoCommandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PingoCommandLabel.Location = new System.Drawing.Point(13, 397);
+			this.PingoCommandLabel.Location = new System.Drawing.Point(7, 53);
 			this.PingoCommandLabel.Name = "PingoCommandLabel";
 			this.PingoCommandLabel.Size = new System.Drawing.Size(144, 20);
 			this.PingoCommandLabel.TabIndex = 10;
@@ -646,11 +725,13 @@
 			// 
 			// PingoCommandTextBox
 			// 
+			this.PingoCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.PingoCommandTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.PingoCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PingoCommandTextBox.Location = new System.Drawing.Point(12, 420);
+			this.PingoCommandTextBox.Location = new System.Drawing.Point(6, 76);
 			this.PingoCommandTextBox.Name = "PingoCommandTextBox";
-			this.PingoCommandTextBox.Size = new System.Drawing.Size(776, 20);
+			this.PingoCommandTextBox.Size = new System.Drawing.Size(785, 20);
 			this.PingoCommandTextBox.TabIndex = 11;
 			this.PingoCommandTextBox.TextChanged += new System.EventHandler(this.PingoCommandTextBox_TextChanged);
 			// 
@@ -658,7 +739,7 @@
 			// 
 			this.ProcessingCancelButton.Enabled = false;
 			this.ProcessingCancelButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.ProcessingCancelButton.Location = new System.Drawing.Point(713, 446);
+			this.ProcessingCancelButton.Location = new System.Drawing.Point(716, 103);
 			this.ProcessingCancelButton.Name = "ProcessingCancelButton";
 			this.ProcessingCancelButton.Size = new System.Drawing.Size(75, 23);
 			this.ProcessingCancelButton.TabIndex = 12;
@@ -667,43 +748,115 @@
 			this.ProcessingCancelButton.Visible = false;
 			this.ProcessingCancelButton.Click += new System.EventHandler(this.ProcessingCancelButton_Click);
 			// 
-			// PingoFourBppColorPresetRadioButton
+			// MainSplitContainer
 			// 
-			this.PingoFourBppColorPresetRadioButton.AutoSize = true;
-			this.PingoFourBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 158);
-			this.PingoFourBppColorPresetRadioButton.Name = "PingoFourBppColorPresetRadioButton";
-			this.PingoFourBppColorPresetRadioButton.Size = new System.Drawing.Size(136, 17);
-			this.PingoFourBppColorPresetRadioButton.TabIndex = 15;
-			this.PingoFourBppColorPresetRadioButton.TabStop = true;
-			this.PingoFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, pingo)";
-			this.PingoFourBppColorPresetRadioButton.UseVisualStyleBackColor = true;
-			this.PingoFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoFourBppColorPresetRadioButton_CheckedChanged);
+			this.MainSplitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.MainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.MainSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.MainSplitContainer.IsSplitterFixed = true;
+			this.MainSplitContainer.Location = new System.Drawing.Point(0, 0);
+			this.MainSplitContainer.Name = "MainSplitContainer";
+			this.MainSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// MainSplitContainer.Panel1
+			// 
+			this.MainSplitContainer.Panel1.Controls.Add(this.OutputAndSettingsSplitContainer);
+			// 
+			// MainSplitContainer.Panel2
+			// 
+			this.MainSplitContainer.Panel2.Controls.Add(this.MagickCommandLabel);
+			this.MainSplitContainer.Panel2.Controls.Add(this.ProcessingCancelButton);
+			this.MainSplitContainer.Panel2.Controls.Add(this.MagickCommandTextBox);
+			this.MainSplitContainer.Panel2.Controls.Add(this.PingoCommandLabel);
+			this.MainSplitContainer.Panel2.Controls.Add(this.ApplyButton);
+			this.MainSplitContainer.Panel2.Controls.Add(this.PingoCommandTextBox);
+			this.MainSplitContainer.Panel2.Controls.Add(this.StatusMessageLabel);
+			this.MainSplitContainer.Size = new System.Drawing.Size(800, 485);
+			this.MainSplitContainer.SplitterDistance = 346;
+			this.MainSplitContainer.TabIndex = 13;
+			// 
+			// OutputAndSettingsSplitContainer
+			// 
+			this.OutputAndSettingsSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.OutputAndSettingsSplitContainer.Location = new System.Drawing.Point(0, 0);
+			this.OutputAndSettingsSplitContainer.Name = "OutputAndSettingsSplitContainer";
+			this.OutputAndSettingsSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// OutputAndSettingsSplitContainer.Panel1
+			// 
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.SourceFolderPathLabel);
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.label1);
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.SourceFolderPathButton);
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.OutputFolderPathTextBox);
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.SourceFolderPathTextBox);
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.OutputFolderPathButton);
+			// 
+			// OutputAndSettingsSplitContainer.Panel2
+			// 
+			this.OutputAndSettingsSplitContainer.Panel2.Controls.Add(this.SettingsAndFilesSplitContainer);
+			this.OutputAndSettingsSplitContainer.Size = new System.Drawing.Size(798, 344);
+			this.OutputAndSettingsSplitContainer.SplitterDistance = 91;
+			this.OutputAndSettingsSplitContainer.TabIndex = 10;
+			// 
+			// SettingsAndFilesSplitContainer
+			// 
+			this.SettingsAndFilesSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.SettingsAndFilesSplitContainer.Location = new System.Drawing.Point(0, 0);
+			this.SettingsAndFilesSplitContainer.Name = "SettingsAndFilesSplitContainer";
+			// 
+			// SettingsAndFilesSplitContainer.Panel1
+			// 
+			this.SettingsAndFilesSplitContainer.Panel1.Controls.Add(this.PresetsAndSettingsSplitContainer);
+			// 
+			// SettingsAndFilesSplitContainer.Panel2
+			// 
+			this.SettingsAndFilesSplitContainer.Panel2.Controls.Add(this.FilesInSourceFolderGroupBox);
+			this.SettingsAndFilesSplitContainer.Size = new System.Drawing.Size(798, 249);
+			this.SettingsAndFilesSplitContainer.SplitterDistance = 498;
+			this.SettingsAndFilesSplitContainer.TabIndex = 7;
+			// 
+			// PresetsAndSettingsSplitContainer
+			// 
+			this.PresetsAndSettingsSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PresetsAndSettingsSplitContainer.Location = new System.Drawing.Point(0, 0);
+			this.PresetsAndSettingsSplitContainer.Name = "PresetsAndSettingsSplitContainer";
+			// 
+			// PresetsAndSettingsSplitContainer.Panel1
+			// 
+			this.PresetsAndSettingsSplitContainer.Panel1.Controls.Add(this.PresetSettingsGroupBox);
+			// 
+			// PresetsAndSettingsSplitContainer.Panel2
+			// 
+			this.PresetsAndSettingsSplitContainer.Panel2.Controls.Add(this.MagickAndPingoSplitContainer);
+			this.PresetsAndSettingsSplitContainer.Size = new System.Drawing.Size(498, 249);
+			this.PresetsAndSettingsSplitContainer.SplitterDistance = 202;
+			this.PresetsAndSettingsSplitContainer.TabIndex = 7;
+			// 
+			// MagickAndPingoSplitContainer
+			// 
+			this.MagickAndPingoSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.MagickAndPingoSplitContainer.Location = new System.Drawing.Point(0, 0);
+			this.MagickAndPingoSplitContainer.Name = "MagickAndPingoSplitContainer";
+			// 
+			// MagickAndPingoSplitContainer.Panel1
+			// 
+			this.MagickAndPingoSplitContainer.Panel1.Controls.Add(this.ImagemagickSettingsGroupBox);
+			// 
+			// MagickAndPingoSplitContainer.Panel2
+			// 
+			this.MagickAndPingoSplitContainer.Panel2.Controls.Add(this.PingoSettingsGroupBox);
+			this.MagickAndPingoSplitContainer.Size = new System.Drawing.Size(292, 249);
+			this.MagickAndPingoSplitContainer.SplitterDistance = 138;
+			this.MagickAndPingoSplitContainer.TabIndex = 7;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-			this.ClientSize = new System.Drawing.Size(800, 481);
-			this.Controls.Add(this.ProcessingCancelButton);
-			this.Controls.Add(this.PingoCommandLabel);
-			this.Controls.Add(this.PingoCommandTextBox);
-			this.Controls.Add(this.FilesInSourceFolderGroupBox);
-			this.Controls.Add(this.ImagemagickSettingsGroupBox);
-			this.Controls.Add(this.PresetSettingsGroupBox);
-			this.Controls.Add(this.PingoSettingsGroupBox);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.SourceFolderPathLabel);
-			this.Controls.Add(this.OutputFolderPathTextBox);
-			this.Controls.Add(this.OutputFolderPathButton);
-			this.Controls.Add(this.StatusMessageLabel);
-			this.Controls.Add(this.ApplyButton);
-			this.Controls.Add(this.SourceFolderPathTextBox);
-			this.Controls.Add(this.SourceFolderPathButton);
-			this.Controls.Add(this.MagickCommandLabel);
-			this.Controls.Add(this.MagickCommandTextBox);
+			this.ClientSize = new System.Drawing.Size(800, 485);
+			this.Controls.Add(this.MainSplitContainer);
 			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
 			this.Text = "imgdanke";
@@ -714,9 +867,34 @@
 			this.PresetSettingsGroupBox.ResumeLayout(false);
 			this.PresetSettingsGroupBox.PerformLayout();
 			this.FilesInSourceFolderGroupBox.ResumeLayout(false);
-			this.FilesInSourceFolderGroupBox.PerformLayout();
+			this.FileUIAndFileListSplitContainer.Panel1.ResumeLayout(false);
+			this.FileUIAndFileListSplitContainer.Panel1.PerformLayout();
+			this.FileUIAndFileListSplitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.FileUIAndFileListSplitContainer)).EndInit();
+			this.FileUIAndFileListSplitContainer.ResumeLayout(false);
+			this.MainSplitContainer.Panel1.ResumeLayout(false);
+			this.MainSplitContainer.Panel2.ResumeLayout(false);
+			this.MainSplitContainer.Panel2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).EndInit();
+			this.MainSplitContainer.ResumeLayout(false);
+			this.OutputAndSettingsSplitContainer.Panel1.ResumeLayout(false);
+			this.OutputAndSettingsSplitContainer.Panel1.PerformLayout();
+			this.OutputAndSettingsSplitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.OutputAndSettingsSplitContainer)).EndInit();
+			this.OutputAndSettingsSplitContainer.ResumeLayout(false);
+			this.SettingsAndFilesSplitContainer.Panel1.ResumeLayout(false);
+			this.SettingsAndFilesSplitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.SettingsAndFilesSplitContainer)).EndInit();
+			this.SettingsAndFilesSplitContainer.ResumeLayout(false);
+			this.PresetsAndSettingsSplitContainer.Panel1.ResumeLayout(false);
+			this.PresetsAndSettingsSplitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.PresetsAndSettingsSplitContainer)).EndInit();
+			this.PresetsAndSettingsSplitContainer.ResumeLayout(false);
+			this.MagickAndPingoSplitContainer.Panel1.ResumeLayout(false);
+			this.MagickAndPingoSplitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.MagickAndPingoSplitContainer)).EndInit();
+			this.MagickAndPingoSplitContainer.ResumeLayout(false);
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -771,6 +949,13 @@
 		private System.Windows.Forms.ComboBox PingoPNGPaletteComboBox;
 		private System.Windows.Forms.Label PingoOptimizationLevelLabel;
 		private System.Windows.Forms.RadioButton PingoFourBppColorPresetRadioButton;
+		private System.Windows.Forms.SplitContainer MainSplitContainer;
+		private System.Windows.Forms.SplitContainer OutputAndSettingsSplitContainer;
+		private System.Windows.Forms.SplitContainer SettingsAndFilesSplitContainer;
+		private System.Windows.Forms.SplitContainer PresetsAndSettingsSplitContainer;
+		private System.Windows.Forms.SplitContainer MagickAndPingoSplitContainer;
+		private System.Windows.Forms.SplitContainer FileUIAndFileListSplitContainer;
+		private System.Windows.Forms.CheckBox PingoNoDitheringCheckBox;
 	}
 }
 
