@@ -1,5 +1,7 @@
 # imgdanke
 A small GUI wrapper utility around [imagemagick](https://imagemagick.org/index.php) and [pingo](https://css-ig.net/pingo) for image optimization.
+Download the latest release here: [https://github.com/DrWhoCares/imgdanke/releases](https://github.com/DrWhoCares/imgdanke/releases).
+Extract and run the .exe.
 
 ![image](https://user-images.githubusercontent.com/12800223/87372171-85ba8000-c54c-11ea-9e5f-8af9587151d3.png)
 
