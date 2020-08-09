@@ -88,6 +88,10 @@
 			this.PresetsAndSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.MagickAndPingoSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
+			this.PrependToOutputLabel = new System.Windows.Forms.Label();
+			this.PrependToOutputTextBox = new System.Windows.Forms.TextBox();
+			this.AppendToOutputLabel = new System.Windows.Forms.Label();
+			this.AppendToOutputTextBox = new System.Windows.Forms.TextBox();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -798,6 +802,10 @@
 			// 
 			// MainSplitContainer.Panel2
 			// 
+			this.MainSplitContainer.Panel2.Controls.Add(this.AppendToOutputLabel);
+			this.MainSplitContainer.Panel2.Controls.Add(this.AppendToOutputTextBox);
+			this.MainSplitContainer.Panel2.Controls.Add(this.PrependToOutputLabel);
+			this.MainSplitContainer.Panel2.Controls.Add(this.PrependToOutputTextBox);
 			this.MainSplitContainer.Panel2.Controls.Add(this.ProcessingProgressBar);
 			this.MainSplitContainer.Panel2.Controls.Add(this.MagickCommandLabel);
 			this.MainSplitContainer.Panel2.Controls.Add(this.ProcessingCancelButton);
@@ -903,6 +911,46 @@
 			this.ProcessingProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.ProcessingProgressBar.TabIndex = 13;
 			this.ProcessingProgressBar.Visible = false;
+			// 
+			// PrependToOutputLabel
+			// 
+			this.PrependToOutputLabel.AutoSize = true;
+			this.PrependToOutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.PrependToOutputLabel.Location = new System.Drawing.Point(168, 108);
+			this.PrependToOutputLabel.Name = "PrependToOutputLabel";
+			this.PrependToOutputLabel.Size = new System.Drawing.Size(58, 13);
+			this.PrependToOutputLabel.TabIndex = 14;
+			this.PrependToOutputLabel.Text = "Prepend:";
+			// 
+			// PrependToOutputTextBox
+			// 
+			this.PrependToOutputTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.PrependToOutputTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.PrependToOutputTextBox.Location = new System.Drawing.Point(232, 104);
+			this.PrependToOutputTextBox.Name = "PrependToOutputTextBox";
+			this.PrependToOutputTextBox.Size = new System.Drawing.Size(95, 20);
+			this.PrependToOutputTextBox.TabIndex = 15;
+			this.PrependToOutputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToFilePermittedChars_KeyPress);
+			// 
+			// AppendToOutputLabel
+			// 
+			this.AppendToOutputLabel.AutoSize = true;
+			this.AppendToOutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.AppendToOutputLabel.Location = new System.Drawing.Point(333, 108);
+			this.AppendToOutputLabel.Name = "AppendToOutputLabel";
+			this.AppendToOutputLabel.Size = new System.Drawing.Size(54, 13);
+			this.AppendToOutputLabel.TabIndex = 16;
+			this.AppendToOutputLabel.Text = "Append:";
+			// 
+			// AppendToOutputTextBox
+			// 
+			this.AppendToOutputTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.AppendToOutputTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.AppendToOutputTextBox.Location = new System.Drawing.Point(393, 104);
+			this.AppendToOutputTextBox.Name = "AppendToOutputTextBox";
+			this.AppendToOutputTextBox.Size = new System.Drawing.Size(95, 20);
+			this.AppendToOutputTextBox.TabIndex = 17;
+			this.AppendToOutputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToFilePermittedChars_KeyPress);
 			// 
 			// MainForm
 			// 
@@ -1014,6 +1062,10 @@
 		private System.Windows.Forms.CheckBox IncludePSDsCheckBox;
 		private System.Windows.Forms.CheckBox IncludeSubfoldersCheckBox;
 		private System.Windows.Forms.ProgressBar ProcessingProgressBar;
+		private System.Windows.Forms.Label PrependToOutputLabel;
+		private System.Windows.Forms.TextBox PrependToOutputTextBox;
+		private System.Windows.Forms.Label AppendToOutputLabel;
+		private System.Windows.Forms.TextBox AppendToOutputTextBox;
 	}
 }
 

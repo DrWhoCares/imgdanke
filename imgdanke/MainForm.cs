@@ -43,6 +43,7 @@ namespace imgdanke
 		};
 
 		private static readonly UserConfig CONFIG = UserConfig.LoadConfig();
+		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
 		private static bool ShouldCancelProcessing = false;
 		private static bool IsInitializing = false;
 		private static bool ShouldDelayUpdatingCommands = false;
@@ -1047,6 +1048,14 @@ namespace imgdanke
 			}
 		}
 
+		private void TextBoxRestrictToFilePermittedChars_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if ( !char.IsControl(e.KeyChar) && INVALID_FILENAME_CHARS_REGEX.IsMatch(e.KeyChar.ToString()) )
+			{
+				e.Handled = true;
+			}
+		}
+
 		private static bool IsAllDigits(string str) => str.All(char.IsDigit);
 
 		private static string GetStringWithOnlyDigits(string str) => new string(str.Where(char.IsDigit).ToArray());
@@ -1233,7 +1242,7 @@ namespace imgdanke
 
 			if ( !ShouldCancelProcessing && VerifyMagickCommandIsReadyAndValid() )
 			{
-				imgFiles = CallMagickCommand(imgFiles, MagickCommandTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
+				imgFiles = CallMagickCommand(imgFiles, MagickCommandTextBox.Text, PrependToOutputTextBox.Text, AppendToOutputTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
 			}
 
 			if ( !ShouldCancelProcessing && VerifyPingoCommandIsReadyAndValid() )
@@ -1266,6 +1275,8 @@ namespace imgdanke
 			FilesInSourceFolderListBox.Enabled = isActive;
 			MassFileSelectorButton.Enabled = isActive;
 			RefreshFileListButton.Enabled = isActive;
+			PrependToOutputTextBox.Enabled = isActive;
+			AppendToOutputTextBox.Enabled = isActive;
 			ProcessingCancelButton.Enabled = !isActive;
 			ProcessingCancelButton.Visible = !isActive;
 		}
@@ -1321,7 +1332,7 @@ namespace imgdanke
 			return newImgFiles;
 		}
 
-		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel, ProgressBar progressBar)
+		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, string prependString, string appendString, Label statusLabel, ProgressBar progressBar)
 		{
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
@@ -1337,7 +1348,7 @@ namespace imgdanke
 			{
 				startInfo.Arguments = "/C " + commandString;
 				string originalFilename = img.FullName;
-				string tempFilename = CONFIG.OutputFolderPath + "\\" + img.Name.Replace(img.Extension, "") + ".tmp" + CONFIG.OutputExtension;
+				string tempFilename = CONFIG.OutputFolderPath + "\\" + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
 				statusLabel.Text = "Processing magick command on \"" + img.Name + "\".";
