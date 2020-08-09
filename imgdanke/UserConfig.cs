@@ -110,6 +110,30 @@ namespace imgdanke
 			}
 		}
 
+		private bool _shouldIncludeSubfolders;
+
+		public bool ShouldIncludeSubfolders
+		{
+			get => _shouldIncludeSubfolders;
+			set
+			{
+				_shouldIncludeSubfolders = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldIncludePSDs;
+
+		public bool ShouldIncludePSDs
+		{
+			get => _shouldIncludePSDs;
+			set
+			{
+				_shouldIncludePSDs = value;
+				SaveConfig();
+			}
+		}
+
 		private string _magickCommandString;
 
 		public string MagickCommandString

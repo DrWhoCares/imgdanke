@@ -37,6 +37,8 @@ A small GUI wrapper utility around [imagemagick](https://imagemagick.org/index.p
      * [-strip](#-strip)
    * [Files in Source Folder](#files-in-source-folder)
      * [Output Extension](#output-extension)
+     * [Include Subfolders](#include-subfolders)
+     * [Include PSDs](#include-psds)
      * [File Selection](#file-selection)
    * [Commands](#commands)
      * [Magick Command](#magick-command)
@@ -65,6 +67,7 @@ Click the button and select a folder with images in it.
 - `.png`
 - `.jpg`
 - `.jpeg`
+- `.psd`
 
 </details>
 
@@ -237,6 +240,10 @@ Strips unnecessary metadata from the file. If you don't need metadata, ensure th
 ### Files in Source Folder
 #### Output Extension
 This will be the file extension applied to the end of `%2` in the magick command string, and will be the final output.
+#### Include Subfolders
+If checked, any subfolders will be parsed for supported filetypes and included in the list of files with their subpath prepended to their name (to differentiate files with the same name).
+#### Include PSDs
+If checked, PSD files will also be parsed and included in the list of files. If any PSD files are selected, they will be converted to the Output Extension *before* any processing is done via `magick convert "inputFilename.ext[0]" "outputFilename.ouputExt"`. You can freely mix PSD files and normal image files.
 #### File Selection
 The commands will be applied to the selected files. All files are automatically selected by default. The list is refreshed every time you finish a command, or press the "Refresh List" button.
 

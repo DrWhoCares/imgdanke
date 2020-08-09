@@ -15,6 +15,7 @@ namespace imgdanke
 {
 	public partial class MainForm : Form
 	{
+
 		private static string MAGICK_FILENAME = "magick.exe";
 		private static string PINGO_FILENAME = "pingo.exe";
 
@@ -128,6 +129,8 @@ namespace imgdanke
 			InitializeOutputFolderPath();
 			InitializePresetSetting();
 			InitializeOutputExtension();
+			InitializeShouldIncludeSubfolders();
+			InitializeShouldIncludePSDs();
 			InitializeMagickCommandString();
 			InitializePingoCommandString();
 		}
@@ -238,6 +241,16 @@ namespace imgdanke
 			{
 				CONFIG.OutputExtension = "";
 			}
+		}
+
+		private void InitializeShouldIncludeSubfolders()
+		{
+			IncludeSubfoldersCheckBox.Checked = CONFIG.ShouldIncludeSubfolders;
+		}
+
+		private void InitializeShouldIncludePSDs()
+		{
+			IncludePSDsCheckBox.Checked = CONFIG.ShouldIncludePSDs;
 		}
 
 		private void InitializeMagickCommandString()
@@ -372,64 +385,6 @@ namespace imgdanke
 			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
-		private void BuildFilesInSourceFolderList()
-		{
-			if ( !Directory.Exists(SourceFolderPathTextBox.Text) )
-			{
-				return;
-			}
-
-			FilesInSourceFolderListBox.DataSource = GetImageFiles(SourceFolderPathTextBox.Text).OrderByAlphaNumeric(DirectoryOrderer.GetFileName).ToList();
-			FilesInSourceFolderListBox.DisplayMember = "Name";
-			FilesInSourceFolderListBox.ValueMember = "Name";
-			SelectAllInListBox(FilesInSourceFolderListBox);
-		}
-
-		private void MassFileSelectorButton_Click(object sender, EventArgs e)
-		{
-			if ( FilesInSourceFolderListBox.Items.Count == 0 )
-			{
-				return;
-			}
-
-			if ( FilesInSourceFolderListBox.SelectedIndices.Count > 0 )
-			{
-				UnselectAllItemsInListBox(FilesInSourceFolderListBox);
-				MassFileSelectorButton.Text = "Select All";
-			}
-			else
-			{
-				SelectAllInListBox(FilesInSourceFolderListBox);
-				MassFileSelectorButton.Text = "Unselect All";
-			}
-		}
-
-		private static void UnselectAllItemsInListBox(ListBox listBox)
-		{
-			int previousTopIndex = listBox.TopIndex;
-			listBox.ClearSelected();
-			listBox.TopIndex = previousTopIndex;
-		}
-
-		private static void SelectAllInListBox(ListBox listBox)
-		{
-			int previousTopIndex = listBox.TopIndex;
-			listBox.BeginUpdate();
-
-			for ( int itemIndex = 0; itemIndex < listBox.Items.Count; ++itemIndex )
-			{
-				listBox.SetSelected(itemIndex, true);
-			}
-
-			listBox.EndUpdate();
-			listBox.TopIndex = previousTopIndex;
-		}
-
-		private void RefreshFileListButton_Click(object sender, EventArgs e)
-		{
-			BuildFilesInSourceFolderList();
-		}
-
 		private void FilesInSourceFolderListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if ( FilesInSourceFolderListBox.Items.Count == 0 )
@@ -463,12 +418,6 @@ namespace imgdanke
 		private void OutputFolderPathTextBox_TextChanged(object sender, EventArgs e)
 		{
 			CONFIG.OutputFolderPath = OutputFolderPathTextBox.Text;
-			ApplyButton.Enabled = VerifyReadyToApply();
-		}
-
-		private void OutputExtensionTextBox_TextChanged(object sender, EventArgs e)
-		{
-			CONFIG.OutputExtension = OutputExtensionTextBox.Text;
 			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
@@ -931,6 +880,130 @@ namespace imgdanke
 
 		#endregion
 
+		#region FileUI
+
+		private void MassFileSelectorButton_Click(object sender, EventArgs e)
+		{
+			if ( FilesInSourceFolderListBox.Items.Count == 0 )
+			{
+				return;
+			}
+
+			if ( FilesInSourceFolderListBox.SelectedIndices.Count > 0 )
+			{
+				UnselectAllItemsInListBox(FilesInSourceFolderListBox);
+				MassFileSelectorButton.Text = "Select All";
+			}
+			else
+			{
+				SelectAllInListBox(FilesInSourceFolderListBox);
+				MassFileSelectorButton.Text = "Unselect All";
+			}
+		}
+
+		private static void UnselectAllItemsInListBox(ListBox listBox)
+		{
+			int previousTopIndex = listBox.TopIndex;
+			listBox.ClearSelected();
+			listBox.TopIndex = previousTopIndex;
+		}
+
+		private static void SelectAllInListBox(ListBox listBox)
+		{
+			int previousTopIndex = listBox.TopIndex;
+			listBox.BeginUpdate();
+
+			for ( int itemIndex = 0; itemIndex < listBox.Items.Count; ++itemIndex )
+			{
+				listBox.SetSelected(itemIndex, true);
+			}
+
+			listBox.EndUpdate();
+			listBox.TopIndex = previousTopIndex;
+		}
+
+		private void RefreshFileListButton_Click(object sender, EventArgs e)
+		{
+			BuildFilesInSourceFolderList();
+		}
+
+		private void OutputExtensionTextBox_TextChanged(object sender, EventArgs e)
+		{
+			CONFIG.OutputExtension = OutputExtensionTextBox.Text;
+			ApplyButton.Enabled = VerifyReadyToApply();
+		}
+
+		private void IncludeSubfoldersCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if ( IsInitializing )
+			{
+				return;
+			}
+
+			CONFIG.ShouldIncludeSubfolders = IncludeSubfoldersCheckBox.Checked;
+			BuildFilesInSourceFolderList();
+		}
+
+		private void IncludePSDsCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if ( IsInitializing )
+			{
+				return;
+			}
+
+			CONFIG.ShouldIncludePSDs = IncludePSDsCheckBox.Checked;
+			BuildFilesInSourceFolderList();
+		}
+
+		private void BuildFilesInSourceFolderList()
+		{
+			if ( !Directory.Exists(SourceFolderPathTextBox.Text) )
+			{
+				return;
+			}
+
+			FilesInSourceFolderListBox.DataSource = GetImageFilesList(SourceFolderPathTextBox.Text);
+			FilesInSourceFolderListBox.DisplayMember = "Subpath";
+			FilesInSourceFolderListBox.ValueMember = "Subpath";
+			SelectAllInListBox(FilesInSourceFolderListBox);
+
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
+			GC.Collect();
+		}
+
+		private static List<FileInfoWithSubpath> GetImageFilesList(string imageFilesFullPath)
+		{
+			List<FileInfoWithSubpath> imageFilesWithSubpaths = new List<FileInfoWithSubpath>();
+
+			foreach ( FileInfo fileInfo in GetImageFiles(imageFilesFullPath).OrderByAlphaNumeric(DirectoryOrderer.GetDirectoryName) )
+			{
+				imageFilesWithSubpaths.Add(new FileInfoWithSubpath(fileInfo, GetSubpathFromFileInfo(fileInfo, imageFilesFullPath)));
+			}
+
+			imageFilesWithSubpaths.Sort((lhs, rhs) => DirectoryOrderer.CompareSubpaths(lhs, rhs));
+
+			return imageFilesWithSubpaths;
+		}
+
+		private static IEnumerable<FileInfo> GetImageFiles(string imageFilesFullPath)
+		{
+			return new DirectoryInfo(imageFilesFullPath)
+				.EnumerateFiles("*.*", CONFIG.ShouldIncludeSubfolders ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)
+				.Where(s => s.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+						|| s.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
+						|| s.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
+						|| (CONFIG.ShouldIncludePSDs && s.Name.EndsWith(".psd", StringComparison.OrdinalIgnoreCase)));
+		}
+
+		private static string GetSubpathFromFileInfo(FileInfo fileInfo, string workingPath)
+		{
+			string subpath = fileInfo.FullName.Substring(workingPath.Length);
+			return (subpath.First() == '\\' || subpath.First() == '/') ? subpath.Substring(1) : subpath;
+		}
+
+		#endregion
+
 		#region UtilityFunctions
 
 		private void RestrictToNumbersTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -1108,13 +1181,18 @@ namespace imgdanke
 		private void ApplyButton_Click(object sender, EventArgs e)
 		{
 			ToggleUI(false);
-			List<FileInfo> imgFiles = FilesInSourceFolderListBox.SelectedItems.Cast<FileInfo>().ToList();
+			List<FileInfo> imgFiles = FilesInSourceFolderListBox.SelectedItems.Cast<FileInfoWithSubpath>().Select(f => f.ImageInfo).ToList();
 
 			if ( !imgFiles.Any() )
 			{
 				StatusMessageLabel.Text = "No valid files in the folder selected.";
 				ToggleUI(true);
 				return;
+			}
+
+			if ( !ShouldCancelProcessing && CONFIG.ShouldIncludePSDs )
+			{
+				imgFiles = ConvertAnyPSDs(imgFiles, StatusMessageLabel);
 			}
 
 			if ( !ShouldCancelProcessing && VerifyMagickCommandIsReadyAndValid() )
@@ -1153,13 +1231,54 @@ namespace imgdanke
 			ProcessingCancelButton.Visible = !isActive;
 		}
 
-		private static IEnumerable<FileInfo> GetImageFiles(string imageFilesFullPath)
+		private static List<FileInfo> ConvertAnyPSDs(List<FileInfo> originalImgFiles, Label statusLabel)
 		{
-			return new DirectoryInfo(imageFilesFullPath)
-				.EnumerateFiles("*.*", SearchOption.TopDirectoryOnly)
-				.Where(s => s.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
-								|| s.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
-								|| s.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase));
+			List<FileInfo> psdFiles = originalImgFiles.Where(f => f.Extension == ".psd").ToList();
+
+			if ( !psdFiles.Any() )
+			{
+				return originalImgFiles;
+			}
+
+			List<FileInfo> newImgFiles = originalImgFiles.Where(f => f.Extension != ".psd").ToList();
+
+			foreach ( FileInfo psdFile in psdFiles )
+			{
+				ProcessStartInfo startInfo = new ProcessStartInfo
+				{
+					FileName = "cmd.exe",
+					UseShellExecute = false,
+					CreateNoWindow = true,
+					WorkingDirectory = CONFIG.SourceFolderPath
+				};
+
+				string outputFilename = CONFIG.OutputFolderPath + "\\" + psdFile.Name.Replace(psdFile.Extension, "") + CONFIG.OutputExtension;
+				startInfo.Arguments = "/C magick convert \"" + psdFile.FullName + "[0]\" \"" + outputFilename + "\"";
+				statusLabel.Text = "Converting \"" + psdFile.Name + "\" via magick convert.";
+
+				using Process process = Process.Start(startInfo);
+				process.Start();
+
+				while ( !process.HasExited )
+				{
+					Application.DoEvents();
+
+					if ( ShouldCancelProcessing )
+					{
+						process.Close();
+						break;
+					}
+				}
+
+				if ( ShouldCancelProcessing )
+				{
+					return new List<FileInfo>();
+				}
+
+				newImgFiles.Add(new FileInfo(outputFilename));
+			}
+
+			return newImgFiles;
 		}
 
 		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel)
@@ -1276,17 +1395,40 @@ namespace imgdanke
 
 	}
 
+	internal struct FileInfoWithSubpath
+	{
+		internal FileInfoWithSubpath(FileInfo fileInfo, string subpath)
+		{
+			ImageInfo = fileInfo;
+			Subpath = subpath;
+		}
+
+		public FileInfo ImageInfo { get; }
+		public string Subpath { get; }
+	}
+
+
 	internal static class DirectoryOrderer
 	{
-		public static string GetDirectoryName(DirectoryInfo dirInfo) => dirInfo.Name;
+		internal static string GetDirectoryName(FileInfo fileInfo) => fileInfo.DirectoryName;
+		internal static string GetFileName(FileInfo fileInfo) => fileInfo.Name;
 
-		public static string GetFileName(FileInfo fileInfo) => fileInfo.Name;
-
-		public static IOrderedEnumerable<T> OrderByAlphaNumeric<T>(this IEnumerable<T> source, Func<T, string> selector)
+		internal static IOrderedEnumerable<T> OrderByAlphaNumeric<T>(this IEnumerable<T> source, Func<T, string> selector)
 		{
 			var enumerable = source.ToList();
 			int max = enumerable.SelectMany(i => Regex.Matches(selector(i), @"\d+").Cast<Match>().Select(m => m.Value.Length)).DefaultIfEmpty().Max();
 			return enumerable.OrderBy(i => Regex.Replace(selector(i), @"\d+", m => m.Value.PadLeft(max, '0')));
 		}
+
+		internal static int CompareSubpaths(FileInfoWithSubpath lhs, FileInfoWithSubpath rhs)
+		{
+			if ( lhs.ImageInfo.DirectoryName != rhs.ImageInfo.DirectoryName )
+			{
+				return new List<FileInfo> { lhs.ImageInfo, rhs.ImageInfo }.OrderByAlphaNumeric(GetDirectoryName).First() == lhs.ImageInfo ? -1 : 1;
+			}
+
+			return new List<FileInfo> { lhs.ImageInfo, rhs.ImageInfo }.OrderByAlphaNumeric(GetFileName).First() == lhs.ImageInfo ? -1 : 1;
+		}
 	}
+
 }

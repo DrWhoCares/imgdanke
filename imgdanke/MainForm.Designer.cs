@@ -85,6 +85,8 @@
 			this.SettingsAndFilesSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.PresetsAndSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.MagickAndPingoSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.IncludeSubfoldersCheckBox = new System.Windows.Forms.CheckBox();
+			this.IncludePSDsCheckBox = new System.Windows.Forms.CheckBox();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -123,7 +125,7 @@
 			this.MagickCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.MagickCommandTextBox.Location = new System.Drawing.Point(6, 30);
 			this.MagickCommandTextBox.Name = "MagickCommandTextBox";
-			this.MagickCommandTextBox.Size = new System.Drawing.Size(785, 20);
+			this.MagickCommandTextBox.Size = new System.Drawing.Size(951, 20);
 			this.MagickCommandTextBox.TabIndex = 7;
 			this.MagickCommandTextBox.TextChanged += new System.EventHandler(this.MagickCommandTextBox_TextChanged);
 			// 
@@ -156,7 +158,7 @@
 			this.SourceFolderPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.SourceFolderPathTextBox.Location = new System.Drawing.Point(40, 23);
 			this.SourceFolderPathTextBox.Name = "SourceFolderPathTextBox";
-			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(750, 20);
+			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(916, 20);
 			this.SourceFolderPathTextBox.TabIndex = 1;
 			this.SourceFolderPathTextBox.TextChanged += new System.EventHandler(this.SourceFolderPathTextBox_TextChanged);
 			// 
@@ -189,7 +191,7 @@
 			this.OutputFolderPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.OutputFolderPathTextBox.Location = new System.Drawing.Point(40, 71);
 			this.OutputFolderPathTextBox.Name = "OutputFolderPathTextBox";
-			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(750, 20);
+			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(916, 20);
 			this.OutputFolderPathTextBox.TabIndex = 3;
 			this.OutputFolderPathTextBox.TextChanged += new System.EventHandler(this.OutputFolderPathTextBox_TextChanged);
 			// 
@@ -628,7 +630,7 @@
 			this.FilesInSourceFolderGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.FilesInSourceFolderGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.FilesInSourceFolderGroupBox.Name = "FilesInSourceFolderGroupBox";
-			this.FilesInSourceFolderGroupBox.Size = new System.Drawing.Size(336, 249);
+			this.FilesInSourceFolderGroupBox.Size = new System.Drawing.Size(502, 249);
 			this.FilesInSourceFolderGroupBox.TabIndex = 6;
 			this.FilesInSourceFolderGroupBox.TabStop = false;
 			this.FilesInSourceFolderGroupBox.Text = "Files in Source Folder";
@@ -644,6 +646,8 @@
 			// 
 			// FileUIAndFileListSplitContainer.Panel1
 			// 
+			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.IncludePSDsCheckBox);
+			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.IncludeSubfoldersCheckBox);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.MassFileSelectorButton);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.OutputExtensionLabel);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.RefreshFileListButton);
@@ -653,7 +657,7 @@
 			// 
 			this.FileUIAndFileListSplitContainer.Panel2.Controls.Add(this.FilesInSourceFolderListBox);
 			this.FileUIAndFileListSplitContainer.Panel2MinSize = 201;
-			this.FileUIAndFileListSplitContainer.Size = new System.Drawing.Size(330, 230);
+			this.FileUIAndFileListSplitContainer.Size = new System.Drawing.Size(496, 230);
 			this.FileUIAndFileListSplitContainer.SplitterDistance = 25;
 			this.FileUIAndFileListSplitContainer.TabIndex = 14;
 			// 
@@ -711,7 +715,7 @@
 			this.FilesInSourceFolderListBox.Location = new System.Drawing.Point(0, 0);
 			this.FilesInSourceFolderListBox.Name = "FilesInSourceFolderListBox";
 			this.FilesInSourceFolderListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(330, 201);
+			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(496, 201);
 			this.FilesInSourceFolderListBox.TabIndex = 0;
 			this.FilesInSourceFolderListBox.TabStop = false;
 			this.FilesInSourceFolderListBox.SelectedIndexChanged += new System.EventHandler(this.FilesInSourceFolderListBox_SelectedIndexChanged);
@@ -734,7 +738,7 @@
 			this.PingoCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.PingoCommandTextBox.Location = new System.Drawing.Point(6, 76);
 			this.PingoCommandTextBox.Name = "PingoCommandTextBox";
-			this.PingoCommandTextBox.Size = new System.Drawing.Size(785, 20);
+			this.PingoCommandTextBox.Size = new System.Drawing.Size(951, 20);
 			this.PingoCommandTextBox.TabIndex = 11;
 			this.PingoCommandTextBox.TextChanged += new System.EventHandler(this.PingoCommandTextBox_TextChanged);
 			// 
@@ -775,7 +779,7 @@
 			this.MainSplitContainer.Panel2.Controls.Add(this.PingoCommandTextBox);
 			this.MainSplitContainer.Panel2.Controls.Add(this.StatusMessageLabel);
 			this.MainSplitContainer.Panel2MinSize = 135;
-			this.MainSplitContainer.Size = new System.Drawing.Size(800, 485);
+			this.MainSplitContainer.Size = new System.Drawing.Size(966, 485);
 			this.MainSplitContainer.SplitterDistance = 346;
 			this.MainSplitContainer.TabIndex = 13;
 			// 
@@ -802,7 +806,7 @@
 			// 
 			this.OutputAndSettingsSplitContainer.Panel2.Controls.Add(this.SettingsAndFilesSplitContainer);
 			this.OutputAndSettingsSplitContainer.Panel2MinSize = 249;
-			this.OutputAndSettingsSplitContainer.Size = new System.Drawing.Size(798, 344);
+			this.OutputAndSettingsSplitContainer.Size = new System.Drawing.Size(964, 344);
 			this.OutputAndSettingsSplitContainer.SplitterDistance = 91;
 			this.OutputAndSettingsSplitContainer.TabIndex = 10;
 			// 
@@ -821,7 +825,7 @@
 			// 
 			this.SettingsAndFilesSplitContainer.Panel2.Controls.Add(this.FilesInSourceFolderGroupBox);
 			this.SettingsAndFilesSplitContainer.Panel2MinSize = 336;
-			this.SettingsAndFilesSplitContainer.Size = new System.Drawing.Size(798, 249);
+			this.SettingsAndFilesSplitContainer.Size = new System.Drawing.Size(964, 249);
 			this.SettingsAndFilesSplitContainer.SplitterDistance = 458;
 			this.SettingsAndFilesSplitContainer.TabIndex = 7;
 			// 
@@ -863,12 +867,38 @@
 			this.MagickAndPingoSplitContainer.SplitterDistance = 138;
 			this.MagickAndPingoSplitContainer.TabIndex = 7;
 			// 
+			// IncludeSubfoldersCheckBox
+			// 
+			this.IncludeSubfoldersCheckBox.AutoSize = true;
+			this.IncludeSubfoldersCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.IncludeSubfoldersCheckBox.Location = new System.Drawing.Point(270, 7);
+			this.IncludeSubfoldersCheckBox.Name = "IncludeSubfoldersCheckBox";
+			this.IncludeSubfoldersCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.IncludeSubfoldersCheckBox.Size = new System.Drawing.Size(115, 17);
+			this.IncludeSubfoldersCheckBox.TabIndex = 14;
+			this.IncludeSubfoldersCheckBox.Text = "Incl. Subfolders";
+			this.IncludeSubfoldersCheckBox.UseVisualStyleBackColor = true;
+			this.IncludeSubfoldersCheckBox.CheckedChanged += new System.EventHandler(this.IncludeSubfoldersCheckBox_CheckedChanged);
+			// 
+			// IncludePSDsCheckBox
+			// 
+			this.IncludePSDsCheckBox.AutoSize = true;
+			this.IncludePSDsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.IncludePSDsCheckBox.Location = new System.Drawing.Point(391, 7);
+			this.IncludePSDsCheckBox.Name = "IncludePSDsCheckBox";
+			this.IncludePSDsCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.IncludePSDsCheckBox.Size = new System.Drawing.Size(86, 17);
+			this.IncludePSDsCheckBox.TabIndex = 15;
+			this.IncludePSDsCheckBox.Text = "Incl. PSDs";
+			this.IncludePSDsCheckBox.UseVisualStyleBackColor = true;
+			this.IncludePSDsCheckBox.CheckedChanged += new System.EventHandler(this.IncludePSDsCheckBox_CheckedChanged);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-			this.ClientSize = new System.Drawing.Size(800, 485);
+			this.ClientSize = new System.Drawing.Size(966, 485);
 			this.Controls.Add(this.MainSplitContainer);
 			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -970,6 +1000,8 @@
 		private System.Windows.Forms.SplitContainer MagickAndPingoSplitContainer;
 		private System.Windows.Forms.SplitContainer FileUIAndFileListSplitContainer;
 		private System.Windows.Forms.CheckBox PingoNoDitheringCheckBox;
+		private System.Windows.Forms.CheckBox IncludePSDsCheckBox;
+		private System.Windows.Forms.CheckBox IncludeSubfoldersCheckBox;
 	}
 }
 
