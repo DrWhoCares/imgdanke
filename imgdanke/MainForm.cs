@@ -146,7 +146,12 @@ namespace imgdanke
 
 			if ( string.IsNullOrWhiteSpace(exePathFound) )
 			{
-				MessageBox.Show("The Config's path to the (" + MAGICK_FILENAME + ") file is invalid or is not found on your PATH. Please ensure it is downloaded, or edit the Config to the correct path.\nYou can download it here: https://imagemagick.org/script/download.php", MAGICK_FILENAME + " Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				exePathFound = CheckLocalPathForExe(MAGICK_FILENAME);
+			}
+
+			if ( string.IsNullOrWhiteSpace(exePathFound) )
+			{
+				MessageBox.Show("The Config's path to the (" + MAGICK_FILENAME + ") file is invalid or is not found on your PATH or within the directory that this exe is in. Please ensure it is downloaded, or edit the Config to the correct path.\nYou can download it here: https://imagemagick.org/script/download.php", MAGICK_FILENAME + " Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 			else
 			{
@@ -165,7 +170,12 @@ namespace imgdanke
 
 			if ( string.IsNullOrWhiteSpace(exePathFound) )
 			{
-				MessageBox.Show("The Config's path to the (" + PINGO_FILENAME + ") file is invalid or is not found on your PATH. Please ensure it is downloaded, or edit the Config to the correct path.\nYou can download it here: https://css-ig.net/pingo", PINGO_FILENAME + " Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				exePathFound = CheckLocalPathForExe(PINGO_FILENAME);
+			}
+
+			if ( string.IsNullOrWhiteSpace(exePathFound) )
+			{
+				MessageBox.Show("The Config's path to the (" + PINGO_FILENAME + ") file is invalid or is not found on your PATH or within the directory that this exe is in. Please ensure it is downloaded, or edit the Config to the correct path.\nYou can download it here: https://css-ig.net/pingo", PINGO_FILENAME + " Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 			else
 			{
@@ -299,6 +309,29 @@ namespace imgdanke
 			foreach ( string path in values.Split(Path.PathSeparator) )
 			{
 				string fullPath = Path.Combine(path, filename);
+
+				if ( File.Exists(fullPath) )
+				{
+					return fullPath;
+				}
+			}
+
+			return "";
+		}
+
+		private static string CheckLocalPathForExe(string filename)
+		{
+			string localPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			string fullPath = Path.Combine(localPath, filename);
+
+			if ( File.Exists(fullPath) )
+			{
+				return fullPath;
+			}
+
+			foreach ( string path in new DirectoryInfo(localPath).EnumerateDirectories("*", SearchOption.AllDirectories).Select(d => d.FullName) )
+			{
+				fullPath = Path.Combine(path, filename);
 
 				if ( File.Exists(fullPath) )
 				{
