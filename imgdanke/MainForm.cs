@@ -1232,7 +1232,6 @@ namespace imgdanke
 				return;
 			}
 
-			ProcessingProgressBar.Visible = true;
 			ProcessingProgressBar.Maximum = (imgFiles.Count() * 2) + imgFiles.Where(f => f.Extension == ".psd").ToList().Count;
 
 			if ( !ShouldCancelProcessing && CONFIG.ShouldIncludePSDs )
@@ -1254,9 +1253,6 @@ namespace imgdanke
 			ToggleUI(true);
 			ShouldCancelProcessing = false;
 			StatusMessageLabel.Text = "Use %1 as a placeholder for the input filename and %2 for the output filename.";
-			ProcessingProgressBar.Visible = false;
-			ProcessingProgressBar.Value = 0;
-			ProcessingProgressBar.Maximum = 100;
 		}
 
 		private void ToggleUI(bool isActive)
@@ -1277,6 +1273,9 @@ namespace imgdanke
 			RefreshFileListButton.Enabled = isActive;
 			PrependToOutputTextBox.Enabled = isActive;
 			AppendToOutputTextBox.Enabled = isActive;
+			ProcessingProgressBar.Visible = !isActive;
+			ProcessingProgressBar.Value = 0;
+			ProcessingProgressBar.Maximum = 100;
 			ProcessingCancelButton.Enabled = !isActive;
 			ProcessingCancelButton.Visible = !isActive;
 		}
