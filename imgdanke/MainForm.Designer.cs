@@ -72,6 +72,8 @@
 			this.FourBppGrayPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.FilesInSourceFolderGroupBox = new System.Windows.Forms.GroupBox();
 			this.FileUIAndFileListSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.IncludePSDsCheckBox = new System.Windows.Forms.CheckBox();
+			this.IncludeSubfoldersCheckBox = new System.Windows.Forms.CheckBox();
 			this.MassFileSelectorButton = new System.Windows.Forms.Button();
 			this.OutputExtensionLabel = new System.Windows.Forms.Label();
 			this.RefreshFileListButton = new System.Windows.Forms.Button();
@@ -85,8 +87,7 @@
 			this.SettingsAndFilesSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.PresetsAndSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.MagickAndPingoSplitContainer = new System.Windows.Forms.SplitContainer();
-			this.IncludeSubfoldersCheckBox = new System.Windows.Forms.CheckBox();
-			this.IncludePSDsCheckBox = new System.Windows.Forms.CheckBox();
+			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -166,7 +167,7 @@
 			// 
 			this.ApplyButton.Enabled = false;
 			this.ApplyButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.ApplyButton.Location = new System.Drawing.Point(6, 102);
+			this.ApplyButton.Location = new System.Drawing.Point(6, 131);
 			this.ApplyButton.Name = "ApplyButton";
 			this.ApplyButton.Size = new System.Drawing.Size(75, 23);
 			this.ApplyButton.TabIndex = 8;
@@ -177,7 +178,7 @@
 			// StatusMessageLabel
 			// 
 			this.StatusMessageLabel.AutoSize = true;
-			this.StatusMessageLabel.Location = new System.Drawing.Point(168, 107);
+			this.StatusMessageLabel.Location = new System.Drawing.Point(168, 136);
 			this.StatusMessageLabel.Name = "StatusMessageLabel";
 			this.StatusMessageLabel.Size = new System.Drawing.Size(374, 13);
 			this.StatusMessageLabel.TabIndex = 5;
@@ -661,6 +662,32 @@
 			this.FileUIAndFileListSplitContainer.SplitterDistance = 25;
 			this.FileUIAndFileListSplitContainer.TabIndex = 14;
 			// 
+			// IncludePSDsCheckBox
+			// 
+			this.IncludePSDsCheckBox.AutoSize = true;
+			this.IncludePSDsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.IncludePSDsCheckBox.Location = new System.Drawing.Point(391, 7);
+			this.IncludePSDsCheckBox.Name = "IncludePSDsCheckBox";
+			this.IncludePSDsCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.IncludePSDsCheckBox.Size = new System.Drawing.Size(86, 17);
+			this.IncludePSDsCheckBox.TabIndex = 15;
+			this.IncludePSDsCheckBox.Text = "Incl. PSDs";
+			this.IncludePSDsCheckBox.UseVisualStyleBackColor = true;
+			this.IncludePSDsCheckBox.CheckedChanged += new System.EventHandler(this.IncludePSDsCheckBox_CheckedChanged);
+			// 
+			// IncludeSubfoldersCheckBox
+			// 
+			this.IncludeSubfoldersCheckBox.AutoSize = true;
+			this.IncludeSubfoldersCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.IncludeSubfoldersCheckBox.Location = new System.Drawing.Point(270, 7);
+			this.IncludeSubfoldersCheckBox.Name = "IncludeSubfoldersCheckBox";
+			this.IncludeSubfoldersCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.IncludeSubfoldersCheckBox.Size = new System.Drawing.Size(115, 17);
+			this.IncludeSubfoldersCheckBox.TabIndex = 14;
+			this.IncludeSubfoldersCheckBox.Text = "Incl. Subfolders";
+			this.IncludeSubfoldersCheckBox.UseVisualStyleBackColor = true;
+			this.IncludeSubfoldersCheckBox.CheckedChanged += new System.EventHandler(this.IncludeSubfoldersCheckBox_CheckedChanged);
+			// 
 			// MassFileSelectorButton
 			// 
 			this.MassFileSelectorButton.Enabled = false;
@@ -746,7 +773,7 @@
 			// 
 			this.ProcessingCancelButton.Enabled = false;
 			this.ProcessingCancelButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.ProcessingCancelButton.Location = new System.Drawing.Point(87, 102);
+			this.ProcessingCancelButton.Location = new System.Drawing.Point(87, 131);
 			this.ProcessingCancelButton.Name = "ProcessingCancelButton";
 			this.ProcessingCancelButton.Size = new System.Drawing.Size(75, 23);
 			this.ProcessingCancelButton.TabIndex = 12;
@@ -771,6 +798,7 @@
 			// 
 			// MainSplitContainer.Panel2
 			// 
+			this.MainSplitContainer.Panel2.Controls.Add(this.ProcessingProgressBar);
 			this.MainSplitContainer.Panel2.Controls.Add(this.MagickCommandLabel);
 			this.MainSplitContainer.Panel2.Controls.Add(this.ProcessingCancelButton);
 			this.MainSplitContainer.Panel2.Controls.Add(this.MagickCommandTextBox);
@@ -779,7 +807,7 @@
 			this.MainSplitContainer.Panel2.Controls.Add(this.PingoCommandTextBox);
 			this.MainSplitContainer.Panel2.Controls.Add(this.StatusMessageLabel);
 			this.MainSplitContainer.Panel2MinSize = 135;
-			this.MainSplitContainer.Size = new System.Drawing.Size(966, 485);
+			this.MainSplitContainer.Size = new System.Drawing.Size(966, 518);
 			this.MainSplitContainer.SplitterDistance = 346;
 			this.MainSplitContainer.TabIndex = 13;
 			// 
@@ -867,38 +895,21 @@
 			this.MagickAndPingoSplitContainer.SplitterDistance = 138;
 			this.MagickAndPingoSplitContainer.TabIndex = 7;
 			// 
-			// IncludeSubfoldersCheckBox
+			// ProcessingProgressBar
 			// 
-			this.IncludeSubfoldersCheckBox.AutoSize = true;
-			this.IncludeSubfoldersCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.IncludeSubfoldersCheckBox.Location = new System.Drawing.Point(270, 7);
-			this.IncludeSubfoldersCheckBox.Name = "IncludeSubfoldersCheckBox";
-			this.IncludeSubfoldersCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.IncludeSubfoldersCheckBox.Size = new System.Drawing.Size(115, 17);
-			this.IncludeSubfoldersCheckBox.TabIndex = 14;
-			this.IncludeSubfoldersCheckBox.Text = "Incl. Subfolders";
-			this.IncludeSubfoldersCheckBox.UseVisualStyleBackColor = true;
-			this.IncludeSubfoldersCheckBox.CheckedChanged += new System.EventHandler(this.IncludeSubfoldersCheckBox_CheckedChanged);
-			// 
-			// IncludePSDsCheckBox
-			// 
-			this.IncludePSDsCheckBox.AutoSize = true;
-			this.IncludePSDsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.IncludePSDsCheckBox.Location = new System.Drawing.Point(391, 7);
-			this.IncludePSDsCheckBox.Name = "IncludePSDsCheckBox";
-			this.IncludePSDsCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.IncludePSDsCheckBox.Size = new System.Drawing.Size(86, 17);
-			this.IncludePSDsCheckBox.TabIndex = 15;
-			this.IncludePSDsCheckBox.Text = "Incl. PSDs";
-			this.IncludePSDsCheckBox.UseVisualStyleBackColor = true;
-			this.IncludePSDsCheckBox.CheckedChanged += new System.EventHandler(this.IncludePSDsCheckBox_CheckedChanged);
+			this.ProcessingProgressBar.Location = new System.Drawing.Point(6, 102);
+			this.ProcessingProgressBar.Name = "ProcessingProgressBar";
+			this.ProcessingProgressBar.Size = new System.Drawing.Size(156, 23);
+			this.ProcessingProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+			this.ProcessingProgressBar.TabIndex = 13;
+			this.ProcessingProgressBar.Visible = false;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-			this.ClientSize = new System.Drawing.Size(966, 485);
+			this.ClientSize = new System.Drawing.Size(966, 518);
 			this.Controls.Add(this.MainSplitContainer);
 			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1002,6 +1013,7 @@
 		private System.Windows.Forms.CheckBox PingoNoDitheringCheckBox;
 		private System.Windows.Forms.CheckBox IncludePSDsCheckBox;
 		private System.Windows.Forms.CheckBox IncludeSubfoldersCheckBox;
+		private System.Windows.Forms.ProgressBar ProcessingProgressBar;
 	}
 }
 

@@ -1223,25 +1223,31 @@ namespace imgdanke
 				return;
 			}
 
+			ProcessingProgressBar.Visible = true;
+			ProcessingProgressBar.Maximum = (imgFiles.Count() * 2) + imgFiles.Where(f => f.Extension == ".psd").ToList().Count;
+
 			if ( !ShouldCancelProcessing && CONFIG.ShouldIncludePSDs )
 			{
-				imgFiles = ConvertAnyPSDs(imgFiles, StatusMessageLabel);
+				imgFiles = ConvertAnyPSDs(imgFiles, StatusMessageLabel, ProcessingProgressBar);
 			}
 
 			if ( !ShouldCancelProcessing && VerifyMagickCommandIsReadyAndValid() )
 			{
-				imgFiles = CallMagickCommand(imgFiles, MagickCommandTextBox.Text, StatusMessageLabel);
+				imgFiles = CallMagickCommand(imgFiles, MagickCommandTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
 			}
 
 			if ( !ShouldCancelProcessing && VerifyPingoCommandIsReadyAndValid() )
 			{
-				CallPingoCommand(imgFiles, PingoCommandTextBox.Text, StatusMessageLabel);
+				CallPingoCommand(imgFiles, PingoCommandTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
 			}
 
 			BuildFilesInSourceFolderList();
 			ToggleUI(true);
 			ShouldCancelProcessing = false;
 			StatusMessageLabel.Text = "Use %1 as a placeholder for the input filename and %2 for the output filename.";
+			ProcessingProgressBar.Visible = false;
+			ProcessingProgressBar.Value = 0;
+			ProcessingProgressBar.Maximum = 100;
 		}
 
 		private void ToggleUI(bool isActive)
@@ -1264,7 +1270,7 @@ namespace imgdanke
 			ProcessingCancelButton.Visible = !isActive;
 		}
 
-		private static List<FileInfo> ConvertAnyPSDs(List<FileInfo> originalImgFiles, Label statusLabel)
+		private static List<FileInfo> ConvertAnyPSDs(List<FileInfo> originalImgFiles, Label statusLabel, ProgressBar progressBar)
 		{
 			List<FileInfo> psdFiles = originalImgFiles.Where(f => f.Extension == ".psd").ToList();
 
@@ -1309,12 +1315,13 @@ namespace imgdanke
 				}
 
 				newImgFiles.Add(new FileInfo(outputFilename));
+				++progressBar.Value;
 			}
 
 			return newImgFiles;
 		}
 
-		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel)
+		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel, ProgressBar progressBar)
 		{
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
@@ -1373,6 +1380,7 @@ namespace imgdanke
 
 				File.Move(tempFilename, newLocation);
 				newImgFiles.Add(new FileInfo(newLocation));
+				++progressBar.Value;
 			}
 
 			return newImgFiles;
@@ -1392,7 +1400,7 @@ namespace imgdanke
 			}
 		}
 
-		private static void CallPingoCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel)
+		private static void CallPingoCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel, ProgressBar progressBar)
 		{
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
@@ -1421,6 +1429,8 @@ namespace imgdanke
 						break;
 					}
 				}
+
+				++progressBar.Value;
 			}
 		}
 
