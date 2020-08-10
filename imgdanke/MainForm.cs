@@ -1223,6 +1223,7 @@ namespace imgdanke
 
 		private void ApplyButton_Click(object sender, EventArgs e)
 		{
+			Stopwatch stopwatch = Stopwatch.StartNew();
 			ToggleUI(false);
 			List<FileInfo> imgFiles = FilesInSourceFolderListBox.SelectedItems.Cast<FileInfoWithSubpath>().Select(f => f.ImageInfo).ToList();
 
@@ -1267,8 +1268,18 @@ namespace imgdanke
 
 			BuildFilesInSourceFolderList();
 			ToggleUI(true);
+			stopwatch.Stop();
+
+			if ( ShouldCancelProcessing )
+			{
+				StatusMessageLabel.Text = "Command(s) canceled. Some files may have already been processed, or may be in an invalid state.";
+			}
+			else
+			{
+				StatusMessageLabel.Text = "Command(s) completed. Total time elapsed: " + TimeSpan.FromMilliseconds(stopwatch.ElapsedMilliseconds).ToString(@"hh\:mm\:ss");
+			}
+
 			ShouldCancelProcessing = false;
-			StatusMessageLabel.Text = "Use %1 as a placeholder for the input filename and %2 for the output filename.";
 		}
 
 		private void ToggleUI(bool isActive)
