@@ -87,11 +87,14 @@
 			this.SettingsAndFilesSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.PresetsAndSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.MagickAndPingoSplitContainer = new System.Windows.Forms.SplitContainer();
-			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
-			this.PrependToOutputLabel = new System.Windows.Forms.Label();
-			this.PrependToOutputTextBox = new System.Windows.Forms.TextBox();
+			this.TotalSavingsLabel = new System.Windows.Forms.Label();
+			this.NewSizeLabel = new System.Windows.Forms.Label();
+			this.PreviousSizeLabel = new System.Windows.Forms.Label();
 			this.AppendToOutputLabel = new System.Windows.Forms.Label();
 			this.AppendToOutputTextBox = new System.Windows.Forms.TextBox();
+			this.PrependToOutputLabel = new System.Windows.Forms.Label();
+			this.PrependToOutputTextBox = new System.Windows.Forms.TextBox();
+			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -802,6 +805,9 @@
 			// 
 			// MainSplitContainer.Panel2
 			// 
+			this.MainSplitContainer.Panel2.Controls.Add(this.TotalSavingsLabel);
+			this.MainSplitContainer.Panel2.Controls.Add(this.NewSizeLabel);
+			this.MainSplitContainer.Panel2.Controls.Add(this.PreviousSizeLabel);
 			this.MainSplitContainer.Panel2.Controls.Add(this.AppendToOutputLabel);
 			this.MainSplitContainer.Panel2.Controls.Add(this.AppendToOutputTextBox);
 			this.MainSplitContainer.Panel2.Controls.Add(this.PrependToOutputLabel);
@@ -903,14 +909,55 @@
 			this.MagickAndPingoSplitContainer.SplitterDistance = 138;
 			this.MagickAndPingoSplitContainer.TabIndex = 7;
 			// 
-			// ProcessingProgressBar
+			// TotalSavingsLabel
 			// 
-			this.ProcessingProgressBar.Location = new System.Drawing.Point(6, 102);
-			this.ProcessingProgressBar.Name = "ProcessingProgressBar";
-			this.ProcessingProgressBar.Size = new System.Drawing.Size(156, 23);
-			this.ProcessingProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-			this.ProcessingProgressBar.TabIndex = 13;
-			this.ProcessingProgressBar.Visible = false;
+			this.TotalSavingsLabel.AutoSize = true;
+			this.TotalSavingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.TotalSavingsLabel.Location = new System.Drawing.Point(708, 108);
+			this.TotalSavingsLabel.Name = "TotalSavingsLabel";
+			this.TotalSavingsLabel.Size = new System.Drawing.Size(217, 13);
+			this.TotalSavingsLabel.TabIndex = 20;
+			this.TotalSavingsLabel.Text = "Total Savings: XXX.XXYY or XX.XX%";
+			// 
+			// NewSizeLabel
+			// 
+			this.NewSizeLabel.AutoSize = true;
+			this.NewSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.NewSizeLabel.Location = new System.Drawing.Point(574, 108);
+			this.NewSizeLabel.Name = "NewSizeLabel";
+			this.NewSizeLabel.Size = new System.Drawing.Size(128, 13);
+			this.NewSizeLabel.TabIndex = 19;
+			this.NewSizeLabel.Text = "New Size: XXX.XXYY";
+			// 
+			// PreviousSizeLabel
+			// 
+			this.PreviousSizeLabel.AutoSize = true;
+			this.PreviousSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.PreviousSizeLabel.Location = new System.Drawing.Point(439, 108);
+			this.PreviousSizeLabel.Name = "PreviousSizeLabel";
+			this.PreviousSizeLabel.Size = new System.Drawing.Size(129, 13);
+			this.PreviousSizeLabel.TabIndex = 18;
+			this.PreviousSizeLabel.Text = "Prev Size: XXX.XXYY";
+			// 
+			// AppendToOutputLabel
+			// 
+			this.AppendToOutputLabel.AutoSize = true;
+			this.AppendToOutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.AppendToOutputLabel.Location = new System.Drawing.Point(306, 108);
+			this.AppendToOutputLabel.Name = "AppendToOutputLabel";
+			this.AppendToOutputLabel.Size = new System.Drawing.Size(54, 13);
+			this.AppendToOutputLabel.TabIndex = 16;
+			this.AppendToOutputLabel.Text = "Append:";
+			// 
+			// AppendToOutputTextBox
+			// 
+			this.AppendToOutputTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.AppendToOutputTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.AppendToOutputTextBox.Location = new System.Drawing.Point(366, 104);
+			this.AppendToOutputTextBox.Name = "AppendToOutputTextBox";
+			this.AppendToOutputTextBox.Size = new System.Drawing.Size(67, 20);
+			this.AppendToOutputTextBox.TabIndex = 17;
+			this.AppendToOutputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToFilePermittedChars_KeyPress);
 			// 
 			// PrependToOutputLabel
 			// 
@@ -928,29 +975,18 @@
 			this.PrependToOutputTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.PrependToOutputTextBox.Location = new System.Drawing.Point(232, 104);
 			this.PrependToOutputTextBox.Name = "PrependToOutputTextBox";
-			this.PrependToOutputTextBox.Size = new System.Drawing.Size(95, 20);
+			this.PrependToOutputTextBox.Size = new System.Drawing.Size(67, 20);
 			this.PrependToOutputTextBox.TabIndex = 15;
 			this.PrependToOutputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToFilePermittedChars_KeyPress);
 			// 
-			// AppendToOutputLabel
+			// ProcessingProgressBar
 			// 
-			this.AppendToOutputLabel.AutoSize = true;
-			this.AppendToOutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.AppendToOutputLabel.Location = new System.Drawing.Point(333, 108);
-			this.AppendToOutputLabel.Name = "AppendToOutputLabel";
-			this.AppendToOutputLabel.Size = new System.Drawing.Size(54, 13);
-			this.AppendToOutputLabel.TabIndex = 16;
-			this.AppendToOutputLabel.Text = "Append:";
-			// 
-			// AppendToOutputTextBox
-			// 
-			this.AppendToOutputTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.AppendToOutputTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.AppendToOutputTextBox.Location = new System.Drawing.Point(393, 104);
-			this.AppendToOutputTextBox.Name = "AppendToOutputTextBox";
-			this.AppendToOutputTextBox.Size = new System.Drawing.Size(95, 20);
-			this.AppendToOutputTextBox.TabIndex = 17;
-			this.AppendToOutputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToFilePermittedChars_KeyPress);
+			this.ProcessingProgressBar.Location = new System.Drawing.Point(6, 102);
+			this.ProcessingProgressBar.Name = "ProcessingProgressBar";
+			this.ProcessingProgressBar.Size = new System.Drawing.Size(156, 23);
+			this.ProcessingProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+			this.ProcessingProgressBar.TabIndex = 13;
+			this.ProcessingProgressBar.Visible = false;
 			// 
 			// MainForm
 			// 
@@ -1066,6 +1102,9 @@
 		private System.Windows.Forms.TextBox PrependToOutputTextBox;
 		private System.Windows.Forms.Label AppendToOutputLabel;
 		private System.Windows.Forms.TextBox AppendToOutputTextBox;
+		private System.Windows.Forms.Label TotalSavingsLabel;
+		private System.Windows.Forms.Label NewSizeLabel;
+		private System.Windows.Forms.Label PreviousSizeLabel;
 	}
 }
 

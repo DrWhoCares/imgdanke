@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -1232,11 +1233,18 @@ namespace imgdanke
 				return;
 			}
 
+			long previousTotalFilesize = 0;
+			long newTotalFilesize = 0;
 			ProcessingProgressBar.Maximum = (imgFiles.Count() * 2) + imgFiles.Where(f => f.Extension == ".psd").ToList().Count;
 
 			if ( !ShouldCancelProcessing && CONFIG.ShouldIncludePSDs )
 			{
 				imgFiles = ConvertAnyPSDs(imgFiles, StatusMessageLabel, ProcessingProgressBar);
+			}
+
+			if ( !ShouldCancelProcessing )
+			{
+				PreviousSizeLabel.Text = "Prev Size: " + GetTotalSizeOfFiles(imgFiles, ref previousTotalFilesize);
 			}
 
 			if ( !ShouldCancelProcessing && VerifyMagickCommandIsReadyAndValid() )
@@ -1247,6 +1255,14 @@ namespace imgdanke
 			if ( !ShouldCancelProcessing && VerifyPingoCommandIsReadyAndValid() )
 			{
 				CallPingoCommand(imgFiles, PingoCommandTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
+			}
+
+			if ( !ShouldCancelProcessing )
+			{
+				NewSizeLabel.Text = "New Size: " + GetTotalSizeOfFiles(imgFiles, ref newTotalFilesize);
+				long filesizeDiff = newTotalFilesize - previousTotalFilesize;
+				long filesizeDiffAbs = filesizeDiff < 0 ? -filesizeDiff : filesizeDiff;
+				TotalSavingsLabel.Text = "Total Savings: " + GetBytesAsReadableString(filesizeDiffAbs) + " or " + GetTotalSavingsPercentage(previousTotalFilesize, filesizeDiffAbs);
 			}
 
 			BuildFilesInSourceFolderList();
@@ -1278,6 +1294,13 @@ namespace imgdanke
 			ProcessingProgressBar.Maximum = 100;
 			ProcessingCancelButton.Enabled = !isActive;
 			ProcessingCancelButton.Visible = !isActive;
+
+			if ( !isActive )
+			{
+				PreviousSizeLabel.Text = "Prev Size: XXX.XXYY";
+				NewSizeLabel.Text = "New Size: XXX.XXYY";
+				TotalSavingsLabel.Text = "Total Savings: XXX.XXYY or XX.XX%";
+			}
 		}
 
 		private static List<FileInfo> ConvertAnyPSDs(List<FileInfo> originalImgFiles, Label statusLabel, ProgressBar progressBar)
@@ -1442,6 +1465,55 @@ namespace imgdanke
 
 				++progressBar.Value;
 			}
+		}
+
+		private static string GetTotalSizeOfFiles(List<FileInfo> imgFiles, ref long totalFilesizeInBytes)
+		{
+			foreach ( FileInfo file in imgFiles )
+			{
+				totalFilesizeInBytes += file.Length;
+			}
+
+			return GetBytesAsReadableString(totalFilesizeInBytes);
+		}
+
+		// Returns the human-readable file size for an arbitrary, 64-bit file size 
+		// The default format is "0.### XB", e.g. "4.2 KB" or "1.434 GB"
+		// Taken from: https://stackoverflow.com/questions/281640/how-do-i-get-a-human-readable-file-size-in-bytes-abbreviation-using-net/11124118#11124118
+		private static string GetBytesAsReadableString(long totalSize)
+		{
+			long totalSizeAbsolute = (totalSize < 0 ? -totalSize : totalSize);
+			string suffix;
+			double readable;
+
+			if ( totalSizeAbsolute >= 0x40000000 ) // Gigabyte
+			{
+				suffix = "GB";
+				readable = (totalSize >> 20);
+			}
+			else if ( totalSizeAbsolute >= 0x100000 ) // Megabyte
+			{
+				suffix = "MB";
+				readable = (totalSize >> 10);
+			}
+			else if ( totalSizeAbsolute >= 0x400 ) // Kilobyte
+			{
+				suffix = "KB";
+				readable = totalSize;
+			}
+			else
+			{
+				return totalSize.ToString("0B"); // Byte
+			}
+
+			readable /= 1024; // Divide by 1024 to get fractional value
+
+			return readable.ToString("0.##") + suffix; // Return formatted number with suffix
+		}
+
+		private static string GetTotalSavingsPercentage(long previousTotalFilesize, double filesizeDiffAbs)
+		{
+			return Math.Round((filesizeDiffAbs / previousTotalFilesize) * 100.0, 2, MidpointRounding.AwayFromZero).ToString("0.##") + "%";
 		}
 
 		#endregion
