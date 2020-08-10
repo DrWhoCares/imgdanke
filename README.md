@@ -46,6 +46,13 @@ Then simply run the .exe.
    * [Commands](#commands)
      * [Magick Command](#magick-command)
      * [Pingo Command](#pingo-command)
+     * [Prepend To Output](#prepend-to-output)
+     * [Append To Output](#append-to-output)
+     * [Filesize Displays](#filesize-displays)
+       * [Previous Size](#previous-size)
+       * [New Size](#new-size)
+       * [Total Savings](#total-savings)
+     * [Status Display Message](#status-display-message)
 
 ## imgdanke
 ### Technical Details
@@ -257,6 +264,19 @@ The magick command will always happen before the pingo command.
 It's important to note that the order of arguments does matter.
 #### Pingo Command
 pingo, unlike magick, does not allow for specifying output at this time (v0.99 [rc2 32]). It modifies the images directly, so ensure a copy is made via setting a separate output folder, or adding a prefix to `%2` in the magick command.
+#### Prepend To Output
+The string entered here will be prepended to the output filename(s). As expected, any characters which are defined as being illegal in filenames cannot appear in the string.
+#### Append To Output
+The string entered here will be appended to the output filename(s). As expected, any characters which are defined as being illegal in filenames cannot appear in the string.
+#### Filesize Displays
+#### Previous Size
+Displays the total filesize (not the size on disk) of the files (after any PSD conversion) before either of the commands are performed.
+#### New Size
+Displays the total filesize (not the size on disk) of the files after the commands are performed.
+#### Total Savings
+Displays the total amount of savings and the percent saved.
+#### Status Display Message
+Displays information to the user about issues or the current status of processing. When processing is finished, it will display the total time elapsed via C#'s Stopwatch class (so it may not be 100% accurate).
 
 ---
 Any questions, feel free to contact me or create an issue (which is really helpful for keeping track of things to change or add).
