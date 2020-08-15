@@ -402,27 +402,7 @@ namespace imgdanke
 
 		private void SourceFolderPathButton_Click(object sender, EventArgs e)
 		{
-			if ( IS_LINUX )
-			{
-				using FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-
-				if ( folderBrowserDialog.ShowDialog() == DialogResult.OK )
-				{
-					SourceFolderPathTextBox.Text = folderBrowserDialog.SelectedPath;
-				}
-			}
-			else
-			{
-				using CommonOpenFileDialog folderBrowserDialog = new CommonOpenFileDialog
-				{
-					IsFolderPicker = true
-				};
-
-				if ( folderBrowserDialog.ShowDialog() == CommonFileDialogResult.Ok )
-				{
-					SourceFolderPathTextBox.Text = folderBrowserDialog.FileName;
-				}
-			}
+			SourceFolderPathTextBox.Text = IS_LINUX ? OpenFolderDialogLinux() : OpenFolderDialogWindows();
 		}
 
 		private void SourceFolderPathTextBox_TextChanged(object sender, EventArgs e)
@@ -451,33 +431,40 @@ namespace imgdanke
 
 		private void OutputFolderPathButton_Click(object sender, EventArgs e)
 		{
-			if ( IS_LINUX )
-			{
-				using FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-
-				if ( folderBrowserDialog.ShowDialog() == DialogResult.OK )
-				{
-					SourceFolderPathTextBox.Text = folderBrowserDialog.SelectedPath;
-				}
-			}
-			else
-			{
-				using CommonOpenFileDialog folderBrowserDialog = new CommonOpenFileDialog
-				{
-					IsFolderPicker = true
-				};
-
-				if ( folderBrowserDialog.ShowDialog() == CommonFileDialogResult.Ok )
-				{
-					OutputFolderPathTextBox.Text = folderBrowserDialog.FileName;
-				}
-			}
+			OutputFolderPathTextBox.Text = IS_LINUX ? OpenFolderDialogLinux() : OpenFolderDialogWindows();
 		}
 
 		private void OutputFolderPathTextBox_TextChanged(object sender, EventArgs e)
 		{
 			CONFIG.OutputFolderPath = OutputFolderPathTextBox.Text;
 			ApplyButton.Enabled = VerifyReadyToApply();
+		}
+
+		private string OpenFolderDialogLinux()
+		{
+			using FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+
+			if ( folderBrowserDialog.ShowDialog() == DialogResult.OK )
+			{
+				return folderBrowserDialog.SelectedPath;
+			}
+
+			return "";
+		}
+
+		private string OpenFolderDialogWindows()
+		{
+			using CommonOpenFileDialog folderBrowserDialog = new CommonOpenFileDialog
+			{
+				IsFolderPicker = true
+			};
+
+			if ( folderBrowserDialog.ShowDialog() == CommonFileDialogResult.Ok )
+			{
+				return folderBrowserDialog.FileName;
+			}
+
+			return "";
 		}
 
 		#endregion
