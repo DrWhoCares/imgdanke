@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -43,6 +42,7 @@ namespace imgdanke
 			new KeyValuePair<string, string>("256c", "100")
 		};
 
+		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 		private static readonly UserConfig CONFIG = UserConfig.LoadConfig();
 		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
 		private static bool ShouldCancelProcessing = false;
@@ -109,7 +109,7 @@ namespace imgdanke
 
 		private static void InitializeBinaryFilenames()
 		{
-			if ( RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX) )
+			if ( IS_LINUX )
 			{
 				MAGICK_FILENAME = "magick";
 				PINGO_FILENAME = "pingo";
@@ -402,14 +402,26 @@ namespace imgdanke
 
 		private void SourceFolderPathButton_Click(object sender, EventArgs e)
 		{
-			using CommonOpenFileDialog folderBrowserDialog = new CommonOpenFileDialog
+			if ( IS_LINUX )
 			{
-				IsFolderPicker = true
-			};
+				using FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
 
-			if ( folderBrowserDialog.ShowDialog() == CommonFileDialogResult.Ok )
+				if ( folderBrowserDialog.ShowDialog() == DialogResult.OK )
+				{
+					SourceFolderPathTextBox.Text = folderBrowserDialog.SelectedPath;
+				}
+			}
+			else
 			{
-				SourceFolderPathTextBox.Text = folderBrowserDialog.FileName;
+				using CommonOpenFileDialog folderBrowserDialog = new CommonOpenFileDialog
+				{
+					IsFolderPicker = true
+				};
+
+				if ( folderBrowserDialog.ShowDialog() == CommonFileDialogResult.Ok )
+				{
+					SourceFolderPathTextBox.Text = folderBrowserDialog.FileName;
+				}
 			}
 		}
 
@@ -439,14 +451,26 @@ namespace imgdanke
 
 		private void OutputFolderPathButton_Click(object sender, EventArgs e)
 		{
-			using CommonOpenFileDialog folderBrowserDialog = new CommonOpenFileDialog
+			if ( IS_LINUX )
 			{
-				IsFolderPicker = true
-			};
+				using FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
 
-			if ( folderBrowserDialog.ShowDialog() == CommonFileDialogResult.Ok )
+				if ( folderBrowserDialog.ShowDialog() == DialogResult.OK )
+				{
+					SourceFolderPathTextBox.Text = folderBrowserDialog.SelectedPath;
+				}
+			}
+			else
 			{
-				OutputFolderPathTextBox.Text = folderBrowserDialog.FileName;
+				using CommonOpenFileDialog folderBrowserDialog = new CommonOpenFileDialog
+				{
+					IsFolderPicker = true
+				};
+
+				if ( folderBrowserDialog.ShowDialog() == CommonFileDialogResult.Ok )
+				{
+					OutputFolderPathTextBox.Text = folderBrowserDialog.FileName;
+				}
 			}
 		}
 
@@ -480,7 +504,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = true;
+			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -538,7 +562,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = true;
+			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -564,7 +588,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = true;
+			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -590,7 +614,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = true;
+			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -618,7 +642,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = true;
 			PingoSARadioButton.Enabled = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = true;
+			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -646,7 +670,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = true;
 			PingoSARadioButton.Enabled = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = true;
+			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -672,7 +696,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = true;
+			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -698,7 +722,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = true;
+			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -1068,8 +1092,9 @@ namespace imgdanke
 		private string ConstructMagickCommandString()
 		{
 			const string MAGICK_COMMAND_PREFIX = "magick convert \"%1\" ";
+			const string MAGICK_COMMAND_PREFIX_LINUX = "convert \"%1\" ";
 			const string MAGICK_COMMAND_SUFFIX = "\"%2\"";
-			string command = MAGICK_COMMAND_PREFIX;
+			string command = IS_LINUX ? MAGICK_COMMAND_PREFIX_LINUX : MAGICK_COMMAND_PREFIX;
 
 			EnsureMagickConfigValuesAreUpdated();
 
@@ -1129,7 +1154,7 @@ namespace imgdanke
 		{
 			const string PINGO_COMMAND_PREFIX = "pingo ";
 			const string PINGO_COMMAND_SUFFIX = "\"%1\"";
-			string command = PINGO_COMMAND_PREFIX;
+			string command = IS_LINUX ? "" : PINGO_COMMAND_PREFIX;
 
 			EnsurePingoConfigValuesAreUpdated();
 
@@ -1335,7 +1360,7 @@ namespace imgdanke
 					WorkingDirectory = CONFIG.SourceFolderPath
 				};
 
-				string outputFilename = CONFIG.OutputFolderPath + "\\" + psdFile.Name.Replace(psdFile.Extension, "") + CONFIG.OutputExtension;
+				string outputFilename = CONFIG.OutputFolderPath + "/" + psdFile.Name.Replace(psdFile.Extension, "") + CONFIG.OutputExtension;
 				startInfo.Arguments = "/C magick convert \"" + psdFile.FullName + "[0]\" \"" + outputFilename + "\"";
 				statusLabel.Text = "Converting \"" + psdFile.Name + "\" via magick convert.";
 
@@ -1369,7 +1394,7 @@ namespace imgdanke
 		{
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
-				FileName = "cmd.exe",
+				FileName = IS_LINUX ? CONFIG.ImagemagickPathToExe : "cmd.exe",
 				UseShellExecute = false,
 				CreateNoWindow = true,
 				WorkingDirectory = CONFIG.SourceFolderPath
@@ -1379,9 +1404,9 @@ namespace imgdanke
 
 			foreach ( FileInfo img in imgFiles )
 			{
-				startInfo.Arguments = "/C " + commandString;
+				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
 				string originalFilename = img.FullName;
-				string tempFilename = CONFIG.OutputFolderPath + "\\" + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+				string tempFilename = CONFIG.OutputFolderPath + "/" + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
 				statusLabel.Text = "Processing magick command on \"" + img.Name + "\".";
@@ -1448,7 +1473,7 @@ namespace imgdanke
 		{
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
-				FileName = "cmd.exe",
+				FileName = IS_LINUX ? CONFIG.PingoPathToExe : "cmd.exe",
 				UseShellExecute = false,
 				CreateNoWindow = true,
 				WorkingDirectory = CONFIG.OutputFolderPath
@@ -1456,7 +1481,7 @@ namespace imgdanke
 
 			foreach ( FileInfo img in imgFiles )
 			{
-				startInfo.Arguments = "/C " + commandString;
+				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 
 				statusLabel.Text = "Processing pingo command on \"" + img.Name + "\".";
