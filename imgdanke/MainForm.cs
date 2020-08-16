@@ -49,11 +49,37 @@ namespace imgdanke
 		private static bool ShouldCancelProcessing;
 		private static bool IsInitializing;
 		private static bool ShouldDelayUpdatingCommands;
+		private static bool EnableFormLevelDoubleBuffering = true;
+		private static int OriginalExStyle = -1;
 
 		public sealed override string Text
 		{
 			get => base.Text;
 			set => base.Text = value;
+		}
+
+		protected override CreateParams CreateParams
+		{
+			get
+			{
+				if ( OriginalExStyle == -1 )
+				{
+					OriginalExStyle = base.CreateParams.ExStyle;
+				}
+
+				CreateParams cp = base.CreateParams;
+
+				if ( EnableFormLevelDoubleBuffering )
+				{
+					cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+				}
+				else
+				{
+					cp.ExStyle = OriginalExStyle;
+				}
+
+				return cp;
+			}
 		}
 
 		public MainForm()
@@ -74,6 +100,8 @@ namespace imgdanke
 
 		private void InitializeWindowSettings()
 		{
+			//SetControlStyleFlagsViaReflection();
+
 			Text = "imgdanke - v" + typeof(MainForm).Assembly.GetName().Version;
 
 			if ( CONFIG.LastWindowLocation != Point.Empty )
@@ -92,6 +120,32 @@ namespace imgdanke
 
 			EnsureWindowIsWithinBounds();
 		}
+
+		//private void SetControlStyleFlagsViaReflection()
+		//{
+		//	const ControlStyles FLAGS_FOR_OFF = ControlStyles.SupportsTransparentBackColor | ControlStyles.ResizeRedraw;
+		//	const ControlStyles FLAGS_FOR_ON = ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque;
+		//	const string FILE_LIST_BOX_NAME = nameof(FilesInSourceFolderListBox);
+
+		//	foreach ( Control control in Controls )
+		//	{
+		//		if ( control.Name == FILE_LIST_BOX_NAME )
+		//		{
+		//			continue;
+		//		}
+
+		//		SetControlStyleViaReflection(control, FLAGS_FOR_OFF, false);
+		//		SetControlStyleViaReflection(control, FLAGS_FOR_ON, true);
+		//	}
+		//}
+
+		//private static void SetControlStyleViaReflection(Control control, ControlStyles flags, bool value)
+		//{
+		//	Type type = control.GetType();
+		//	MethodInfo method = type.GetMethod("SetStyle", BindingFlags.NonPublic | BindingFlags.Instance);
+		//	object[] param = { flags, value };
+		//	method?.Invoke(control, param);
+		//}
 
 		private void EnsureWindowIsWithinBounds()
 		{
@@ -449,10 +503,26 @@ namespace imgdanke
 
 		private void MainForm_SizeChanged(object sender, EventArgs e)
 		{
+			TurnOnFormLevelDoubleBuffering();
+			FilesInSourceFolderListBox.BeginUpdate();
 			MainSplitContainer.SplitterDistance = Size.Height - MainSplitContainer.Panel2.MinimumSize.Height;
+			FilesInSourceFolderListBox.EndUpdate();
+			TurnOffFormLevelDoubleBuffering();
 
 			CONFIG.LastWindowSize = Size;
 			CONFIG.ShouldStartMaximized = WindowState == FormWindowState.Maximized;
+		}
+
+		private void TurnOnFormLevelDoubleBuffering()
+		{
+			EnableFormLevelDoubleBuffering = true;
+			MaximizeBox = true;
+		}
+
+		private void TurnOffFormLevelDoubleBuffering()
+		{
+			EnableFormLevelDoubleBuffering = false;
+			MaximizeBox = true;
 		}
 
 		#endregion
