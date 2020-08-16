@@ -820,7 +820,7 @@
 			this.MainSplitContainer.Panel2.Controls.Add(this.ApplyButton);
 			this.MainSplitContainer.Panel2.Controls.Add(this.PingoCommandTextBox);
 			this.MainSplitContainer.Panel2.Controls.Add(this.StatusMessageLabel);
-			this.MainSplitContainer.Panel2MinSize = 135;
+			this.MainSplitContainer.Panel2MinSize = 168;
 			this.MainSplitContainer.Size = new System.Drawing.Size(966, 518);
 			this.MainSplitContainer.SplitterDistance = 346;
 			this.MainSplitContainer.TabIndex = 13;
