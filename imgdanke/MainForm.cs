@@ -45,9 +45,9 @@ namespace imgdanke
 		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 		private static readonly UserConfig CONFIG = UserConfig.LoadConfig();
 		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
-		private static bool ShouldCancelProcessing = false;
-		private static bool IsInitializing = false;
-		private static bool ShouldDelayUpdatingCommands = false;
+		private static bool ShouldCancelProcessing;
+		private static bool IsInitializing;
+		private static bool ShouldDelayUpdatingCommands;
 
 		public MainForm()
 		{
@@ -324,6 +324,7 @@ namespace imgdanke
 		private static string CheckLocalPathForExe(string filename)
 		{
 			string localPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			localPath ??= "";
 			string fullPath = Path.Combine(localPath, filename);
 
 			if ( File.Exists(fullPath) )
@@ -440,31 +441,21 @@ namespace imgdanke
 			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
-		private string OpenFolderDialogLinux()
+		private static string OpenFolderDialogLinux()
 		{
 			using FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
 
-			if ( folderBrowserDialog.ShowDialog() == DialogResult.OK )
-			{
-				return folderBrowserDialog.SelectedPath;
-			}
-
-			return "";
+			return folderBrowserDialog.ShowDialog() == DialogResult.OK ? folderBrowserDialog.SelectedPath : "";
 		}
 
-		private string OpenFolderDialogWindows()
+		private static string OpenFolderDialogWindows()
 		{
 			using CommonOpenFileDialog folderBrowserDialog = new CommonOpenFileDialog
 			{
 				IsFolderPicker = true
 			};
 
-			if ( folderBrowserDialog.ShowDialog() == CommonFileDialogResult.Ok )
-			{
-				return folderBrowserDialog.FileName;
-			}
-
-			return "";
+			return folderBrowserDialog.ShowDialog() == CommonFileDialogResult.Ok ? folderBrowserDialog.FileName : "";
 		}
 
 		#endregion
@@ -491,7 +482,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
+			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -549,7 +540,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
+			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -575,7 +566,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
+			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -601,7 +592,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
+			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -629,7 +620,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = true;
 			PingoSARadioButton.Enabled = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
+			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -657,7 +648,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = true;
 			PingoSARadioButton.Enabled = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
+			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -683,7 +674,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
+			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -709,7 +700,7 @@ namespace imgdanke
 			PingoSBRadioButton.Checked = false;
 			PingoSARadioButton.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
-			PingoStripCheckBox.Checked = IS_LINUX ? false : true;
+			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			ShouldDelayUpdatingCommands = false;
@@ -1027,7 +1018,7 @@ namespace imgdanke
 				imageFilesWithSubpaths.Add(new FileInfoWithSubpath(fileInfo, GetSubpathFromFileInfo(fileInfo, imageFilesFullPath)));
 			}
 
-			imageFilesWithSubpaths.Sort((lhs, rhs) => DirectoryOrderer.CompareSubpaths(lhs, rhs));
+			imageFilesWithSubpaths.Sort(DirectoryOrderer.CompareSubpaths);
 
 			return imageFilesWithSubpaths;
 		}
@@ -1248,7 +1239,7 @@ namespace imgdanke
 
 			long previousTotalFilesize = 0;
 			long newTotalFilesize = 0;
-			ProcessingProgressBar.Maximum = (imgFiles.Count() * 2) + imgFiles.Where(f => f.Extension == ".psd").ToList().Count;
+			ProcessingProgressBar.Maximum = (imgFiles.Count * 2) + imgFiles.Where(f => f.Extension == ".psd").ToList().Count;
 
 			if ( !ShouldCancelProcessing && CONFIG.ShouldIncludePSDs )
 			{
@@ -1352,6 +1343,17 @@ namespace imgdanke
 				statusLabel.Text = "Converting \"" + psdFile.Name + "\" via magick convert.";
 
 				using Process process = Process.Start(startInfo);
+
+				if ( process == null )
+				{
+					if ( DisplayProcessIsNullError(true) )
+					{
+						ShouldCancelProcessing = true;
+					}
+
+					break;
+				}
+
 				process.Start();
 
 				while ( !process.HasExited )
@@ -1399,6 +1401,17 @@ namespace imgdanke
 				statusLabel.Text = "Processing magick command on \"" + img.Name + "\".";
 
 				using Process process = Process.Start(startInfo);
+
+				if ( process == null )
+				{
+					if ( DisplayProcessIsNullError(true) )
+					{
+						ShouldCancelProcessing = true;
+					}
+
+					break;
+				}
+
 				process.Start();
 
 				while ( !process.HasExited )
@@ -1473,6 +1486,17 @@ namespace imgdanke
 
 				statusLabel.Text = "Processing pingo command on \"" + img.Name + "\".";
 				using Process process = Process.Start(startInfo);
+
+				if ( process == null )
+				{
+					if ( DisplayProcessIsNullError(false) )
+					{
+						ShouldCancelProcessing = true;
+					}
+
+					break;
+				}
+
 				process.Start();
 
 				while ( !process.HasExited )
@@ -1488,6 +1512,14 @@ namespace imgdanke
 
 				++progressBar.Value;
 			}
+		}
+
+		private static bool DisplayProcessIsNullError(bool isMagickProcess)
+		{
+			return MessageBox.Show("Unable to start the process for '" + (isMagickProcess ? MAGICK_FILENAME : PINGO_FILENAME) + "'. Process returned is null.\nDo you want to cancel further processing?",
+				"Process could not be started",
+				MessageBoxButtons.YesNo,
+				MessageBoxIcon.Exclamation) == DialogResult.Yes;
 		}
 
 		private static string GetTotalSizeOfFiles(List<FileInfo> imgFiles, ref long totalFilesizeInBytes)
@@ -1543,7 +1575,7 @@ namespace imgdanke
 
 	}
 
-	internal struct FileInfoWithSubpath
+	internal readonly struct FileInfoWithSubpath
 	{
 		internal FileInfoWithSubpath(FileInfo fileInfo, string subpath)
 		{
@@ -1552,6 +1584,8 @@ namespace imgdanke
 		}
 
 		public FileInfo ImageInfo { get; }
+		// ReSharper disable once MemberCanBePrivate.Global
+		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public string Subpath { get; }
 	}
 
@@ -1559,7 +1593,7 @@ namespace imgdanke
 	internal static class DirectoryOrderer
 	{
 		internal static string GetDirectoryName(FileInfo fileInfo) => fileInfo.DirectoryName;
-		internal static string GetFileName(FileInfo fileInfo) => fileInfo.Name;
+		private static string GetFileName(FileInfo fileInfo) => fileInfo.Name;
 
 		internal static IOrderedEnumerable<T> OrderByAlphaNumeric<T>(this IEnumerable<T> source, Func<T, string> selector)
 		{
