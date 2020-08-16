@@ -127,7 +127,7 @@
 			// 
 			// MagickCommandTextBox
 			// 
-			this.MagickCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.MagickCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.MagickCommandTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.MagickCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -139,7 +139,6 @@
 			// 
 			// MagickCommandLabel
 			// 
-			this.MagickCommandLabel.AutoSize = true;
 			this.MagickCommandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickCommandLabel.Location = new System.Drawing.Point(7, 7);
 			this.MagickCommandLabel.Name = "MagickCommandLabel";
@@ -184,7 +183,6 @@
 			// 
 			// StatusMessageLabel
 			// 
-			this.StatusMessageLabel.AutoSize = true;
 			this.StatusMessageLabel.Location = new System.Drawing.Point(168, 136);
 			this.StatusMessageLabel.Name = "StatusMessageLabel";
 			this.StatusMessageLabel.Size = new System.Drawing.Size(374, 13);
@@ -216,7 +214,6 @@
 			// 
 			// SourceFolderPathLabel
 			// 
-			this.SourceFolderPathLabel.AutoSize = true;
 			this.SourceFolderPathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.SourceFolderPathLabel.Location = new System.Drawing.Point(3, 0);
 			this.SourceFolderPathLabel.Name = "SourceFolderPathLabel";
@@ -226,7 +223,6 @@
 			// 
 			// label1
 			// 
-			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.Location = new System.Drawing.Point(3, 47);
 			this.label1.Name = "label1";
@@ -267,7 +263,6 @@
 			// 
 			// MagickDepthLabel
 			// 
-			this.MagickDepthLabel.AutoSize = true;
 			this.MagickDepthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickDepthLabel.Location = new System.Drawing.Point(3, 101);
 			this.MagickDepthLabel.Name = "MagickDepthLabel";
@@ -288,7 +283,6 @@
 			// 
 			// MagickColorsLabel
 			// 
-			this.MagickColorsLabel.AutoSize = true;
 			this.MagickColorsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickColorsLabel.Location = new System.Drawing.Point(3, 75);
 			this.MagickColorsLabel.Name = "MagickColorsLabel";
@@ -309,7 +303,6 @@
 			// 
 			// MagickPosterizeLabel
 			// 
-			this.MagickPosterizeLabel.AutoSize = true;
 			this.MagickPosterizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickPosterizeLabel.Location = new System.Drawing.Point(3, 127);
 			this.MagickPosterizeLabel.Name = "MagickPosterizeLabel";
@@ -319,7 +312,6 @@
 			// 
 			// MagickNormalizeCheckBox
 			// 
-			this.MagickNormalizeCheckBox.AutoSize = true;
 			this.MagickNormalizeCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickNormalizeCheckBox.Location = new System.Drawing.Point(2, 151);
 			this.MagickNormalizeCheckBox.Name = "MagickNormalizeCheckBox";
@@ -380,7 +372,6 @@
 			// 
 			// PingoNoDitheringCheckBox
 			// 
-			this.PingoNoDitheringCheckBox.AutoSize = true;
 			this.PingoNoDitheringCheckBox.Enabled = false;
 			this.PingoNoDitheringCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoNoDitheringCheckBox.Location = new System.Drawing.Point(6, 46);
@@ -394,7 +385,6 @@
 			// 
 			// PingoOptimizationLevelLabel
 			// 
-			this.PingoOptimizationLevelLabel.AutoSize = true;
 			this.PingoOptimizationLevelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoOptimizationLevelLabel.Location = new System.Drawing.Point(8, 118);
 			this.PingoOptimizationLevelLabel.Name = "PingoOptimizationLevelLabel";
@@ -415,7 +405,6 @@
 			// 
 			// PingoStripCheckBox
 			// 
-			this.PingoStripCheckBox.AutoSize = true;
 			this.PingoStripCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoStripCheckBox.Location = new System.Drawing.Point(6, 141);
 			this.PingoStripCheckBox.Name = "PingoStripCheckBox";
@@ -428,7 +417,6 @@
 			// 
 			// PingoSARadioButton
 			// 
-			this.PingoSARadioButton.AutoSize = true;
 			this.PingoSARadioButton.Enabled = false;
 			this.PingoSARadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoSARadioButton.Location = new System.Drawing.Point(6, 92);
@@ -443,7 +431,6 @@
 			// 
 			// PingoSBRadioButton
 			// 
-			this.PingoSBRadioButton.AutoSize = true;
 			this.PingoSBRadioButton.Enabled = false;
 			this.PingoSBRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoSBRadioButton.Location = new System.Drawing.Point(6, 69);
@@ -458,7 +445,6 @@
 			// 
 			// PingoPNGPaletteLabel
 			// 
-			this.PingoPNGPaletteLabel.AutoSize = true;
 			this.PingoPNGPaletteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoPNGPaletteLabel.Location = new System.Drawing.Point(6, 24);
 			this.PingoPNGPaletteLabel.Name = "PingoPNGPaletteLabel";
@@ -512,7 +498,6 @@
 			// 
 			// PingoFourBppColorPresetRadioButton
 			// 
-			this.PingoFourBppColorPresetRadioButton.AutoSize = true;
 			this.PingoFourBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 158);
 			this.PingoFourBppColorPresetRadioButton.Name = "PingoFourBppColorPresetRadioButton";
 			this.PingoFourBppColorPresetRadioButton.Size = new System.Drawing.Size(136, 17);
@@ -523,7 +508,6 @@
 			// 
 			// PingoEightBppColorPresetRadioButton
 			// 
-			this.PingoEightBppColorPresetRadioButton.AutoSize = true;
 			this.PingoEightBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 180);
 			this.PingoEightBppColorPresetRadioButton.Name = "PingoEightBppColorPresetRadioButton";
 			this.PingoEightBppColorPresetRadioButton.Size = new System.Drawing.Size(142, 17);
@@ -534,7 +518,6 @@
 			// 
 			// CustomPresetRadioButton
 			// 
-			this.CustomPresetRadioButton.AutoSize = true;
 			this.CustomPresetRadioButton.Location = new System.Drawing.Point(5, 42);
 			this.CustomPresetRadioButton.Name = "CustomPresetRadioButton";
 			this.CustomPresetRadioButton.Size = new System.Drawing.Size(135, 17);
@@ -545,7 +528,6 @@
 			// 
 			// MagickEightBppColorPresetRadioButton
 			// 
-			this.MagickEightBppColorPresetRadioButton.AutoSize = true;
 			this.MagickEightBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 226);
 			this.MagickEightBppColorPresetRadioButton.Name = "MagickEightBppColorPresetRadioButton";
 			this.MagickEightBppColorPresetRadioButton.Size = new System.Drawing.Size(150, 17);
@@ -556,7 +538,6 @@
 			// 
 			// ColorPresetsLabel
 			// 
-			this.ColorPresetsLabel.AutoSize = true;
 			this.ColorPresetsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.ColorPresetsLabel.Location = new System.Drawing.Point(2, 142);
 			this.ColorPresetsLabel.Name = "ColorPresetsLabel";
@@ -566,7 +547,6 @@
 			// 
 			// MagickFourBppColorPresetRadioButton
 			// 
-			this.MagickFourBppColorPresetRadioButton.AutoSize = true;
 			this.MagickFourBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 203);
 			this.MagickFourBppColorPresetRadioButton.Name = "MagickFourBppColorPresetRadioButton";
 			this.MagickFourBppColorPresetRadioButton.Size = new System.Drawing.Size(144, 17);
@@ -577,7 +557,6 @@
 			// 
 			// GrayscalePresetsLabel
 			// 
-			this.GrayscalePresetsLabel.AutoSize = true;
 			this.GrayscalePresetsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.GrayscalePresetsLabel.Location = new System.Drawing.Point(2, 62);
 			this.GrayscalePresetsLabel.Name = "GrayscalePresetsLabel";
@@ -587,7 +566,6 @@
 			// 
 			// OneBppGrayPresetRadioButton
 			// 
-			this.OneBppGrayPresetRadioButton.AutoSize = true;
 			this.OneBppGrayPresetRadioButton.Location = new System.Drawing.Point(5, 76);
 			this.OneBppGrayPresetRadioButton.Name = "OneBppGrayPresetRadioButton";
 			this.OneBppGrayPresetRadioButton.Size = new System.Drawing.Size(98, 17);
@@ -598,7 +576,6 @@
 			// 
 			// NoPresetRadioButton
 			// 
-			this.NoPresetRadioButton.AutoSize = true;
 			this.NoPresetRadioButton.Checked = true;
 			this.NoPresetRadioButton.Location = new System.Drawing.Point(5, 19);
 			this.NoPresetRadioButton.Name = "NoPresetRadioButton";
@@ -611,7 +588,6 @@
 			// 
 			// EightBppGrayPresetRadioButton
 			// 
-			this.EightBppGrayPresetRadioButton.AutoSize = true;
 			this.EightBppGrayPresetRadioButton.Location = new System.Drawing.Point(5, 122);
 			this.EightBppGrayPresetRadioButton.Name = "EightBppGrayPresetRadioButton";
 			this.EightBppGrayPresetRadioButton.Size = new System.Drawing.Size(110, 17);
@@ -622,7 +598,6 @@
 			// 
 			// FourBppGrayPresetRadioButton
 			// 
-			this.FourBppGrayPresetRadioButton.AutoSize = true;
 			this.FourBppGrayPresetRadioButton.Location = new System.Drawing.Point(5, 99);
 			this.FourBppGrayPresetRadioButton.Name = "FourBppGrayPresetRadioButton";
 			this.FourBppGrayPresetRadioButton.Size = new System.Drawing.Size(104, 17);
@@ -671,7 +646,6 @@
 			// 
 			// IncludePSDsCheckBox
 			// 
-			this.IncludePSDsCheckBox.AutoSize = true;
 			this.IncludePSDsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.IncludePSDsCheckBox.Location = new System.Drawing.Point(391, 7);
 			this.IncludePSDsCheckBox.Name = "IncludePSDsCheckBox";
@@ -684,7 +658,6 @@
 			// 
 			// IncludeSubfoldersCheckBox
 			// 
-			this.IncludeSubfoldersCheckBox.AutoSize = true;
 			this.IncludeSubfoldersCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.IncludeSubfoldersCheckBox.Location = new System.Drawing.Point(270, 7);
 			this.IncludeSubfoldersCheckBox.Name = "IncludeSubfoldersCheckBox";
@@ -709,7 +682,6 @@
 			// 
 			// OutputExtensionLabel
 			// 
-			this.OutputExtensionLabel.AutoSize = true;
 			this.OutputExtensionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.OutputExtensionLabel.Location = new System.Drawing.Point(157, 8);
 			this.OutputExtensionLabel.Name = "OutputExtensionLabel";
@@ -756,7 +728,6 @@
 			// 
 			// PingoCommandLabel
 			// 
-			this.PingoCommandLabel.AutoSize = true;
 			this.PingoCommandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoCommandLabel.Location = new System.Drawing.Point(7, 53);
 			this.PingoCommandLabel.Name = "PingoCommandLabel";
@@ -766,7 +737,7 @@
 			// 
 			// PingoCommandTextBox
 			// 
-			this.PingoCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.PingoCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.PingoCommandTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.PingoCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -794,6 +765,7 @@
 			this.MainSplitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.MainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.MainSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.MainSplitContainer.IsSplitterFixed = true;
 			this.MainSplitContainer.Location = new System.Drawing.Point(0, 0);
 			this.MainSplitContainer.Name = "MainSplitContainer";
 			this.MainSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -855,6 +827,8 @@
 			// SettingsAndFilesSplitContainer
 			// 
 			this.SettingsAndFilesSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.SettingsAndFilesSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.SettingsAndFilesSplitContainer.IsSplitterFixed = true;
 			this.SettingsAndFilesSplitContainer.Location = new System.Drawing.Point(0, 0);
 			this.SettingsAndFilesSplitContainer.Name = "SettingsAndFilesSplitContainer";
 			// 
@@ -874,6 +848,7 @@
 			// PresetsAndSettingsSplitContainer
 			// 
 			this.PresetsAndSettingsSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PresetsAndSettingsSplitContainer.IsSplitterFixed = true;
 			this.PresetsAndSettingsSplitContainer.Location = new System.Drawing.Point(0, 0);
 			this.PresetsAndSettingsSplitContainer.Name = "PresetsAndSettingsSplitContainer";
 			// 
@@ -893,6 +868,7 @@
 			// MagickAndPingoSplitContainer
 			// 
 			this.MagickAndPingoSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.MagickAndPingoSplitContainer.IsSplitterFixed = true;
 			this.MagickAndPingoSplitContainer.Location = new System.Drawing.Point(0, 0);
 			this.MagickAndPingoSplitContainer.Name = "MagickAndPingoSplitContainer";
 			// 
@@ -911,7 +887,6 @@
 			// 
 			// TotalSavingsLabel
 			// 
-			this.TotalSavingsLabel.AutoSize = true;
 			this.TotalSavingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.TotalSavingsLabel.Location = new System.Drawing.Point(708, 108);
 			this.TotalSavingsLabel.Name = "TotalSavingsLabel";
@@ -921,7 +896,6 @@
 			// 
 			// NewSizeLabel
 			// 
-			this.NewSizeLabel.AutoSize = true;
 			this.NewSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.NewSizeLabel.Location = new System.Drawing.Point(574, 108);
 			this.NewSizeLabel.Name = "NewSizeLabel";
@@ -931,7 +905,6 @@
 			// 
 			// PreviousSizeLabel
 			// 
-			this.PreviousSizeLabel.AutoSize = true;
 			this.PreviousSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PreviousSizeLabel.Location = new System.Drawing.Point(439, 108);
 			this.PreviousSizeLabel.Name = "PreviousSizeLabel";
@@ -941,7 +914,6 @@
 			// 
 			// AppendToOutputLabel
 			// 
-			this.AppendToOutputLabel.AutoSize = true;
 			this.AppendToOutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.AppendToOutputLabel.Location = new System.Drawing.Point(306, 108);
 			this.AppendToOutputLabel.Name = "AppendToOutputLabel";
@@ -961,7 +933,6 @@
 			// 
 			// PrependToOutputLabel
 			// 
-			this.PrependToOutputLabel.AutoSize = true;
 			this.PrependToOutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PrependToOutputLabel.Location = new System.Drawing.Point(168, 108);
 			this.PrependToOutputLabel.Name = "PrependToOutputLabel";
@@ -997,14 +968,17 @@
 			this.Controls.Add(this.MainSplitContainer);
 			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MinimumSize = new System.Drawing.Size(982, 557);
 			this.Name = "MainForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "imgdanke";
+			this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
+			this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
 			this.ImagemagickSettingsGroupBox.ResumeLayout(false);
 			this.ImagemagickSettingsGroupBox.PerformLayout();
 			this.PingoSettingsGroupBox.ResumeLayout(false);
 			this.PingoSettingsGroupBox.PerformLayout();
 			this.PresetSettingsGroupBox.ResumeLayout(false);
-			this.PresetSettingsGroupBox.PerformLayout();
 			this.FilesInSourceFolderGroupBox.ResumeLayout(false);
 			this.FileUIAndFileListSplitContainer.Panel1.ResumeLayout(false);
 			this.FileUIAndFileListSplitContainer.Panel1.PerformLayout();

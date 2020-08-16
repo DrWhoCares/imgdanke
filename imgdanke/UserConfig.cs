@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace imgdanke
@@ -49,6 +50,42 @@ namespace imgdanke
 		#region Member Variables
 
 		#region Internal
+
+		private bool _shouldStartMaximized;
+
+		private Point _lastWindowLocation;
+
+		public Point LastWindowLocation
+		{
+			get => _lastWindowLocation;
+			set
+			{
+				_lastWindowLocation = value;
+				SaveConfig();
+			}
+		}
+
+		public bool ShouldStartMaximized
+		{
+			get => _shouldStartMaximized;
+			set
+			{
+				_shouldStartMaximized = value;
+				SaveConfig();
+			}
+		}
+
+		private Size _lastWindowSize;
+
+		public Size LastWindowSize
+		{
+			get => _lastWindowSize;
+			set
+			{
+				_lastWindowSize = value;
+				SaveConfig();
+			}
+		}
 
 		private string _imagemagickPathToExe;
 

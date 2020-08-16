@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -49,25 +50,59 @@ namespace imgdanke
 		private static bool IsInitializing;
 		private static bool ShouldDelayUpdatingCommands;
 
-		public MainForm()
-		{
-			InitializeComponent();
-			Text = "imgdanke - v" + typeof(MainForm).Assembly.GetName().Version;
-			CheckForProgramUpdates();
-			IsInitializing = true;
-			InitializeBinaryFilenames();
-			InitializePingoPNGPaletteComboBox();
-			InitializeWithConfigValues();
-			IsInitializing = false;
-		}
-
 		public sealed override string Text
 		{
 			get => base.Text;
 			set => base.Text = value;
 		}
 
+		public MainForm()
+		{
+			InitializeComponent();
+			IsInitializing = true;
+			InitializeWindowSettings();
+			CheckForProgramUpdates();
+			InitializeBinaryFilenames();
+			InitializePingoPNGPaletteComboBox();
+			InitializeWithConfigValues();
+			IsInitializing = false;
+		}
+
 		#region Initialization
+
+		#region InitFuncs
+
+		private void InitializeWindowSettings()
+		{
+			Text = "imgdanke - v" + typeof(MainForm).Assembly.GetName().Version;
+
+			if ( CONFIG.LastWindowLocation != Point.Empty )
+			{
+				Location = CONFIG.LastWindowLocation;
+			}
+
+			if ( CONFIG.ShouldStartMaximized )
+			{
+				WindowState = FormWindowState.Maximized;
+			}
+			else if ( CONFIG.LastWindowSize != Size.Empty )
+			{
+				Size = CONFIG.LastWindowSize;
+			}
+
+			EnsureWindowIsWithinBounds();
+		}
+
+		private void EnsureWindowIsWithinBounds()
+		{
+			if ( Screen.AllScreens.Any(s => s.WorkingArea.Contains(DesktopBounds)) )
+			{
+				return;
+			}
+
+			Location = Point.Empty;
+			Size = MinimumSize;
+		}
 
 		private static async void CheckForProgramUpdates()
 		{
@@ -289,6 +324,10 @@ namespace imgdanke
 			}
 		}
 
+		#endregion
+
+		#region Verification
+
 		private static bool VerifyImagemagickPathIsValid()
 		{
 			return File.Exists(CONFIG.ImagemagickPathToExe) && CONFIG.ImagemagickPathToExe.Contains(MAGICK_FILENAME);
@@ -397,7 +436,26 @@ namespace imgdanke
 
 		#endregion
 
+		#endregion
+
 		#region UIEvents
+
+		#region FormUI
+
+		private void MainForm_LocationChanged(object sender, EventArgs e)
+		{
+			CONFIG.LastWindowLocation = Location;
+		}
+
+		private void MainForm_SizeChanged(object sender, EventArgs e)
+		{
+			MainSplitContainer.SplitterDistance = Size.Height - MainSplitContainer.Panel2.MinimumSize.Height;
+
+			CONFIG.LastWindowSize = Size;
+			CONFIG.ShouldStartMaximized = WindowState == FormWindowState.Maximized;
+		}
+
+		#endregion
 
 		#region PathsUI
 
