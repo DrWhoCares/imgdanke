@@ -82,11 +82,12 @@ namespace imgdanke
 			}
 		}
 
-		public MainForm()
+		public MainForm(IReadOnlyList<string> args)
 		{
 			InitializeComponent();
 			IsInitializing = true;
 			InitializeWindowSettings();
+			InitializeWithCommandLineArgs(args);
 			CheckForProgramUpdates();
 			InitializeBinaryFilenames();
 			InitializePingoPNGPaletteComboBox();
@@ -156,6 +157,23 @@ namespace imgdanke
 
 			Location = Point.Empty;
 			Size = MinimumSize;
+		}
+
+		private void InitializeWithCommandLineArgs(IReadOnlyList<string> args)
+		{
+			if ( !args.Any() )
+			{
+				return;
+			}
+
+			string sourcePath = args[0];
+			SourceFolderPathTextBox.Text = sourcePath;
+
+			if ( args.Count == 2 )
+			{
+				string outputPath = args[1];
+				OutputFolderPathTextBox.Text = outputPath;
+			}
 		}
 
 		private static async void CheckForProgramUpdates()
