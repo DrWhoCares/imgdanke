@@ -268,7 +268,7 @@ namespace imgdanke
 			}
 		}
 
-		private static void InitializePingoPathToExe()
+		private void InitializePingoPathToExe()
 		{
 			if ( VerifyPingoPathIsValid() )
 			{
@@ -284,12 +284,25 @@ namespace imgdanke
 
 			if ( string.IsNullOrWhiteSpace(exePathFound) )
 			{
-				MessageBox.Show("The Config's path to the (" + PINGO_FILENAME + ") file is invalid or is not found on your PATH or within the directory that this exe is in. Please ensure it is downloaded, or edit the Config to the correct path.\nYou can download it here: https://css-ig.net/pingo", PINGO_FILENAME + " Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				if ( !CONFIG.ShouldSuppressPingoNotFoundWarning )
+				{
+					CONFIG.ShouldSuppressPingoNotFoundWarning = MessageBox.Show("The Config's path to the (" + PINGO_FILENAME + ") file is invalid or is not found on your PATH or within the directory that this exe is in. Please ensure it is downloaded, or edit the Config to the correct path.\nYou can download it here: https://css-ig.net/pingo\nDo you want to prevent this prompt from appearing again?", PINGO_FILENAME + " Not Found", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
+				}
+
+				DisablePingoGUIElements();
 			}
 			else
 			{
 				CONFIG.PingoPathToExe = exePathFound;
 			}
+		}
+
+		private void DisablePingoGUIElements()
+		{
+			PingoSettingsGroupBox.Enabled = false;
+			PingoCommandTextBox.Enabled = false;
+			PingoFourBppColorPresetRadioButton.Enabled = false;
+			PingoEightBppColorPresetRadioButton.Enabled = false;
 		}
 
 		private void InitializeSourceFolderPath()
@@ -1402,7 +1415,7 @@ namespace imgdanke
 				imgFiles = CallMagickCommand(imgFiles, MagickCommandTextBox.Text, PrependToOutputTextBox.Text, AppendToOutputTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
 			}
 
-			if ( !ShouldCancelProcessing && VerifyPingoCommandIsReadyAndValid() )
+			if ( !string.IsNullOrWhiteSpace(CONFIG.PingoPathToExe) && !ShouldCancelProcessing && VerifyPingoCommandIsReadyAndValid() )
 			{
 				CallPingoCommand(imgFiles, PingoCommandTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
 			}
@@ -1454,6 +1467,11 @@ namespace imgdanke
 			ProcessingProgressBar.Maximum = 100;
 			ProcessingCancelButton.Enabled = !isActive;
 			ProcessingCancelButton.Visible = !isActive;
+
+			if ( string.IsNullOrWhiteSpace(CONFIG.PingoPathToExe) )
+			{
+				DisablePingoGUIElements();
+			}
 
 			if ( !isActive )
 			{

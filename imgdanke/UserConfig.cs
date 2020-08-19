@@ -51,8 +51,6 @@ namespace imgdanke
 
 		#region Internal
 
-		private bool _shouldStartMaximized;
-
 		private Point _lastWindowLocation;
 
 		public Point LastWindowLocation
@@ -65,12 +63,26 @@ namespace imgdanke
 			}
 		}
 
+		private bool _shouldStartMaximized;
+
 		public bool ShouldStartMaximized
 		{
 			get => _shouldStartMaximized;
 			set
 			{
 				_shouldStartMaximized = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldSuppressPingoNotFoundWarning;
+
+		public bool ShouldSuppressPingoNotFoundWarning
+		{
+			get => _shouldSuppressPingoNotFoundWarning;
+			set
+			{
+				_shouldSuppressPingoNotFoundWarning = value;
 				SaveConfig();
 			}
 		}
