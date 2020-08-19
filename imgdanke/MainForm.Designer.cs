@@ -127,7 +127,7 @@
 			// 
 			// MagickCommandTextBox
 			// 
-			this.MagickCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.MagickCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.MagickCommandTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.MagickCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -139,6 +139,7 @@
 			// 
 			// MagickCommandLabel
 			// 
+			this.MagickCommandLabel.AutoSize = true;
 			this.MagickCommandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickCommandLabel.Location = new System.Drawing.Point(7, 7);
 			this.MagickCommandLabel.Name = "MagickCommandLabel";
@@ -148,12 +149,14 @@
 			// 
 			// SourceFolderPathButton
 			// 
+			this.SourceFolderPathButton.AutoSize = true;
 			this.SourceFolderPathButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.SourceFolderPathButton.Location = new System.Drawing.Point(2, 23);
+			this.SourceFolderPathButton.Location = new System.Drawing.Point(2, 21);
 			this.SourceFolderPathButton.Name = "SourceFolderPathButton";
-			this.SourceFolderPathButton.Size = new System.Drawing.Size(32, 21);
+			this.SourceFolderPathButton.Size = new System.Drawing.Size(32, 23);
 			this.SourceFolderPathButton.TabIndex = 0;
 			this.SourceFolderPathButton.Text = "...";
+			this.SourceFolderPathButton.UseMnemonic = false;
 			this.SourceFolderPathButton.UseVisualStyleBackColor = true;
 			this.SourceFolderPathButton.Click += new System.EventHandler(this.SourceFolderPathButton_Click);
 			// 
@@ -171,6 +174,7 @@
 			// 
 			// ApplyButton
 			// 
+			this.ApplyButton.AutoSize = true;
 			this.ApplyButton.Enabled = false;
 			this.ApplyButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.ApplyButton.Location = new System.Drawing.Point(6, 131);
@@ -178,11 +182,13 @@
 			this.ApplyButton.Size = new System.Drawing.Size(75, 23);
 			this.ApplyButton.TabIndex = 8;
 			this.ApplyButton.Text = "Apply";
+			this.ApplyButton.UseMnemonic = false;
 			this.ApplyButton.UseVisualStyleBackColor = true;
 			this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
 			// 
 			// StatusMessageLabel
 			// 
+			this.StatusMessageLabel.AutoSize = true;
 			this.StatusMessageLabel.Location = new System.Drawing.Point(168, 136);
 			this.StatusMessageLabel.Name = "StatusMessageLabel";
 			this.StatusMessageLabel.Size = new System.Drawing.Size(374, 13);
@@ -203,17 +209,20 @@
 			// 
 			// OutputFolderPathButton
 			// 
+			this.OutputFolderPathButton.AutoSize = true;
 			this.OutputFolderPathButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.OutputFolderPathButton.Location = new System.Drawing.Point(2, 70);
+			this.OutputFolderPathButton.Location = new System.Drawing.Point(2, 68);
 			this.OutputFolderPathButton.Name = "OutputFolderPathButton";
-			this.OutputFolderPathButton.Size = new System.Drawing.Size(32, 21);
+			this.OutputFolderPathButton.Size = new System.Drawing.Size(32, 23);
 			this.OutputFolderPathButton.TabIndex = 2;
 			this.OutputFolderPathButton.Text = "...";
+			this.OutputFolderPathButton.UseMnemonic = false;
 			this.OutputFolderPathButton.UseVisualStyleBackColor = true;
 			this.OutputFolderPathButton.Click += new System.EventHandler(this.OutputFolderPathButton_Click);
 			// 
 			// SourceFolderPathLabel
 			// 
+			this.SourceFolderPathLabel.AutoSize = true;
 			this.SourceFolderPathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.SourceFolderPathLabel.Location = new System.Drawing.Point(3, 0);
 			this.SourceFolderPathLabel.Name = "SourceFolderPathLabel";
@@ -223,6 +232,7 @@
 			// 
 			// label1
 			// 
+			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.Location = new System.Drawing.Point(3, 47);
 			this.label1.Name = "label1";
@@ -232,6 +242,7 @@
 			// 
 			// ImagemagickSettingsGroupBox
 			// 
+			this.ImagemagickSettingsGroupBox.AutoSize = true;
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickDepthTextBox);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickDepthLabel);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickColorsTextBox);
@@ -263,6 +274,7 @@
 			// 
 			// MagickDepthLabel
 			// 
+			this.MagickDepthLabel.AutoSize = true;
 			this.MagickDepthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickDepthLabel.Location = new System.Drawing.Point(3, 101);
 			this.MagickDepthLabel.Name = "MagickDepthLabel";
@@ -283,6 +295,7 @@
 			// 
 			// MagickColorsLabel
 			// 
+			this.MagickColorsLabel.AutoSize = true;
 			this.MagickColorsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickColorsLabel.Location = new System.Drawing.Point(3, 75);
 			this.MagickColorsLabel.Name = "MagickColorsLabel";
@@ -303,6 +316,7 @@
 			// 
 			// MagickPosterizeLabel
 			// 
+			this.MagickPosterizeLabel.AutoSize = true;
 			this.MagickPosterizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickPosterizeLabel.Location = new System.Drawing.Point(3, 127);
 			this.MagickPosterizeLabel.Name = "MagickPosterizeLabel";
@@ -312,6 +326,7 @@
 			// 
 			// MagickNormalizeCheckBox
 			// 
+			this.MagickNormalizeCheckBox.AutoSize = true;
 			this.MagickNormalizeCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MagickNormalizeCheckBox.Location = new System.Drawing.Point(2, 151);
 			this.MagickNormalizeCheckBox.Name = "MagickNormalizeCheckBox";
@@ -319,7 +334,8 @@
 			this.MagickNormalizeCheckBox.Size = new System.Drawing.Size(83, 17);
 			this.MagickNormalizeCheckBox.TabIndex = 3;
 			this.MagickNormalizeCheckBox.Text = "normalize-";
-			this.MagickNormalizeCheckBox.UseVisualStyleBackColor = true;
+			this.MagickNormalizeCheckBox.UseMnemonic = false;
+			this.MagickNormalizeCheckBox.UseVisualStyleBackColor = false;
 			this.MagickNormalizeCheckBox.CheckedChanged += new System.EventHandler(this.MagickNormalizeCheckBox_CheckedChanged);
 			// 
 			// MagickColorspaceComboBox
@@ -353,6 +369,7 @@
 			// 
 			// PingoSettingsGroupBox
 			// 
+			this.PingoSettingsGroupBox.AutoSize = true;
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoNoDitheringCheckBox);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoOptimizationLevelLabel);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoPNGPaletteComboBox);
@@ -372,6 +389,7 @@
 			// 
 			// PingoNoDitheringCheckBox
 			// 
+			this.PingoNoDitheringCheckBox.AutoSize = true;
 			this.PingoNoDitheringCheckBox.Enabled = false;
 			this.PingoNoDitheringCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoNoDitheringCheckBox.Location = new System.Drawing.Point(6, 46);
@@ -380,11 +398,13 @@
 			this.PingoNoDitheringCheckBox.Size = new System.Drawing.Size(93, 17);
 			this.PingoNoDitheringCheckBox.TabIndex = 16;
 			this.PingoNoDitheringCheckBox.Text = "nodithering-";
-			this.PingoNoDitheringCheckBox.UseVisualStyleBackColor = true;
+			this.PingoNoDitheringCheckBox.UseMnemonic = false;
+			this.PingoNoDitheringCheckBox.UseVisualStyleBackColor = false;
 			this.PingoNoDitheringCheckBox.CheckedChanged += new System.EventHandler(this.PingoNoDitheringCheckBox_CheckedChanged);
 			// 
 			// PingoOptimizationLevelLabel
 			// 
+			this.PingoOptimizationLevelLabel.AutoSize = true;
 			this.PingoOptimizationLevelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoOptimizationLevelLabel.Location = new System.Drawing.Point(8, 118);
 			this.PingoOptimizationLevelLabel.Name = "PingoOptimizationLevelLabel";
@@ -405,6 +425,7 @@
 			// 
 			// PingoStripCheckBox
 			// 
+			this.PingoStripCheckBox.AutoSize = true;
 			this.PingoStripCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoStripCheckBox.Location = new System.Drawing.Point(6, 141);
 			this.PingoStripCheckBox.Name = "PingoStripCheckBox";
@@ -412,11 +433,13 @@
 			this.PingoStripCheckBox.Size = new System.Drawing.Size(54, 17);
 			this.PingoStripCheckBox.TabIndex = 7;
 			this.PingoStripCheckBox.Text = "strip-";
-			this.PingoStripCheckBox.UseVisualStyleBackColor = true;
+			this.PingoStripCheckBox.UseMnemonic = false;
+			this.PingoStripCheckBox.UseVisualStyleBackColor = false;
 			this.PingoStripCheckBox.CheckedChanged += new System.EventHandler(this.PingoStripCheckBox_CheckedChanged);
 			// 
 			// PingoSARadioButton
 			// 
+			this.PingoSARadioButton.AutoSize = true;
 			this.PingoSARadioButton.Enabled = false;
 			this.PingoSARadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoSARadioButton.Location = new System.Drawing.Point(6, 92);
@@ -426,11 +449,13 @@
 			this.PingoSARadioButton.TabIndex = 15;
 			this.PingoSARadioButton.TabStop = true;
 			this.PingoSARadioButton.Text = "sa-";
-			this.PingoSARadioButton.UseVisualStyleBackColor = true;
+			this.PingoSARadioButton.UseMnemonic = false;
+			this.PingoSARadioButton.UseVisualStyleBackColor = false;
 			this.PingoSARadioButton.CheckedChanged += new System.EventHandler(this.PingoSARadioButton_CheckedChanged);
 			// 
 			// PingoSBRadioButton
 			// 
+			this.PingoSBRadioButton.AutoSize = true;
 			this.PingoSBRadioButton.Enabled = false;
 			this.PingoSBRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoSBRadioButton.Location = new System.Drawing.Point(6, 69);
@@ -440,11 +465,13 @@
 			this.PingoSBRadioButton.TabIndex = 14;
 			this.PingoSBRadioButton.TabStop = true;
 			this.PingoSBRadioButton.Text = "sb-";
-			this.PingoSBRadioButton.UseVisualStyleBackColor = true;
+			this.PingoSBRadioButton.UseMnemonic = false;
+			this.PingoSBRadioButton.UseVisualStyleBackColor = false;
 			this.PingoSBRadioButton.CheckedChanged += new System.EventHandler(this.PingoSBRadioButton_CheckedChanged);
 			// 
 			// PingoPNGPaletteLabel
 			// 
+			this.PingoPNGPaletteLabel.AutoSize = true;
 			this.PingoPNGPaletteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoPNGPaletteLabel.Location = new System.Drawing.Point(6, 24);
 			this.PingoPNGPaletteLabel.Name = "PingoPNGPaletteLabel";
@@ -476,6 +503,7 @@
 			// 
 			// PresetSettingsGroupBox
 			// 
+			this.PresetSettingsGroupBox.AutoSize = true;
 			this.PresetSettingsGroupBox.Controls.Add(this.PingoFourBppColorPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.PingoEightBppColorPresetRadioButton);
 			this.PresetSettingsGroupBox.Controls.Add(this.CustomPresetRadioButton);
@@ -498,46 +526,55 @@
 			// 
 			// PingoFourBppColorPresetRadioButton
 			// 
+			this.PingoFourBppColorPresetRadioButton.AutoSize = true;
 			this.PingoFourBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 158);
 			this.PingoFourBppColorPresetRadioButton.Name = "PingoFourBppColorPresetRadioButton";
 			this.PingoFourBppColorPresetRadioButton.Size = new System.Drawing.Size(136, 17);
 			this.PingoFourBppColorPresetRadioButton.TabIndex = 15;
 			this.PingoFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, pingo)";
-			this.PingoFourBppColorPresetRadioButton.UseVisualStyleBackColor = true;
+			this.PingoFourBppColorPresetRadioButton.UseMnemonic = false;
+			this.PingoFourBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.PingoFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoFourBppColorPresetRadioButton_CheckedChanged);
 			// 
 			// PingoEightBppColorPresetRadioButton
 			// 
+			this.PingoEightBppColorPresetRadioButton.AutoSize = true;
 			this.PingoEightBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 180);
 			this.PingoEightBppColorPresetRadioButton.Name = "PingoEightBppColorPresetRadioButton";
 			this.PingoEightBppColorPresetRadioButton.Size = new System.Drawing.Size(142, 17);
 			this.PingoEightBppColorPresetRadioButton.TabIndex = 14;
 			this.PingoEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, pingo)";
-			this.PingoEightBppColorPresetRadioButton.UseVisualStyleBackColor = true;
+			this.PingoEightBppColorPresetRadioButton.UseMnemonic = false;
+			this.PingoEightBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.PingoEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoEightBppColorPresetRadioButton_CheckedChanged);
 			// 
 			// CustomPresetRadioButton
 			// 
+			this.CustomPresetRadioButton.AutoSize = true;
 			this.CustomPresetRadioButton.Location = new System.Drawing.Point(5, 42);
 			this.CustomPresetRadioButton.Name = "CustomPresetRadioButton";
 			this.CustomPresetRadioButton.Size = new System.Drawing.Size(135, 17);
 			this.CustomPresetRadioButton.TabIndex = 1;
 			this.CustomPresetRadioButton.Text = "Custom (Save Settings)";
-			this.CustomPresetRadioButton.UseVisualStyleBackColor = true;
+			this.CustomPresetRadioButton.UseMnemonic = false;
+			this.CustomPresetRadioButton.UseVisualStyleBackColor = false;
 			this.CustomPresetRadioButton.CheckedChanged += new System.EventHandler(this.CustomPresetRadioButton_CheckedChanged);
 			// 
 			// MagickEightBppColorPresetRadioButton
 			// 
+			this.MagickEightBppColorPresetRadioButton.AutoSize = true;
 			this.MagickEightBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 226);
 			this.MagickEightBppColorPresetRadioButton.Name = "MagickEightBppColorPresetRadioButton";
 			this.MagickEightBppColorPresetRadioButton.Size = new System.Drawing.Size(150, 17);
 			this.MagickEightBppColorPresetRadioButton.TabIndex = 6;
 			this.MagickEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, magick)";
-			this.MagickEightBppColorPresetRadioButton.UseVisualStyleBackColor = true;
+			this.MagickEightBppColorPresetRadioButton.UseMnemonic = false;
+			this.MagickEightBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.MagickEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickEightBppColorPresetRadioButton_CheckedChanged);
 			// 
 			// ColorPresetsLabel
 			// 
+			this.ColorPresetsLabel.AutoSize = true;
 			this.ColorPresetsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.ColorPresetsLabel.Location = new System.Drawing.Point(2, 142);
 			this.ColorPresetsLabel.Name = "ColorPresetsLabel";
@@ -547,16 +584,19 @@
 			// 
 			// MagickFourBppColorPresetRadioButton
 			// 
+			this.MagickFourBppColorPresetRadioButton.AutoSize = true;
 			this.MagickFourBppColorPresetRadioButton.Location = new System.Drawing.Point(5, 203);
 			this.MagickFourBppColorPresetRadioButton.Name = "MagickFourBppColorPresetRadioButton";
 			this.MagickFourBppColorPresetRadioButton.Size = new System.Drawing.Size(144, 17);
 			this.MagickFourBppColorPresetRadioButton.TabIndex = 5;
 			this.MagickFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, magick)";
-			this.MagickFourBppColorPresetRadioButton.UseVisualStyleBackColor = true;
+			this.MagickFourBppColorPresetRadioButton.UseMnemonic = false;
+			this.MagickFourBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.MagickFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickFourBppColorPresetRadioButton_CheckedChanged);
 			// 
 			// GrayscalePresetsLabel
 			// 
+			this.GrayscalePresetsLabel.AutoSize = true;
 			this.GrayscalePresetsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.GrayscalePresetsLabel.Location = new System.Drawing.Point(2, 62);
 			this.GrayscalePresetsLabel.Name = "GrayscalePresetsLabel";
@@ -566,16 +606,19 @@
 			// 
 			// OneBppGrayPresetRadioButton
 			// 
+			this.OneBppGrayPresetRadioButton.AutoSize = true;
 			this.OneBppGrayPresetRadioButton.Location = new System.Drawing.Point(5, 76);
 			this.OneBppGrayPresetRadioButton.Name = "OneBppGrayPresetRadioButton";
 			this.OneBppGrayPresetRadioButton.Size = new System.Drawing.Size(98, 17);
 			this.OneBppGrayPresetRadioButton.TabIndex = 2;
 			this.OneBppGrayPresetRadioButton.Text = "1 bpp (2 colors)";
-			this.OneBppGrayPresetRadioButton.UseVisualStyleBackColor = true;
+			this.OneBppGrayPresetRadioButton.UseMnemonic = false;
+			this.OneBppGrayPresetRadioButton.UseVisualStyleBackColor = false;
 			this.OneBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.OneBppGrayPresetRadioButton_CheckedChanged);
 			// 
 			// NoPresetRadioButton
 			// 
+			this.NoPresetRadioButton.AutoSize = true;
 			this.NoPresetRadioButton.Checked = true;
 			this.NoPresetRadioButton.Location = new System.Drawing.Point(5, 19);
 			this.NoPresetRadioButton.Name = "NoPresetRadioButton";
@@ -583,31 +626,37 @@
 			this.NoPresetRadioButton.TabIndex = 0;
 			this.NoPresetRadioButton.TabStop = true;
 			this.NoPresetRadioButton.Text = "No Preset";
-			this.NoPresetRadioButton.UseVisualStyleBackColor = true;
+			this.NoPresetRadioButton.UseMnemonic = false;
+			this.NoPresetRadioButton.UseVisualStyleBackColor = false;
 			this.NoPresetRadioButton.CheckedChanged += new System.EventHandler(this.NoPresetRadioButton_CheckedChanged);
 			// 
 			// EightBppGrayPresetRadioButton
 			// 
+			this.EightBppGrayPresetRadioButton.AutoSize = true;
 			this.EightBppGrayPresetRadioButton.Location = new System.Drawing.Point(5, 122);
 			this.EightBppGrayPresetRadioButton.Name = "EightBppGrayPresetRadioButton";
 			this.EightBppGrayPresetRadioButton.Size = new System.Drawing.Size(110, 17);
 			this.EightBppGrayPresetRadioButton.TabIndex = 4;
 			this.EightBppGrayPresetRadioButton.Text = "8 bpp (256 colors)";
-			this.EightBppGrayPresetRadioButton.UseVisualStyleBackColor = true;
+			this.EightBppGrayPresetRadioButton.UseMnemonic = false;
+			this.EightBppGrayPresetRadioButton.UseVisualStyleBackColor = false;
 			this.EightBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.EightBppGrayPresetRadioButton_CheckedChanged);
 			// 
 			// FourBppGrayPresetRadioButton
 			// 
+			this.FourBppGrayPresetRadioButton.AutoSize = true;
 			this.FourBppGrayPresetRadioButton.Location = new System.Drawing.Point(5, 99);
 			this.FourBppGrayPresetRadioButton.Name = "FourBppGrayPresetRadioButton";
 			this.FourBppGrayPresetRadioButton.Size = new System.Drawing.Size(104, 17);
 			this.FourBppGrayPresetRadioButton.TabIndex = 3;
 			this.FourBppGrayPresetRadioButton.Text = "4 bpp (16 colors)";
-			this.FourBppGrayPresetRadioButton.UseVisualStyleBackColor = true;
+			this.FourBppGrayPresetRadioButton.UseMnemonic = false;
+			this.FourBppGrayPresetRadioButton.UseVisualStyleBackColor = false;
 			this.FourBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.FourBppGrayPresetRadioButton_CheckedChanged);
 			// 
 			// FilesInSourceFolderGroupBox
 			// 
+			this.FilesInSourceFolderGroupBox.AutoSize = true;
 			this.FilesInSourceFolderGroupBox.Controls.Add(this.FileUIAndFileListSplitContainer);
 			this.FilesInSourceFolderGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.FilesInSourceFolderGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
@@ -646,6 +695,7 @@
 			// 
 			// IncludePSDsCheckBox
 			// 
+			this.IncludePSDsCheckBox.AutoSize = true;
 			this.IncludePSDsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.IncludePSDsCheckBox.Location = new System.Drawing.Point(391, 7);
 			this.IncludePSDsCheckBox.Name = "IncludePSDsCheckBox";
@@ -653,11 +703,13 @@
 			this.IncludePSDsCheckBox.Size = new System.Drawing.Size(86, 17);
 			this.IncludePSDsCheckBox.TabIndex = 15;
 			this.IncludePSDsCheckBox.Text = "Incl. PSDs";
-			this.IncludePSDsCheckBox.UseVisualStyleBackColor = true;
+			this.IncludePSDsCheckBox.UseMnemonic = false;
+			this.IncludePSDsCheckBox.UseVisualStyleBackColor = false;
 			this.IncludePSDsCheckBox.CheckedChanged += new System.EventHandler(this.IncludePSDsCheckBox_CheckedChanged);
 			// 
 			// IncludeSubfoldersCheckBox
 			// 
+			this.IncludeSubfoldersCheckBox.AutoSize = true;
 			this.IncludeSubfoldersCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.IncludeSubfoldersCheckBox.Location = new System.Drawing.Point(270, 7);
 			this.IncludeSubfoldersCheckBox.Name = "IncludeSubfoldersCheckBox";
@@ -665,23 +717,27 @@
 			this.IncludeSubfoldersCheckBox.Size = new System.Drawing.Size(115, 17);
 			this.IncludeSubfoldersCheckBox.TabIndex = 14;
 			this.IncludeSubfoldersCheckBox.Text = "Incl. Subfolders";
-			this.IncludeSubfoldersCheckBox.UseVisualStyleBackColor = true;
+			this.IncludeSubfoldersCheckBox.UseMnemonic = false;
+			this.IncludeSubfoldersCheckBox.UseVisualStyleBackColor = false;
 			this.IncludeSubfoldersCheckBox.CheckedChanged += new System.EventHandler(this.IncludeSubfoldersCheckBox_CheckedChanged);
 			// 
 			// MassFileSelectorButton
 			// 
+			this.MassFileSelectorButton.AutoSize = true;
 			this.MassFileSelectorButton.Enabled = false;
 			this.MassFileSelectorButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.MassFileSelectorButton.Location = new System.Drawing.Point(3, 3);
+			this.MassFileSelectorButton.Location = new System.Drawing.Point(3, 1);
 			this.MassFileSelectorButton.Name = "MassFileSelectorButton";
-			this.MassFileSelectorButton.Size = new System.Drawing.Size(71, 21);
+			this.MassFileSelectorButton.Size = new System.Drawing.Size(71, 23);
 			this.MassFileSelectorButton.TabIndex = 12;
 			this.MassFileSelectorButton.Text = "Select All";
+			this.MassFileSelectorButton.UseMnemonic = false;
 			this.MassFileSelectorButton.UseVisualStyleBackColor = true;
 			this.MassFileSelectorButton.Click += new System.EventHandler(this.MassFileSelectorButton_Click);
 			// 
 			// OutputExtensionLabel
 			// 
+			this.OutputExtensionLabel.AutoSize = true;
 			this.OutputExtensionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.OutputExtensionLabel.Location = new System.Drawing.Point(157, 8);
 			this.OutputExtensionLabel.Name = "OutputExtensionLabel";
@@ -691,12 +747,14 @@
 			// 
 			// RefreshFileListButton
 			// 
+			this.RefreshFileListButton.AutoSize = true;
 			this.RefreshFileListButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.RefreshFileListButton.Location = new System.Drawing.Point(80, 3);
+			this.RefreshFileListButton.Location = new System.Drawing.Point(80, 1);
 			this.RefreshFileListButton.Name = "RefreshFileListButton";
-			this.RefreshFileListButton.Size = new System.Drawing.Size(71, 21);
+			this.RefreshFileListButton.Size = new System.Drawing.Size(73, 23);
 			this.RefreshFileListButton.TabIndex = 13;
 			this.RefreshFileListButton.Text = "Refresh List";
+			this.RefreshFileListButton.UseMnemonic = false;
 			this.RefreshFileListButton.UseVisualStyleBackColor = true;
 			this.RefreshFileListButton.Click += new System.EventHandler(this.RefreshFileListButton_Click);
 			// 
@@ -728,6 +786,7 @@
 			// 
 			// PingoCommandLabel
 			// 
+			this.PingoCommandLabel.AutoSize = true;
 			this.PingoCommandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PingoCommandLabel.Location = new System.Drawing.Point(7, 53);
 			this.PingoCommandLabel.Name = "PingoCommandLabel";
@@ -737,7 +796,7 @@
 			// 
 			// PingoCommandTextBox
 			// 
-			this.PingoCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.PingoCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.PingoCommandTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.PingoCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -749,6 +808,7 @@
 			// 
 			// ProcessingCancelButton
 			// 
+			this.ProcessingCancelButton.AutoSize = true;
 			this.ProcessingCancelButton.Enabled = false;
 			this.ProcessingCancelButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.ProcessingCancelButton.Location = new System.Drawing.Point(87, 131);
@@ -756,6 +816,7 @@
 			this.ProcessingCancelButton.Size = new System.Drawing.Size(75, 23);
 			this.ProcessingCancelButton.TabIndex = 12;
 			this.ProcessingCancelButton.Text = "Cancel";
+			this.ProcessingCancelButton.UseMnemonic = false;
 			this.ProcessingCancelButton.UseVisualStyleBackColor = true;
 			this.ProcessingCancelButton.Visible = false;
 			this.ProcessingCancelButton.Click += new System.EventHandler(this.ProcessingCancelButton_Click);
@@ -887,6 +948,7 @@
 			// 
 			// TotalSavingsLabel
 			// 
+			this.TotalSavingsLabel.AutoSize = true;
 			this.TotalSavingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.TotalSavingsLabel.Location = new System.Drawing.Point(708, 108);
 			this.TotalSavingsLabel.Name = "TotalSavingsLabel";
@@ -896,6 +958,7 @@
 			// 
 			// NewSizeLabel
 			// 
+			this.NewSizeLabel.AutoSize = true;
 			this.NewSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.NewSizeLabel.Location = new System.Drawing.Point(574, 108);
 			this.NewSizeLabel.Name = "NewSizeLabel";
@@ -905,6 +968,7 @@
 			// 
 			// PreviousSizeLabel
 			// 
+			this.PreviousSizeLabel.AutoSize = true;
 			this.PreviousSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PreviousSizeLabel.Location = new System.Drawing.Point(439, 108);
 			this.PreviousSizeLabel.Name = "PreviousSizeLabel";
@@ -914,6 +978,7 @@
 			// 
 			// AppendToOutputLabel
 			// 
+			this.AppendToOutputLabel.AutoSize = true;
 			this.AppendToOutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.AppendToOutputLabel.Location = new System.Drawing.Point(306, 108);
 			this.AppendToOutputLabel.Name = "AppendToOutputLabel";
@@ -933,6 +998,7 @@
 			// 
 			// PrependToOutputLabel
 			// 
+			this.PrependToOutputLabel.AutoSize = true;
 			this.PrependToOutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PrependToOutputLabel.Location = new System.Drawing.Point(168, 108);
 			this.PrependToOutputLabel.Name = "PrependToOutputLabel";
@@ -961,8 +1027,7 @@
 			// 
 			// MainForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
 			this.ClientSize = new System.Drawing.Size(966, 518);
 			this.Controls.Add(this.MainSplitContainer);
@@ -979,6 +1044,7 @@
 			this.PingoSettingsGroupBox.ResumeLayout(false);
 			this.PingoSettingsGroupBox.PerformLayout();
 			this.PresetSettingsGroupBox.ResumeLayout(false);
+			this.PresetSettingsGroupBox.PerformLayout();
 			this.FilesInSourceFolderGroupBox.ResumeLayout(false);
 			this.FileUIAndFileListSplitContainer.Panel1.ResumeLayout(false);
 			this.FileUIAndFileListSplitContainer.Panel1.PerformLayout();
@@ -997,14 +1063,18 @@
 			this.OutputAndSettingsSplitContainer.ResumeLayout(false);
 			this.SettingsAndFilesSplitContainer.Panel1.ResumeLayout(false);
 			this.SettingsAndFilesSplitContainer.Panel2.ResumeLayout(false);
+			this.SettingsAndFilesSplitContainer.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SettingsAndFilesSplitContainer)).EndInit();
 			this.SettingsAndFilesSplitContainer.ResumeLayout(false);
 			this.PresetsAndSettingsSplitContainer.Panel1.ResumeLayout(false);
+			this.PresetsAndSettingsSplitContainer.Panel1.PerformLayout();
 			this.PresetsAndSettingsSplitContainer.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.PresetsAndSettingsSplitContainer)).EndInit();
 			this.PresetsAndSettingsSplitContainer.ResumeLayout(false);
 			this.MagickAndPingoSplitContainer.Panel1.ResumeLayout(false);
+			this.MagickAndPingoSplitContainer.Panel1.PerformLayout();
 			this.MagickAndPingoSplitContainer.Panel2.ResumeLayout(false);
+			this.MagickAndPingoSplitContainer.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.MagickAndPingoSplitContainer)).EndInit();
 			this.MagickAndPingoSplitContainer.ResumeLayout(false);
 			this.ResumeLayout(false);
