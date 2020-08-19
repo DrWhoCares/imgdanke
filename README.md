@@ -2,6 +2,7 @@
 A small GUI wrapper utility around [imagemagick](https://imagemagick.org/index.php) and [pingo](https://css-ig.net/pingo) for image optimization.
 Download the latest release here: [https://github.com/DrWhoCares/imgdanke/releases](https://github.com/DrWhoCares/imgdanke/releases).
 Download the latest appropriate release of imagemagick and pingo and ensure they are either on your PATH, or that `magick.exe` and `pingo.exe` are in the same folder (or any subfolder) as `imgdanke.exe`.
+You can run imgdanke without pingo if you want, or are unable to run pingo (such as on Linux where it may not be possible). Some options will be disabled.
 Then simply run the .exe.
 
 ![image](https://user-images.githubusercontent.com/12800223/87372171-85ba8000-c54c-11ea-9e5f-8af9587151d3.png)
@@ -53,6 +54,7 @@ Then simply run the .exe.
        * [New Size](#new-size)
        * [Total Savings](#total-savings)
      * [Status Display Message](#status-display-message)
+   * [Command Line Arguments](#command-line-arguments)
 
 ## imgdanke
 ### Technical Details
@@ -277,6 +279,9 @@ Displays the total filesize (not the size on disk) of the files after the comman
 Displays the total amount of savings and the percent saved.
 #### Status Display Message
 Displays information to the user about issues or the current status of processing. When processing is finished, it will display the total time elapsed via C#'s Stopwatch class (so it may not be 100% accurate).
+
+### Command Line Arguments
+Currently two command line arguments are supported. You can pass up to two arguments, with the first being assigned to the SourceFolderPath, and the second being assigned to the OutputFolderPath. This functionality will likely be expanded in the future.
 
 ---
 Any questions, feel free to contact me or create an issue (which is really helpful for keeping track of things to change or add).
