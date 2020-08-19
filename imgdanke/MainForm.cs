@@ -286,7 +286,7 @@ namespace imgdanke
 			{
 				if ( !CONFIG.ShouldSuppressPingoNotFoundWarning )
 				{
-					CONFIG.ShouldSuppressPingoNotFoundWarning = MessageBox.Show("The Config's path to the (" + PINGO_FILENAME + ") file is invalid or is not found on your PATH or within the directory that this exe is in. Please ensure it is downloaded, or edit the Config to the correct path.\nYou can download it here: https://css-ig.net/pingo\nDo you want to prevent this prompt from appearing again?", PINGO_FILENAME + " Not Found", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
+					CONFIG.ShouldSuppressPingoNotFoundWarning = MessageBox.Show("The Config's path to the (" + PINGO_FILENAME + ") file is invalid or is not found on your PATH or within the directory that this exe is in. Please ensure it is downloaded, or edit the Config to the correct path.\nYou can download it here: https://css-ig.net/pingo\n\nDo you want to ignore this warning in the future?", PINGO_FILENAME + " Not Found", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
 				}
 
 				DisablePingoGUIElements();
