@@ -1189,6 +1189,7 @@ namespace imgdanke
 				.Where(s => s.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
 						|| s.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
 						|| s.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
+						|| s.Name.EndsWith(".webp", StringComparison.OrdinalIgnoreCase)
 						|| (CONFIG.ShouldIncludePSDs && s.Name.EndsWith(".psd", StringComparison.OrdinalIgnoreCase)));
 		}
 

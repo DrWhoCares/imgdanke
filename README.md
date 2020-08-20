@@ -79,6 +79,7 @@ Click the button and select a folder with images in it.
 - `.png`
 - `.jpg`
 - `.jpeg`
+- `.webp`
 - `.psd`
 
 </details>
