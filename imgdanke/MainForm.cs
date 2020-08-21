@@ -1570,7 +1570,7 @@ namespace imgdanke
 					WorkingDirectory = CONFIG.SourceFolderPath
 				};
 
-				string outputFilename = CONFIG.OutputFolderPath + "/" + psdFile.Name.Replace(psdFile.Extension, "") + CONFIG.OutputExtension;
+				string outputFilename = (CONFIG.ShouldReplaceOriginals ? psdFile.DirectoryName : CONFIG.OutputFolderPath) + "/" + psdFile.Name.Replace(psdFile.Extension, "") + CONFIG.OutputExtension;
 				startInfo.Arguments = (IS_LINUX ? "" : "/C magick") + " convert \"" + psdFile.FullName + "[0]\" \"" + outputFilename + "\"";
 				statusLabel.Text = "Converting \"" + psdFile.Name + "\" via magick convert.";
 
