@@ -84,6 +84,8 @@
 			this.ProcessingCancelButton = new System.Windows.Forms.Button();
 			this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.OutputAndSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.DeleteOriginalsAfterCheckBox = new System.Windows.Forms.CheckBox();
+			this.ReplaceOriginalsCheckBox = new System.Windows.Forms.CheckBox();
 			this.SettingsAndFilesSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.PresetsAndSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.MagickAndPingoSplitContainer = new System.Windows.Forms.SplitContainer();
@@ -95,8 +97,6 @@
 			this.PrependToOutputLabel = new System.Windows.Forms.Label();
 			this.PrependToOutputTextBox = new System.Windows.Forms.TextBox();
 			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
-			this.ReplaceOriginalsCheckBox = new System.Windows.Forms.CheckBox();
-			this.DeleteOriginalsAfterCheckBox = new System.Windows.Forms.CheckBox();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -698,6 +698,8 @@
 			// IncludePSDsCheckBox
 			// 
 			this.IncludePSDsCheckBox.AutoSize = true;
+			this.IncludePSDsCheckBox.Checked = true;
+			this.IncludePSDsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.IncludePSDsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.IncludePSDsCheckBox.Location = new System.Drawing.Point(391, 7);
 			this.IncludePSDsCheckBox.Name = "IncludePSDsCheckBox";
@@ -889,6 +891,32 @@
 			this.OutputAndSettingsSplitContainer.SplitterDistance = 91;
 			this.OutputAndSettingsSplitContainer.TabIndex = 10;
 			// 
+			// DeleteOriginalsAfterCheckBox
+			// 
+			this.DeleteOriginalsAfterCheckBox.AutoSize = true;
+			this.DeleteOriginalsAfterCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.DeleteOriginalsAfterCheckBox.Location = new System.Drawing.Point(171, 3);
+			this.DeleteOriginalsAfterCheckBox.Name = "DeleteOriginalsAfterCheckBox";
+			this.DeleteOriginalsAfterCheckBox.Size = new System.Drawing.Size(222, 17);
+			this.DeleteOriginalsAfterCheckBox.TabIndex = 17;
+			this.DeleteOriginalsAfterCheckBox.Text = "Delete Original(s) After (Not PSDs)";
+			this.DeleteOriginalsAfterCheckBox.UseMnemonic = false;
+			this.DeleteOriginalsAfterCheckBox.UseVisualStyleBackColor = false;
+			this.DeleteOriginalsAfterCheckBox.CheckedChanged += new System.EventHandler(this.DeleteOriginalsAfterCheckBox_CheckedChanged);
+			// 
+			// ReplaceOriginalsCheckBox
+			// 
+			this.ReplaceOriginalsCheckBox.AutoSize = true;
+			this.ReplaceOriginalsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.ReplaceOriginalsCheckBox.Location = new System.Drawing.Point(171, 50);
+			this.ReplaceOriginalsCheckBox.Name = "ReplaceOriginalsCheckBox";
+			this.ReplaceOriginalsCheckBox.Size = new System.Drawing.Size(201, 17);
+			this.ReplaceOriginalsCheckBox.TabIndex = 16;
+			this.ReplaceOriginalsCheckBox.Text = "Replace Original(s) (Not PSDs)";
+			this.ReplaceOriginalsCheckBox.UseMnemonic = false;
+			this.ReplaceOriginalsCheckBox.UseVisualStyleBackColor = false;
+			this.ReplaceOriginalsCheckBox.CheckedChanged += new System.EventHandler(this.ReplaceOriginalsCheckBox_CheckedChanged);
+			// 
 			// SettingsAndFilesSplitContainer
 			// 
 			this.SettingsAndFilesSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1028,32 +1056,6 @@
 			this.ProcessingProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.ProcessingProgressBar.TabIndex = 13;
 			this.ProcessingProgressBar.Visible = false;
-			// 
-			// ReplaceOriginalsCheckBox
-			// 
-			this.ReplaceOriginalsCheckBox.AutoSize = true;
-			this.ReplaceOriginalsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.ReplaceOriginalsCheckBox.Location = new System.Drawing.Point(171, 50);
-			this.ReplaceOriginalsCheckBox.Name = "ReplaceOriginalsCheckBox";
-			this.ReplaceOriginalsCheckBox.Size = new System.Drawing.Size(201, 17);
-			this.ReplaceOriginalsCheckBox.TabIndex = 16;
-			this.ReplaceOriginalsCheckBox.Text = "Replace Original(s) (Not PSDs)";
-			this.ReplaceOriginalsCheckBox.UseMnemonic = false;
-			this.ReplaceOriginalsCheckBox.UseVisualStyleBackColor = false;
-			this.ReplaceOriginalsCheckBox.CheckedChanged += new System.EventHandler(this.ReplaceOriginalsCheckBox_CheckedChanged);
-			// 
-			// DeleteOriginalsAfterCheckBox
-			// 
-			this.DeleteOriginalsAfterCheckBox.AutoSize = true;
-			this.DeleteOriginalsAfterCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.DeleteOriginalsAfterCheckBox.Location = new System.Drawing.Point(171, 3);
-			this.DeleteOriginalsAfterCheckBox.Name = "DeleteOriginalsAfterCheckBox";
-			this.DeleteOriginalsAfterCheckBox.Size = new System.Drawing.Size(222, 17);
-			this.DeleteOriginalsAfterCheckBox.TabIndex = 17;
-			this.DeleteOriginalsAfterCheckBox.Text = "Delete Original(s) After (Not PSDs)";
-			this.DeleteOriginalsAfterCheckBox.UseMnemonic = false;
-			this.DeleteOriginalsAfterCheckBox.UseVisualStyleBackColor = false;
-			this.DeleteOriginalsAfterCheckBox.CheckedChanged += new System.EventHandler(this.DeleteOriginalsAfterCheckBox_CheckedChanged);
 			// 
 			// MainForm
 			// 
