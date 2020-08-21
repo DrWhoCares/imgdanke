@@ -147,6 +147,30 @@ namespace imgdanke
 			}
 		}
 
+		private bool _shouldDeleteOriginals;
+
+		public bool ShouldDeleteOriginals
+		{
+			get => _shouldDeleteOriginals;
+			set
+			{
+				_shouldDeleteOriginals = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldReplaceOriginals;
+
+		public bool ShouldReplaceOriginals
+		{
+			get => _shouldReplaceOriginals;
+			set
+			{
+				_shouldReplaceOriginals = value;
+				SaveConfig();
+			}
+		}
+
 		private string _outputExtension;
 
 		public string OutputExtension

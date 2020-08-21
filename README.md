@@ -13,6 +13,8 @@ Then simply run the .exe.
    * [Input/Output Setup](#input-output-setup)
      * [Source Folder Path](#source-folder-path)
      * [Output Folder Path](#output-folder-path)
+     * [Delete Originals](#delete-originals)
+     * [Replace Originals](#replace-originals)
    * [Preset Settings](#preset-settings)
      * [No Preset](#no-preset)
      * [Custom Preset](#custom-preset)
@@ -86,7 +88,13 @@ Click the button and select a folder with images in it.
 
 ### Output Folder Path
 Click the button and select a folder to output to. Choosing the same directory as the Source Folder Path will allow you to replace the existing images. Avoiding replacement can be done via manually editing the command, or changing the Output Extension.
-
+### Delete Originals
+If this is checked, the original files will be deleted after all processing is done except for the following cases:
+- The original file is a .psd file.
+- Replace Originals is checked and the original file has the same extension as the final file (if the file is replaced, it won't be deleted afterwards, obviously).
+### Replace Originals
+If this is checked, the file(s) selected will be replaced with the final file, ignoring the Output Folder Path (which is shown by being disabled when checked).
+However, the original file(s) selected will not be replaced if the Output Extension differs from the original extension.
 ## Preset Settings
 Selecting any preset setting other than `Custom Preset` will cause the current selections to be replaced.
 Additionally, every preset will also set the following:

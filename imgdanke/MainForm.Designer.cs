@@ -38,7 +38,7 @@
 			this.OutputFolderPathTextBox = new System.Windows.Forms.TextBox();
 			this.OutputFolderPathButton = new System.Windows.Forms.Button();
 			this.SourceFolderPathLabel = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
+			this.OutputFolderPathLabel = new System.Windows.Forms.Label();
 			this.ImagemagickSettingsGroupBox = new System.Windows.Forms.GroupBox();
 			this.MagickDepthTextBox = new System.Windows.Forms.TextBox();
 			this.MagickDepthLabel = new System.Windows.Forms.Label();
@@ -95,6 +95,8 @@
 			this.PrependToOutputLabel = new System.Windows.Forms.Label();
 			this.PrependToOutputTextBox = new System.Windows.Forms.TextBox();
 			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
+			this.ReplaceOriginalsCheckBox = new System.Windows.Forms.CheckBox();
+			this.DeleteOriginalsAfterCheckBox = new System.Windows.Forms.CheckBox();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -230,15 +232,15 @@
 			this.SourceFolderPathLabel.TabIndex = 8;
 			this.SourceFolderPathLabel.Text = "Source Folder Path:";
 			// 
-			// label1
+			// OutputFolderPathLabel
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(3, 47);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(167, 20);
-			this.label1.TabIndex = 9;
-			this.label1.Text = "Output Folder Path:";
+			this.OutputFolderPathLabel.AutoSize = true;
+			this.OutputFolderPathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.OutputFolderPathLabel.Location = new System.Drawing.Point(3, 47);
+			this.OutputFolderPathLabel.Name = "OutputFolderPathLabel";
+			this.OutputFolderPathLabel.Size = new System.Drawing.Size(167, 20);
+			this.OutputFolderPathLabel.TabIndex = 9;
+			this.OutputFolderPathLabel.Text = "Output Folder Path:";
 			// 
 			// ImagemagickSettingsGroupBox
 			// 
@@ -869,8 +871,10 @@
 			// 
 			// OutputAndSettingsSplitContainer.Panel1
 			// 
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.DeleteOriginalsAfterCheckBox);
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.ReplaceOriginalsCheckBox);
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.SourceFolderPathLabel);
-			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.label1);
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.OutputFolderPathLabel);
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.SourceFolderPathButton);
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.OutputFolderPathTextBox);
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.SourceFolderPathTextBox);
@@ -1025,6 +1029,32 @@
 			this.ProcessingProgressBar.TabIndex = 13;
 			this.ProcessingProgressBar.Visible = false;
 			// 
+			// ReplaceOriginalsCheckBox
+			// 
+			this.ReplaceOriginalsCheckBox.AutoSize = true;
+			this.ReplaceOriginalsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.ReplaceOriginalsCheckBox.Location = new System.Drawing.Point(171, 50);
+			this.ReplaceOriginalsCheckBox.Name = "ReplaceOriginalsCheckBox";
+			this.ReplaceOriginalsCheckBox.Size = new System.Drawing.Size(201, 17);
+			this.ReplaceOriginalsCheckBox.TabIndex = 16;
+			this.ReplaceOriginalsCheckBox.Text = "Replace Original(s) (Not PSDs)";
+			this.ReplaceOriginalsCheckBox.UseMnemonic = false;
+			this.ReplaceOriginalsCheckBox.UseVisualStyleBackColor = false;
+			this.ReplaceOriginalsCheckBox.CheckedChanged += new System.EventHandler(this.ReplaceOriginalsCheckBox_CheckedChanged);
+			// 
+			// DeleteOriginalsAfterCheckBox
+			// 
+			this.DeleteOriginalsAfterCheckBox.AutoSize = true;
+			this.DeleteOriginalsAfterCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.DeleteOriginalsAfterCheckBox.Location = new System.Drawing.Point(171, 3);
+			this.DeleteOriginalsAfterCheckBox.Name = "DeleteOriginalsAfterCheckBox";
+			this.DeleteOriginalsAfterCheckBox.Size = new System.Drawing.Size(222, 17);
+			this.DeleteOriginalsAfterCheckBox.TabIndex = 17;
+			this.DeleteOriginalsAfterCheckBox.Text = "Delete Original(s) After (Not PSDs)";
+			this.DeleteOriginalsAfterCheckBox.UseMnemonic = false;
+			this.DeleteOriginalsAfterCheckBox.UseVisualStyleBackColor = false;
+			this.DeleteOriginalsAfterCheckBox.CheckedChanged += new System.EventHandler(this.DeleteOriginalsAfterCheckBox_CheckedChanged);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1092,7 +1122,7 @@
 		private System.Windows.Forms.TextBox OutputFolderPathTextBox;
 		private System.Windows.Forms.Button OutputFolderPathButton;
 		private System.Windows.Forms.Label SourceFolderPathLabel;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label OutputFolderPathLabel;
 		private System.Windows.Forms.GroupBox ImagemagickSettingsGroupBox;
 		private System.Windows.Forms.GroupBox PingoSettingsGroupBox;
 		private System.Windows.Forms.GroupBox PresetSettingsGroupBox;
@@ -1149,6 +1179,8 @@
 		private System.Windows.Forms.Label TotalSavingsLabel;
 		private System.Windows.Forms.Label NewSizeLabel;
 		private System.Windows.Forms.Label PreviousSizeLabel;
+		private System.Windows.Forms.CheckBox ReplaceOriginalsCheckBox;
+		private System.Windows.Forms.CheckBox DeleteOriginalsAfterCheckBox;
 	}
 }
 

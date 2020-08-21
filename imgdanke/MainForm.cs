@@ -236,6 +236,8 @@ namespace imgdanke
 			InitializePingoPathToExe();
 			InitializeSourceFolderPath();
 			InitializeOutputFolderPath();
+			InitializeDeleteOriginals();
+			InitializeReplaceOriginals();
 			InitializePresetSetting();
 			InitializeOutputExtension();
 			InitializeShouldIncludeSubfolders();
@@ -327,6 +329,19 @@ namespace imgdanke
 			{
 				CONFIG.OutputFolderPath = "";
 			}
+		}
+
+		private void InitializeDeleteOriginals()
+		{
+			DeleteOriginalsAfterCheckBox.Checked = CONFIG.ShouldDeleteOriginals;
+		}
+
+		private void InitializeReplaceOriginals()
+		{
+			ReplaceOriginalsCheckBox.Checked = CONFIG.ShouldReplaceOriginals;
+
+			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals;
+			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals;
 		}
 
 		private void InitializePresetSetting()
@@ -598,6 +613,19 @@ namespace imgdanke
 		{
 			CONFIG.OutputFolderPath = OutputFolderPathTextBox.Text;
 			ApplyButton.Enabled = VerifyReadyToApply();
+		}
+
+		private void DeleteOriginalsAfterCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			CONFIG.ShouldDeleteOriginals = DeleteOriginalsAfterCheckBox.Checked;
+		}
+
+		private void ReplaceOriginalsCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			CONFIG.ShouldReplaceOriginals = ReplaceOriginalsCheckBox.Checked;
+
+			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals;
+			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals;
 		}
 
 		private static string OpenFolderDialogLinux()
@@ -1401,6 +1429,8 @@ namespace imgdanke
 			long newTotalFilesize = 0;
 			ProcessingProgressBar.Maximum = (imgFiles.Count * 2) + imgFiles.Where(f => f.Extension == ".psd").ToList().Count;
 
+			List<FileInfo> origFiles = CONFIG.ShouldDeleteOriginals ? imgFiles : new List<FileInfo>();
+
 			if ( !ShouldCancelProcessing && CONFIG.ShouldIncludePSDs )
 			{
 				imgFiles = ConvertAnyPSDs(imgFiles, StatusMessageLabel, ProcessingProgressBar);
@@ -1429,6 +1459,41 @@ namespace imgdanke
 				TotalSavingsLabel.Text = "Total Savings: " + GetBytesAsReadableString(filesizeDiffAbs) + " or " + GetTotalSavingsPercentage(previousTotalFilesize, filesizeDiffAbs);
 			}
 
+			if ( !ShouldCancelProcessing && CONFIG.ShouldDeleteOriginals )
+			{
+				foreach ( FileInfo origFile in origFiles )
+				{
+					if ( ShouldCancelProcessing )
+					{
+						break;
+					}
+
+					if ( CONFIG.ShouldReplaceOriginals )
+					{
+						bool shouldSkipDeletion = false;
+
+						foreach ( FileInfo imgFile in imgFiles )
+						{
+							if ( origFile.FullName == imgFile.FullName )
+							{
+								shouldSkipDeletion = true;
+								break;
+							}
+						}
+
+						if ( shouldSkipDeletion )
+						{
+							continue;
+						}
+					}
+
+					if ( File.Exists(origFile.FullName) && origFile.Extension != ".psd" )
+					{
+						File.Delete(origFile.FullName);
+					}
+				}
+			}
+
 			BuildFilesInSourceFolderList();
 			ToggleUI(true);
 			stopwatch.Stop();
@@ -1453,6 +1518,8 @@ namespace imgdanke
 			SourceFolderPathButton.Enabled = isActive;
 			OutputFolderPathTextBox.Enabled = isActive;
 			OutputFolderPathButton.Enabled = isActive;
+			DeleteOriginalsAfterCheckBox.Enabled = isActive;
+			ReplaceOriginalsCheckBox.Enabled = isActive;
 			PresetSettingsGroupBox.Enabled = isActive;
 			ImagemagickSettingsGroupBox.Enabled = isActive;
 			PingoSettingsGroupBox.Enabled = isActive;
@@ -1560,7 +1627,7 @@ namespace imgdanke
 			{
 				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
 				string originalFilename = img.FullName;
-				string tempFilename = CONFIG.OutputFolderPath + "/" + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+				string tempFilename = (CONFIG.ShouldReplaceOriginals ? img.DirectoryName : CONFIG.OutputFolderPath) + "/" + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
 				statusLabel.Text = "Processing magick command on \"" + img.Name + "\".";
@@ -1753,7 +1820,6 @@ namespace imgdanke
 		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public string Subpath { get; }
 	}
-
 
 	internal static class DirectoryOrderer
 	{
