@@ -1483,9 +1483,8 @@ namespace imgdanke
 			if ( !ShouldCancelProcessing )
 			{
 				NewSizeLabel.Text = "New Size: " + GetTotalSizeOfFiles(imgFiles, ref newTotalFilesize);
-				long filesizeDiff = newTotalFilesize - previousTotalFilesize;
-				long filesizeDiffAbs = filesizeDiff < 0 ? -filesizeDiff : filesizeDiff;
-				TotalSavingsLabel.Text = "Total Savings: " + GetBytesAsReadableString(filesizeDiffAbs) + " or " + GetTotalSavingsPercentage(previousTotalFilesize, filesizeDiffAbs);
+				long filesizeDiff = -(newTotalFilesize - previousTotalFilesize);
+				TotalSavingsLabel.Text = "Total Savings: " + GetBytesAsReadableString(filesizeDiff) + " or " + GetTotalSavingsPercentage(previousTotalFilesize, filesizeDiff);
 			}
 
 			if ( !ShouldCancelProcessing && CONFIG.ShouldDeleteOriginals )
