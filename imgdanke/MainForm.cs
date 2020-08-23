@@ -600,13 +600,14 @@ namespace imgdanke
 				return;
 			}
 
+			MassFileSelectorButton.Text = FilesInSourceFolderListBox.SelectedIndices.Count > 0 ? "Unselect All" : "Select All";
+
 			if ( MassFileSelectorButton.Enabled )
 			{
 				return;
 			}
 
 			MassFileSelectorButton.Enabled = true;
-			MassFileSelectorButton.Text = FilesInSourceFolderListBox.SelectedIndices.Count > 0 ? "Unselect All" : "Select All";
 		}
 
 		private void OutputFolderPathButton_Click(object sender, EventArgs e)
