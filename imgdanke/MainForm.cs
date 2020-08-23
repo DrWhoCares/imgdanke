@@ -1218,7 +1218,7 @@ namespace imgdanke
 			FilesInSourceFolderListBox.DataSource = GetImageFilesList(SourceFolderPathTextBox.Text);
 			FilesInSourceFolderListBox.DisplayMember = "Subpath";
 			FilesInSourceFolderListBox.ValueMember = "Subpath";
-			SelectAllInListBox(FilesInSourceFolderListBox);
+			FilesInSourceFolderListBox.SelectedIndex = -1;
 
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
