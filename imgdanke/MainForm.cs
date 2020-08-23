@@ -551,7 +551,12 @@ namespace imgdanke
 		{
 			TurnOnFormLevelDoubleBuffering();
 			FilesInSourceFolderListBox.BeginUpdate();
-			MainSplitContainer.SplitterDistance = Size.Height - MainSplitContainer.Panel2.MinimumSize.Height;
+
+			if ( Size.Height >= MainSplitContainer.Panel2MinSize )
+			{
+				MainSplitContainer.SplitterDistance = Size.Height;
+			}
+
 			FilesInSourceFolderListBox.EndUpdate();
 			TurnOffFormLevelDoubleBuffering();
 
