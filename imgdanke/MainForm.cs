@@ -1641,6 +1641,7 @@ namespace imgdanke
 
 		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, string prependString, string appendString, Label statusLabel, ProgressBar progressBar)
 		{
+			const string DEFAULT_COMMAND = "magick convert \"%1\" \"%2\"";
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
 				FileName = IS_LINUX ? CONFIG.ImagemagickPathToExe : "cmd.exe",
@@ -1656,6 +1657,15 @@ namespace imgdanke
 				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
 				string originalFilename = img.FullName;
 				string tempFilename = (CONFIG.ShouldReplaceOriginals ? img.DirectoryName : CONFIG.OutputFolderPath) + "/" + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+
+				if ( commandString == DEFAULT_COMMAND && img.Extension == CONFIG.OutputExtension && img.DirectoryName == CONFIG.OutputFolderPath && string.IsNullOrWhiteSpace(prependString) && string.IsNullOrWhiteSpace(appendString) )
+				{
+					// Avoid processing the magick command if it won't actually do anything. Still need to process it if the extension would change
+					newImgFiles.Add(new FileInfo(originalFilename));
+					++progressBar.Value;
+					continue;
+				}
+
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
 				statusLabel.Text = "Processing magick command on \"" + img.Name + "\".";
