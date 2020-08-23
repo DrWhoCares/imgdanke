@@ -576,6 +576,11 @@ namespace imgdanke
 			MaximizeBox = true;
 		}
 
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			ShouldCancelProcessing = true;
+		}
+
 		#endregion
 
 		#region PathsUI

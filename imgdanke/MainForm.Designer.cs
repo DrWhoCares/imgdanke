@@ -1075,6 +1075,7 @@
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "imgdanke";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
 			this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
 			this.ImagemagickSettingsGroupBox.ResumeLayout(false);
