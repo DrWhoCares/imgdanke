@@ -164,6 +164,7 @@
 			// 
 			// SourceFolderPathTextBox
 			// 
+			this.SourceFolderPathTextBox.AllowDrop = true;
 			this.SourceFolderPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.SourceFolderPathTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -173,6 +174,8 @@
 			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(916, 20);
 			this.SourceFolderPathTextBox.TabIndex = 1;
 			this.SourceFolderPathTextBox.TextChanged += new System.EventHandler(this.SourceFolderPathTextBox_TextChanged);
+			this.SourceFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
+			this.SourceFolderPathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragEnter);
 			// 
 			// ApplyButton
 			// 
@@ -199,6 +202,7 @@
 			// 
 			// OutputFolderPathTextBox
 			// 
+			this.OutputFolderPathTextBox.AllowDrop = true;
 			this.OutputFolderPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.OutputFolderPathTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -208,6 +212,8 @@
 			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(916, 20);
 			this.OutputFolderPathTextBox.TabIndex = 3;
 			this.OutputFolderPathTextBox.TextChanged += new System.EventHandler(this.OutputFolderPathTextBox_TextChanged);
+			this.OutputFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
+			this.OutputFolderPathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragEnter);
 			// 
 			// OutputFolderPathButton
 			// 

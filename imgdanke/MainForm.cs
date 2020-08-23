@@ -620,6 +620,30 @@ namespace imgdanke
 			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
+		private void PathTextBox_DragEnter(object sender, DragEventArgs e)
+		{
+			e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Link : DragDropEffects.None;
+		}
+
+		private void PathTextBox_DragDrop(object sender, DragEventArgs e)
+		{
+			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+			if ( !files.Any() )
+			{
+				return;
+			}
+
+			if ( Directory.Exists(files.First()) )
+			{
+				((TextBox)sender).Text = files.First();
+			}
+			else if ( File.Exists(files.First()) )
+			{
+				((TextBox)sender).Text = new FileInfo(files.First()).DirectoryName;
+			}
+		}
+
 		private void DeleteOriginalsAfterCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
 			CONFIG.ShouldDeleteOriginals = DeleteOriginalsAfterCheckBox.Checked;
