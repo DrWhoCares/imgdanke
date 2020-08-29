@@ -1661,8 +1661,10 @@ namespace imgdanke
 			foreach ( FileInfo img in imgFiles )
 			{
 				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
-				string originalFilename = img.FullName;
-				string tempFilename = (CONFIG.ShouldReplaceOriginals ? img.DirectoryName : CONFIG.OutputFolderPath) + "/" + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+				string imageNameAlone = img.Name.Replace(img.Extension, "");
+				string namePrefix = (CONFIG.ShouldReplaceOriginals ? img.DirectoryName : CONFIG.OutputFolderPath) + "/" + prependString + imageNameAlone + appendString;
+				string originalFilename = namePrefix + CONFIG.OutputExtension;
+				string tempFilename = namePrefix + ".tmp" + CONFIG.OutputExtension;
 
 				if ( commandString == DEFAULT_COMMAND && img.Extension == CONFIG.OutputExtension && img.DirectoryName == CONFIG.OutputFolderPath && string.IsNullOrWhiteSpace(prependString) && string.IsNullOrWhiteSpace(appendString) )
 				{
@@ -1706,17 +1708,12 @@ namespace imgdanke
 					return new List<FileInfo>();
 				}
 
-				string newLocation = tempFilename.Replace(".tmp", "");
-
-				if ( newLocation == img.FullName )
-				{
-					File.Delete(originalFilename);
-				}
-
 				while ( !IsFileReady(tempFilename) )
 				{
 					Application.DoEvents();
 				}
+
+				string newLocation = tempFilename.Replace(".tmp", "");
 
 				if ( File.Exists(newLocation) )
 				{
