@@ -1660,20 +1660,16 @@ namespace imgdanke
 
 			foreach ( FileInfo img in imgFiles )
 			{
-				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
-				string imageNameAlone = img.Name.Replace(img.Extension, "");
-				string namePrefix = (CONFIG.ShouldReplaceOriginals ? img.DirectoryName : CONFIG.OutputFolderPath) + "/" + prependString + imageNameAlone + appendString;
-				string originalFilename = namePrefix + CONFIG.OutputExtension;
-				string tempFilename = namePrefix + ".tmp" + CONFIG.OutputExtension;
-
 				if ( commandString == DEFAULT_COMMAND && img.Extension == CONFIG.OutputExtension && img.DirectoryName == CONFIG.OutputFolderPath && string.IsNullOrWhiteSpace(prependString) && string.IsNullOrWhiteSpace(appendString) )
 				{
 					// Avoid processing the magick command if it won't actually do anything. Still need to process it if the extension would change
-					newImgFiles.Add(new FileInfo(originalFilename));
+					newImgFiles.Add(new FileInfo(img.FullName));
 					++progressBar.Value;
 					continue;
 				}
 
+				string tempFilename = (CONFIG.ShouldReplaceOriginals ? img.DirectoryName : CONFIG.OutputFolderPath) + "/" + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
 				statusLabel.Text = "Processing magick command on \"" + img.Name + "\".";
