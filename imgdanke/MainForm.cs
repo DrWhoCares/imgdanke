@@ -1707,6 +1707,11 @@ namespace imgdanke
 
 			foreach ( FileInfo img in imgFiles )
 			{
+				if ( ShouldCancelProcessing )
+				{
+					break;
+				}
+
 				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 
