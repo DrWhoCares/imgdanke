@@ -1481,7 +1481,7 @@ namespace imgdanke
 				imgFiles = CallMagickCommand(imgFiles, MagickCommandTextBox.Text, PrependToOutputTextBox.Text, AppendToOutputTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
 			}
 
-			if ( !string.IsNullOrWhiteSpace(CONFIG.PingoPathToExe) && !ShouldCancelProcessing && VerifyPingoCommandIsReadyAndValid() )
+			if ( !ShouldCancelProcessing && !string.IsNullOrWhiteSpace(CONFIG.PingoPathToExe) && VerifyPingoCommandIsReadyAndValid() )
 			{
 				CallPingoCommand(imgFiles, PingoCommandTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
 			}
@@ -1523,7 +1523,7 @@ namespace imgdanke
 
 					if ( File.Exists(origFile.FullName) && origFile.Extension != ".psd" )
 					{
-						File.Delete(origFile.FullName);
+						FileOps.Delete(origFile.FullName);
 					}
 				}
 			}
@@ -1660,6 +1660,11 @@ namespace imgdanke
 
 			foreach ( FileInfo img in imgFiles )
 			{
+				if ( ShouldCancelProcessing )
+				{
+					return new List<FileInfo>();
+				}
+
 				if ( commandString == DEFAULT_COMMAND && img.Extension == CONFIG.OutputExtension && img.DirectoryName == CONFIG.OutputFolderPath && string.IsNullOrWhiteSpace(prependString) && string.IsNullOrWhiteSpace(appendString) )
 				{
 					// Avoid processing the magick command if it won't actually do anything. Still need to process it if the extension would change
@@ -1704,38 +1709,20 @@ namespace imgdanke
 					return new List<FileInfo>();
 				}
 
-				while ( !IsFileReady(tempFilename) )
+				string newLocation = tempFilename.Replace(".tmp", "");
+
+				while ( !FileOps.IsFileReady(tempFilename) )
 				{
 					Application.DoEvents();
 				}
 
-				string newLocation = tempFilename.Replace(".tmp", "");
+				FileOps.Move(tempFilename, newLocation);
 
-				if ( File.Exists(newLocation) )
-				{
-					File.Delete(newLocation);
-				}
-
-				File.Move(tempFilename, newLocation);
 				newImgFiles.Add(new FileInfo(newLocation));
 				++progressBar.Value;
 			}
 
 			return newImgFiles;
-		}
-
-		private static bool IsFileReady(string filename)
-		{
-			// If the file can be opened for exclusive access it means that the file is no longer locked by another process
-			try
-			{
-				using FileStream inputStream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.None);
-				return inputStream.Length > 0;
-			}
-			catch ( Exception )
-			{
-				return false;
-			}
 		}
 
 		private static void CallPingoCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel, ProgressBar progressBar)
