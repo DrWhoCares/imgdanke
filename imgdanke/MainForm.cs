@@ -16,9 +16,11 @@ namespace imgdanke
 {
 	public partial class MainForm : Form
 	{
-
-		private static string MAGICK_FILENAME = "magick.exe";
-		private static string PINGO_FILENAME = "pingo.exe";
+		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+		private static readonly string MAGICK_FILENAME = IS_LINUX ? "magick" : "magick.exe";
+		private static readonly string PINGO_FILENAME = IS_LINUX ? "pingo" : "pingo.exe";
+		private static readonly UserConfig CONFIG = UserConfig.LoadConfig();
+		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
 
 		private static readonly BindingList<KeyValuePair<string, string>> PNG_PALETTE_ITEMS = new BindingList<KeyValuePair<string, string>>
 		{
@@ -43,9 +45,6 @@ namespace imgdanke
 			new KeyValuePair<string, string>("256c", "100")
 		};
 
-		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-		private static readonly UserConfig CONFIG = UserConfig.LoadConfig();
-		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
 		private static bool ShouldCancelProcessing;
 		private static bool IsInitializing;
 		private static bool ShouldDelayUpdatingCommands;
@@ -89,7 +88,6 @@ namespace imgdanke
 			InitializeWindowSettings();
 			InitializeWithCommandLineArgs(args);
 			CheckForProgramUpdates();
-			InitializeBinaryFilenames();
 			InitializePingoPNGPaletteComboBox();
 			InitializeWithConfigValues();
 			IsInitializing = false;
@@ -211,15 +209,6 @@ namespace imgdanke
 			catch ( Exception e )
 			{
 				MessageBox.Show("Checking for updates threw an exception:\n\"" + e.Message + "\"\n\nYou may not be able to access api.github.com. You can safely continue using this offline.", "Error Checking For Update", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-			}
-		}
-
-		private static void InitializeBinaryFilenames()
-		{
-			if ( IS_LINUX )
-			{
-				MAGICK_FILENAME = "magick";
-				PINGO_FILENAME = "pingo";
 			}
 		}
 
