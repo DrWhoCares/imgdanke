@@ -1495,37 +1495,7 @@ namespace imgdanke
 
 			if ( !ShouldCancelProcessing && CONFIG.ShouldDeleteOriginals )
 			{
-				foreach ( FileInfo origFile in origFiles )
-				{
-					if ( ShouldCancelProcessing )
-					{
-						break;
-					}
-
-					if ( CONFIG.ShouldReplaceOriginals )
-					{
-						bool shouldSkipDeletion = false;
-
-						foreach ( FileInfo imgFile in imgFiles )
-						{
-							if ( origFile.FullName == imgFile.FullName )
-							{
-								shouldSkipDeletion = true;
-								break;
-							}
-						}
-
-						if ( shouldSkipDeletion )
-						{
-							continue;
-						}
-					}
-
-					if ( File.Exists(origFile.FullName) && origFile.Extension != ".psd" )
-					{
-						FileOps.Delete(origFile.FullName);
-					}
-				}
+				ProcessDeletingOriginalFiles(origFiles, imgFiles);
 			}
 
 			BuildFilesInSourceFolderList();
@@ -1770,6 +1740,40 @@ namespace imgdanke
 			}
 		}
 
+		private static void ProcessDeletingOriginalFiles(List<FileInfo> origFiles, List<FileInfo> imgFiles)
+		{
+			foreach ( FileInfo origFile in origFiles )
+			{
+				if ( ShouldCancelProcessing )
+				{
+					break;
+				}
+
+				if ( CONFIG.ShouldReplaceOriginals )
+				{
+					bool shouldSkipDeletion = false;
+
+					foreach ( FileInfo imgFile in imgFiles )
+					{
+						if ( origFile.FullName == imgFile.FullName )
+						{
+							shouldSkipDeletion = true;
+							break;
+						}
+					}
+
+					if ( shouldSkipDeletion )
+					{
+						continue;
+					}
+				}
+
+				if ( File.Exists(origFile.FullName) && origFile.Extension != ".psd" )
+				{
+					FileOps.Delete(origFile.FullName);
+				}
+			}
+		}
 		private static bool DisplayProcessIsNullError(bool isMagickProcess)
 		{
 			return MessageBox.Show("Unable to start the process for '" + (isMagickProcess ? MAGICK_FILENAME : PINGO_FILENAME) + "'. Process returned is null.\nDo you want to cancel further processing?",
