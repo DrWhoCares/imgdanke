@@ -195,6 +195,18 @@ namespace imgdanke
 			}
 		}
 
+		private bool _shouldMaintainFolderStructure;
+
+		public bool ShouldMaintainFolderStructure
+		{
+			get => _shouldMaintainFolderStructure;
+			set
+			{
+				_shouldMaintainFolderStructure = value;
+				SaveConfig();
+			}
+		}
+
 		private bool _shouldIncludePSDs;
 
 		public bool ShouldIncludePSDs

@@ -382,6 +382,8 @@ namespace imgdanke
 		private void InitializeShouldIncludeSubfolders()
 		{
 			IncludeSubfoldersCheckBox.Checked = CONFIG.ShouldIncludeSubfolders;
+			MaintainFolderStructureCheckBox.Visible = CONFIG.ShouldIncludeSubfolders;
+			MaintainFolderStructureCheckBox.Checked = CONFIG.ShouldMaintainFolderStructure;
 		}
 
 		private void InitializeShouldIncludePSDs()
@@ -650,6 +652,17 @@ namespace imgdanke
 
 			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals;
 			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals;
+			MaintainFolderStructureCheckBox.Visible = !CONFIG.ShouldReplaceOriginals && CONFIG.ShouldIncludeSubfolders;
+		}
+
+		private void MaintainFolderStructureCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if ( IsInitializing )
+			{
+				return;
+			}
+
+			CONFIG.ShouldMaintainFolderStructure = MaintainFolderStructureCheckBox.Checked;
 		}
 
 		private static string OpenFolderDialogLinux()
@@ -1189,6 +1202,7 @@ namespace imgdanke
 			}
 
 			CONFIG.ShouldIncludeSubfolders = IncludeSubfoldersCheckBox.Checked;
+			MaintainFolderStructureCheckBox.Visible = IncludeSubfoldersCheckBox.Checked && !CONFIG.ShouldReplaceOriginals;
 			BuildFilesInSourceFolderList();
 		}
 
@@ -1563,7 +1577,7 @@ namespace imgdanke
 					WorkingDirectory = CONFIG.SourceFolderPath
 				};
 
-				string outputFilename = (CONFIG.ShouldReplaceOriginals ? psdFile.DirectoryName : CONFIG.OutputFolderPath) + "/" + psdFile.Name.Replace(psdFile.Extension, "") + CONFIG.OutputExtension;
+				string outputFilename = DetermineOutputFilepath(psdFile) + psdFile.Name.Replace(psdFile.Extension, "") + CONFIG.OutputExtension;
 				startInfo.Arguments = (IS_LINUX ? "" : "/C magick") + " convert \"" + psdFile.FullName + "[0]\" \"" + outputFilename + "\"";
 				statusLabel.Text = "Converting \"" + psdFile.Name + "\" via magick convert.";
 
@@ -1632,7 +1646,7 @@ namespace imgdanke
 					continue;
 				}
 
-				string tempFilename = (CONFIG.ShouldReplaceOriginals ? img.DirectoryName : CONFIG.OutputFolderPath) + "/" + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+				string tempFilename = DetermineOutputFilepath(img) + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
 				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
@@ -1682,6 +1696,29 @@ namespace imgdanke
 			}
 
 			return newImgFiles;
+		}
+
+		private static string DetermineOutputFilepath(FileInfo fileInfo)
+		{
+			if ( CONFIG.ShouldReplaceOriginals )
+			{
+				return fileInfo.DirectoryName + "/";
+			}
+
+			if ( CONFIG.ShouldIncludeSubfolders && CONFIG.ShouldMaintainFolderStructure )
+			{
+				return DetermineSubfolderPath(fileInfo) + "/";
+			}
+
+			return CONFIG.OutputFolderPath + "/";
+		}
+
+		private static string DetermineSubfolderPath(FileInfo fileInfo)
+		{
+			string outputFolderName = CONFIG.OutputFolderPath + (CONFIG.OutputFolderPath == CONFIG.SourceFolderPath ? "/_OUTPUT" : "") + fileInfo.DirectoryName?.Replace(CONFIG.SourceFolderPath, "");
+			Directory.CreateDirectory(outputFolderName);
+
+			return outputFolderName;
 		}
 
 		private static void CallPingoCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel, ProgressBar progressBar)

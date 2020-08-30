@@ -97,6 +97,7 @@
 			this.PrependToOutputLabel = new System.Windows.Forms.Label();
 			this.PrependToOutputTextBox = new System.Windows.Forms.TextBox();
 			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
+			this.MaintainFolderStructureCheckBox = new System.Windows.Forms.CheckBox();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -879,6 +880,7 @@
 			// 
 			// OutputAndSettingsSplitContainer.Panel1
 			// 
+			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.MaintainFolderStructureCheckBox);
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.DeleteOriginalsAfterCheckBox);
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.ReplaceOriginalsCheckBox);
 			this.OutputAndSettingsSplitContainer.Panel1.Controls.Add(this.SourceFolderPathLabel);
@@ -1063,6 +1065,20 @@
 			this.ProcessingProgressBar.TabIndex = 13;
 			this.ProcessingProgressBar.Visible = false;
 			// 
+			// MaintainFolderStructureCheckBox
+			// 
+			this.MaintainFolderStructureCheckBox.AutoSize = true;
+			this.MaintainFolderStructureCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.MaintainFolderStructureCheckBox.Location = new System.Drawing.Point(378, 50);
+			this.MaintainFolderStructureCheckBox.Name = "MaintainFolderStructureCheckBox";
+			this.MaintainFolderStructureCheckBox.Size = new System.Drawing.Size(169, 17);
+			this.MaintainFolderStructureCheckBox.TabIndex = 18;
+			this.MaintainFolderStructureCheckBox.Text = "Maintain Folder Structure";
+			this.MaintainFolderStructureCheckBox.UseMnemonic = false;
+			this.MaintainFolderStructureCheckBox.UseVisualStyleBackColor = false;
+			this.MaintainFolderStructureCheckBox.Visible = false;
+			this.MaintainFolderStructureCheckBox.CheckedChanged += new System.EventHandler(this.MaintainFolderStructureCheckBox_CheckedChanged);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1190,6 +1206,7 @@
 		private System.Windows.Forms.Label PreviousSizeLabel;
 		private System.Windows.Forms.CheckBox ReplaceOriginalsCheckBox;
 		private System.Windows.Forms.CheckBox DeleteOriginalsAfterCheckBox;
+		private System.Windows.Forms.CheckBox MaintainFolderStructureCheckBox;
 	}
 }
 

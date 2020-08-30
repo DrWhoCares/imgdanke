@@ -15,6 +15,7 @@ Then simply run the .exe.
      * [Output Folder Path](#output-folder-path)
      * [Delete Originals](#delete-originals)
      * [Replace Originals](#replace-originals)
+     * [Maintain Folder Structure](#maintain-folder-structure)
    * [Preset Settings](#preset-settings)
      * [No Preset](#no-preset)
      * [Custom Preset](#custom-preset)
@@ -95,6 +96,10 @@ If this is checked, the original files will be deleted after all processing is d
 ### Replace Originals
 If this is checked, the file(s) selected will be replaced with the final file, ignoring the Output Folder Path (which is shown by being disabled when checked).
 However, the original file(s) selected will not be replaced if the Output Extension differs from the original extension.
+### Maintain Folder Structure
+This will only appear if Replace Originals is *not* checked, and Include Subfolders *is* checked.
+If this is checked, the files output will appear in the Output Folder Path, while maintaining the subfolder structure (assuming you selected files within subfolders). This means that the subfolder paths will be created in the selected Output Folder Path. Should the Source Folder Path and the Output Folder Path be the same, then a new folder named `_OUTPUT` will be created. Any files selected that are *not* within a subfolder, will still end up in this new `_OUTPUT` folder, just at the root of it.
+
 ## Preset Settings
 Selecting any preset setting other than `Custom Preset` will cause the current selections to be replaced.
 Additionally, every preset will also set the following:
