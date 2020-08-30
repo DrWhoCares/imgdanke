@@ -1452,7 +1452,6 @@ namespace imgdanke
 
 		private void ApplyButton_Click(object sender, EventArgs e)
 		{
-			Stopwatch stopwatch = Stopwatch.StartNew();
 			ToggleUI(false);
 			List<FileInfo> imgFiles = FilesInSourceFolderListBox.SelectedItems.Cast<FileInfoWithSubpath>().Select(f => f.ImageInfo).ToList();
 
@@ -1460,9 +1459,11 @@ namespace imgdanke
 			{
 				StatusMessageLabel.Text = "No valid files in the folder selected.";
 				ToggleUI(true);
+				ShouldCancelProcessing = false;
 				return;
 			}
 
+			Stopwatch stopwatch = Stopwatch.StartNew();
 			long previousTotalFilesize = 0;
 			long newTotalFilesize = 0;
 			ProcessingProgressBar.Maximum = (imgFiles.Count * 2) + imgFiles.Where(f => f.Extension == ".psd").ToList().Count;
