@@ -210,7 +210,7 @@ Normalizes the colors of the images. Ensures blacks are #000000 and such. Do not
 ### Pingo Settings
 #### -pngpalette
 Uses a set number of bins, so the options provided to you are the different bits (and the resulting colors). Applies dithering, and often produces a far better result than using magick for color images with 256 colors or less. Selecting a value will allow you to select the `-sb` or `-sa` options.
-*NOTE:* As of pingo v0.99 [rc2 32], there is currently a bug in pingo once reaching the 70-74 value range, in that it produces an image with 208 colors, instead of following the pattern of increasing by 24 every 5 values. 75-79 produces 184 colors and then continues the pattern properly.
+*NOTE:* As of pingo v0.99 [rc3 16], the bug with the incorrect values has been fixed.
 <details>
   <summary>The following values are currently possible (via the GUI):</summary>
   
@@ -225,9 +225,9 @@ Uses a set number of bins, so the options provided to you are the different bits
 - `-pngpalette=49` (64c)
 - `-pngpalette=54` (88c)
 - `-pngpalette=59` (112c)
-- `-pngpalette=64` (136c)
-- `-pngpalette=69` (160c)
-- `-pngpalette=74` (208c)
+- `-pngpalette=64` (124c)
+- `-pngpalette=69` (136c)
+- `-pngpalette=74` (160c)
 - `-pngpalette=79` (184c)
 - `-pngpalette=84` (208c)
 - `-pngpalette=89` (232c)
