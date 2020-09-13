@@ -1729,6 +1729,11 @@ namespace imgdanke
 				while ( !FileOps.IsFileReady(tempFilename) )
 				{
 					Application.DoEvents();
+
+					if ( ShouldCancelProcessing )
+					{
+						return new List<FileInfo>();
+					}
 				}
 
 				FileOps.Move(tempFilename, newLocation);
