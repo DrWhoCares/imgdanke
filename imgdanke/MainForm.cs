@@ -701,6 +701,7 @@ namespace imgdanke
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = false;
+			MagickContrastStretchCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
@@ -727,6 +728,7 @@ namespace imgdanke
 			MagickDepthTextBox.Text = CONFIG.MagickDepthValue > 0 ? CONFIG.MagickDepthValue.ToString() : "";
 			MagickPosterizeTextBox.Text = CONFIG.MagickPosterizeValue > 0 ? CONFIG.MagickPosterizeValue.ToString() : "";
 			MagickNormalizeCheckBox.Checked = CONFIG.ShouldUseMagickNormalize;
+			MagickContrastStretchCheckBox.Checked = CONFIG.ShouldUseMagickContrastStretch;
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == CONFIG.PingoPNGPaletteValue.ToString());
 			PingoNoDitheringCheckBox.Checked = CONFIG.ShouldUsePingoNoDithering;
 			PingoSBRadioButton.Checked = CONFIG.PingoAdditionalChecks == PingoAdditionalChecks.sb;
@@ -759,6 +761,7 @@ namespace imgdanke
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "2";
 			MagickNormalizeCheckBox.Checked = true;
+			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
@@ -785,6 +788,7 @@ namespace imgdanke
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "16";
 			MagickNormalizeCheckBox.Checked = true;
+			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
@@ -811,6 +815,7 @@ namespace imgdanke
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = true;
+			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
@@ -837,6 +842,7 @@ namespace imgdanke
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = true;
+			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == "24");
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = false;
@@ -865,6 +871,7 @@ namespace imgdanke
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = true;
+			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = PingoPNGPaletteComboBox.Items.Count - 1;
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = true;
@@ -893,6 +900,7 @@ namespace imgdanke
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "256";
 			MagickNormalizeCheckBox.Checked = true;
+			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
@@ -919,6 +927,7 @@ namespace imgdanke
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "256";
 			MagickNormalizeCheckBox.Checked = true;
+			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoSBRadioButton.Checked = false;
@@ -1032,6 +1041,21 @@ namespace imgdanke
 			}
 
 			CONFIG.ShouldUseMagickNormalize = MagickNormalizeCheckBox.Checked;
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				MagickCommandTextBox.Text = ConstructMagickCommandString();
+			}
+		}
+
+		private void MagickContrastStretchCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if ( IsInitializing )
+			{
+				return;
+			}
+
+			CONFIG.ShouldUseMagickContrastStretch = MagickContrastStretchCheckBox.Checked;
 
 			if ( !ShouldDelayUpdatingCommands )
 			{
@@ -1330,6 +1354,11 @@ namespace imgdanke
 			if ( CONFIG.ShouldUseMagickNormalize )
 			{
 				command += "-normalize ";
+			}
+
+			if ( CONFIG.ShouldUseMagickContrastStretch )
+			{
+				command += "-contrast-stretch 0%x0% ";
 			}
 
 			command += MAGICK_COMMAND_SUFFIX;

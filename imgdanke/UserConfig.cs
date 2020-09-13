@@ -330,6 +330,18 @@ namespace imgdanke
 			}
 		}
 
+		private bool _shouldUseMagickContrastStretch;
+
+		public bool ShouldUseMagickContrastStretch
+		{
+			get => _shouldUseMagickContrastStretch;
+			set
+			{
+				_shouldUseMagickContrastStretch = value;
+				SaveConfig();
+			}
+		}
+
 		#endregion
 
 		#region pingo Settings

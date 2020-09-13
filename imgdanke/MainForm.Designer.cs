@@ -40,6 +40,7 @@
 			this.SourceFolderPathLabel = new System.Windows.Forms.Label();
 			this.OutputFolderPathLabel = new System.Windows.Forms.Label();
 			this.ImagemagickSettingsGroupBox = new System.Windows.Forms.GroupBox();
+			this.MagickContrastStretchCheckBox = new System.Windows.Forms.CheckBox();
 			this.MagickDepthTextBox = new System.Windows.Forms.TextBox();
 			this.MagickDepthLabel = new System.Windows.Forms.Label();
 			this.MagickColorsTextBox = new System.Windows.Forms.TextBox();
@@ -84,6 +85,7 @@
 			this.ProcessingCancelButton = new System.Windows.Forms.Button();
 			this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
 			this.OutputAndSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.MaintainFolderStructureCheckBox = new System.Windows.Forms.CheckBox();
 			this.DeleteOriginalsAfterCheckBox = new System.Windows.Forms.CheckBox();
 			this.ReplaceOriginalsCheckBox = new System.Windows.Forms.CheckBox();
 			this.SettingsAndFilesSplitContainer = new System.Windows.Forms.SplitContainer();
@@ -97,7 +99,6 @@
 			this.PrependToOutputLabel = new System.Windows.Forms.Label();
 			this.PrependToOutputTextBox = new System.Windows.Forms.TextBox();
 			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
-			this.MaintainFolderStructureCheckBox = new System.Windows.Forms.CheckBox();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -252,6 +253,7 @@
 			// ImagemagickSettingsGroupBox
 			// 
 			this.ImagemagickSettingsGroupBox.AutoSize = true;
+			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickContrastStretchCheckBox);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickDepthTextBox);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickDepthLabel);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickColorsTextBox);
@@ -269,6 +271,20 @@
 			this.ImagemagickSettingsGroupBox.TabIndex = 5;
 			this.ImagemagickSettingsGroupBox.TabStop = false;
 			this.ImagemagickSettingsGroupBox.Text = "Imagemagick Settings";
+			// 
+			// MagickContrastStretchCheckBox
+			// 
+			this.MagickContrastStretchCheckBox.AutoSize = true;
+			this.MagickContrastStretchCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.MagickContrastStretchCheckBox.Location = new System.Drawing.Point(2, 174);
+			this.MagickContrastStretchCheckBox.Name = "MagickContrastStretchCheckBox";
+			this.MagickContrastStretchCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.MagickContrastStretchCheckBox.Size = new System.Drawing.Size(119, 17);
+			this.MagickContrastStretchCheckBox.TabIndex = 10;
+			this.MagickContrastStretchCheckBox.Text = "contrast-stretch-";
+			this.MagickContrastStretchCheckBox.UseMnemonic = false;
+			this.MagickContrastStretchCheckBox.UseVisualStyleBackColor = false;
+			this.MagickContrastStretchCheckBox.CheckedChanged += new System.EventHandler(this.MagickContrastStretchCheckBox_CheckedChanged);
 			// 
 			// MagickDepthTextBox
 			// 
@@ -899,6 +915,20 @@
 			this.OutputAndSettingsSplitContainer.SplitterDistance = 91;
 			this.OutputAndSettingsSplitContainer.TabIndex = 10;
 			// 
+			// MaintainFolderStructureCheckBox
+			// 
+			this.MaintainFolderStructureCheckBox.AutoSize = true;
+			this.MaintainFolderStructureCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.MaintainFolderStructureCheckBox.Location = new System.Drawing.Point(378, 50);
+			this.MaintainFolderStructureCheckBox.Name = "MaintainFolderStructureCheckBox";
+			this.MaintainFolderStructureCheckBox.Size = new System.Drawing.Size(169, 17);
+			this.MaintainFolderStructureCheckBox.TabIndex = 18;
+			this.MaintainFolderStructureCheckBox.Text = "Maintain Folder Structure";
+			this.MaintainFolderStructureCheckBox.UseMnemonic = false;
+			this.MaintainFolderStructureCheckBox.UseVisualStyleBackColor = false;
+			this.MaintainFolderStructureCheckBox.Visible = false;
+			this.MaintainFolderStructureCheckBox.CheckedChanged += new System.EventHandler(this.MaintainFolderStructureCheckBox_CheckedChanged);
+			// 
 			// DeleteOriginalsAfterCheckBox
 			// 
 			this.DeleteOriginalsAfterCheckBox.AutoSize = true;
@@ -1065,20 +1095,6 @@
 			this.ProcessingProgressBar.TabIndex = 13;
 			this.ProcessingProgressBar.Visible = false;
 			// 
-			// MaintainFolderStructureCheckBox
-			// 
-			this.MaintainFolderStructureCheckBox.AutoSize = true;
-			this.MaintainFolderStructureCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.MaintainFolderStructureCheckBox.Location = new System.Drawing.Point(378, 50);
-			this.MaintainFolderStructureCheckBox.Name = "MaintainFolderStructureCheckBox";
-			this.MaintainFolderStructureCheckBox.Size = new System.Drawing.Size(169, 17);
-			this.MaintainFolderStructureCheckBox.TabIndex = 18;
-			this.MaintainFolderStructureCheckBox.Text = "Maintain Folder Structure";
-			this.MaintainFolderStructureCheckBox.UseMnemonic = false;
-			this.MaintainFolderStructureCheckBox.UseVisualStyleBackColor = false;
-			this.MaintainFolderStructureCheckBox.Visible = false;
-			this.MaintainFolderStructureCheckBox.CheckedChanged += new System.EventHandler(this.MaintainFolderStructureCheckBox_CheckedChanged);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1207,6 +1223,7 @@
 		private System.Windows.Forms.CheckBox ReplaceOriginalsCheckBox;
 		private System.Windows.Forms.CheckBox DeleteOriginalsAfterCheckBox;
 		private System.Windows.Forms.CheckBox MaintainFolderStructureCheckBox;
+		private System.Windows.Forms.CheckBox MagickContrastStretchCheckBox;
 	}
 }
 
