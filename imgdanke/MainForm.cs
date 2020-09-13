@@ -1679,6 +1679,7 @@ namespace imgdanke
 
 				bool isFromPSD = img.Name.Contains(".tmp");
 				string tempFilename;
+				string filenameAlone = img.Name.Replace(img.Extension, "");
 
 				if ( isFromPSD )
 				{
@@ -1686,7 +1687,14 @@ namespace imgdanke
 				}
 				else
 				{
-					tempFilename = DetermineOutputFilepath(img) + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+					if ( CONFIG.ShouldReplaceOriginals )
+					{
+						tempFilename = DetermineOutputFilepath(img) + filenameAlone + CONFIG.OutputExtension;
+					}
+					else
+					{
+						tempFilename = DetermineOutputFilepath(img) + prependString + filenameAlone + appendString + ".tmp" + CONFIG.OutputExtension;
+					}
 				}
 
 				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
@@ -1724,7 +1732,16 @@ namespace imgdanke
 					return new List<FileInfo>();
 				}
 
-				string newLocation = tempFilename.Replace(".tmp", "");
+				string newLocation;
+
+				if ( CONFIG.ShouldReplaceOriginals )
+				{
+					newLocation = tempFilename.Replace(filenameAlone, prependString + filenameAlone.Replace(".tmp", "") + appendString);
+				}
+				else
+				{
+					newLocation = tempFilename.Replace(".tmp", "");
+				}
 
 				while ( !FileOps.IsFileReady(tempFilename) )
 				{
