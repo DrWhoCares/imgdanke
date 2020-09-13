@@ -1557,6 +1557,7 @@ namespace imgdanke
 			OutputFolderPathButton.Enabled = isActive;
 			DeleteOriginalsAfterCheckBox.Enabled = isActive;
 			ReplaceOriginalsCheckBox.Enabled = isActive;
+			MaintainFolderStructureCheckBox.Enabled = isActive;
 			PresetSettingsGroupBox.Enabled = isActive;
 			ImagemagickSettingsGroupBox.Enabled = isActive;
 			PingoSettingsGroupBox.Enabled = isActive;
