@@ -1501,7 +1501,7 @@ namespace imgdanke
 
 			if ( !ShouldCancelProcessing && CONFIG.ShouldIncludePSDs )
 			{
-				imgFiles = ConvertAnyPSDs(imgFiles, StatusMessageLabel, ProcessingProgressBar);
+				imgFiles = ConvertAnyPSDs(imgFiles, PrependToOutputTextBox.Text, AppendToOutputTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
 			}
 
 			if ( !ShouldCancelProcessing )
@@ -1587,7 +1587,7 @@ namespace imgdanke
 			}
 		}
 
-		private static List<FileInfo> ConvertAnyPSDs(List<FileInfo> originalImgFiles, Label statusLabel, ProgressBar progressBar)
+		private static List<FileInfo> ConvertAnyPSDs(List<FileInfo> originalImgFiles, string prependString, string appendString, Label statusLabel, ProgressBar progressBar)
 		{
 			List<FileInfo> psdFiles = originalImgFiles.Where(f => f.Extension == ".psd").ToList();
 
@@ -1608,7 +1608,7 @@ namespace imgdanke
 					WorkingDirectory = CONFIG.SourceFolderPath
 				};
 
-				string outputFilename = DetermineOutputFilepath(psdFile) + psdFile.Name.Replace(psdFile.Extension, "") + CONFIG.OutputExtension;
+				string outputFilename = DetermineOutputFilepath(psdFile) + prependString + psdFile.Name.Replace(psdFile.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
 				startInfo.Arguments = (IS_LINUX ? "" : "/C magick") + " convert \"" + psdFile.FullName + "[0]\" \"" + outputFilename + "\"";
 				statusLabel.Text = "Converting \"" + psdFile.Name + "\" via magick convert.";
 
@@ -1677,7 +1677,18 @@ namespace imgdanke
 					continue;
 				}
 
-				string tempFilename = DetermineOutputFilepath(img) + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+				bool isFromPSD = img.Name.Contains(".tmp");
+				string tempFilename;
+
+				if ( isFromPSD )
+				{
+					tempFilename = img.FullName;
+				}
+				else
+				{
+					tempFilename = DetermineOutputFilepath(img) + prependString + img.Name.Replace(img.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+				}
+
 				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
