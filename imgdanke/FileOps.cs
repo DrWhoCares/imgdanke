@@ -40,6 +40,11 @@ namespace imgdanke
 
 		internal static bool Move(string origPath, string newPath, bool shouldDeleteIfExists = true)
 		{
+			if ( origPath == newPath )
+			{
+				return true; // No need to move, there is no change
+			}
+
 			if ( !File.Exists(origPath) )
 			{
 				DisplayMoveError("File to move at 'origPath' (" + origPath + ") does not exist. This should never happen.");
