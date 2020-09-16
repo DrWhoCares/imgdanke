@@ -656,6 +656,8 @@ namespace imgdanke
 			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals;
 			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals;
 			MaintainFolderStructureCheckBox.Visible = !CONFIG.ShouldReplaceOriginals && CONFIG.ShouldIncludeSubfolders;
+
+			ApplyButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void MaintainFolderStructureCheckBox_CheckedChanged(object sender, EventArgs e)
