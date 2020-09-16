@@ -482,7 +482,7 @@ namespace imgdanke
 
 		private static bool VerifyOutputFolderPathIsValid()
 		{
-			return Directory.Exists(CONFIG.OutputFolderPath);
+			return Directory.Exists(CONFIG.OutputFolderPath) || CONFIG.ShouldReplaceOriginals;
 		}
 
 		private static bool VerifyOutputExtensionIsValid()
