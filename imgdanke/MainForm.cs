@@ -500,10 +500,11 @@ namespace imgdanke
 			return !string.IsNullOrWhiteSpace(CONFIG.PingoCommandString);
 		}
 
-		private static bool VerifyReadyToApply()
+		private bool VerifyReadyToApply()
 		{
 			return VerifyOutputSettingsAreValid()
-				&& (VerifyMagickCommandIsReadyAndValid() || VerifyPingoCommandIsReadyAndValid());
+				&& (VerifyMagickCommandIsReadyAndValid() || VerifyPingoCommandIsReadyAndValid())
+				&& FilesInSourceFolderListBox.SelectedItems.Count > 0;
 		}
 
 		private static bool VerifyOutputSettingsAreValid()
@@ -590,6 +591,8 @@ namespace imgdanke
 
 		private void FilesInSourceFolderListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			ApplyButton.Enabled = VerifyReadyToApply();
+
 			if ( FilesInSourceFolderListBox.Items.Count == 0 )
 			{
 				MassFileSelectorButton.Enabled = false;
