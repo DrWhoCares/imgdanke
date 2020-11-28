@@ -1868,23 +1868,20 @@ namespace imgdanke
 					break;
 				}
 
-				if ( CONFIG.ShouldReplaceOriginals )
+				bool shouldSkipDeletion = false;
+
+				foreach ( FileInfo imgFile in imgFiles )
 				{
-					bool shouldSkipDeletion = false;
-
-					foreach ( FileInfo imgFile in imgFiles )
+					if ( origFile.FullName == imgFile.FullName )
 					{
-						if ( origFile.FullName == imgFile.FullName )
-						{
-							shouldSkipDeletion = true;
-							break;
-						}
+						shouldSkipDeletion = true;
+						break;
 					}
+				}
 
-					if ( shouldSkipDeletion )
-					{
-						continue;
-					}
+				if ( shouldSkipDeletion )
+				{
+					continue;
 				}
 
 				if ( File.Exists(origFile.FullName) && origFile.Extension != ".psd" )
