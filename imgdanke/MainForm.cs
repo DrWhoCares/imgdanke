@@ -1800,8 +1800,10 @@ namespace imgdanke
 				WorkingDirectory = CONFIG.OutputFolderPath
 			};
 
-			foreach ( FileInfo img in imgFiles )
+			for ( int imgIndex = 0; imgIndex < imgFiles.Count; ++imgIndex )
 			{
+				FileInfo img = imgFiles[imgIndex];
+
 				if ( ShouldCancelProcessing )
 				{
 					break;
@@ -1834,6 +1836,23 @@ namespace imgdanke
 						process.Close();
 						break;
 					}
+				}
+
+				if ( img.Name.Contains(".tmp") )
+				{
+					while ( !FileOps.IsFileReady(img.FullName) )
+					{
+						Application.DoEvents();
+
+						if ( ShouldCancelProcessing )
+						{
+							return;
+						}
+					}
+
+					string newFilepath = img.DirectoryName + "/" + img.Name.Replace(".tmp", "");
+					FileOps.Move(img.FullName, newFilepath);
+					imgFiles[imgIndex] = new FileInfo(newFilepath);
 				}
 
 				++progressBar.Value;
