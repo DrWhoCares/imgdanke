@@ -1558,8 +1558,8 @@ namespace imgdanke
 			PingoCommandTextBox.Enabled = isActive;
 			SourceFolderPathTextBox.Enabled = isActive;
 			SourceFolderPathButton.Enabled = isActive;
-			OutputFolderPathTextBox.Enabled = isActive;
-			OutputFolderPathButton.Enabled = isActive;
+			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals;
+			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals;
 			DeleteOriginalsAfterCheckBox.Enabled = isActive;
 			ReplaceOriginalsCheckBox.Enabled = isActive;
 			MaintainFolderStructureCheckBox.Enabled = isActive;
