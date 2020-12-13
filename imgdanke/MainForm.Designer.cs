@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.MagickCommandTextBox = new System.Windows.Forms.TextBox();
 			this.MagickCommandLabel = new System.Windows.Forms.Label();
@@ -111,6 +112,7 @@
 			this.OpenDocumentationFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.OpenDocumentationGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -152,6 +154,8 @@
 			this.MagickCommandTextBox.Name = "MagickCommandTextBox";
 			this.MagickCommandTextBox.Size = new System.Drawing.Size(1077, 20);
 			this.MagickCommandTextBox.TabIndex = 7;
+			this.MainToolTip.SetToolTip(this.MagickCommandTextBox, "The imagemagick command to be run, %1 and %2 getting replaced by the input and ou" +
+        "tput files, respectively\r\nCommand is skipped if nothing will happen");
 			this.MagickCommandTextBox.TextChanged += new System.EventHandler(this.MagickCommandTextBox_TextChanged);
 			// 
 			// MagickCommandLabel
@@ -173,6 +177,7 @@
 			this.SourceFolderPathButton.Size = new System.Drawing.Size(32, 23);
 			this.SourceFolderPathButton.TabIndex = 0;
 			this.SourceFolderPathButton.Text = "...";
+			this.MainToolTip.SetToolTip(this.SourceFolderPathButton, "Select a folder to use as the Source Folder Path");
 			this.SourceFolderPathButton.UseMnemonic = false;
 			this.SourceFolderPathButton.UseVisualStyleBackColor = true;
 			this.SourceFolderPathButton.Click += new System.EventHandler(this.SourceFolderPathButton_Click);
@@ -188,6 +193,7 @@
 			this.SourceFolderPathTextBox.Name = "SourceFolderPathTextBox";
 			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(1042, 20);
 			this.SourceFolderPathTextBox.TabIndex = 1;
+			this.MainToolTip.SetToolTip(this.SourceFolderPathTextBox, "The path to the source images");
 			this.SourceFolderPathTextBox.TextChanged += new System.EventHandler(this.SourceFolderPathTextBox_TextChanged);
 			this.SourceFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
 			this.SourceFolderPathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragEnter);
@@ -202,6 +208,7 @@
 			this.ApplyButton.Size = new System.Drawing.Size(75, 23);
 			this.ApplyButton.TabIndex = 8;
 			this.ApplyButton.Text = "Apply";
+			this.MainToolTip.SetToolTip(this.ApplyButton, "Start processing the file(s)");
 			this.ApplyButton.UseMnemonic = false;
 			this.ApplyButton.UseVisualStyleBackColor = true;
 			this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
@@ -226,6 +233,7 @@
 			this.OutputFolderPathTextBox.Name = "OutputFolderPathTextBox";
 			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(1042, 20);
 			this.OutputFolderPathTextBox.TabIndex = 3;
+			this.MainToolTip.SetToolTip(this.OutputFolderPathTextBox, "The path to where the processed images will be output");
 			this.OutputFolderPathTextBox.TextChanged += new System.EventHandler(this.OutputFolderPathTextBox_TextChanged);
 			this.OutputFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
 			this.OutputFolderPathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragEnter);
@@ -239,6 +247,7 @@
 			this.OutputFolderPathButton.Size = new System.Drawing.Size(32, 23);
 			this.OutputFolderPathButton.TabIndex = 2;
 			this.OutputFolderPathButton.Text = "...";
+			this.MainToolTip.SetToolTip(this.OutputFolderPathButton, "Select a folder to use as the Output Folder Path");
 			this.OutputFolderPathButton.UseMnemonic = false;
 			this.OutputFolderPathButton.UseVisualStyleBackColor = true;
 			this.OutputFolderPathButton.Click += new System.EventHandler(this.OutputFolderPathButton_Click);
@@ -295,6 +304,8 @@
 			this.MagickContrastStretchCheckBox.Size = new System.Drawing.Size(119, 17);
 			this.MagickContrastStretchCheckBox.TabIndex = 10;
 			this.MagickContrastStretchCheckBox.Text = "contrast-stretch-";
+			this.MainToolTip.SetToolTip(this.MagickContrastStretchCheckBox, "Similar to -normalize, this is used to help achieve #000 blacks and #FFF whites f" +
+        "or grayscale images");
 			this.MagickContrastStretchCheckBox.UseMnemonic = false;
 			this.MagickContrastStretchCheckBox.UseVisualStyleBackColor = false;
 			this.MagickContrastStretchCheckBox.CheckedChanged += new System.EventHandler(this.MagickContrastStretchCheckBox_CheckedChanged);
@@ -307,6 +318,7 @@
 			this.MagickDepthTextBox.Name = "MagickDepthTextBox";
 			this.MagickDepthTextBox.Size = new System.Drawing.Size(77, 20);
 			this.MagickDepthTextBox.TabIndex = 9;
+			this.MainToolTip.SetToolTip(this.MagickDepthTextBox, "Limits the depth to the specified amount\r\nThis is a lossy operation");
 			this.MagickDepthTextBox.TextChanged += new System.EventHandler(this.MagickDepthTextBox_TextChanged);
 			this.MagickDepthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RestrictToNumbersTextBox_KeyPress);
 			// 
@@ -328,6 +340,8 @@
 			this.MagickColorsTextBox.Name = "MagickColorsTextBox";
 			this.MagickColorsTextBox.Size = new System.Drawing.Size(75, 20);
 			this.MagickColorsTextBox.TabIndex = 7;
+			this.MainToolTip.SetToolTip(this.MagickColorsTextBox, "Reduces the number of colors to the provided amount, or less\r\nThis is a lossy ope" +
+        "ration, and -posterize often does a better job");
 			this.MagickColorsTextBox.TextChanged += new System.EventHandler(this.MagickColorsTextBox_TextChanged);
 			this.MagickColorsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RestrictToNumbersTextBox_KeyPress);
 			// 
@@ -349,6 +363,7 @@
 			this.MagickPosterizeTextBox.Name = "MagickPosterizeTextBox";
 			this.MagickPosterizeTextBox.Size = new System.Drawing.Size(58, 20);
 			this.MagickPosterizeTextBox.TabIndex = 5;
+			this.MainToolTip.SetToolTip(this.MagickPosterizeTextBox, resources.GetString("MagickPosterizeTextBox.ToolTip"));
 			this.MagickPosterizeTextBox.TextChanged += new System.EventHandler(this.MagickPosterizeTextBox_TextChanged);
 			this.MagickPosterizeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RestrictToNumbersTextBox_KeyPress);
 			// 
@@ -372,6 +387,7 @@
 			this.MagickNormalizeCheckBox.Size = new System.Drawing.Size(83, 17);
 			this.MagickNormalizeCheckBox.TabIndex = 3;
 			this.MagickNormalizeCheckBox.Text = "normalize-";
+			this.MainToolTip.SetToolTip(this.MagickNormalizeCheckBox, "Normalizes the colors, disable if you would prefer the original colors");
 			this.MagickNormalizeCheckBox.UseMnemonic = false;
 			this.MagickNormalizeCheckBox.UseVisualStyleBackColor = false;
 			this.MagickNormalizeCheckBox.CheckedChanged += new System.EventHandler(this.MagickNormalizeCheckBox_CheckedChanged);
@@ -389,6 +405,8 @@
 			this.MagickColorspaceComboBox.Name = "MagickColorspaceComboBox";
 			this.MagickColorspaceComboBox.Size = new System.Drawing.Size(123, 21);
 			this.MagickColorspaceComboBox.TabIndex = 1;
+			this.MainToolTip.SetToolTip(this.MagickColorspaceComboBox, "The colorspace to output the files as\r\n\"Gray\" for grayscale images\r\n\"sRGB\" for co" +
+        "lor images");
 			this.MagickColorspaceComboBox.SelectedIndexChanged += new System.EventHandler(this.MagickColorspaceComboBox_SelectedIndexChanged);
 			// 
 			// MagickDitherComboBox
@@ -403,6 +421,7 @@
 			this.MagickDitherComboBox.Name = "MagickDitherComboBox";
 			this.MagickDitherComboBox.Size = new System.Drawing.Size(123, 21);
 			this.MagickDitherComboBox.TabIndex = 0;
+			this.MainToolTip.SetToolTip(this.MagickDitherComboBox, "The Imagemagick -dither option to use, default is usually \"None\"");
 			this.MagickDitherComboBox.SelectedIndexChanged += new System.EventHandler(this.MagickDitherComboBox_SelectedIndexChanged);
 			// 
 			// PingoSettingsGroupBox
@@ -436,6 +455,8 @@
 			this.PingoNoDitheringCheckBox.Size = new System.Drawing.Size(93, 17);
 			this.PingoNoDitheringCheckBox.TabIndex = 16;
 			this.PingoNoDitheringCheckBox.Text = "nodithering-";
+			this.MainToolTip.SetToolTip(this.PingoNoDitheringCheckBox, "Turns off dithering if -pngpalette is used\r\nOff by default for pingo 8bpp color p" +
+        "reset\r\nOn by default for pingo 4bpp color preset");
 			this.PingoNoDitheringCheckBox.UseMnemonic = false;
 			this.PingoNoDitheringCheckBox.UseVisualStyleBackColor = false;
 			this.PingoNoDitheringCheckBox.CheckedChanged += new System.EventHandler(this.PingoNoDitheringCheckBox_CheckedChanged);
@@ -459,6 +480,8 @@
 			this.PingoPNGPaletteComboBox.Name = "PingoPNGPaletteComboBox";
 			this.PingoPNGPaletteComboBox.Size = new System.Drawing.Size(55, 21);
 			this.PingoPNGPaletteComboBox.TabIndex = 10;
+			this.MainToolTip.SetToolTip(this.PingoPNGPaletteComboBox, "Reduces the number of colors to one of the bins listed\r\nThis is a lossy operation" +
+        "");
 			this.PingoPNGPaletteComboBox.SelectedIndexChanged += new System.EventHandler(this.PingoPNGPaletteComboBox_SelectedIndexChanged);
 			// 
 			// PingoStripCheckBox
@@ -471,6 +494,8 @@
 			this.PingoStripCheckBox.Size = new System.Drawing.Size(54, 17);
 			this.PingoStripCheckBox.TabIndex = 7;
 			this.PingoStripCheckBox.Text = "strip-";
+			this.MainToolTip.SetToolTip(this.PingoStripCheckBox, "Strips metadata from the file, slightly reducing the filesize\r\nDoes not modify th" +
+        "e image at all\r\nTurn off if you want to save the metadata");
 			this.PingoStripCheckBox.UseMnemonic = false;
 			this.PingoStripCheckBox.UseVisualStyleBackColor = false;
 			this.PingoStripCheckBox.CheckedChanged += new System.EventHandler(this.PingoStripCheckBox_CheckedChanged);
@@ -487,6 +512,8 @@
 			this.PingoSARadioButton.TabIndex = 15;
 			this.PingoSARadioButton.TabStop = true;
 			this.PingoSARadioButton.Text = "sa-";
+			this.MainToolTip.SetToolTip(this.PingoSARadioButton, "Similar to -sb, this is used for higher quality dithering,\r\nbut less extensive (l" +
+        "ower quality/CPU usage) as -sb");
 			this.PingoSARadioButton.UseMnemonic = false;
 			this.PingoSARadioButton.UseVisualStyleBackColor = false;
 			this.PingoSARadioButton.CheckedChanged += new System.EventHandler(this.PingoSARadioButton_CheckedChanged);
@@ -503,6 +530,7 @@
 			this.PingoSBRadioButton.TabIndex = 14;
 			this.PingoSBRadioButton.TabStop = true;
 			this.PingoSBRadioButton.Text = "sb-";
+			this.MainToolTip.SetToolTip(this.PingoSBRadioButton, "This is used for higher quality dithering, and is better than -sa at doing so");
 			this.PingoSBRadioButton.UseMnemonic = false;
 			this.PingoSBRadioButton.UseVisualStyleBackColor = false;
 			this.PingoSBRadioButton.CheckedChanged += new System.EventHandler(this.PingoSBRadioButton_CheckedChanged);
@@ -537,6 +565,8 @@
 			this.PingoOptimizationLevelComboBox.Name = "PingoOptimizationLevelComboBox";
 			this.PingoOptimizationLevelComboBox.Size = new System.Drawing.Size(47, 21);
 			this.PingoOptimizationLevelComboBox.TabIndex = 6;
+			this.MainToolTip.SetToolTip(this.PingoOptimizationLevelComboBox, "The loseless optimization option, higher is better quality/smaller filesize, but " +
+        "more CPU/time to process");
 			this.PingoOptimizationLevelComboBox.SelectedIndexChanged += new System.EventHandler(this.PingoOptimizationLevelComboBox_SelectedIndexChanged);
 			// 
 			// PresetSettingsGroupBox
@@ -570,6 +600,8 @@
 			this.PingoFourBppColorPresetRadioButton.Size = new System.Drawing.Size(136, 17);
 			this.PingoFourBppColorPresetRadioButton.TabIndex = 15;
 			this.PingoFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, pingo)";
+			this.MainToolTip.SetToolTip(this.PingoFourBppColorPresetRadioButton, "Makes a 4bpp sRGB image with only 16 colors, using pingo\'s pngpalette with dither" +
+        "ing by default");
 			this.PingoFourBppColorPresetRadioButton.UseMnemonic = false;
 			this.PingoFourBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.PingoFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoFourBppColorPresetRadioButton_CheckedChanged);
@@ -582,6 +614,8 @@
 			this.PingoEightBppColorPresetRadioButton.Size = new System.Drawing.Size(142, 17);
 			this.PingoEightBppColorPresetRadioButton.TabIndex = 14;
 			this.PingoEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, pingo)";
+			this.MainToolTip.SetToolTip(this.PingoEightBppColorPresetRadioButton, "Makes an 8bpp sRGB image with only 256 colors, using pingo\'s pngpalette with no d" +
+        "ithering by default");
 			this.PingoEightBppColorPresetRadioButton.UseMnemonic = false;
 			this.PingoEightBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.PingoEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoEightBppColorPresetRadioButton_CheckedChanged);
@@ -594,6 +628,8 @@
 			this.CustomPresetRadioButton.Size = new System.Drawing.Size(135, 17);
 			this.CustomPresetRadioButton.TabIndex = 1;
 			this.CustomPresetRadioButton.Text = "Custom (Save Settings)";
+			this.MainToolTip.SetToolTip(this.CustomPresetRadioButton, "Whatever current settings you have will continue to be used next time you open th" +
+        "e application");
 			this.CustomPresetRadioButton.UseMnemonic = false;
 			this.CustomPresetRadioButton.UseVisualStyleBackColor = false;
 			this.CustomPresetRadioButton.CheckedChanged += new System.EventHandler(this.CustomPresetRadioButton_CheckedChanged);
@@ -606,6 +642,8 @@
 			this.MagickEightBppColorPresetRadioButton.Size = new System.Drawing.Size(150, 17);
 			this.MagickEightBppColorPresetRadioButton.TabIndex = 6;
 			this.MagickEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, magick)";
+			this.MainToolTip.SetToolTip(this.MagickEightBppColorPresetRadioButton, "Makes an 8bpp sRGB image with only 256 colors, using imagemagick\'s posterization " +
+        "with no dithering");
 			this.MagickEightBppColorPresetRadioButton.UseMnemonic = false;
 			this.MagickEightBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.MagickEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickEightBppColorPresetRadioButton_CheckedChanged);
@@ -628,6 +666,8 @@
 			this.MagickFourBppColorPresetRadioButton.Size = new System.Drawing.Size(144, 17);
 			this.MagickFourBppColorPresetRadioButton.TabIndex = 5;
 			this.MagickFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, magick)";
+			this.MainToolTip.SetToolTip(this.MagickFourBppColorPresetRadioButton, "Makes a 4bpp sRGB image with only 16 colors, using imagemagick\'s posterization wi" +
+        "th no dithering");
 			this.MagickFourBppColorPresetRadioButton.UseMnemonic = false;
 			this.MagickFourBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.MagickFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickFourBppColorPresetRadioButton_CheckedChanged);
@@ -650,6 +690,7 @@
 			this.OneBppGrayPresetRadioButton.Size = new System.Drawing.Size(98, 17);
 			this.OneBppGrayPresetRadioButton.TabIndex = 2;
 			this.OneBppGrayPresetRadioButton.Text = "1 bpp (2 colors)";
+			this.MainToolTip.SetToolTip(this.OneBppGrayPresetRadioButton, "Makes a 1bpp grayscale image with only two colors");
 			this.OneBppGrayPresetRadioButton.UseMnemonic = false;
 			this.OneBppGrayPresetRadioButton.UseVisualStyleBackColor = false;
 			this.OneBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.OneBppGrayPresetRadioButton_CheckedChanged);
@@ -664,6 +705,7 @@
 			this.NoPresetRadioButton.TabIndex = 0;
 			this.NoPresetRadioButton.TabStop = true;
 			this.NoPresetRadioButton.Text = "No Preset";
+			this.MainToolTip.SetToolTip(this.NoPresetRadioButton, "Clears all options, only leaving the basic lossless pingo optimizations");
 			this.NoPresetRadioButton.UseMnemonic = false;
 			this.NoPresetRadioButton.UseVisualStyleBackColor = false;
 			this.NoPresetRadioButton.CheckedChanged += new System.EventHandler(this.NoPresetRadioButton_CheckedChanged);
@@ -676,6 +718,7 @@
 			this.EightBppGrayPresetRadioButton.Size = new System.Drawing.Size(110, 17);
 			this.EightBppGrayPresetRadioButton.TabIndex = 4;
 			this.EightBppGrayPresetRadioButton.Text = "8 bpp (256 colors)";
+			this.MainToolTip.SetToolTip(this.EightBppGrayPresetRadioButton, "Makes an 8bpp grayscale image with only 256 colors");
 			this.EightBppGrayPresetRadioButton.UseMnemonic = false;
 			this.EightBppGrayPresetRadioButton.UseVisualStyleBackColor = false;
 			this.EightBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.EightBppGrayPresetRadioButton_CheckedChanged);
@@ -688,6 +731,7 @@
 			this.FourBppGrayPresetRadioButton.Size = new System.Drawing.Size(104, 17);
 			this.FourBppGrayPresetRadioButton.TabIndex = 3;
 			this.FourBppGrayPresetRadioButton.Text = "4 bpp (16 colors)";
+			this.MainToolTip.SetToolTip(this.FourBppGrayPresetRadioButton, "Makes a 4bpp grayscale image with only 16 colors");
 			this.FourBppGrayPresetRadioButton.UseMnemonic = false;
 			this.FourBppGrayPresetRadioButton.UseVisualStyleBackColor = false;
 			this.FourBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.FourBppGrayPresetRadioButton_CheckedChanged);
@@ -743,6 +787,7 @@
 			this.IncludePSDsCheckBox.Size = new System.Drawing.Size(86, 17);
 			this.IncludePSDsCheckBox.TabIndex = 15;
 			this.IncludePSDsCheckBox.Text = "Incl. PSDs";
+			this.MainToolTip.SetToolTip(this.IncludePSDsCheckBox, resources.GetString("IncludePSDsCheckBox.ToolTip"));
 			this.IncludePSDsCheckBox.UseMnemonic = false;
 			this.IncludePSDsCheckBox.UseVisualStyleBackColor = false;
 			this.IncludePSDsCheckBox.CheckedChanged += new System.EventHandler(this.IncludePSDsCheckBox_CheckedChanged);
@@ -757,6 +802,7 @@
 			this.IncludeSubfoldersCheckBox.Size = new System.Drawing.Size(115, 17);
 			this.IncludeSubfoldersCheckBox.TabIndex = 14;
 			this.IncludeSubfoldersCheckBox.Text = "Incl. Subfolders";
+			this.MainToolTip.SetToolTip(this.IncludeSubfoldersCheckBox, "Toggles searching through subfolders in the Source Folder Path for files");
 			this.IncludeSubfoldersCheckBox.UseMnemonic = false;
 			this.IncludeSubfoldersCheckBox.UseVisualStyleBackColor = false;
 			this.IncludeSubfoldersCheckBox.CheckedChanged += new System.EventHandler(this.IncludeSubfoldersCheckBox_CheckedChanged);
@@ -771,6 +817,7 @@
 			this.MassFileSelectorButton.Size = new System.Drawing.Size(71, 23);
 			this.MassFileSelectorButton.TabIndex = 12;
 			this.MassFileSelectorButton.Text = "Select All";
+			this.MainToolTip.SetToolTip(this.MassFileSelectorButton, "Select all (or unselect all) files in the Files in Source Folder file list");
 			this.MassFileSelectorButton.UseMnemonic = false;
 			this.MassFileSelectorButton.UseVisualStyleBackColor = true;
 			this.MassFileSelectorButton.Click += new System.EventHandler(this.MassFileSelectorButton_Click);
@@ -794,6 +841,7 @@
 			this.RefreshFileListButton.Size = new System.Drawing.Size(73, 23);
 			this.RefreshFileListButton.TabIndex = 13;
 			this.RefreshFileListButton.Text = "Refresh List";
+			this.MainToolTip.SetToolTip(this.RefreshFileListButton, "Refresh the Files In Source Folder file list");
 			this.RefreshFileListButton.UseMnemonic = false;
 			this.RefreshFileListButton.UseVisualStyleBackColor = true;
 			this.RefreshFileListButton.Click += new System.EventHandler(this.RefreshFileListButton_Click);
@@ -806,6 +854,7 @@
 			this.OutputExtensionTextBox.Name = "OutputExtensionTextBox";
 			this.OutputExtensionTextBox.Size = new System.Drawing.Size(34, 20);
 			this.OutputExtensionTextBox.TabIndex = 10;
+			this.MainToolTip.SetToolTip(this.OutputExtensionTextBox, "The output file\'s extension, requires a period at the beginning");
 			this.OutputExtensionTextBox.TextChanged += new System.EventHandler(this.OutputExtensionTextBox_TextChanged);
 			// 
 			// FilesInSourceFolderListBox
@@ -844,6 +893,8 @@
 			this.PingoCommandTextBox.Name = "PingoCommandTextBox";
 			this.PingoCommandTextBox.Size = new System.Drawing.Size(1077, 20);
 			this.PingoCommandTextBox.TabIndex = 11;
+			this.MainToolTip.SetToolTip(this.PingoCommandTextBox, "The pingo command to be run, %1 gets replaced by the input file, as pingo only mo" +
+        "difies in-place\r\nCommand will be skipped if textbox is empty\r\n");
 			this.PingoCommandTextBox.TextChanged += new System.EventHandler(this.PingoCommandTextBox_TextChanged);
 			// 
 			// ProcessingCancelButton
@@ -856,6 +907,8 @@
 			this.ProcessingCancelButton.Size = new System.Drawing.Size(75, 23);
 			this.ProcessingCancelButton.TabIndex = 12;
 			this.ProcessingCancelButton.Text = "Cancel";
+			this.MainToolTip.SetToolTip(this.ProcessingCancelButton, "Cancel processing the file(s), may mean that your files will be in an unfinished " +
+        "state");
 			this.ProcessingCancelButton.UseMnemonic = false;
 			this.ProcessingCancelButton.UseVisualStyleBackColor = true;
 			this.ProcessingCancelButton.Visible = false;
@@ -937,6 +990,9 @@
 			this.MaintainFolderStructureCheckBox.Size = new System.Drawing.Size(169, 17);
 			this.MaintainFolderStructureCheckBox.TabIndex = 18;
 			this.MaintainFolderStructureCheckBox.Text = "Maintain Folder Structure";
+			this.MainToolTip.SetToolTip(this.MaintainFolderStructureCheckBox, "If using Include Subfolders, and your Output Folder Path is different from your S" +
+        "ource Folder Path,\r\nthen re-creates the same folder setup at the Output Folder P" +
+        "ath");
 			this.MaintainFolderStructureCheckBox.UseMnemonic = false;
 			this.MaintainFolderStructureCheckBox.UseVisualStyleBackColor = false;
 			this.MaintainFolderStructureCheckBox.Visible = false;
@@ -951,6 +1007,8 @@
 			this.DeleteOriginalsAfterCheckBox.Size = new System.Drawing.Size(222, 17);
 			this.DeleteOriginalsAfterCheckBox.TabIndex = 17;
 			this.DeleteOriginalsAfterCheckBox.Text = "Delete Original(s) After (Not PSDs)";
+			this.MainToolTip.SetToolTip(this.DeleteOriginalsAfterCheckBox, "Deletes the original files after processing, unless those files are being modifie" +
+        "d in-place, never deletes PSDs");
 			this.DeleteOriginalsAfterCheckBox.UseMnemonic = false;
 			this.DeleteOriginalsAfterCheckBox.UseVisualStyleBackColor = false;
 			this.DeleteOriginalsAfterCheckBox.CheckedChanged += new System.EventHandler(this.DeleteOriginalsAfterCheckBox_CheckedChanged);
@@ -964,6 +1022,8 @@
 			this.ReplaceOriginalsCheckBox.Size = new System.Drawing.Size(201, 17);
 			this.ReplaceOriginalsCheckBox.TabIndex = 16;
 			this.ReplaceOriginalsCheckBox.Text = "Replace Original(s) (Not PSDs)";
+			this.MainToolTip.SetToolTip(this.ReplaceOriginalsCheckBox, "Replaces the original images, modifying them in-place. Deletes originals if filen" +
+        "ame or type is changing, never deletes PSDs");
 			this.ReplaceOriginalsCheckBox.UseMnemonic = false;
 			this.ReplaceOriginalsCheckBox.UseVisualStyleBackColor = false;
 			this.ReplaceOriginalsCheckBox.CheckedChanged += new System.EventHandler(this.ReplaceOriginalsCheckBox_CheckedChanged);
@@ -1077,6 +1137,7 @@
 			this.AppendToOutputTextBox.Name = "AppendToOutputTextBox";
 			this.AppendToOutputTextBox.Size = new System.Drawing.Size(67, 20);
 			this.AppendToOutputTextBox.TabIndex = 17;
+			this.MainToolTip.SetToolTip(this.AppendToOutputTextBox, "String to be appended to the front of the existing filename");
 			this.AppendToOutputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToFilePermittedChars_KeyPress);
 			// 
 			// PrependToOutputLabel
@@ -1097,6 +1158,7 @@
 			this.PrependToOutputTextBox.Name = "PrependToOutputTextBox";
 			this.PrependToOutputTextBox.Size = new System.Drawing.Size(67, 20);
 			this.PrependToOutputTextBox.TabIndex = 15;
+			this.MainToolTip.SetToolTip(this.PrependToOutputTextBox, "String to be prepended to the front of the existing filename");
 			this.PrependToOutputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToFilePermittedChars_KeyPress);
 			// 
 			// ProcessingProgressBar
@@ -1206,6 +1268,11 @@
 			this.AboutToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
 			this.AboutToolStripMenuItem.Text = "About";
 			this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
+			// 
+			// MainToolTip
+			// 
+			this.MainToolTip.BackColor = System.Drawing.SystemColors.GrayText;
+			this.MainToolTip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			// 
 			// MainForm
 			// 
@@ -1353,6 +1420,7 @@
 		private System.Windows.Forms.ToolStripMenuItem OpenDocumentationFromFileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem OpenDocumentationGitHubToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
+		private System.Windows.Forms.ToolTip MainToolTip;
 	}
 }
 
