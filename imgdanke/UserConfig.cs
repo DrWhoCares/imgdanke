@@ -6,7 +6,7 @@ namespace imgdanke
 {
 	internal class UserConfig
 	{
-		private const string CONFIG_FILENAME = "imgdanke_UserConfig.json";
+		public const string CONFIG_FILENAME = "imgdanke_UserConfig.json";
 
 		#region Functions
 		public static UserConfig LoadConfig()
@@ -41,7 +41,7 @@ namespace imgdanke
 			_pingoOptimizeLevel ??= "";
 		}
 
-		private void SaveConfig()
+		public void SaveConfig()
 		{
 			File.WriteAllText(CONFIG_FILENAME, JsonConvert.SerializeObject(this));
 		}

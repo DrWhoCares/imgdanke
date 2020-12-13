@@ -99,6 +99,18 @@
 			this.PrependToOutputLabel = new System.Windows.Forms.Label();
 			this.PrependToOutputTextBox = new System.Windows.Forms.TextBox();
 			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
+			this.OptionsMenuStrip = new System.Windows.Forms.MenuStrip();
+			this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.OpenUserConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.SaveCurrentSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.HelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.GitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.OpenDocumentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.OpenDocumentationFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.OpenDocumentationGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -127,6 +139,7 @@
 			this.MagickAndPingoSplitContainer.Panel1.SuspendLayout();
 			this.MagickAndPingoSplitContainer.Panel2.SuspendLayout();
 			this.MagickAndPingoSplitContainer.SuspendLayout();
+			this.OptionsMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MagickCommandTextBox
@@ -137,7 +150,7 @@
 			this.MagickCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.MagickCommandTextBox.Location = new System.Drawing.Point(6, 30);
 			this.MagickCommandTextBox.Name = "MagickCommandTextBox";
-			this.MagickCommandTextBox.Size = new System.Drawing.Size(951, 20);
+			this.MagickCommandTextBox.Size = new System.Drawing.Size(1077, 20);
 			this.MagickCommandTextBox.TabIndex = 7;
 			this.MagickCommandTextBox.TextChanged += new System.EventHandler(this.MagickCommandTextBox_TextChanged);
 			// 
@@ -173,7 +186,7 @@
 			this.SourceFolderPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.SourceFolderPathTextBox.Location = new System.Drawing.Point(40, 23);
 			this.SourceFolderPathTextBox.Name = "SourceFolderPathTextBox";
-			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(916, 20);
+			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(1042, 20);
 			this.SourceFolderPathTextBox.TabIndex = 1;
 			this.SourceFolderPathTextBox.TextChanged += new System.EventHandler(this.SourceFolderPathTextBox_TextChanged);
 			this.SourceFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
@@ -211,7 +224,7 @@
 			this.OutputFolderPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.OutputFolderPathTextBox.Location = new System.Drawing.Point(40, 71);
 			this.OutputFolderPathTextBox.Name = "OutputFolderPathTextBox";
-			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(916, 20);
+			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(1042, 20);
 			this.OutputFolderPathTextBox.TabIndex = 3;
 			this.OutputFolderPathTextBox.TextChanged += new System.EventHandler(this.OutputFolderPathTextBox_TextChanged);
 			this.OutputFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
@@ -829,7 +842,7 @@
 			this.PingoCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.PingoCommandTextBox.Location = new System.Drawing.Point(6, 76);
 			this.PingoCommandTextBox.Name = "PingoCommandTextBox";
-			this.PingoCommandTextBox.Size = new System.Drawing.Size(951, 20);
+			this.PingoCommandTextBox.Size = new System.Drawing.Size(1077, 20);
 			this.PingoCommandTextBox.TabIndex = 11;
 			this.PingoCommandTextBox.TextChanged += new System.EventHandler(this.PingoCommandTextBox_TextChanged);
 			// 
@@ -854,7 +867,7 @@
 			this.MainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.MainSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
 			this.MainSplitContainer.IsSplitterFixed = true;
-			this.MainSplitContainer.Location = new System.Drawing.Point(0, 0);
+			this.MainSplitContainer.Location = new System.Drawing.Point(0, 24);
 			this.MainSplitContainer.Name = "MainSplitContainer";
 			this.MainSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
 			// 
@@ -881,7 +894,7 @@
 			this.MainSplitContainer.Panel2.Controls.Add(this.PingoCommandTextBox);
 			this.MainSplitContainer.Panel2.Controls.Add(this.StatusMessageLabel);
 			this.MainSplitContainer.Panel2MinSize = 168;
-			this.MainSplitContainer.Size = new System.Drawing.Size(966, 518);
+			this.MainSplitContainer.Size = new System.Drawing.Size(966, 527);
 			this.MainSplitContainer.SplitterDistance = 346;
 			this.MainSplitContainer.TabIndex = 13;
 			// 
@@ -1095,15 +1108,116 @@
 			this.ProcessingProgressBar.TabIndex = 13;
 			this.ProcessingProgressBar.Visible = false;
 			// 
+			// OptionsMenuStrip
+			// 
+			this.OptionsMenuStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.OptionsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileToolStripMenuItem,
+            this.PreferencesToolStripMenuItem,
+            this.HelpToolStripMenuItem});
+			this.OptionsMenuStrip.Location = new System.Drawing.Point(0, 0);
+			this.OptionsMenuStrip.Name = "OptionsMenuStrip";
+			this.OptionsMenuStrip.Padding = new System.Windows.Forms.Padding(2, 2, 0, 2);
+			this.OptionsMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			this.OptionsMenuStrip.Size = new System.Drawing.Size(966, 24);
+			this.OptionsMenuStrip.TabIndex = 14;
+			// 
+			// FileToolStripMenuItem
+			// 
+			this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OpenUserConfigToolStripMenuItem,
+            this.SaveCurrentSettingsToolStripMenuItem,
+            this.CloseToolStripMenuItem});
+			this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+			this.FileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+			this.FileToolStripMenuItem.Text = "File";
+			// 
+			// OpenUserConfigToolStripMenuItem
+			// 
+			this.OpenUserConfigToolStripMenuItem.Name = "OpenUserConfigToolStripMenuItem";
+			this.OpenUserConfigToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.OpenUserConfigToolStripMenuItem.Text = "Open User Config";
+			this.OpenUserConfigToolStripMenuItem.Click += new System.EventHandler(this.OpenUserConfigToolStripMenuItem_Click);
+			// 
+			// SaveCurrentSettingsToolStripMenuItem
+			// 
+			this.SaveCurrentSettingsToolStripMenuItem.Name = "SaveCurrentSettingsToolStripMenuItem";
+			this.SaveCurrentSettingsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.SaveCurrentSettingsToolStripMenuItem.Text = "Save Current Settings";
+			this.SaveCurrentSettingsToolStripMenuItem.Click += new System.EventHandler(this.SaveCurrentSettingsToolStripMenuItem_Click);
+			// 
+			// CloseToolStripMenuItem
+			// 
+			this.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem";
+			this.CloseToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.CloseToolStripMenuItem.Text = "Exit";
+			this.CloseToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
+			// 
+			// PreferencesToolStripMenuItem
+			// 
+			this.PreferencesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
+			this.PreferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+			this.PreferencesToolStripMenuItem.Text = "Preferences";
+			// 
+			// HelpToolStripMenuItem
+			// 
+			this.HelpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GitHubToolStripMenuItem,
+            this.OpenDocumentationToolStripMenuItem,
+            this.AboutToolStripMenuItem});
+			this.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem";
+			this.HelpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.HelpToolStripMenuItem.Text = "Help";
+			// 
+			// GitHubToolStripMenuItem
+			// 
+			this.GitHubToolStripMenuItem.Name = "GitHubToolStripMenuItem";
+			this.GitHubToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+			this.GitHubToolStripMenuItem.Text = "GitHub";
+			this.GitHubToolStripMenuItem.Click += new System.EventHandler(this.GitHubToolStripMenuItem_Click);
+			// 
+			// OpenDocumentationToolStripMenuItem
+			// 
+			this.OpenDocumentationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OpenDocumentationFromFileToolStripMenuItem,
+            this.OpenDocumentationGitHubToolStripMenuItem});
+			this.OpenDocumentationToolStripMenuItem.Name = "OpenDocumentationToolStripMenuItem";
+			this.OpenDocumentationToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+			this.OpenDocumentationToolStripMenuItem.Text = "Open Documentation";
+			// 
+			// OpenDocumentationFromFileToolStripMenuItem
+			// 
+			this.OpenDocumentationFromFileToolStripMenuItem.Name = "OpenDocumentationFromFileToolStripMenuItem";
+			this.OpenDocumentationFromFileToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.OpenDocumentationFromFileToolStripMenuItem.Text = "From File";
+			this.OpenDocumentationFromFileToolStripMenuItem.Click += new System.EventHandler(this.OpenDocumentationFromFileToolStripMenuItem_Click);
+			// 
+			// OpenDocumentationGitHubToolStripMenuItem
+			// 
+			this.OpenDocumentationGitHubToolStripMenuItem.Name = "OpenDocumentationGitHubToolStripMenuItem";
+			this.OpenDocumentationGitHubToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.OpenDocumentationGitHubToolStripMenuItem.Text = "GitHub";
+			this.OpenDocumentationGitHubToolStripMenuItem.Click += new System.EventHandler(this.OpenDocumentationGitHubToolStripMenuItem_Click);
+			// 
+			// AboutToolStripMenuItem
+			// 
+			this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
+			this.AboutToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+			this.AboutToolStripMenuItem.Text = "About";
+			this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
-			this.ClientSize = new System.Drawing.Size(966, 518);
+			this.ClientSize = new System.Drawing.Size(966, 551);
 			this.Controls.Add(this.MainSplitContainer);
+			this.Controls.Add(this.OptionsMenuStrip);
 			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(982, 557);
+			this.MainMenuStrip = this.OptionsMenuStrip;
+			this.MinimumSize = new System.Drawing.Size(982, 590);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "imgdanke";
@@ -1148,7 +1262,10 @@
 			this.MagickAndPingoSplitContainer.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.MagickAndPingoSplitContainer)).EndInit();
 			this.MagickAndPingoSplitContainer.ResumeLayout(false);
+			this.OptionsMenuStrip.ResumeLayout(false);
+			this.OptionsMenuStrip.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -1224,6 +1341,18 @@
 		private System.Windows.Forms.CheckBox DeleteOriginalsAfterCheckBox;
 		private System.Windows.Forms.CheckBox MaintainFolderStructureCheckBox;
 		private System.Windows.Forms.CheckBox MagickContrastStretchCheckBox;
+		private System.Windows.Forms.MenuStrip OptionsMenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem PreferencesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem OpenUserConfigToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem SaveCurrentSettingsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem HelpToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem GitHubToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem OpenDocumentationToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem OpenDocumentationFromFileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem OpenDocumentationGitHubToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
 	}
 }
 

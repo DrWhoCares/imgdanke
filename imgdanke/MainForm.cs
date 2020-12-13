@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Onova;
 using Onova.Services;
+using Exception = System.Exception;
 
 namespace imgdanke
 {
@@ -21,6 +22,10 @@ namespace imgdanke
 		private static readonly string PINGO_FILENAME = IS_LINUX ? "pingo" : "pingo.exe";
 		private static readonly UserConfig CONFIG = UserConfig.LoadConfig();
 		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
+		private static readonly Color MENU_COLOR_OPTION = Color.FromArgb(216, 216, 216);
+		private static readonly Color MENU_COLOR_OPTION_HIGHLIGHTED = Color.FromArgb(100, 100, 100);
+		private static readonly Color COLOR_BACKGROUND = Color.FromArgb(55, 55, 55);
+		//private static readonly Color COLOR_FOREGROUND = Color.FromArgb(216, 216, 216);
 
 		private static readonly BindingList<KeyValuePair<string, string>> PNG_PALETTE_ITEMS = new BindingList<KeyValuePair<string, string>>
 		{
@@ -84,6 +89,7 @@ namespace imgdanke
 		public MainForm(IReadOnlyList<string> args)
 		{
 			InitializeComponent();
+			OptionsMenuStrip.Renderer = new DarkContextMenuRenderer();
 			IsInitializing = true;
 			InitializeWindowSettings();
 			InitializeWithCommandLineArgs(args);
@@ -1644,6 +1650,12 @@ namespace imgdanke
 
 				if ( ShouldCancelProcessing )
 				{
+					if ( !process.HasExited )
+					{
+						process.Kill();
+						process.WaitForExit(3000);
+					}
+
 					return new List<FileInfo>();
 				}
 
@@ -1734,6 +1746,12 @@ namespace imgdanke
 
 				if ( ShouldCancelProcessing )
 				{
+					if ( !process.HasExited )
+					{
+						process.Kill();
+						process.WaitForExit(3000);
+					}
+
 					return new List<FileInfo>();
 				}
 
@@ -1754,6 +1772,12 @@ namespace imgdanke
 
 					if ( ShouldCancelProcessing )
 					{
+						if ( !process.HasExited )
+						{
+							process.Kill();
+							process.WaitForExit(3000);
+						}
+
 						return new List<FileInfo>();
 					}
 				}
@@ -1846,6 +1870,12 @@ namespace imgdanke
 
 						if ( ShouldCancelProcessing )
 						{
+							if ( !process.HasExited )
+							{
+								process.Kill();
+								process.WaitForExit(3000);
+							}
+
 							return;
 						}
 					}
@@ -1949,6 +1979,185 @@ namespace imgdanke
 
 		#endregion
 
+		#region DarkRenderer
+
+		private class DarkContextMenuRenderer : ToolStripProfessionalRenderer
+		{
+			public DarkContextMenuRenderer() : base(new DarkContextMenuColors())
+			{
+			}
+
+			protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
+			{
+				Rectangle rect = new Rectangle(Point.Empty, e.Item.Size);
+				using SolidBrush brush = new SolidBrush(COLOR_BACKGROUND);
+				e.Graphics.FillRectangle(brush, rect);
+			}
+
+			protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
+			{
+				Rectangle rect = new Rectangle(Point.Empty, e.Item.Size);
+				Color color = e.Item.Selected ? MENU_COLOR_OPTION_HIGHLIGHTED : MENU_COLOR_OPTION;
+
+				using SolidBrush brush = new SolidBrush(color);
+				e.Graphics.FillRectangle(brush, rect);
+			}
+		}
+
+		private class DarkContextMenuColors : ProfessionalColorTable
+		{
+			//public override Color ButtonCheckedGradientBegin => COLOR_FOREGROUND;
+			//public override Color ButtonCheckedGradientEnd => COLOR_FOREGROUND;
+			//public override Color ButtonCheckedGradientMiddle => COLOR_FOREGROUND;
+			//public override Color ButtonCheckedHighlight => COLOR_FOREGROUND;
+			//public override Color ButtonCheckedHighlightBorder => COLOR_FOREGROUND;
+			//public override Color ButtonPressedBorder => COLOR_FOREGROUND;
+			//public override Color ButtonPressedGradientBegin => COLOR_FOREGROUND;
+			//public override Color ButtonPressedGradientEnd => COLOR_FOREGROUND;
+			//public override Color ButtonPressedGradientMiddle => COLOR_FOREGROUND;
+			//public override Color ButtonPressedHighlight => COLOR_FOREGROUND;
+			//public override Color ButtonPressedHighlightBorder => COLOR_FOREGROUND;
+			//public override Color ButtonSelectedGradientBegin => COLOR_FOREGROUND;
+			//public override Color ButtonSelectedGradientEnd => COLOR_FOREGROUND;
+			//public override Color ButtonSelectedGradientMiddle => COLOR_FOREGROUND;
+			//public override Color ButtonSelectedHighlight => COLOR_FOREGROUND;
+			//public override Color ButtonSelectedHighlightBorder => COLOR_FOREGROUND;
+			//public override Color CheckBackground => COLOR_FOREGROUND;
+			//public override Color CheckPressedBackground => COLOR_FOREGROUND;
+			//public override Color CheckSelectedBackground => COLOR_FOREGROUND;
+			//public override Color GripDark => COLOR_FOREGROUND;
+			//public override Color GripLight => COLOR_FOREGROUND;
+			public override Color ImageMarginGradientBegin => COLOR_BACKGROUND;
+			public override Color ImageMarginGradientEnd => COLOR_BACKGROUND;
+			public override Color ImageMarginGradientMiddle => COLOR_BACKGROUND;
+			public override Color MenuBorder => COLOR_BACKGROUND;
+			//public override Color MenuItemPressedGradientBegin => COLOR_FOREGROUND;
+			//public override Color MenuItemPressedGradientEnd => COLOR_FOREGROUND;
+			//public override Color MenuItemPressedGradientMiddle => COLOR_FOREGROUND;
+			//public override Color MenuItemSelected => COLOR_FOREGROUND;
+			//public override Color MenuItemSelectedGradientBegin => COLOR_FOREGROUND;
+			//public override Color MenuItemSelectedGradientEnd => COLOR_FOREGROUND;
+			public override Color MenuStripGradientBegin => COLOR_BACKGROUND;
+			public override Color MenuStripGradientEnd => COLOR_BACKGROUND;
+			//public override Color OverflowButtonGradientBegin => COLOR_FOREGROUND;
+			//public override Color OverflowButtonGradientEnd => COLOR_FOREGROUND;
+			//public override Color OverflowButtonGradientMiddle => COLOR_FOREGROUND;
+			//public override Color RaftingContainerGradientBegin => COLOR_FOREGROUND;
+			//public override Color RaftingContainerGradientEnd => COLOR_FOREGROUND;
+			public override Color SeparatorDark => COLOR_BACKGROUND;
+			public override Color SeparatorLight => COLOR_BACKGROUND;
+			//public override Color StatusStripGradientBegin => COLOR_FOREGROUND;
+			//public override Color StatusStripGradientEnd => COLOR_FOREGROUND;
+			public override Color ToolStripBorder => COLOR_BACKGROUND;
+			//public override Color ToolStripContentPanelGradientBegin => COLOR_FOREGROUND;
+			//public override Color ToolStripContentPanelGradientEnd => COLOR_FOREGROUND;
+			public override Color ToolStripDropDownBackground => MENU_COLOR_OPTION_HIGHLIGHTED;
+			//public override Color ToolStripGradientBegin => COLOR_FOREGROUND;
+			//public override Color ToolStripGradientEnd => COLOR_FOREGROUND;
+			//public override Color ToolStripGradientMiddle => COLOR_FOREGROUND;
+			//public override Color ToolStripPanelGradientBegin => COLOR_FOREGROUND;
+			//public override Color ToolStripPanelGradientEnd => COLOR_FOREGROUND;
+		}
+
+
+		#endregion
+
+		#region MenuUI
+
+		#region FileTabUI
+
+		private void OpenUserConfigToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			string localPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			localPath ??= "";
+
+			if ( string.IsNullOrEmpty(localPath) )
+			{
+				return;
+			}
+
+			localPath = Path.Combine(localPath, UserConfig.CONFIG_FILENAME);
+
+			try
+			{
+				using Process process = Process.Start(localPath);
+			}
+			catch ( Exception ex )
+			{
+				MessageBox.Show("Unable to open the file at `" + localPath + "`. Exception thrown:\n\n`" + ex.Message + "`",
+					"Cannot open " + UserConfig.CONFIG_FILENAME,
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation);
+			}
+		}
+
+		private void SaveCurrentSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			CONFIG.SaveConfig();
+		}
+
+		private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ShouldCancelProcessing = true;
+			Application.Exit();
+		}
+
+		#endregion
+
+		#region PreferencesTabUI
+
+
+
+		#endregion
+
+		#region HelpTabUI
+
+		private void GitHubToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using Process process = Process.Start("https://github.com/DrWhoCares/imgdanke");
+		}
+
+		private void OpenDocumentationFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			string localPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			localPath ??= "";
+
+			if ( string.IsNullOrEmpty(localPath) )
+			{
+				return;
+			}
+
+			localPath = Path.Combine(localPath, "README.md");
+
+			try
+			{
+				using Process process = Process.Start(localPath);
+			}
+			catch ( Exception ex )
+			{
+				MessageBox.Show("Unable to open the file at `" + localPath + "`. Exception thrown:\n\n`" + ex.Message + "`",
+					"Cannot open README.md",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation);
+			}
+		}
+
+		private void OpenDocumentationGitHubToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using Process process = Process.Start("https://github.com/DrWhoCares/imgdanke/blob/master/README.md");
+		}
+
+		private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("v" + typeof(MainForm).Assembly.GetName().Version + "\n- Created by DrWhoCares",
+				"About imgdanke",
+				MessageBoxButtons.OK);
+		}
+
+		#endregion
+
+		#endregion
+
 	}
 
 	internal readonly struct FileInfoWithSubpath
@@ -1987,5 +2196,4 @@ namespace imgdanke
 			return new List<FileInfo> { lhs.ImageInfo, rhs.ImageInfo }.OrderByAlphaNumeric(GetFileName).First() == lhs.ImageInfo ? -1 : 1;
 		}
 	}
-
 }
