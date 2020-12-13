@@ -592,12 +592,12 @@ namespace imgdanke
 		{
 			CONFIG.SourceFolderPath = SourceFolderPathTextBox.Text;
 			BuildFilesInSourceFolderList();
-			ApplyButton.Enabled = VerifyReadyToApply();
+			StartButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void FilesInSourceFolderListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			ApplyButton.Enabled = VerifyReadyToApply();
+			StartButton.Enabled = VerifyReadyToApply();
 
 			if ( FilesInSourceFolderListBox.Items.Count == 0 )
 			{
@@ -623,7 +623,7 @@ namespace imgdanke
 		private void OutputFolderPathTextBox_TextChanged(object sender, EventArgs e)
 		{
 			CONFIG.OutputFolderPath = OutputFolderPathTextBox.Text;
-			ApplyButton.Enabled = VerifyReadyToApply();
+			StartButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void PathTextBox_DragEnter(object sender, DragEventArgs e)
@@ -663,7 +663,7 @@ namespace imgdanke
 			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals;
 			MaintainFolderStructureCheckBox.Visible = !CONFIG.ShouldReplaceOriginals && CONFIG.ShouldIncludeSubfolders;
 
-			ApplyButton.Enabled = VerifyReadyToApply();
+			StartButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void MaintainFolderStructureCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -1226,7 +1226,7 @@ namespace imgdanke
 		private void OutputExtensionTextBox_TextChanged(object sender, EventArgs e)
 		{
 			CONFIG.OutputExtension = OutputExtensionTextBox.Text;
-			ApplyButton.Enabled = VerifyReadyToApply();
+			StartButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void IncludeSubfoldersCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -1470,13 +1470,13 @@ namespace imgdanke
 		private void MagickCommandTextBox_TextChanged(object sender, EventArgs e)
 		{
 			CONFIG.MagickCommandString = string.IsNullOrWhiteSpace(MagickCommandTextBox.Text) ? "" : MagickCommandTextBox.Text;
-			ApplyButton.Enabled = VerifyReadyToApply();
+			StartButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void PingoCommandTextBox_TextChanged(object sender, EventArgs e)
 		{
 			CONFIG.PingoCommandString = string.IsNullOrWhiteSpace(PingoCommandTextBox.Text) ? "" : PingoCommandTextBox.Text;
-			ApplyButton.Enabled = VerifyReadyToApply();
+			StartButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void ProcessingCancelButton_Click(object sender, EventArgs e)
@@ -1490,7 +1490,7 @@ namespace imgdanke
 
 		#region Processing
 
-		private void ApplyButton_Click(object sender, EventArgs e)
+		private void StartButton_Click(object sender, EventArgs e)
 		{
 			ToggleUI(false);
 			List<FileInfo> imgFiles = FilesInSourceFolderListBox.SelectedItems.Cast<FileInfoWithSubpath>().Select(f => f.ImageInfo).ToList();
@@ -1573,7 +1573,7 @@ namespace imgdanke
 			ImagemagickSettingsGroupBox.Enabled = isActive;
 			PingoSettingsGroupBox.Enabled = isActive;
 			FilesInSourceFolderGroupBox.Enabled = isActive;
-			ApplyButton.Enabled = isActive;
+			StartButton.Enabled = isActive;
 			FilesInSourceFolderListBox.Enabled = isActive;
 			MassFileSelectorButton.Enabled = isActive;
 			RefreshFileListButton.Enabled = isActive;

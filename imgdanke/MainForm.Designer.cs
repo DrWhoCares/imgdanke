@@ -34,7 +34,7 @@
 			this.MagickCommandLabel = new System.Windows.Forms.Label();
 			this.SourceFolderPathButton = new System.Windows.Forms.Button();
 			this.SourceFolderPathTextBox = new System.Windows.Forms.TextBox();
-			this.ApplyButton = new System.Windows.Forms.Button();
+			this.StartButton = new System.Windows.Forms.Button();
 			this.StatusMessageLabel = new System.Windows.Forms.Label();
 			this.OutputFolderPathTextBox = new System.Windows.Forms.TextBox();
 			this.OutputFolderPathButton = new System.Windows.Forms.Button();
@@ -198,20 +198,20 @@
 			this.SourceFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
 			this.SourceFolderPathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragEnter);
 			// 
-			// ApplyButton
+			// StartButton
 			// 
-			this.ApplyButton.AutoSize = true;
-			this.ApplyButton.Enabled = false;
-			this.ApplyButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.ApplyButton.Location = new System.Drawing.Point(6, 131);
-			this.ApplyButton.Name = "ApplyButton";
-			this.ApplyButton.Size = new System.Drawing.Size(75, 23);
-			this.ApplyButton.TabIndex = 8;
-			this.ApplyButton.Text = "Apply";
-			this.MainToolTip.SetToolTip(this.ApplyButton, "Start processing the file(s)");
-			this.ApplyButton.UseMnemonic = false;
-			this.ApplyButton.UseVisualStyleBackColor = true;
-			this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
+			this.StartButton.AutoSize = true;
+			this.StartButton.Enabled = false;
+			this.StartButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.StartButton.Location = new System.Drawing.Point(6, 131);
+			this.StartButton.Name = "StartButton";
+			this.StartButton.Size = new System.Drawing.Size(75, 23);
+			this.StartButton.TabIndex = 8;
+			this.StartButton.Text = "Start";
+			this.MainToolTip.SetToolTip(this.StartButton, "Start processing the file(s)");
+			this.StartButton.UseMnemonic = false;
+			this.StartButton.UseVisualStyleBackColor = true;
+			this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
 			// 
 			// StatusMessageLabel
 			// 
@@ -943,7 +943,7 @@
 			this.MainSplitContainer.Panel2.Controls.Add(this.ProcessingCancelButton);
 			this.MainSplitContainer.Panel2.Controls.Add(this.MagickCommandTextBox);
 			this.MainSplitContainer.Panel2.Controls.Add(this.PingoCommandLabel);
-			this.MainSplitContainer.Panel2.Controls.Add(this.ApplyButton);
+			this.MainSplitContainer.Panel2.Controls.Add(this.StartButton);
 			this.MainSplitContainer.Panel2.Controls.Add(this.PingoCommandTextBox);
 			this.MainSplitContainer.Panel2.Controls.Add(this.StatusMessageLabel);
 			this.MainSplitContainer.Panel2MinSize = 168;
@@ -1342,7 +1342,7 @@
 		private System.Windows.Forms.Label MagickCommandLabel;
 		private System.Windows.Forms.Button SourceFolderPathButton;
 		private System.Windows.Forms.TextBox SourceFolderPathTextBox;
-		private System.Windows.Forms.Button ApplyButton;
+		private System.Windows.Forms.Button StartButton;
 		private System.Windows.Forms.Label StatusMessageLabel;
 		private System.Windows.Forms.TextBox OutputFolderPathTextBox;
 		private System.Windows.Forms.Button OutputFolderPathButton;
