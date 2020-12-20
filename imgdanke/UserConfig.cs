@@ -39,6 +39,7 @@ namespace imgdanke
 			_magickDither ??= "";
 			_magickColorspace ??= "";
 			_pingoOptimizeLevel ??= "";
+			_newOutputFolderBaseName ??= "";
 		}
 
 		public void SaveConfig()
@@ -405,6 +406,164 @@ namespace imgdanke
 				SaveConfig();
 			}
 		}
+
+		#endregion
+
+		#region OutputSettings
+
+		private bool _shouldOutputToNewFolder;
+
+		public bool ShouldOutputToNewFolder
+		{
+			get => _shouldOutputToNewFolder;
+			set
+			{
+				_shouldOutputToNewFolder = value;
+				SaveConfig();
+			}
+		}
+
+		private string _newOutputFolderBaseName;
+
+		public string NewOutputFolderBaseName
+		{
+			get => _newOutputFolderBaseName;
+			set
+			{
+				_newOutputFolderBaseName = value;
+				SaveConfig();
+			}
+		}
+
+		private string _newOutputFolderPath;
+
+		public string NewOutputFolderPath
+		{
+			get => _newOutputFolderPath;
+			set
+			{
+				_newOutputFolderPath = value;
+				SaveConfig();
+			}
+		}
+
+		private string _tagsStringToAppendToFilenames;
+
+		public string TagsStringToAppendToFilenames
+		{
+			get => _tagsStringToAppendToFilenames;
+			set
+			{
+				_tagsStringToAppendToFilenames = value;
+				SaveConfig();
+			}
+		}
+
+		#region TagsToFilenames
+
+		private bool _shouldAddTagsToFilenames;
+
+		public bool ShouldAddTagsToFilenames
+		{
+			get => _shouldAddTagsToFilenames;
+			set
+			{
+				_shouldAddTagsToFilenames = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldAddPresetToFilenames;
+
+		public bool ShouldAddPresetToFilenames
+		{
+			get => _shouldAddPresetToFilenames;
+			set
+			{
+				_shouldAddPresetToFilenames = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldAddMagickSettingsToFilenames;
+
+		public bool ShouldAddMagickSettingsToFilenames
+		{
+			get => _shouldAddMagickSettingsToFilenames;
+			set
+			{
+				_shouldAddMagickSettingsToFilenames = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldAddPingoSettingsToFilenames;
+
+		public bool ShouldAddPingoSettingsToFilenames
+		{
+			get => _shouldAddPingoSettingsToFilenames;
+			set
+			{
+				_shouldAddPingoSettingsToFilenames = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldAddTagsToOutputFolder;
+
+		public bool ShouldAddTagsToOutputFolder
+		{
+			get => _shouldAddTagsToOutputFolder;
+			set
+			{
+				_shouldAddTagsToOutputFolder = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldAddPresetToOutputFolder;
+
+		public bool ShouldAddPresetToOutputFolder
+		{
+			get => _shouldAddPresetToOutputFolder;
+			set
+			{
+				_shouldAddPresetToOutputFolder = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldAddMagickSettingsToOutputFolder;
+
+		public bool ShouldAddMagickSettingsToOutputFolder
+		{
+			get => _shouldAddMagickSettingsToOutputFolder;
+			set
+			{
+				_shouldAddMagickSettingsToOutputFolder = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldAddPingoSettingsToOutputFolder;
+
+		public bool ShouldAddPingoSettingsToOutputFolder
+		{
+			get => _shouldAddPingoSettingsToOutputFolder;
+			set
+			{
+				_shouldAddPingoSettingsToOutputFolder = value;
+				SaveConfig();
+			}
+		}
+
+		#endregion
+
+		#region TagsToOutputFolder
+
+
+
+		#endregion
 
 		#endregion
 

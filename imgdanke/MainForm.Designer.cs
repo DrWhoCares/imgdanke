@@ -106,6 +106,7 @@
 			this.SaveCurrentSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.OutputSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.HelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.GitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.OpenDocumentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,6 +114,9 @@
 			this.OpenDocumentationGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.ShouldOutputToNewFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.AddTagsToFilenamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.AddTagsToNewFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -1186,6 +1190,7 @@
 			// 
 			// FileToolStripMenuItem
 			// 
+			this.FileToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenUserConfigToolStripMenuItem,
             this.SaveCurrentSettingsToolStripMenuItem,
@@ -1196,6 +1201,7 @@
 			// 
 			// OpenUserConfigToolStripMenuItem
 			// 
+			this.OpenUserConfigToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.OpenUserConfigToolStripMenuItem.Name = "OpenUserConfigToolStripMenuItem";
 			this.OpenUserConfigToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.OpenUserConfigToolStripMenuItem.Text = "Open User Config";
@@ -1203,6 +1209,7 @@
 			// 
 			// SaveCurrentSettingsToolStripMenuItem
 			// 
+			this.SaveCurrentSettingsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.SaveCurrentSettingsToolStripMenuItem.Name = "SaveCurrentSettingsToolStripMenuItem";
 			this.SaveCurrentSettingsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.SaveCurrentSettingsToolStripMenuItem.Text = "Save Current Settings";
@@ -1210,6 +1217,7 @@
 			// 
 			// CloseToolStripMenuItem
 			// 
+			this.CloseToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem";
 			this.CloseToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.CloseToolStripMenuItem.Text = "Exit";
@@ -1218,12 +1226,25 @@
 			// PreferencesToolStripMenuItem
 			// 
 			this.PreferencesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.PreferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OutputSettingsToolStripMenuItem,
+            this.ShouldOutputToNewFolderToolStripMenuItem,
+            this.AddTagsToFilenamesToolStripMenuItem,
+            this.AddTagsToNewFolderToolStripMenuItem});
 			this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
 			this.PreferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
 			this.PreferencesToolStripMenuItem.Text = "Preferences";
 			// 
+			// OutputSettingsToolStripMenuItem
+			// 
+			this.OutputSettingsToolStripMenuItem.Name = "OutputSettingsToolStripMenuItem";
+			this.OutputSettingsToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+			this.OutputSettingsToolStripMenuItem.Text = "Output Settings...";
+			this.OutputSettingsToolStripMenuItem.Click += new System.EventHandler(this.OutputSettingsToolStripMenuItem_Click);
+			// 
 			// HelpToolStripMenuItem
 			// 
+			this.HelpToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.HelpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.GitHubToolStripMenuItem,
             this.OpenDocumentationToolStripMenuItem,
@@ -1234,6 +1255,7 @@
 			// 
 			// GitHubToolStripMenuItem
 			// 
+			this.GitHubToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.GitHubToolStripMenuItem.Name = "GitHubToolStripMenuItem";
 			this.GitHubToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
 			this.GitHubToolStripMenuItem.Text = "GitHub";
@@ -1241,6 +1263,7 @@
 			// 
 			// OpenDocumentationToolStripMenuItem
 			// 
+			this.OpenDocumentationToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.OpenDocumentationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenDocumentationFromFileToolStripMenuItem,
             this.OpenDocumentationGitHubToolStripMenuItem});
@@ -1251,19 +1274,20 @@
 			// OpenDocumentationFromFileToolStripMenuItem
 			// 
 			this.OpenDocumentationFromFileToolStripMenuItem.Name = "OpenDocumentationFromFileToolStripMenuItem";
-			this.OpenDocumentationFromFileToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.OpenDocumentationFromFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.OpenDocumentationFromFileToolStripMenuItem.Text = "From File";
 			this.OpenDocumentationFromFileToolStripMenuItem.Click += new System.EventHandler(this.OpenDocumentationFromFileToolStripMenuItem_Click);
 			// 
 			// OpenDocumentationGitHubToolStripMenuItem
 			// 
 			this.OpenDocumentationGitHubToolStripMenuItem.Name = "OpenDocumentationGitHubToolStripMenuItem";
-			this.OpenDocumentationGitHubToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.OpenDocumentationGitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.OpenDocumentationGitHubToolStripMenuItem.Text = "GitHub";
 			this.OpenDocumentationGitHubToolStripMenuItem.Click += new System.EventHandler(this.OpenDocumentationGitHubToolStripMenuItem_Click);
 			// 
 			// AboutToolStripMenuItem
 			// 
+			this.AboutToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
 			this.AboutToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
 			this.AboutToolStripMenuItem.Text = "About";
@@ -1273,6 +1297,30 @@
 			// 
 			this.MainToolTip.BackColor = System.Drawing.SystemColors.GrayText;
 			this.MainToolTip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
+			// 
+			// ShouldOutputToNewFolderToolStripMenuItem
+			// 
+			this.ShouldOutputToNewFolderToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.ShouldOutputToNewFolderToolStripMenuItem.Name = "ShouldOutputToNewFolderToolStripMenuItem";
+			this.ShouldOutputToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+			this.ShouldOutputToNewFolderToolStripMenuItem.Text = "Should Output To New Folder";
+			this.ShouldOutputToNewFolderToolStripMenuItem.Click += new System.EventHandler(this.ShouldOutputToNewFolderToolStripMenuItem_Click);
+			// 
+			// AddTagsToFilenamesToolStripMenuItem
+			// 
+			this.AddTagsToFilenamesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.AddTagsToFilenamesToolStripMenuItem.Name = "AddTagsToFilenamesToolStripMenuItem";
+			this.AddTagsToFilenamesToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+			this.AddTagsToFilenamesToolStripMenuItem.Text = "Add Tags To Filenames";
+			this.AddTagsToFilenamesToolStripMenuItem.Click += new System.EventHandler(this.AddTagsToFilenamesToolStripMenuItem_Click);
+			// 
+			// AddTagsToNewFolderToolStripMenuItem
+			// 
+			this.AddTagsToNewFolderToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.AddTagsToNewFolderToolStripMenuItem.Name = "AddTagsToNewFolderToolStripMenuItem";
+			this.AddTagsToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+			this.AddTagsToNewFolderToolStripMenuItem.Text = "Add Tags To New Folder";
+			this.AddTagsToNewFolderToolStripMenuItem.Click += new System.EventHandler(this.AddTagsToNewFolderToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -1421,6 +1469,10 @@
 		private System.Windows.Forms.ToolStripMenuItem OpenDocumentationGitHubToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
 		private System.Windows.Forms.ToolTip MainToolTip;
+		private System.Windows.Forms.ToolStripMenuItem OutputSettingsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ShouldOutputToNewFolderToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem AddTagsToFilenamesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem AddTagsToNewFolderToolStripMenuItem;
 	}
 }
 

@@ -20,12 +20,12 @@ namespace imgdanke
 		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 		private static readonly string MAGICK_FILENAME = IS_LINUX ? "magick" : "magick.exe";
 		private static readonly string PINGO_FILENAME = IS_LINUX ? "pingo" : "pingo.exe";
-		private static readonly UserConfig CONFIG = UserConfig.LoadConfig();
 		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
 		private static readonly Color MENU_COLOR_OPTION = Color.FromArgb(216, 216, 216);
 		private static readonly Color MENU_COLOR_OPTION_HIGHLIGHTED = Color.FromArgb(100, 100, 100);
 		private static readonly Color COLOR_BACKGROUND = Color.FromArgb(55, 55, 55);
 		//private static readonly Color COLOR_FOREGROUND = Color.FromArgb(216, 216, 216);
+		internal static readonly UserConfig CONFIG = UserConfig.LoadConfig();
 
 		private static readonly BindingList<KeyValuePair<string, string>> PNG_PALETTE_ITEMS = new BindingList<KeyValuePair<string, string>>
 		{
@@ -55,6 +55,8 @@ namespace imgdanke
 		private static bool ShouldDelayUpdatingCommands;
 		private static bool EnableFormLevelDoubleBuffering = true;
 		private static int OriginalExStyle = -1;
+
+		private static readonly OutputSettingsForm OUTPUT_SETTINGS_FORM = new OutputSettingsForm();
 
 		public sealed override string Text
 		{
@@ -239,6 +241,7 @@ namespace imgdanke
 			InitializeShouldIncludePSDs();
 			InitializeMagickCommandString();
 			InitializePingoCommandString();
+			InitializeMenuStripItems();
 		}
 
 		private static void InitializeImagemagickPathToExe()
@@ -419,6 +422,13 @@ namespace imgdanke
 			{
 				CONFIG.PingoCommandString = "";
 			}
+		}
+
+		private void InitializeMenuStripItems()
+		{
+			ShouldOutputToNewFolderToolStripMenuItem.Checked = CONFIG.ShouldOutputToNewFolder;
+			AddTagsToFilenamesToolStripMenuItem.Checked = CONFIG.ShouldAddTagsToFilenames;
+			AddTagsToNewFolderToolStripMenuItem.Checked = CONFIG.ShouldAddTagsToOutputFolder;
 		}
 
 		#endregion
@@ -1508,6 +1518,8 @@ namespace imgdanke
 			long newTotalFilesize = 0;
 			ProcessingProgressBar.Maximum = (imgFiles.Count * 2) + imgFiles.Where(f => f.Extension == ".psd").ToList().Count;
 
+			InitializeTagsStrings();
+
 			List<FileInfo> origFiles = CONFIG.ShouldDeleteOriginals ? imgFiles : new List<FileInfo>();
 
 			if ( !ShouldCancelProcessing && CONFIG.ShouldIncludePSDs )
@@ -1598,6 +1610,135 @@ namespace imgdanke
 			}
 		}
 
+		private void InitializeTagsStrings()
+		{
+			if ( CONFIG.ShouldAddTagsToFilenames )
+			{
+				string fullString = "";
+
+				if ( CONFIG.ShouldAddPresetToFilenames )
+				{
+					fullString += GetPresetTagsString();
+				}
+
+				if ( CONFIG.ShouldAddMagickSettingsToFilenames )
+				{
+					fullString += GetMagickSettingsTagsString();
+				}
+
+				if ( CONFIG.ShouldAddPingoSettingsToFilenames )
+				{
+					fullString += GetPingoSettingsTagsString();
+				}
+
+				CONFIG.TagsStringToAppendToFilenames = fullString;
+			}
+
+			if ( CONFIG.ShouldOutputToNewFolder )
+			{
+				string fullPath = CONFIG.OutputFolderPath + "/" + CONFIG.NewOutputFolderBaseName;
+
+				if ( CONFIG.ShouldAddPresetToOutputFolder )
+				{
+					fullPath += GetPresetTagsString();
+				}
+
+				if ( CONFIG.ShouldAddMagickSettingsToOutputFolder )
+				{
+					fullPath += GetMagickSettingsTagsString();
+				}
+
+				if ( CONFIG.ShouldAddPingoSettingsToOutputFolder )
+				{
+					fullPath += GetPingoSettingsTagsString();
+				}
+
+				CONFIG.NewOutputFolderPath = fullPath + "/";
+				Directory.CreateDirectory(CONFIG.NewOutputFolderPath);
+			}
+		}
+
+		private static string GetPresetTagsString()
+		{
+			return CONFIG.PresetSetting switch
+			{
+				PresetSettings.None => "(NoPreset)",
+				PresetSettings.Custom => "(CustomPreset)",
+				PresetSettings.Gray1Bpp => "(Gray1bpp)",
+				PresetSettings.Gray4Bpp => "(Gray4bpp)",
+				PresetSettings.Gray8Bpp => "(Gray8bpp)",
+				PresetSettings.PingoColor4Bpp => "(PingoColor4bpp)",
+				PresetSettings.PingoColor8Bpp => "(PingoColor8bpp)",
+				PresetSettings.MagickColor4Bpp => "(MagickColor4bpp)",
+				PresetSettings.MagickColor8Bpp => "(MagickColor8bpp)",
+				_ => "(InvalidPreset)"
+			};
+		}
+
+		private static string GetMagickSettingsTagsString()
+		{
+			string fullString = "(" + CONFIG.MagickDither + ")";
+			fullString += "(" + CONFIG.MagickColorspace + ")";
+
+			if ( CONFIG.MagickColorsValue > 0 )
+			{
+				fullString += "(colors" + CONFIG.MagickColorsValue + ")";
+			}
+
+			if ( CONFIG.MagickDepthValue > 0 )
+			{
+				fullString += "(depth" + CONFIG.MagickDepthValue + ")";
+			}
+
+			if ( CONFIG.MagickPosterizeValue > 0 )
+			{
+				fullString += "(pos" + CONFIG.MagickPosterizeValue + ")";
+			}
+
+			if ( CONFIG.ShouldUseMagickNormalize )
+			{
+				fullString += "(norm)";
+			}
+
+			if ( CONFIG.ShouldUseMagickContrastStretch )
+			{
+				fullString += "(cs)";
+			}
+
+			return fullString;
+		}
+
+		private static string GetPingoSettingsTagsString()
+		{
+			string fullString = "";
+
+			if ( CONFIG.PingoPNGPaletteValue > 0 )
+			{
+				fullString += "(pngpal" + CONFIG.PingoPNGPaletteValue + ")";
+
+				if ( CONFIG.ShouldUsePingoNoDithering )
+				{
+					fullString += "(nodither)";
+				}
+
+				fullString += CONFIG.PingoAdditionalChecks switch
+				{
+					PingoAdditionalChecks.sb => "(-sb)",
+					PingoAdditionalChecks.sa => "(-sa)",
+					_ => "(InvalidPingoChecks)"
+				};
+			}
+
+			fullString += "(-s" + CONFIG.PingoOptimizeLevel.Last() + ")";
+
+			if ( CONFIG.ShouldUsePingoStrip )
+			{
+				fullString += "(-strip)";
+			}
+
+			return fullString;
+		}
+
 		private static List<FileInfo> ConvertAnyPSDs(List<FileInfo> originalImgFiles, string prependString, string appendString, Label statusLabel, ProgressBar progressBar)
 		{
 			List<FileInfo> psdFiles = originalImgFiles.Where(f => f.Extension == ".psd").ToList();
@@ -1619,7 +1760,8 @@ namespace imgdanke
 					WorkingDirectory = CONFIG.SourceFolderPath
 				};
 
-				string outputFilename = DetermineOutputFilepath(psdFile) + prependString + psdFile.Name.Replace(psdFile.Extension, "") + appendString + ".tmp" + CONFIG.OutputExtension;
+				string outputFilename = DetermineOutputFilepath(psdFile) + prependString + psdFile.Name.Replace(psdFile.Extension, "")
+										+ appendString + (CONFIG.ShouldAddTagsToFilenames ? CONFIG.TagsStringToAppendToFilenames : "") + ".tmp" + CONFIG.OutputExtension;
 				startInfo.Arguments = (IS_LINUX ? "" : "/C magick") + " convert \"" + psdFile.FullName + "[0]\" \"" + outputFilename + "\"";
 				statusLabel.Text = "Converting \"" + psdFile.Name + "\" via magick convert.";
 
@@ -1710,7 +1852,8 @@ namespace imgdanke
 					}
 					else
 					{
-						tempFilename = DetermineOutputFilepath(img) + prependString + filenameAlone + appendString + ".tmp" + CONFIG.OutputExtension;
+						tempFilename = DetermineOutputFilepath(img) + prependString + filenameAlone + appendString
+										+ (CONFIG.ShouldAddTagsToFilenames ? CONFIG.TagsStringToAppendToFilenames : "") + ".tmp" + CONFIG.OutputExtension;
 					}
 				}
 
@@ -1759,7 +1902,7 @@ namespace imgdanke
 
 				if ( CONFIG.ShouldReplaceOriginals )
 				{
-					newLocation = tempFilename.Replace(filenameAlone, prependString + filenameAlone.Replace(".tmp", "") + appendString);
+					newLocation = tempFilename.Replace(filenameAlone, prependString + filenameAlone.Replace(".tmp", "") + appendString + (CONFIG.ShouldAddTagsToFilenames ? CONFIG.TagsStringToAppendToFilenames : ""));
 				}
 				else
 				{
@@ -1801,6 +1944,11 @@ namespace imgdanke
 			if ( CONFIG.ShouldIncludeSubfolders && CONFIG.ShouldMaintainFolderStructure )
 			{
 				return DetermineSubfolderPath(fileInfo) + "/";
+			}
+
+			if ( CONFIG.ShouldOutputToNewFolder )
+			{
+				return CONFIG.NewOutputFolderPath;
 			}
 
 			return CONFIG.OutputFolderPath + "/";
@@ -2106,7 +2254,13 @@ namespace imgdanke
 
 		#region PreferencesTabUI
 
-
+		private void OutputSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OUTPUT_SETTINGS_FORM.ShowDialog(this);
+			ShouldOutputToNewFolderToolStripMenuItem.Checked = CONFIG.ShouldOutputToNewFolder;
+			AddTagsToFilenamesToolStripMenuItem.Checked = CONFIG.ShouldAddTagsToFilenames;
+			AddTagsToNewFolderToolStripMenuItem.Checked = CONFIG.ShouldAddTagsToOutputFolder;
+		}
 
 		#endregion
 
@@ -2158,6 +2312,23 @@ namespace imgdanke
 
 		#endregion
 
+		private void ShouldOutputToNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ShouldOutputToNewFolderToolStripMenuItem.Checked ^= true;
+			CONFIG.ShouldOutputToNewFolder = ShouldOutputToNewFolderToolStripMenuItem.Checked;
+		}
+
+		private void AddTagsToFilenamesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			AddTagsToFilenamesToolStripMenuItem.Checked ^= true;
+			CONFIG.ShouldAddTagsToFilenames = AddTagsToFilenamesToolStripMenuItem.Checked;
+		}
+
+		private void AddTagsToNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			AddTagsToNewFolderToolStripMenuItem.Checked ^= true;
+			CONFIG.ShouldAddTagsToOutputFolder = AddTagsToNewFolderToolStripMenuItem.Checked;
+		}
 	}
 
 	internal readonly struct FileInfoWithSubpath
