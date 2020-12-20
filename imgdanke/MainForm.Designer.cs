@@ -201,6 +201,7 @@
 			this.SourceFolderPathTextBox.TextChanged += new System.EventHandler(this.SourceFolderPathTextBox_TextChanged);
 			this.SourceFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
 			this.SourceFolderPathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragEnter);
+			this.SourceFolderPathTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToPathPermittedChars_KeyPress);
 			// 
 			// StartButton
 			// 
@@ -241,6 +242,7 @@
 			this.OutputFolderPathTextBox.TextChanged += new System.EventHandler(this.OutputFolderPathTextBox_TextChanged);
 			this.OutputFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
 			this.OutputFolderPathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragEnter);
+			this.OutputFolderPathTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToPathPermittedChars_KeyPress);
 			// 
 			// OutputFolderPathButton
 			// 

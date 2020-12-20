@@ -21,6 +21,7 @@ namespace imgdanke
 		private static readonly string MAGICK_FILENAME = IS_LINUX ? "magick" : "magick.exe";
 		private static readonly string PINGO_FILENAME = IS_LINUX ? "pingo" : "pingo.exe";
 		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
+		private static readonly Regex INVALID_PATH_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidPathChars())) + "]");
 		private static readonly Color MENU_COLOR_OPTION = Color.FromArgb(216, 216, 216);
 		private static readonly Color MENU_COLOR_OPTION_HIGHLIGHTED = Color.FromArgb(100, 100, 100);
 		private static readonly Color COLOR_BACKGROUND = Color.FromArgb(55, 55, 55);
@@ -600,9 +601,23 @@ namespace imgdanke
 
 		private void SourceFolderPathTextBox_TextChanged(object sender, EventArgs e)
 		{
+			if ( !FileOps.DoesDirectoryExist(SourceFolderPathTextBox.Text) )
+			{
+				ClearFilesInSourceFolderList();
+				return;
+			}
+
 			CONFIG.SourceFolderPath = SourceFolderPathTextBox.Text;
 			BuildFilesInSourceFolderList();
 			StartButton.Enabled = VerifyReadyToApply();
+		}
+
+		private void TextBoxRestrictToPathPermittedChars_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if ( !char.IsControl(e.KeyChar) && INVALID_PATH_CHARS_REGEX.IsMatch(e.KeyChar.ToString()) )
+			{
+				e.Handled = true;
+			}
 		}
 
 		private void FilesInSourceFolderListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -1266,17 +1281,24 @@ namespace imgdanke
 		{
 			if ( !FileOps.DoesDirectoryExist(SourceFolderPathTextBox.Text) )
 			{
-				return;
+				ClearFilesInSourceFolderList();
 			}
-
-			FilesInSourceFolderListBox.DataSource = GetImageFilesList(SourceFolderPathTextBox.Text);
-			FilesInSourceFolderListBox.DisplayMember = "Subpath";
-			FilesInSourceFolderListBox.ValueMember = "Subpath";
-			FilesInSourceFolderListBox.SelectedIndex = -1;
+			else
+			{
+				FilesInSourceFolderListBox.DataSource = GetImageFilesList(SourceFolderPathTextBox.Text);
+				FilesInSourceFolderListBox.DisplayMember = "Subpath";
+				FilesInSourceFolderListBox.ValueMember = "Subpath";
+				FilesInSourceFolderListBox.SelectedIndex = -1;
+			}
 
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
 			GC.Collect();
+		}
+
+		private void ClearFilesInSourceFolderList()
+		{
+			FilesInSourceFolderListBox.DataSource = null;
 		}
 
 		private static List<FileInfoWithSubpath> GetImageFilesList(string imageFilesFullPath)
