@@ -7,6 +7,19 @@ namespace imgdanke
 
 	internal static class FileOps
 	{
+		internal static bool DoesFileExist(string path)
+		{
+			// File.Exists() can potentially throw, and if so, may cause issues, so we need to make it so that checking for a file always returns false if it fails
+			try
+			{
+				return File.Exists(path);
+			}
+			catch ( Exception )
+			{
+				return false;
+			}
+		}
+
 		internal static bool IsFileReady(string path)
 		{
 			// If the file can be opened for exclusive access it means that the file is no longer locked by another process
@@ -45,13 +58,13 @@ namespace imgdanke
 				return true; // No need to move, there is no change
 			}
 
-			if ( !File.Exists(origPath) )
+			if ( !DoesFileExist(origPath) )
 			{
 				DisplayMoveError("File to move at 'origPath' (" + origPath + ") does not exist. This should never happen.");
 				return false;
 			}
 
-			if ( File.Exists(newPath) )
+			if ( DoesFileExist(newPath) )
 			{
 				if ( shouldDeleteIfExists )
 				{

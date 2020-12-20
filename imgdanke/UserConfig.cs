@@ -11,7 +11,7 @@ namespace imgdanke
 		#region Functions
 		public static UserConfig LoadConfig()
 		{
-			if ( !File.Exists(CONFIG_FILENAME) )
+			if ( !FileOps.DoesFileExist(CONFIG_FILENAME) )
 			{
 				return new UserConfig();
 			}

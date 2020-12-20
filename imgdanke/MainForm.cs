@@ -437,12 +437,12 @@ namespace imgdanke
 
 		private static bool VerifyImagemagickPathIsValid()
 		{
-			return File.Exists(CONFIG.ImagemagickPathToExe) && CONFIG.ImagemagickPathToExe.Contains(MAGICK_FILENAME);
+			return FileOps.DoesFileExist(CONFIG.ImagemagickPathToExe) && CONFIG.ImagemagickPathToExe.Contains(MAGICK_FILENAME);
 		}
 
 		private static bool VerifyPingoPathIsValid()
 		{
-			return File.Exists(CONFIG.PingoPathToExe) && CONFIG.PingoPathToExe.Contains(PINGO_FILENAME);
+			return FileOps.DoesFileExist(CONFIG.PingoPathToExe) && CONFIG.PingoPathToExe.Contains(PINGO_FILENAME);
 		}
 
 		private static string CheckSystemPathForExe(string filename)
@@ -458,7 +458,7 @@ namespace imgdanke
 			{
 				string fullPath = Path.Combine(path, filename);
 
-				if ( File.Exists(fullPath) )
+				if ( FileOps.DoesFileExist(fullPath) )
 				{
 					return fullPath;
 				}
@@ -473,7 +473,7 @@ namespace imgdanke
 			localPath ??= "";
 			string fullPath = Path.Combine(localPath, filename);
 
-			if ( File.Exists(fullPath) )
+			if ( FileOps.DoesFileExist(fullPath) )
 			{
 				return fullPath;
 			}
@@ -482,7 +482,7 @@ namespace imgdanke
 			{
 				fullPath = Path.Combine(path, filename);
 
-				if ( File.Exists(fullPath) )
+				if ( FileOps.DoesFileExist(fullPath) )
 				{
 					return fullPath;
 				}
@@ -654,7 +654,7 @@ namespace imgdanke
 			{
 				((TextBox)sender).Text = files.First();
 			}
-			else if ( File.Exists(files.First()) )
+			else if ( FileOps.DoesFileExist(files.First()) )
 			{
 				((TextBox)sender).Text = new FileInfo(files.First()).DirectoryName;
 			}
@@ -2062,7 +2062,7 @@ namespace imgdanke
 					continue;
 				}
 
-				if ( File.Exists(origFile.FullName) && origFile.Extension != ".psd" )
+				if ( FileOps.DoesFileExist(origFile.FullName) && origFile.Extension != ".psd" )
 				{
 					FileOps.Delete(origFile.FullName);
 				}
