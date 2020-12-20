@@ -877,8 +877,8 @@ namespace imgdanke
 			MagickColorsTextBox.Text = "";
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "";
-			MagickNormalizeCheckBox.Checked = true;
-			MagickContrastStretchCheckBox.Checked = true;
+			MagickNormalizeCheckBox.Checked = false;
+			MagickContrastStretchCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == "24");
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = false;
@@ -906,8 +906,8 @@ namespace imgdanke
 			MagickColorsTextBox.Text = "";
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "";
-			MagickNormalizeCheckBox.Checked = true;
-			MagickContrastStretchCheckBox.Checked = true;
+			MagickNormalizeCheckBox.Checked = false;
+			MagickContrastStretchCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = PingoPNGPaletteComboBox.Items.Count - 1;
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = true;
