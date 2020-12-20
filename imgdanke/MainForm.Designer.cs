@@ -1195,6 +1195,7 @@
             this.OpenUserConfigToolStripMenuItem,
             this.SaveCurrentSettingsToolStripMenuItem,
             this.CloseToolStripMenuItem});
+			this.FileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
 			this.FileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.FileToolStripMenuItem.Text = "File";
@@ -1231,6 +1232,7 @@
             this.ShouldOutputToNewFolderToolStripMenuItem,
             this.AddTagsToFilenamesToolStripMenuItem,
             this.AddTagsToNewFolderToolStripMenuItem});
+			this.PreferencesToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
 			this.PreferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
 			this.PreferencesToolStripMenuItem.Text = "Preferences";
@@ -1249,6 +1251,7 @@
             this.GitHubToolStripMenuItem,
             this.OpenDocumentationToolStripMenuItem,
             this.AboutToolStripMenuItem});
+			this.HelpToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem";
 			this.HelpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
 			this.HelpToolStripMenuItem.Text = "Help";
