@@ -20,6 +20,19 @@ namespace imgdanke
 			}
 		}
 
+		internal static bool DoesDirectoryExist(string path)
+		{
+			// Directory.Exists() can potentially throw, and if so, may cause issues, so we need to make it so that checking for a directory always returns false if it fails
+			try
+			{
+				return Directory.Exists(path);
+			}
+			catch ( Exception )
+			{
+				return false;
+			}
+		}
+
 		internal static bool IsFileReady(string path)
 		{
 			// If the file can be opened for exclusive access it means that the file is no longer locked by another process

@@ -493,12 +493,12 @@ namespace imgdanke
 
 		private static bool VerifySourceFolderPathIsValid()
 		{
-			return Directory.Exists(CONFIG.SourceFolderPath);
+			return FileOps.DoesDirectoryExist(CONFIG.SourceFolderPath);
 		}
 
 		private static bool VerifyOutputFolderPathIsValid()
 		{
-			return Directory.Exists(CONFIG.OutputFolderPath) || CONFIG.ShouldReplaceOriginals;
+			return FileOps.DoesDirectoryExist(CONFIG.OutputFolderPath) || CONFIG.ShouldReplaceOriginals;
 		}
 
 		private static bool VerifyOutputExtensionIsValid()
@@ -650,7 +650,7 @@ namespace imgdanke
 				return;
 			}
 
-			if ( Directory.Exists(files.First()) )
+			if ( FileOps.DoesDirectoryExist(files.First()) )
 			{
 				((TextBox)sender).Text = files.First();
 			}
@@ -1264,7 +1264,7 @@ namespace imgdanke
 
 		private void BuildFilesInSourceFolderList()
 		{
-			if ( !Directory.Exists(SourceFolderPathTextBox.Text) )
+			if ( !FileOps.DoesDirectoryExist(SourceFolderPathTextBox.Text) )
 			{
 				return;
 			}
