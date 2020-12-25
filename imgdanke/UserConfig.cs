@@ -89,6 +89,18 @@ namespace imgdanke
 			}
 		}
 
+		private bool _shouldDisableFailedToCheckForUpdatesMessage;
+
+		public bool ShouldDisableFailedToCheckForUpdatesMessage
+		{
+			get => _shouldDisableFailedToCheckForUpdatesMessage;
+			set
+			{
+				_shouldDisableFailedToCheckForUpdatesMessage = value;
+				SaveConfig();
+			}
+		}
+
 		private bool _shouldSuppressPingoNotFoundWarning;
 
 		public bool ShouldSuppressPingoNotFoundWarning

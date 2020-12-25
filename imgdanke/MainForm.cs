@@ -126,6 +126,7 @@ namespace imgdanke
 				Size = CONFIG.LastWindowSize;
 			}
 
+			DisableFailedToCheckMessageToolStripMenuItem.Checked = CONFIG.ShouldDisableFailedToCheckForUpdatesMessage;
 			CheckForUpdatesOnStartupToolStripMenuItem.Checked = CONFIG.ShouldCheckForUpdatesOnStartup;
 
 			EnsureWindowIsWithinBounds();
@@ -224,7 +225,13 @@ namespace imgdanke
 			}
 			catch ( Exception e )
 			{
-				MessageBox.Show("Checking for updates threw an exception:\n\"" + e.Message + "\"\n\nYou may not be able to access api.github.com. You can safely continue using this offline.", "Error Checking For Update", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				if ( !CONFIG.ShouldDisableFailedToCheckForUpdatesMessage )
+				{
+					if ( MessageBox.Show("Checking for updates threw an exception:\n\"" + e.Message + "\"\n\nYou may not be able to access api.github.com. You can safely continue using this offline.\n\nWould you like to disable this message for future checks? (Can be re-enabled in Preferences Menu.)", "Error Checking For Update", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes )
+					{
+						CONFIG.ShouldDisableFailedToCheckForUpdatesMessage = true;
+					}
+				}
 			}
 		}
 
@@ -2314,6 +2321,11 @@ namespace imgdanke
 		private void CheckForUpdatesOnStartupToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			CONFIG.ShouldCheckForUpdatesOnStartup = CheckForUpdatesOnStartupToolStripMenuItem.Checked;
+		}
+
+		private void DisableFailedToCheckMessageToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			CONFIG.ShouldDisableFailedToCheckForUpdatesMessage = DisableFailedToCheckMessageToolStripMenuItem.Checked;
 		}
 
 		private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)

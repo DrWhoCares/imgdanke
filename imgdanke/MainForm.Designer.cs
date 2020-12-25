@@ -112,6 +112,7 @@
 			this.AddTagsToNewFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CheckForUpdatesToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.CheckForUpdatesOnStartupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DisableFailedToCheckMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CheckForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.HelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.GitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1239,6 +1240,7 @@
             this.AddTagsToNewFolderToolStripMenuItem,
             this.CheckForUpdatesToolStripSeparator,
             this.CheckForUpdatesOnStartupToolStripMenuItem,
+            this.DisableFailedToCheckMessageToolStripMenuItem,
             this.CheckForUpdatesToolStripMenuItem});
 			this.PreferencesToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
@@ -1248,7 +1250,7 @@
 			// OutputSettingsToolStripMenuItem
 			// 
 			this.OutputSettingsToolStripMenuItem.Name = "OutputSettingsToolStripMenuItem";
-			this.OutputSettingsToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+			this.OutputSettingsToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
 			this.OutputSettingsToolStripMenuItem.Text = "Output Settings...";
 			this.OutputSettingsToolStripMenuItem.Click += new System.EventHandler(this.OutputSettingsToolStripMenuItem_Click);
 			// 
@@ -1256,7 +1258,7 @@
 			// 
 			this.ShouldOutputToNewFolderToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.ShouldOutputToNewFolderToolStripMenuItem.Name = "ShouldOutputToNewFolderToolStripMenuItem";
-			this.ShouldOutputToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+			this.ShouldOutputToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
 			this.ShouldOutputToNewFolderToolStripMenuItem.Text = "Should Output To New Folder";
 			this.ShouldOutputToNewFolderToolStripMenuItem.Click += new System.EventHandler(this.ShouldOutputToNewFolderToolStripMenuItem_Click);
 			// 
@@ -1264,7 +1266,7 @@
 			// 
 			this.AddTagsToFilenamesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.AddTagsToFilenamesToolStripMenuItem.Name = "AddTagsToFilenamesToolStripMenuItem";
-			this.AddTagsToFilenamesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+			this.AddTagsToFilenamesToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
 			this.AddTagsToFilenamesToolStripMenuItem.Text = "Add Tags To Filenames";
 			this.AddTagsToFilenamesToolStripMenuItem.Click += new System.EventHandler(this.AddTagsToFilenamesToolStripMenuItem_Click);
 			// 
@@ -1272,14 +1274,14 @@
 			// 
 			this.AddTagsToNewFolderToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.AddTagsToNewFolderToolStripMenuItem.Name = "AddTagsToNewFolderToolStripMenuItem";
-			this.AddTagsToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+			this.AddTagsToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
 			this.AddTagsToNewFolderToolStripMenuItem.Text = "Add Tags To New Folder";
 			this.AddTagsToNewFolderToolStripMenuItem.Click += new System.EventHandler(this.AddTagsToNewFolderToolStripMenuItem_Click);
 			// 
 			// CheckForUpdatesToolStripSeparator
 			// 
 			this.CheckForUpdatesToolStripSeparator.Name = "CheckForUpdatesToolStripSeparator";
-			this.CheckForUpdatesToolStripSeparator.Size = new System.Drawing.Size(230, 6);
+			this.CheckForUpdatesToolStripSeparator.Size = new System.Drawing.Size(243, 6);
 			// 
 			// CheckForUpdatesOnStartupToolStripMenuItem
 			// 
@@ -1288,17 +1290,26 @@
 			this.CheckForUpdatesOnStartupToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.CheckForUpdatesOnStartupToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.CheckForUpdatesOnStartupToolStripMenuItem.Name = "CheckForUpdatesOnStartupToolStripMenuItem";
-			this.CheckForUpdatesOnStartupToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+			this.CheckForUpdatesOnStartupToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
 			this.CheckForUpdatesOnStartupToolStripMenuItem.Text = "Check For Updates On Startup";
 			this.CheckForUpdatesOnStartupToolStripMenuItem.ToolTipText = "Toggle whether or not a check for any updates should be made when starting up img" +
     "danke";
 			this.CheckForUpdatesOnStartupToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesOnStartupToolStripMenuItem_Click);
 			// 
+			// DisableFailedToCheckMessageToolStripMenuItem
+			// 
+			this.DisableFailedToCheckMessageToolStripMenuItem.CheckOnClick = true;
+			this.DisableFailedToCheckMessageToolStripMenuItem.Name = "DisableFailedToCheckMessageToolStripMenuItem";
+			this.DisableFailedToCheckMessageToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+			this.DisableFailedToCheckMessageToolStripMenuItem.Text = "Disable Failed Check Message";
+			this.DisableFailedToCheckMessageToolStripMenuItem.ToolTipText = "Toggles disabling the error message if the check for updates fails";
+			this.DisableFailedToCheckMessageToolStripMenuItem.Click += new System.EventHandler(this.DisableFailedToCheckMessageToolStripMenuItem_Click);
+			// 
 			// CheckForUpdatesToolStripMenuItem
 			// 
 			this.CheckForUpdatesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem";
-			this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+			this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
 			this.CheckForUpdatesToolStripMenuItem.Text = "Check For Updates";
 			this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
 			// 
@@ -1513,6 +1524,7 @@
 		private System.Windows.Forms.ToolStripSeparator CheckForUpdatesToolStripSeparator;
 		private System.Windows.Forms.ToolStripMenuItem CheckForUpdatesOnStartupToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CheckForUpdatesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DisableFailedToCheckMessageToolStripMenuItem;
 	}
 }
 
