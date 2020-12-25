@@ -2292,6 +2292,14 @@ namespace imgdanke
 
 		#region PreferencesTabUI
 
+		private void DropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+		{
+			if ( e.CloseReason == ToolStripDropDownCloseReason.ItemClicked )
+			{
+				e.Cancel = true;
+			}
+		}
+
 		private void OutputSettingsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			OUTPUT_SETTINGS_FORM.ShowDialog(this);
@@ -2302,19 +2310,16 @@ namespace imgdanke
 
 		private void ShouldOutputToNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ShouldOutputToNewFolderToolStripMenuItem.Checked ^= true;
 			CONFIG.ShouldOutputToNewFolder = ShouldOutputToNewFolderToolStripMenuItem.Checked;
 		}
 
 		private void AddTagsToFilenamesToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			AddTagsToFilenamesToolStripMenuItem.Checked ^= true;
 			CONFIG.ShouldAddTagsToFilenames = AddTagsToFilenamesToolStripMenuItem.Checked;
 		}
 
 		private void AddTagsToNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			AddTagsToNewFolderToolStripMenuItem.Checked ^= true;
 			CONFIG.ShouldAddTagsToOutputFolder = AddTagsToNewFolderToolStripMenuItem.Checked;
 		}
 
@@ -2331,6 +2336,7 @@ namespace imgdanke
 		private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			CheckForProgramUpdates(true);
+			PreferencesToolStripMenuItem.DropDown.Close();
 		}
 
 		#endregion

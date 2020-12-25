@@ -1,4 +1,6 @@
-﻿namespace imgdanke
+﻿using System.Windows.Forms;
+
+namespace imgdanke
 {
 	partial class MainForm
 	{
@@ -1246,42 +1248,46 @@
 			this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
 			this.PreferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
 			this.PreferencesToolStripMenuItem.Text = "Preferences";
+			this.PreferencesToolStripMenuItem.DropDown.Closing += new ToolStripDropDownClosingEventHandler(DropDown_Closing);
 			// 
 			// OutputSettingsToolStripMenuItem
 			// 
 			this.OutputSettingsToolStripMenuItem.Name = "OutputSettingsToolStripMenuItem";
-			this.OutputSettingsToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+			this.OutputSettingsToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.OutputSettingsToolStripMenuItem.Text = "Output Settings...";
 			this.OutputSettingsToolStripMenuItem.Click += new System.EventHandler(this.OutputSettingsToolStripMenuItem_Click);
 			// 
 			// ShouldOutputToNewFolderToolStripMenuItem
 			// 
+			this.ShouldOutputToNewFolderToolStripMenuItem.CheckOnClick = true;
 			this.ShouldOutputToNewFolderToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.ShouldOutputToNewFolderToolStripMenuItem.Name = "ShouldOutputToNewFolderToolStripMenuItem";
-			this.ShouldOutputToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+			this.ShouldOutputToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.ShouldOutputToNewFolderToolStripMenuItem.Text = "Should Output To New Folder";
 			this.ShouldOutputToNewFolderToolStripMenuItem.Click += new System.EventHandler(this.ShouldOutputToNewFolderToolStripMenuItem_Click);
 			// 
 			// AddTagsToFilenamesToolStripMenuItem
 			// 
+			this.AddTagsToFilenamesToolStripMenuItem.CheckOnClick = true;
 			this.AddTagsToFilenamesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.AddTagsToFilenamesToolStripMenuItem.Name = "AddTagsToFilenamesToolStripMenuItem";
-			this.AddTagsToFilenamesToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+			this.AddTagsToFilenamesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.AddTagsToFilenamesToolStripMenuItem.Text = "Add Tags To Filenames";
 			this.AddTagsToFilenamesToolStripMenuItem.Click += new System.EventHandler(this.AddTagsToFilenamesToolStripMenuItem_Click);
 			// 
 			// AddTagsToNewFolderToolStripMenuItem
 			// 
+			this.AddTagsToNewFolderToolStripMenuItem.CheckOnClick = true;
 			this.AddTagsToNewFolderToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.AddTagsToNewFolderToolStripMenuItem.Name = "AddTagsToNewFolderToolStripMenuItem";
-			this.AddTagsToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+			this.AddTagsToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.AddTagsToNewFolderToolStripMenuItem.Text = "Add Tags To New Folder";
 			this.AddTagsToNewFolderToolStripMenuItem.Click += new System.EventHandler(this.AddTagsToNewFolderToolStripMenuItem_Click);
 			// 
 			// CheckForUpdatesToolStripSeparator
 			// 
 			this.CheckForUpdatesToolStripSeparator.Name = "CheckForUpdatesToolStripSeparator";
-			this.CheckForUpdatesToolStripSeparator.Size = new System.Drawing.Size(243, 6);
+			this.CheckForUpdatesToolStripSeparator.Size = new System.Drawing.Size(230, 6);
 			// 
 			// CheckForUpdatesOnStartupToolStripMenuItem
 			// 
@@ -1290,7 +1296,7 @@
 			this.CheckForUpdatesOnStartupToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.CheckForUpdatesOnStartupToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.CheckForUpdatesOnStartupToolStripMenuItem.Name = "CheckForUpdatesOnStartupToolStripMenuItem";
-			this.CheckForUpdatesOnStartupToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+			this.CheckForUpdatesOnStartupToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.CheckForUpdatesOnStartupToolStripMenuItem.Text = "Check For Updates On Startup";
 			this.CheckForUpdatesOnStartupToolStripMenuItem.ToolTipText = "Toggle whether or not a check for any updates should be made when starting up img" +
     "danke";
@@ -1309,7 +1315,7 @@
 			// 
 			this.CheckForUpdatesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem";
-			this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+			this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.CheckForUpdatesToolStripMenuItem.Text = "Check For Updates";
 			this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
 			// 
