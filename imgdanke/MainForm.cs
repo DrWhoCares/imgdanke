@@ -126,6 +126,8 @@ namespace imgdanke
 				Size = CONFIG.LastWindowSize;
 			}
 
+			CheckForUpdatesOnStartupToolStripMenuItem.Checked = CONFIG.ShouldCheckForUpdatesOnStartup;
+
 			EnsureWindowIsWithinBounds();
 		}
 
@@ -183,8 +185,13 @@ namespace imgdanke
 			}
 		}
 
-		private static async void CheckForProgramUpdates()
+		private static async void CheckForProgramUpdates(bool isManualCheck = false)
 		{
+			if ( !isManualCheck && !CONFIG.ShouldCheckForUpdatesOnStartup )
+			{
+				return;
+			}
+
 			using UpdateManager updateManager = new UpdateManager(
 				new GithubPackageResolver("DrWhoCares", "imgdanke", "imgdanke_*.zip"),
 				new ZipPackageExtractor()
@@ -2157,12 +2164,15 @@ namespace imgdanke
 			{
 			}
 
-			//protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
-			//{
-			//	Rectangle rect = new Rectangle(Point.Empty, e.Item.Size);
-			//	using SolidBrush brush = new SolidBrush(COLOR_BACKGROUND);
-			//	e.Graphics.FillRectangle(brush, rect);
-			//}
+			protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
+			{
+				Rectangle rect = new Rectangle(Point.Empty, e.Item.Size);
+				using SolidBrush brush = new SolidBrush(MENU_COLOR_OPTION);
+				e.Graphics.FillRectangle(brush, rect);
+				using Pen pen = new Pen(Color.Black);
+				int y = rect.Height / 2;
+				e.Graphics.DrawLine(pen, rect.Left, y, rect.Right - 1, y);
+			}
 
 			protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
 			{
@@ -2197,9 +2207,9 @@ namespace imgdanke
 			//public override Color CheckSelectedBackground => COLOR_FOREGROUND;
 			//public override Color GripDark => COLOR_FOREGROUND;
 			//public override Color GripLight => COLOR_FOREGROUND;
-			public override Color ImageMarginGradientBegin => COLOR_BACKGROUND;
-			public override Color ImageMarginGradientEnd => COLOR_BACKGROUND;
-			public override Color ImageMarginGradientMiddle => COLOR_BACKGROUND;
+			public override Color ImageMarginGradientBegin => MENU_COLOR_OPTION;
+			public override Color ImageMarginGradientEnd => MENU_COLOR_OPTION;
+			public override Color ImageMarginGradientMiddle => MENU_COLOR_OPTION;
 			public override Color MenuBorder => COLOR_BACKGROUND;
 			//public override Color MenuItemPressedGradientBegin => COLOR_FOREGROUND;
 			//public override Color MenuItemPressedGradientEnd => COLOR_FOREGROUND;
@@ -2221,7 +2231,7 @@ namespace imgdanke
 			public override Color ToolStripBorder => COLOR_BACKGROUND;
 			//public override Color ToolStripContentPanelGradientBegin => COLOR_FOREGROUND;
 			//public override Color ToolStripContentPanelGradientEnd => COLOR_FOREGROUND;
-			public override Color ToolStripDropDownBackground => MENU_COLOR_OPTION_HIGHLIGHTED;
+			public override Color ToolStripDropDownBackground => MENU_COLOR_OPTION;
 			//public override Color ToolStripGradientBegin => COLOR_FOREGROUND;
 			//public override Color ToolStripGradientEnd => COLOR_FOREGROUND;
 			//public override Color ToolStripGradientMiddle => COLOR_FOREGROUND;
@@ -2283,6 +2293,34 @@ namespace imgdanke
 			AddTagsToNewFolderToolStripMenuItem.Checked = CONFIG.ShouldAddTagsToOutputFolder;
 		}
 
+		private void ShouldOutputToNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ShouldOutputToNewFolderToolStripMenuItem.Checked ^= true;
+			CONFIG.ShouldOutputToNewFolder = ShouldOutputToNewFolderToolStripMenuItem.Checked;
+		}
+
+		private void AddTagsToFilenamesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			AddTagsToFilenamesToolStripMenuItem.Checked ^= true;
+			CONFIG.ShouldAddTagsToFilenames = AddTagsToFilenamesToolStripMenuItem.Checked;
+		}
+
+		private void AddTagsToNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			AddTagsToNewFolderToolStripMenuItem.Checked ^= true;
+			CONFIG.ShouldAddTagsToOutputFolder = AddTagsToNewFolderToolStripMenuItem.Checked;
+		}
+
+		private void CheckForUpdatesOnStartupToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			CONFIG.ShouldCheckForUpdatesOnStartup = CheckForUpdatesOnStartupToolStripMenuItem.Checked;
+		}
+
+		private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			CheckForProgramUpdates(true);
+		}
+
 		#endregion
 
 		#region HelpTabUI
@@ -2333,23 +2371,6 @@ namespace imgdanke
 
 		#endregion
 
-		private void ShouldOutputToNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			ShouldOutputToNewFolderToolStripMenuItem.Checked ^= true;
-			CONFIG.ShouldOutputToNewFolder = ShouldOutputToNewFolderToolStripMenuItem.Checked;
-		}
-
-		private void AddTagsToFilenamesToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			AddTagsToFilenamesToolStripMenuItem.Checked ^= true;
-			CONFIG.ShouldAddTagsToFilenames = AddTagsToFilenamesToolStripMenuItem.Checked;
-		}
-
-		private void AddTagsToNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			AddTagsToNewFolderToolStripMenuItem.Checked ^= true;
-			CONFIG.ShouldAddTagsToOutputFolder = AddTagsToNewFolderToolStripMenuItem.Checked;
-		}
 	}
 
 	internal readonly struct FileInfoWithSubpath

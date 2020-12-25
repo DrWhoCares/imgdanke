@@ -25,6 +25,7 @@ namespace imgdanke
 		public UserConfig()
 		{
 			Defaults();
+			_shouldCheckForUpdatesOnStartup = true;
 		}
 
 		private void Defaults()
@@ -72,6 +73,18 @@ namespace imgdanke
 			set
 			{
 				_shouldStartMaximized = value;
+				SaveConfig();
+			}
+		}
+
+		private bool _shouldCheckForUpdatesOnStartup;
+
+		public bool ShouldCheckForUpdatesOnStartup
+		{
+			get => _shouldCheckForUpdatesOnStartup;
+			set
+			{
+				_shouldCheckForUpdatesOnStartup = value;
 				SaveConfig();
 			}
 		}
