@@ -1248,7 +1248,6 @@ namespace imgdanke
 			this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
 			this.PreferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
 			this.PreferencesToolStripMenuItem.Text = "Preferences";
-			this.PreferencesToolStripMenuItem.DropDown.Closing += new ToolStripDropDownClosingEventHandler(DropDown_Closing);
 			// 
 			// OutputSettingsToolStripMenuItem
 			// 
@@ -1391,6 +1390,7 @@ namespace imgdanke
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "imgdanke";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+			this.Shown += new System.EventHandler(this.MainForm_Shown);
 			this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
 			this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
 			this.ImagemagickSettingsGroupBox.ResumeLayout(false);

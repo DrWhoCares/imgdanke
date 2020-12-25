@@ -96,7 +96,6 @@ namespace imgdanke
 			IsInitializing = true;
 			InitializeWindowSettings();
 			InitializeWithCommandLineArgs(args);
-			CheckForProgramUpdates();
 			InitializePingoPNGPaletteComboBox();
 			InitializeWithConfigValues();
 			IsInitializing = false;
@@ -209,7 +208,7 @@ namespace imgdanke
 					return;
 				}
 
-				DialogResult result = MessageBox.Show("There is a new version (" + check.LastVersion + ") available for download. Would you like to download and install it?", "New Version Update", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+				DialogResult result = MessageBox.Show("There is a new version (" + check.LastVersion + ") available for download. Would you like to download and install it? Click the Help button to open the changelog.", "New Version Update", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, 0, "https://github.com/DrWhoCares/imgdanke/releases/tag/" + check.LastVersion);
 
 				if ( result != DialogResult.Yes )
 				{
@@ -564,6 +563,11 @@ namespace imgdanke
 		#region UIEvents
 
 		#region FormUI
+
+		private void MainForm_Shown(object sender, EventArgs e)
+		{
+			CheckForProgramUpdates();
+		}
 
 		private void MainForm_LocationChanged(object sender, EventArgs e)
 		{
