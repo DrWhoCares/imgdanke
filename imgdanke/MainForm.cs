@@ -92,8 +92,8 @@ namespace imgdanke
 		public MainForm(IReadOnlyList<string> args)
 		{
 			InitializeComponent();
-			OptionsMenuStrip.Renderer = new DarkContextMenuRenderer();
 			IsInitializing = true;
+			InitializeDesignerOptions();
 			InitializeWindowSettings();
 			InitializeWithCommandLineArgs(args);
 			InitializePingoPNGPaletteComboBox();
@@ -105,6 +105,11 @@ namespace imgdanke
 
 		#region InitFuncs
 
+		private void InitializeDesignerOptions()
+		{
+			OptionsMenuStrip.Renderer = new DarkContextMenuRenderer();
+			PreferencesToolStripMenuItem.DropDown.Closing += DropDown_Closing;
+		}
 		private void InitializeWindowSettings()
 		{
 			//SetControlStyleFlagsViaReflection();
