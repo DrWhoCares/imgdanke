@@ -1273,7 +1273,7 @@ namespace imgdanke
 
 		private void OutputExtensionTextBox_TextChanged(object sender, EventArgs e)
 		{
-			CONFIG.OutputExtension = OutputExtensionTextBox.Text;
+			CONFIG.OutputExtension = OutputExtensionTextBox.Text.ToLowerInvariant();
 			StartButton.Enabled = VerifyReadyToApply();
 		}
 
@@ -1561,7 +1561,7 @@ namespace imgdanke
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			long previousTotalFilesize = 0;
 			long newTotalFilesize = 0;
-			ProcessingProgressBar.Maximum = (imgFiles.Count * 2) + imgFiles.Where(f => f.Extension == ".psd").ToList().Count;
+			ProcessingProgressBar.Maximum = (imgFiles.Count * 2) + imgFiles.Where(f => f.Extension.ToLowerInvariant() == ".psd").ToList().Count;
 
 			InitializeTagsStrings();
 
@@ -1786,14 +1786,14 @@ namespace imgdanke
 
 		private static List<FileInfo> ConvertAnyPSDs(List<FileInfo> originalImgFiles, string prependString, string appendString, Label statusLabel, ProgressBar progressBar)
 		{
-			List<FileInfo> psdFiles = originalImgFiles.Where(f => f.Extension == ".psd").ToList();
+			List<FileInfo> psdFiles = originalImgFiles.Where(f => f.Extension.ToLowerInvariant() == ".psd").ToList();
 
 			if ( !psdFiles.Any() )
 			{
 				return originalImgFiles;
 			}
 
-			List<FileInfo> newImgFiles = originalImgFiles.Where(f => f.Extension != ".psd").ToList();
+			List<FileInfo> newImgFiles = originalImgFiles.Where(f => f.Extension.ToLowerInvariant() != ".psd").ToList();
 
 			foreach ( FileInfo psdFile in psdFiles )
 			{
@@ -1873,7 +1873,7 @@ namespace imgdanke
 					return new List<FileInfo>();
 				}
 
-				if ( commandString == DEFAULT_COMMAND && img.Extension == CONFIG.OutputExtension && img.DirectoryName == CONFIG.OutputFolderPath && string.IsNullOrWhiteSpace(prependString) && string.IsNullOrWhiteSpace(appendString) )
+				if ( commandString == DEFAULT_COMMAND && img.Extension.ToLowerInvariant() == CONFIG.OutputExtension && img.DirectoryName == CONFIG.OutputFolderPath && string.IsNullOrWhiteSpace(prependString) && string.IsNullOrWhiteSpace(appendString) )
 				{
 					// Avoid processing the magick command if it won't actually do anything. Still need to process it if the extension would change
 					newImgFiles.Add(new FileInfo(img.FullName));
@@ -2107,7 +2107,7 @@ namespace imgdanke
 					continue;
 				}
 
-				if ( FileOps.DoesFileExist(origFile.FullName) && origFile.Extension != ".psd" )
+				if ( FileOps.DoesFileExist(origFile.FullName) && origFile.Extension.ToLowerInvariant() != ".psd" )
 				{
 					FileOps.Delete(origFile.FullName);
 				}
