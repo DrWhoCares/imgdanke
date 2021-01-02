@@ -20,8 +20,8 @@ namespace imgdanke
 		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 		private static readonly string MAGICK_FILENAME = IS_LINUX ? "magick" : "magick.exe";
 		private static readonly string PINGO_FILENAME = IS_LINUX ? "pingo" : "pingo.exe";
-		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
-		private static readonly Regex INVALID_PATH_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidPathChars())) + "]");
+		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+		private static readonly Regex INVALID_PATH_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidPathChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 		private static readonly Color MENU_COLOR_OPTION = Color.FromArgb(216, 216, 216);
 		private static readonly Color MENU_COLOR_OPTION_HIGHLIGHTED = Color.FromArgb(100, 100, 100);
 		private static readonly Color COLOR_BACKGROUND = Color.FromArgb(55, 55, 55);
