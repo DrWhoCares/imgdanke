@@ -2389,7 +2389,7 @@ namespace imgdanke
 
 		private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("v" + typeof(MainForm).Assembly.GetName().Version + "\n- Created by DrWhoCares",
+			MessageBox.Show("v" + typeof(MainForm).Assembly.GetName().Version + "\n- Created by DrWhoCares\nhttps://github.com/DrWhoCares/imgdanke",
 				"About imgdanke",
 				MessageBoxButtons.OK);
 		}

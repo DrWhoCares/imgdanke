@@ -165,7 +165,7 @@ namespace imgdanke
 			this.MagickCommandTextBox.Size = new System.Drawing.Size(1077, 20);
 			this.MagickCommandTextBox.TabIndex = 7;
 			this.MainToolTip.SetToolTip(this.MagickCommandTextBox, "The imagemagick command to be run, %1 and %2 getting replaced by the input and ou" +
-        "tput files, respectively\r\nCommand is skipped if nothing will happen");
+        "tput files, respectively.\r\nCommand is skipped if nothing will happen.");
 			this.MagickCommandTextBox.TextChanged += new System.EventHandler(this.MagickCommandTextBox_TextChanged);
 			// 
 			// MagickCommandLabel
@@ -187,7 +187,7 @@ namespace imgdanke
 			this.SourceFolderPathButton.Size = new System.Drawing.Size(32, 23);
 			this.SourceFolderPathButton.TabIndex = 0;
 			this.SourceFolderPathButton.Text = "...";
-			this.MainToolTip.SetToolTip(this.SourceFolderPathButton, "Select a folder to use as the Source Folder Path");
+			this.MainToolTip.SetToolTip(this.SourceFolderPathButton, "Select a folder to use as the Source Folder Path.");
 			this.SourceFolderPathButton.UseMnemonic = false;
 			this.SourceFolderPathButton.UseVisualStyleBackColor = true;
 			this.SourceFolderPathButton.Click += new System.EventHandler(this.SourceFolderPathButton_Click);
@@ -203,7 +203,7 @@ namespace imgdanke
 			this.SourceFolderPathTextBox.Name = "SourceFolderPathTextBox";
 			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(1042, 20);
 			this.SourceFolderPathTextBox.TabIndex = 1;
-			this.MainToolTip.SetToolTip(this.SourceFolderPathTextBox, "The path to the source images");
+			this.MainToolTip.SetToolTip(this.SourceFolderPathTextBox, "The path to the source images.");
 			this.SourceFolderPathTextBox.TextChanged += new System.EventHandler(this.SourceFolderPathTextBox_TextChanged);
 			this.SourceFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
 			this.SourceFolderPathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragEnter);
@@ -219,7 +219,7 @@ namespace imgdanke
 			this.StartButton.Size = new System.Drawing.Size(75, 23);
 			this.StartButton.TabIndex = 8;
 			this.StartButton.Text = "Start";
-			this.MainToolTip.SetToolTip(this.StartButton, "Start processing the file(s)");
+			this.MainToolTip.SetToolTip(this.StartButton, "Start processing the file(s).");
 			this.StartButton.UseMnemonic = false;
 			this.StartButton.UseVisualStyleBackColor = true;
 			this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
@@ -244,7 +244,7 @@ namespace imgdanke
 			this.OutputFolderPathTextBox.Name = "OutputFolderPathTextBox";
 			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(1042, 20);
 			this.OutputFolderPathTextBox.TabIndex = 3;
-			this.MainToolTip.SetToolTip(this.OutputFolderPathTextBox, "The path to where the processed images will be output");
+			this.MainToolTip.SetToolTip(this.OutputFolderPathTextBox, "The path to where the processed images will be output.");
 			this.OutputFolderPathTextBox.TextChanged += new System.EventHandler(this.OutputFolderPathTextBox_TextChanged);
 			this.OutputFolderPathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragDrop);
 			this.OutputFolderPathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PathTextBox_DragEnter);
@@ -259,7 +259,7 @@ namespace imgdanke
 			this.OutputFolderPathButton.Size = new System.Drawing.Size(32, 23);
 			this.OutputFolderPathButton.TabIndex = 2;
 			this.OutputFolderPathButton.Text = "...";
-			this.MainToolTip.SetToolTip(this.OutputFolderPathButton, "Select a folder to use as the Output Folder Path");
+			this.MainToolTip.SetToolTip(this.OutputFolderPathButton, "Select a folder to use as the Output Folder Path.");
 			this.OutputFolderPathButton.UseMnemonic = false;
 			this.OutputFolderPathButton.UseVisualStyleBackColor = true;
 			this.OutputFolderPathButton.Click += new System.EventHandler(this.OutputFolderPathButton_Click);
@@ -317,7 +317,7 @@ namespace imgdanke
 			this.MagickContrastStretchCheckBox.TabIndex = 10;
 			this.MagickContrastStretchCheckBox.Text = "contrast-stretch-";
 			this.MainToolTip.SetToolTip(this.MagickContrastStretchCheckBox, "Similar to -normalize, this is used to help achieve #000 blacks and #FFF whites f" +
-        "or grayscale images");
+        "or grayscale images.");
 			this.MagickContrastStretchCheckBox.UseMnemonic = false;
 			this.MagickContrastStretchCheckBox.UseVisualStyleBackColor = false;
 			this.MagickContrastStretchCheckBox.CheckedChanged += new System.EventHandler(this.MagickContrastStretchCheckBox_CheckedChanged);
@@ -330,7 +330,7 @@ namespace imgdanke
 			this.MagickDepthTextBox.Name = "MagickDepthTextBox";
 			this.MagickDepthTextBox.Size = new System.Drawing.Size(77, 20);
 			this.MagickDepthTextBox.TabIndex = 9;
-			this.MainToolTip.SetToolTip(this.MagickDepthTextBox, "Limits the depth to the specified amount\r\nThis is a lossy operation");
+			this.MainToolTip.SetToolTip(this.MagickDepthTextBox, "Limits the depth to the specified amount.\r\nThis is a lossy operation.");
 			this.MagickDepthTextBox.TextChanged += new System.EventHandler(this.MagickDepthTextBox_TextChanged);
 			this.MagickDepthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RestrictToNumbersTextBox_KeyPress);
 			// 
@@ -352,8 +352,8 @@ namespace imgdanke
 			this.MagickColorsTextBox.Name = "MagickColorsTextBox";
 			this.MagickColorsTextBox.Size = new System.Drawing.Size(75, 20);
 			this.MagickColorsTextBox.TabIndex = 7;
-			this.MainToolTip.SetToolTip(this.MagickColorsTextBox, "Reduces the number of colors to the provided amount, or less\r\nThis is a lossy ope" +
-        "ration, and -posterize often does a better job");
+			this.MainToolTip.SetToolTip(this.MagickColorsTextBox, "Reduces the number of colors to the provided amount, or less.\r\nThis is a lossy op" +
+        "eration, and -posterize often does a better job.");
 			this.MagickColorsTextBox.TextChanged += new System.EventHandler(this.MagickColorsTextBox_TextChanged);
 			this.MagickColorsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RestrictToNumbersTextBox_KeyPress);
 			// 
@@ -399,7 +399,7 @@ namespace imgdanke
 			this.MagickNormalizeCheckBox.Size = new System.Drawing.Size(83, 17);
 			this.MagickNormalizeCheckBox.TabIndex = 3;
 			this.MagickNormalizeCheckBox.Text = "normalize-";
-			this.MainToolTip.SetToolTip(this.MagickNormalizeCheckBox, "Normalizes the colors, disable if you would prefer the original colors");
+			this.MainToolTip.SetToolTip(this.MagickNormalizeCheckBox, "Normalizes the colors, disable if you would prefer the original colors.");
 			this.MagickNormalizeCheckBox.UseMnemonic = false;
 			this.MagickNormalizeCheckBox.UseVisualStyleBackColor = false;
 			this.MagickNormalizeCheckBox.CheckedChanged += new System.EventHandler(this.MagickNormalizeCheckBox_CheckedChanged);
@@ -417,8 +417,8 @@ namespace imgdanke
 			this.MagickColorspaceComboBox.Name = "MagickColorspaceComboBox";
 			this.MagickColorspaceComboBox.Size = new System.Drawing.Size(123, 21);
 			this.MagickColorspaceComboBox.TabIndex = 1;
-			this.MainToolTip.SetToolTip(this.MagickColorspaceComboBox, "The colorspace to output the files as\r\n\"Gray\" for grayscale images\r\n\"sRGB\" for co" +
-        "lor images");
+			this.MainToolTip.SetToolTip(this.MagickColorspaceComboBox, "The colorspace to output the files as:\r\n\"Gray\" for grayscale images.\r\n\"sRGB\" for " +
+        "color images.");
 			this.MagickColorspaceComboBox.SelectedIndexChanged += new System.EventHandler(this.MagickColorspaceComboBox_SelectedIndexChanged);
 			// 
 			// MagickDitherComboBox
@@ -433,7 +433,7 @@ namespace imgdanke
 			this.MagickDitherComboBox.Name = "MagickDitherComboBox";
 			this.MagickDitherComboBox.Size = new System.Drawing.Size(123, 21);
 			this.MagickDitherComboBox.TabIndex = 0;
-			this.MainToolTip.SetToolTip(this.MagickDitherComboBox, "The Imagemagick -dither option to use, default is usually \"None\"");
+			this.MainToolTip.SetToolTip(this.MagickDitherComboBox, "The Imagemagick -dither option to use, default is usually \"None\".");
 			this.MagickDitherComboBox.SelectedIndexChanged += new System.EventHandler(this.MagickDitherComboBox_SelectedIndexChanged);
 			// 
 			// PingoSettingsGroupBox
@@ -467,8 +467,8 @@ namespace imgdanke
 			this.PingoNoDitheringCheckBox.Size = new System.Drawing.Size(93, 17);
 			this.PingoNoDitheringCheckBox.TabIndex = 16;
 			this.PingoNoDitheringCheckBox.Text = "nodithering-";
-			this.MainToolTip.SetToolTip(this.PingoNoDitheringCheckBox, "Turns off dithering if -pngpalette is used\r\nOff by default for pingo 8bpp color p" +
-        "reset\r\nOn by default for pingo 4bpp color preset");
+			this.MainToolTip.SetToolTip(this.PingoNoDitheringCheckBox, "Turns off dithering if -pngpalette is used.\r\nOff by default for pingo 8bpp color " +
+        "preset.\r\nOn by default for pingo 4bpp color preset.");
 			this.PingoNoDitheringCheckBox.UseMnemonic = false;
 			this.PingoNoDitheringCheckBox.UseVisualStyleBackColor = false;
 			this.PingoNoDitheringCheckBox.CheckedChanged += new System.EventHandler(this.PingoNoDitheringCheckBox_CheckedChanged);
@@ -493,7 +493,7 @@ namespace imgdanke
 			this.PingoPNGPaletteComboBox.Size = new System.Drawing.Size(55, 21);
 			this.PingoPNGPaletteComboBox.TabIndex = 10;
 			this.MainToolTip.SetToolTip(this.PingoPNGPaletteComboBox, "Reduces the number of colors to one of the bins listed\r\nThis is a lossy operation" +
-        "");
+        ".");
 			this.PingoPNGPaletteComboBox.SelectedIndexChanged += new System.EventHandler(this.PingoPNGPaletteComboBox_SelectedIndexChanged);
 			// 
 			// PingoStripCheckBox
@@ -506,8 +506,8 @@ namespace imgdanke
 			this.PingoStripCheckBox.Size = new System.Drawing.Size(54, 17);
 			this.PingoStripCheckBox.TabIndex = 7;
 			this.PingoStripCheckBox.Text = "strip-";
-			this.MainToolTip.SetToolTip(this.PingoStripCheckBox, "Strips metadata from the file, slightly reducing the filesize\r\nDoes not modify th" +
-        "e image at all\r\nTurn off if you want to save the metadata");
+			this.MainToolTip.SetToolTip(this.PingoStripCheckBox, "Strips metadata from the file, slightly reducing the filesize.\r\nDoes not modify t" +
+        "he image at all.\r\nTurn off if you want to save the metadata.");
 			this.PingoStripCheckBox.UseMnemonic = false;
 			this.PingoStripCheckBox.UseVisualStyleBackColor = false;
 			this.PingoStripCheckBox.CheckedChanged += new System.EventHandler(this.PingoStripCheckBox_CheckedChanged);
@@ -525,7 +525,7 @@ namespace imgdanke
 			this.PingoSARadioButton.TabStop = true;
 			this.PingoSARadioButton.Text = "sa-";
 			this.MainToolTip.SetToolTip(this.PingoSARadioButton, "Similar to -sb, this is used for higher quality dithering,\r\nbut less extensive (l" +
-        "ower quality/CPU usage) as -sb");
+        "ower quality/CPU usage) as -sb.");
 			this.PingoSARadioButton.UseMnemonic = false;
 			this.PingoSARadioButton.UseVisualStyleBackColor = false;
 			this.PingoSARadioButton.CheckedChanged += new System.EventHandler(this.PingoSARadioButton_CheckedChanged);
@@ -542,7 +542,7 @@ namespace imgdanke
 			this.PingoSBRadioButton.TabIndex = 14;
 			this.PingoSBRadioButton.TabStop = true;
 			this.PingoSBRadioButton.Text = "sb-";
-			this.MainToolTip.SetToolTip(this.PingoSBRadioButton, "This is used for higher quality dithering, and is better than -sa at doing so");
+			this.MainToolTip.SetToolTip(this.PingoSBRadioButton, "This is used for higher quality dithering, and is better than -sa at doing so.");
 			this.PingoSBRadioButton.UseMnemonic = false;
 			this.PingoSBRadioButton.UseVisualStyleBackColor = false;
 			this.PingoSBRadioButton.CheckedChanged += new System.EventHandler(this.PingoSBRadioButton_CheckedChanged);
@@ -578,7 +578,7 @@ namespace imgdanke
 			this.PingoOptimizationLevelComboBox.Size = new System.Drawing.Size(47, 21);
 			this.PingoOptimizationLevelComboBox.TabIndex = 6;
 			this.MainToolTip.SetToolTip(this.PingoOptimizationLevelComboBox, "The loseless optimization option, higher is better quality/smaller filesize, but " +
-        "more CPU/time to process");
+        "more CPU/time to process.");
 			this.PingoOptimizationLevelComboBox.SelectedIndexChanged += new System.EventHandler(this.PingoOptimizationLevelComboBox_SelectedIndexChanged);
 			// 
 			// PresetSettingsGroupBox
@@ -613,7 +613,7 @@ namespace imgdanke
 			this.PingoFourBppColorPresetRadioButton.TabIndex = 15;
 			this.PingoFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, pingo)";
 			this.MainToolTip.SetToolTip(this.PingoFourBppColorPresetRadioButton, "Makes a 4bpp sRGB image with only 16 colors, using pingo\'s pngpalette with dither" +
-        "ing by default");
+        "ing by default.");
 			this.PingoFourBppColorPresetRadioButton.UseMnemonic = false;
 			this.PingoFourBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.PingoFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoFourBppColorPresetRadioButton_CheckedChanged);
@@ -627,7 +627,7 @@ namespace imgdanke
 			this.PingoEightBppColorPresetRadioButton.TabIndex = 14;
 			this.PingoEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, pingo)";
 			this.MainToolTip.SetToolTip(this.PingoEightBppColorPresetRadioButton, "Makes an 8bpp sRGB image with only 256 colors, using pingo\'s pngpalette with no d" +
-        "ithering by default");
+        "ithering by default.");
 			this.PingoEightBppColorPresetRadioButton.UseMnemonic = false;
 			this.PingoEightBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.PingoEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.PingoEightBppColorPresetRadioButton_CheckedChanged);
@@ -641,7 +641,7 @@ namespace imgdanke
 			this.CustomPresetRadioButton.TabIndex = 1;
 			this.CustomPresetRadioButton.Text = "Custom (Save Settings)";
 			this.MainToolTip.SetToolTip(this.CustomPresetRadioButton, "Whatever current settings you have will continue to be used next time you open th" +
-        "e application");
+        "e application.");
 			this.CustomPresetRadioButton.UseMnemonic = false;
 			this.CustomPresetRadioButton.UseVisualStyleBackColor = false;
 			this.CustomPresetRadioButton.CheckedChanged += new System.EventHandler(this.CustomPresetRadioButton_CheckedChanged);
@@ -655,7 +655,7 @@ namespace imgdanke
 			this.MagickEightBppColorPresetRadioButton.TabIndex = 6;
 			this.MagickEightBppColorPresetRadioButton.Text = "8 bpp (256 colors, magick)";
 			this.MainToolTip.SetToolTip(this.MagickEightBppColorPresetRadioButton, "Makes an 8bpp sRGB image with only 256 colors, using imagemagick\'s posterization " +
-        "with no dithering");
+        "with no dithering.");
 			this.MagickEightBppColorPresetRadioButton.UseMnemonic = false;
 			this.MagickEightBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.MagickEightBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickEightBppColorPresetRadioButton_CheckedChanged);
@@ -679,7 +679,7 @@ namespace imgdanke
 			this.MagickFourBppColorPresetRadioButton.TabIndex = 5;
 			this.MagickFourBppColorPresetRadioButton.Text = "4 bpp (16 colors, magick)";
 			this.MainToolTip.SetToolTip(this.MagickFourBppColorPresetRadioButton, "Makes a 4bpp sRGB image with only 16 colors, using imagemagick\'s posterization wi" +
-        "th no dithering");
+        "th no dithering.");
 			this.MagickFourBppColorPresetRadioButton.UseMnemonic = false;
 			this.MagickFourBppColorPresetRadioButton.UseVisualStyleBackColor = false;
 			this.MagickFourBppColorPresetRadioButton.CheckedChanged += new System.EventHandler(this.MagickFourBppColorPresetRadioButton_CheckedChanged);
@@ -702,7 +702,7 @@ namespace imgdanke
 			this.OneBppGrayPresetRadioButton.Size = new System.Drawing.Size(98, 17);
 			this.OneBppGrayPresetRadioButton.TabIndex = 2;
 			this.OneBppGrayPresetRadioButton.Text = "1 bpp (2 colors)";
-			this.MainToolTip.SetToolTip(this.OneBppGrayPresetRadioButton, "Makes a 1bpp grayscale image with only two colors");
+			this.MainToolTip.SetToolTip(this.OneBppGrayPresetRadioButton, "Makes a 1bpp grayscale image with only two colors.");
 			this.OneBppGrayPresetRadioButton.UseMnemonic = false;
 			this.OneBppGrayPresetRadioButton.UseVisualStyleBackColor = false;
 			this.OneBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.OneBppGrayPresetRadioButton_CheckedChanged);
@@ -717,7 +717,7 @@ namespace imgdanke
 			this.NoPresetRadioButton.TabIndex = 0;
 			this.NoPresetRadioButton.TabStop = true;
 			this.NoPresetRadioButton.Text = "No Preset";
-			this.MainToolTip.SetToolTip(this.NoPresetRadioButton, "Clears all options, only leaving the basic lossless pingo optimizations");
+			this.MainToolTip.SetToolTip(this.NoPresetRadioButton, "Clears all options, only leaving the basic lossless pingo optimizations.");
 			this.NoPresetRadioButton.UseMnemonic = false;
 			this.NoPresetRadioButton.UseVisualStyleBackColor = false;
 			this.NoPresetRadioButton.CheckedChanged += new System.EventHandler(this.NoPresetRadioButton_CheckedChanged);
@@ -730,7 +730,7 @@ namespace imgdanke
 			this.EightBppGrayPresetRadioButton.Size = new System.Drawing.Size(110, 17);
 			this.EightBppGrayPresetRadioButton.TabIndex = 4;
 			this.EightBppGrayPresetRadioButton.Text = "8 bpp (256 colors)";
-			this.MainToolTip.SetToolTip(this.EightBppGrayPresetRadioButton, "Makes an 8bpp grayscale image with only 256 colors");
+			this.MainToolTip.SetToolTip(this.EightBppGrayPresetRadioButton, "Makes an 8bpp grayscale image with only 256 colors.");
 			this.EightBppGrayPresetRadioButton.UseMnemonic = false;
 			this.EightBppGrayPresetRadioButton.UseVisualStyleBackColor = false;
 			this.EightBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.EightBppGrayPresetRadioButton_CheckedChanged);
@@ -743,7 +743,7 @@ namespace imgdanke
 			this.FourBppGrayPresetRadioButton.Size = new System.Drawing.Size(104, 17);
 			this.FourBppGrayPresetRadioButton.TabIndex = 3;
 			this.FourBppGrayPresetRadioButton.Text = "4 bpp (16 colors)";
-			this.MainToolTip.SetToolTip(this.FourBppGrayPresetRadioButton, "Makes a 4bpp grayscale image with only 16 colors");
+			this.MainToolTip.SetToolTip(this.FourBppGrayPresetRadioButton, "Makes a 4bpp grayscale image with only 16 colors.");
 			this.FourBppGrayPresetRadioButton.UseMnemonic = false;
 			this.FourBppGrayPresetRadioButton.UseVisualStyleBackColor = false;
 			this.FourBppGrayPresetRadioButton.CheckedChanged += new System.EventHandler(this.FourBppGrayPresetRadioButton_CheckedChanged);
@@ -814,7 +814,7 @@ namespace imgdanke
 			this.IncludeSubfoldersCheckBox.Size = new System.Drawing.Size(115, 17);
 			this.IncludeSubfoldersCheckBox.TabIndex = 14;
 			this.IncludeSubfoldersCheckBox.Text = "Incl. Subfolders";
-			this.MainToolTip.SetToolTip(this.IncludeSubfoldersCheckBox, "Toggles searching through subfolders in the Source Folder Path for files");
+			this.MainToolTip.SetToolTip(this.IncludeSubfoldersCheckBox, "Toggles searching through subfolders in the Source Folder Path for files.");
 			this.IncludeSubfoldersCheckBox.UseMnemonic = false;
 			this.IncludeSubfoldersCheckBox.UseVisualStyleBackColor = false;
 			this.IncludeSubfoldersCheckBox.CheckedChanged += new System.EventHandler(this.IncludeSubfoldersCheckBox_CheckedChanged);
@@ -829,7 +829,7 @@ namespace imgdanke
 			this.MassFileSelectorButton.Size = new System.Drawing.Size(71, 23);
 			this.MassFileSelectorButton.TabIndex = 12;
 			this.MassFileSelectorButton.Text = "Select All";
-			this.MainToolTip.SetToolTip(this.MassFileSelectorButton, "Select all (or unselect all) files in the Files in Source Folder file list");
+			this.MainToolTip.SetToolTip(this.MassFileSelectorButton, "Select all (or unselect all) files in the Files in Source Folder file list.");
 			this.MassFileSelectorButton.UseMnemonic = false;
 			this.MassFileSelectorButton.UseVisualStyleBackColor = true;
 			this.MassFileSelectorButton.Click += new System.EventHandler(this.MassFileSelectorButton_Click);
@@ -853,7 +853,7 @@ namespace imgdanke
 			this.RefreshFileListButton.Size = new System.Drawing.Size(73, 23);
 			this.RefreshFileListButton.TabIndex = 13;
 			this.RefreshFileListButton.Text = "Refresh List";
-			this.MainToolTip.SetToolTip(this.RefreshFileListButton, "Refresh the Files In Source Folder file list");
+			this.MainToolTip.SetToolTip(this.RefreshFileListButton, "Refresh the Files In Source Folder file list.");
 			this.RefreshFileListButton.UseMnemonic = false;
 			this.RefreshFileListButton.UseVisualStyleBackColor = true;
 			this.RefreshFileListButton.Click += new System.EventHandler(this.RefreshFileListButton_Click);
@@ -866,7 +866,7 @@ namespace imgdanke
 			this.OutputExtensionTextBox.Name = "OutputExtensionTextBox";
 			this.OutputExtensionTextBox.Size = new System.Drawing.Size(34, 20);
 			this.OutputExtensionTextBox.TabIndex = 10;
-			this.MainToolTip.SetToolTip(this.OutputExtensionTextBox, "The output file\'s extension, requires a period at the beginning");
+			this.MainToolTip.SetToolTip(this.OutputExtensionTextBox, "The output file\'s extension, requires a period at the beginning.");
 			this.OutputExtensionTextBox.TextChanged += new System.EventHandler(this.OutputExtensionTextBox_TextChanged);
 			// 
 			// FilesInSourceFolderListBox
@@ -906,7 +906,7 @@ namespace imgdanke
 			this.PingoCommandTextBox.Size = new System.Drawing.Size(1077, 20);
 			this.PingoCommandTextBox.TabIndex = 11;
 			this.MainToolTip.SetToolTip(this.PingoCommandTextBox, "The pingo command to be run, %1 gets replaced by the input file, as pingo only mo" +
-        "difies in-place\r\nCommand will be skipped if textbox is empty\r\n");
+        "difies in-place.\r\nCommand will be skipped if textbox is empty.");
 			this.PingoCommandTextBox.TextChanged += new System.EventHandler(this.PingoCommandTextBox_TextChanged);
 			// 
 			// ProcessingCancelButton
@@ -920,7 +920,7 @@ namespace imgdanke
 			this.ProcessingCancelButton.TabIndex = 12;
 			this.ProcessingCancelButton.Text = "Cancel";
 			this.MainToolTip.SetToolTip(this.ProcessingCancelButton, "Cancel processing the file(s), may mean that your files will be in an unfinished " +
-        "state");
+        "state.");
 			this.ProcessingCancelButton.UseMnemonic = false;
 			this.ProcessingCancelButton.UseVisualStyleBackColor = true;
 			this.ProcessingCancelButton.Visible = false;
@@ -1004,7 +1004,7 @@ namespace imgdanke
 			this.MaintainFolderStructureCheckBox.Text = "Maintain Folder Structure";
 			this.MainToolTip.SetToolTip(this.MaintainFolderStructureCheckBox, "If using Include Subfolders, and your Output Folder Path is different from your S" +
         "ource Folder Path,\r\nthen re-creates the same folder setup at the Output Folder P" +
-        "ath");
+        "ath.");
 			this.MaintainFolderStructureCheckBox.UseMnemonic = false;
 			this.MaintainFolderStructureCheckBox.UseVisualStyleBackColor = false;
 			this.MaintainFolderStructureCheckBox.Visible = false;
@@ -1020,7 +1020,7 @@ namespace imgdanke
 			this.DeleteOriginalsAfterCheckBox.TabIndex = 17;
 			this.DeleteOriginalsAfterCheckBox.Text = "Delete Original(s) After (Not PSDs)";
 			this.MainToolTip.SetToolTip(this.DeleteOriginalsAfterCheckBox, "Deletes the original files after processing, unless those files are being modifie" +
-        "d in-place, never deletes PSDs");
+        "d in-place, never deletes PSDs.");
 			this.DeleteOriginalsAfterCheckBox.UseMnemonic = false;
 			this.DeleteOriginalsAfterCheckBox.UseVisualStyleBackColor = false;
 			this.DeleteOriginalsAfterCheckBox.CheckedChanged += new System.EventHandler(this.DeleteOriginalsAfterCheckBox_CheckedChanged);
@@ -1035,7 +1035,7 @@ namespace imgdanke
 			this.ReplaceOriginalsCheckBox.TabIndex = 16;
 			this.ReplaceOriginalsCheckBox.Text = "Replace Original(s) (Not PSDs)";
 			this.MainToolTip.SetToolTip(this.ReplaceOriginalsCheckBox, "Replaces the original images, modifying them in-place. Deletes originals if filen" +
-        "ame or type is changing, never deletes PSDs");
+        "ame or type is changing, never deletes PSDs.");
 			this.ReplaceOriginalsCheckBox.UseMnemonic = false;
 			this.ReplaceOriginalsCheckBox.UseVisualStyleBackColor = false;
 			this.ReplaceOriginalsCheckBox.CheckedChanged += new System.EventHandler(this.ReplaceOriginalsCheckBox_CheckedChanged);
@@ -1149,7 +1149,7 @@ namespace imgdanke
 			this.AppendToOutputTextBox.Name = "AppendToOutputTextBox";
 			this.AppendToOutputTextBox.Size = new System.Drawing.Size(67, 20);
 			this.AppendToOutputTextBox.TabIndex = 17;
-			this.MainToolTip.SetToolTip(this.AppendToOutputTextBox, "String to be appended to the front of the existing filename");
+			this.MainToolTip.SetToolTip(this.AppendToOutputTextBox, "String to be appended to the front of the existing filename.");
 			this.AppendToOutputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToFilePermittedChars_KeyPress);
 			// 
 			// PrependToOutputLabel
@@ -1170,7 +1170,7 @@ namespace imgdanke
 			this.PrependToOutputTextBox.Name = "PrependToOutputTextBox";
 			this.PrependToOutputTextBox.Size = new System.Drawing.Size(67, 20);
 			this.PrependToOutputTextBox.TabIndex = 15;
-			this.MainToolTip.SetToolTip(this.PrependToOutputTextBox, "String to be prepended to the front of the existing filename");
+			this.MainToolTip.SetToolTip(this.PrependToOutputTextBox, "String to be prepended to the front of the existing filename.");
 			this.PrependToOutputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxRestrictToFilePermittedChars_KeyPress);
 			// 
 			// ProcessingProgressBar
@@ -1214,6 +1214,7 @@ namespace imgdanke
 			this.OpenUserConfigToolStripMenuItem.Name = "OpenUserConfigToolStripMenuItem";
 			this.OpenUserConfigToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.OpenUserConfigToolStripMenuItem.Text = "Open User Config";
+			this.OpenUserConfigToolStripMenuItem.ToolTipText = "Opens the user config file.";
 			this.OpenUserConfigToolStripMenuItem.Click += new System.EventHandler(this.OpenUserConfigToolStripMenuItem_Click);
 			// 
 			// SaveCurrentSettingsToolStripMenuItem
@@ -1222,6 +1223,9 @@ namespace imgdanke
 			this.SaveCurrentSettingsToolStripMenuItem.Name = "SaveCurrentSettingsToolStripMenuItem";
 			this.SaveCurrentSettingsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.SaveCurrentSettingsToolStripMenuItem.Text = "Save Current Settings";
+			this.SaveCurrentSettingsToolStripMenuItem.ToolTipText = "A manual option to save the current settings to the user config file.\r\nSettings a" +
+    "re saved any time any setting is changed, so this option is\r\nsomewhat redundant." +
+    "";
 			this.SaveCurrentSettingsToolStripMenuItem.Click += new System.EventHandler(this.SaveCurrentSettingsToolStripMenuItem_Click);
 			// 
 			// CloseToolStripMenuItem
@@ -1230,6 +1234,7 @@ namespace imgdanke
 			this.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem";
 			this.CloseToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.CloseToolStripMenuItem.Text = "Exit";
+			this.CloseToolStripMenuItem.ToolTipText = "Closes the program, canceling any current processing.";
 			this.CloseToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
 			// 
 			// PreferencesToolStripMenuItem
@@ -1263,6 +1268,7 @@ namespace imgdanke
 			this.ShouldOutputToNewFolderToolStripMenuItem.Name = "ShouldOutputToNewFolderToolStripMenuItem";
 			this.ShouldOutputToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.ShouldOutputToNewFolderToolStripMenuItem.Text = "Should Output To New Folder";
+			this.ShouldOutputToNewFolderToolStripMenuItem.ToolTipText = "Toggles whether or not images should be output to a newly created folder.";
 			this.ShouldOutputToNewFolderToolStripMenuItem.Click += new System.EventHandler(this.ShouldOutputToNewFolderToolStripMenuItem_Click);
 			// 
 			// AddTagsToFilenamesToolStripMenuItem
@@ -1272,6 +1278,8 @@ namespace imgdanke
 			this.AddTagsToFilenamesToolStripMenuItem.Name = "AddTagsToFilenamesToolStripMenuItem";
 			this.AddTagsToFilenamesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.AddTagsToFilenamesToolStripMenuItem.Text = "Add Tags To Filenames";
+			this.AddTagsToFilenamesToolStripMenuItem.ToolTipText = "A quick toggle for adding tags to filenames.\r\nActual settings are set in the Outp" +
+    "ut Settings window.";
 			this.AddTagsToFilenamesToolStripMenuItem.Click += new System.EventHandler(this.AddTagsToFilenamesToolStripMenuItem_Click);
 			// 
 			// AddTagsToNewFolderToolStripMenuItem
@@ -1281,6 +1289,8 @@ namespace imgdanke
 			this.AddTagsToNewFolderToolStripMenuItem.Name = "AddTagsToNewFolderToolStripMenuItem";
 			this.AddTagsToNewFolderToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.AddTagsToNewFolderToolStripMenuItem.Text = "Add Tags To New Folder";
+			this.AddTagsToNewFolderToolStripMenuItem.ToolTipText = "A quick toggle for adding tags to the new folder created\r\nby the Should Output To" +
+    " New Folder option.\r\nActual settings are set in the Output Settings window.";
 			this.AddTagsToNewFolderToolStripMenuItem.Click += new System.EventHandler(this.AddTagsToNewFolderToolStripMenuItem_Click);
 			// 
 			// CheckForUpdatesToolStripSeparator
@@ -1298,7 +1308,7 @@ namespace imgdanke
 			this.CheckForUpdatesOnStartupToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.CheckForUpdatesOnStartupToolStripMenuItem.Text = "Check For Updates On Startup";
 			this.CheckForUpdatesOnStartupToolStripMenuItem.ToolTipText = "Toggle whether or not a check for any updates should be made when starting up img" +
-    "danke";
+    "danke.";
 			this.CheckForUpdatesOnStartupToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesOnStartupToolStripMenuItem_Click);
 			// 
 			// DisableFailedToCheckMessageToolStripMenuItem
@@ -1307,7 +1317,7 @@ namespace imgdanke
 			this.DisableFailedToCheckMessageToolStripMenuItem.Name = "DisableFailedToCheckMessageToolStripMenuItem";
 			this.DisableFailedToCheckMessageToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.DisableFailedToCheckMessageToolStripMenuItem.Text = "Disable Failed Check Message";
-			this.DisableFailedToCheckMessageToolStripMenuItem.ToolTipText = "Toggles disabling the error message if the check for updates fails";
+			this.DisableFailedToCheckMessageToolStripMenuItem.ToolTipText = "Toggles disabling the error message if the check for updates fails.";
 			this.DisableFailedToCheckMessageToolStripMenuItem.Click += new System.EventHandler(this.DisableFailedToCheckMessageToolStripMenuItem_Click);
 			// 
 			// CheckForUpdatesToolStripMenuItem
@@ -1316,6 +1326,7 @@ namespace imgdanke
 			this.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem";
 			this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.CheckForUpdatesToolStripMenuItem.Text = "Check For Updates";
+			this.CheckForUpdatesToolStripMenuItem.ToolTipText = "Toggles the check for any updates that happens on startup.";
 			this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
 			// 
 			// HelpToolStripMenuItem
@@ -1336,6 +1347,8 @@ namespace imgdanke
 			this.GitHubToolStripMenuItem.Name = "GitHubToolStripMenuItem";
 			this.GitHubToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
 			this.GitHubToolStripMenuItem.Text = "GitHub";
+			this.GitHubToolStripMenuItem.ToolTipText = "Opens the imgdanke GitHub page in the default browser.\r\nThe URL opened is: https:" +
+    "//github.com/DrWhoCares/imgdanke";
 			this.GitHubToolStripMenuItem.Click += new System.EventHandler(this.GitHubToolStripMenuItem_Click);
 			// 
 			// OpenDocumentationToolStripMenuItem
@@ -1351,15 +1364,18 @@ namespace imgdanke
 			// OpenDocumentationFromFileToolStripMenuItem
 			// 
 			this.OpenDocumentationFromFileToolStripMenuItem.Name = "OpenDocumentationFromFileToolStripMenuItem";
-			this.OpenDocumentationFromFileToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.OpenDocumentationFromFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.OpenDocumentationFromFileToolStripMenuItem.Text = "From File";
+			this.OpenDocumentationFromFileToolStripMenuItem.ToolTipText = "Opens the local README.md file.";
 			this.OpenDocumentationFromFileToolStripMenuItem.Click += new System.EventHandler(this.OpenDocumentationFromFileToolStripMenuItem_Click);
 			// 
 			// OpenDocumentationGitHubToolStripMenuItem
 			// 
 			this.OpenDocumentationGitHubToolStripMenuItem.Name = "OpenDocumentationGitHubToolStripMenuItem";
-			this.OpenDocumentationGitHubToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.OpenDocumentationGitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.OpenDocumentationGitHubToolStripMenuItem.Text = "GitHub";
+			this.OpenDocumentationGitHubToolStripMenuItem.ToolTipText = "Opens the README.md file on the GitHub.\r\nThe URL is: https://github.com/DrWhoCare" +
+    "s/imgdanke/blob/master/README.md";
 			this.OpenDocumentationGitHubToolStripMenuItem.Click += new System.EventHandler(this.OpenDocumentationGitHubToolStripMenuItem_Click);
 			// 
 			// AboutToolStripMenuItem
@@ -1368,6 +1384,7 @@ namespace imgdanke
 			this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
 			this.AboutToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
 			this.AboutToolStripMenuItem.Text = "About";
+			this.AboutToolStripMenuItem.ToolTipText = "Displays some information on the current build.";
 			this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
 			// 
 			// MainToolTip

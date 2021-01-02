@@ -120,20 +120,23 @@
   <metadata name="MainToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>169, 17</value>
   </metadata>
+  <metadata name="MainToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>169, 17</value>
+  </metadata>
   <data name="MagickPosterizeTextBox.ToolTip" xml:space="preserve">
-    <value>Reduces the colors using posterization, value must be 256 or less
-1 or 0 is useless and will provide a black image
+    <value>Reduces the colors using posterization, value must be 256 or less.
+1 or 0 is useless and will produce a black image.
 
-For grayscale, the amount you provide is the max colors you'll get
+For grayscale, the amount you provide is the max colors you'll get.
 
 For color, the value you provide is the amount of colors to limit
 each channel to (RGB for sRGB). 256 would be the same as 24bpp,
-but it will likely optimize to less, as 256 per channel is only the max</value>
+but it will likely optimize to less, as 256 per channel is only the max.</value>
   </data>
   <data name="IncludePSDsCheckBox.ToolTip" xml:space="preserve">
-    <value>Toggles including PSD files in the Files in Source Folder file list
-For exporting directly from a PSD without needing Photoshop whatsoever
-Requires the PSD was saved with "Maximize Compatibility" turned on</value>
+    <value>Toggles including PSD files in the Files in Source Folder file list.
+For exporting directly from a PSD without needing Photoshop whatsoever.
+Requires the PSD was saved with "Maximize Compatibility" turned on.</value>
   </data>
   <metadata name="MainSplitContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

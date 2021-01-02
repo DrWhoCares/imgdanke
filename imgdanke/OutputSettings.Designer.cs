@@ -68,8 +68,8 @@ namespace imgdanke
 			this.OutputToNewFolderFolderNameTextBox.Name = "OutputToNewFolderFolderNameTextBox";
 			this.OutputToNewFolderFolderNameTextBox.Size = new System.Drawing.Size(252, 20);
 			this.OutputToNewFolderFolderNameTextBox.TabIndex = 17;
-			this.MainToolTip.SetToolTip(this.OutputToNewFolderFolderNameTextBox, "The name of the new folder to be created if Output To New Folder is checked. Tags" +
-        " will be appened to this if also checked.");
+			this.MainToolTip.SetToolTip(this.OutputToNewFolderFolderNameTextBox, "The name of the new folder to be created if Output To New Folder is checked.\r\nTag" +
+        "s will be appened to this if also checked.");
 			this.OutputToNewFolderFolderNameTextBox.TextChanged += new System.EventHandler(this.OutputToNewFolderFolderNameTextBox_TextChanged);
 			this.OutputToNewFolderFolderNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OutputToNewFolderFolderNameTextBox_KeyPress);
 			// 
@@ -82,7 +82,7 @@ namespace imgdanke
 			this.OutputToNewFolderCheckBox.TabIndex = 18;
 			this.OutputToNewFolderCheckBox.Text = "Output To New Folder";
 			this.MainToolTip.SetToolTip(this.OutputToNewFolderCheckBox, "Create a new folder at Output Folder Path with an optional base name, and/or opti" +
-        "onal tags");
+        "onal tags.");
 			this.OutputToNewFolderCheckBox.UseVisualStyleBackColor = true;
 			this.OutputToNewFolderCheckBox.CheckedChanged += new System.EventHandler(this.OutputToNewFolderCheckBox_CheckedChanged);
 			// 
@@ -199,7 +199,7 @@ namespace imgdanke
 			this.AddTagsToFilenamesCheckBox.TabIndex = 0;
 			this.AddTagsToFilenamesCheckBox.Text = "Should Add Tags To Filename(s)";
 			this.MainToolTip.SetToolTip(this.AddTagsToFilenamesCheckBox, "Toggles whether or not the images should have tags appended to their filename,\r\na" +
-        "fter the Append option on main interface");
+        "fter the Append option on main interface.");
 			this.AddTagsToFilenamesCheckBox.UseVisualStyleBackColor = true;
 			this.AddTagsToFilenamesCheckBox.CheckedChanged += new System.EventHandler(this.AddTagsToFilenamesCheckBox_CheckedChanged);
 			// 
@@ -268,7 +268,7 @@ namespace imgdanke
 			this.AddTagsToOutputFolderCheckBox.TabIndex = 0;
 			this.AddTagsToOutputFolderCheckBox.Text = "Should Add Tags To New Output Folder";
 			this.MainToolTip.SetToolTip(this.AddTagsToOutputFolderCheckBox, "Toggles whether or not the folder added by Output To New Folder\r\nshould have tags" +
-        " appended to its name");
+        " appended to its name.");
 			this.AddTagsToOutputFolderCheckBox.UseVisualStyleBackColor = true;
 			this.AddTagsToOutputFolderCheckBox.CheckedChanged += new System.EventHandler(this.AddTagsToOutputFolderCheckBox_CheckedChanged);
 			// 
