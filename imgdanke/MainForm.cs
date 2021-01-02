@@ -1385,12 +1385,12 @@ namespace imgdanke
 
 		private string ConstructMagickCommandString()
 		{
-			const string MAGICK_COMMAND_PREFIX = "magick convert \"%1\" ";
-			const string MAGICK_COMMAND_PREFIX_LINUX = "convert \"%1\" ";
+			const string MAGICK_COMMAND_PREFIX = "convert \"%1\" ";
 			const string MAGICK_COMMAND_SUFFIX = "\"%2\"";
-			string command = IS_LINUX ? MAGICK_COMMAND_PREFIX_LINUX : MAGICK_COMMAND_PREFIX;
 
 			EnsureMagickConfigValuesAreUpdated();
+
+			string command = MAGICK_COMMAND_PREFIX;
 
 			if ( !string.IsNullOrWhiteSpace(CONFIG.MagickDither) )
 			{
@@ -1451,11 +1451,11 @@ namespace imgdanke
 
 		private string ConstructPingoCommandString()
 		{
-			const string PINGO_COMMAND_PREFIX = "pingo ";
 			const string PINGO_COMMAND_SUFFIX = "\"%1\"";
-			string command = IS_LINUX ? "" : PINGO_COMMAND_PREFIX;
 
 			EnsurePingoConfigValuesAreUpdated();
+
+			string command = "";
 
 			if ( CONFIG.PingoPNGPaletteValue > 0 && CONFIG.PingoPNGPaletteValue <= 100 )
 			{
@@ -1799,7 +1799,7 @@ namespace imgdanke
 			{
 				ProcessStartInfo startInfo = new ProcessStartInfo
 				{
-					FileName = IS_LINUX ? CONFIG.ImagemagickPathToExe : "cmd.exe",
+					FileName = IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe",
 					UseShellExecute = false,
 					CreateNoWindow = true,
 					WorkingDirectory = CONFIG.SourceFolderPath
@@ -1807,7 +1807,7 @@ namespace imgdanke
 
 				string outputFilename = DetermineOutputFilepath(psdFile) + prependString + psdFile.Name.Replace(psdFile.Extension, "")
 										+ appendString + (CONFIG.ShouldAddTagsToFilenames ? CONFIG.TagsStringToAppendToFilenames : "") + ".tmp" + CONFIG.OutputExtension;
-				startInfo.Arguments = (IS_LINUX ? "" : "/C magick") + " convert \"" + psdFile.FullName + "[0]\" \"" + outputFilename + "\"";
+				startInfo.Arguments = "convert \"" + psdFile.FullName + "[0]\" \"" + outputFilename + "\"";
 				statusLabel.Text = "Converting \"" + psdFile.Name + "\" via magick convert.";
 
 				using Process process = Process.Start(startInfo);
@@ -1822,27 +1822,20 @@ namespace imgdanke
 					break;
 				}
 
-				process.Start();
-
 				while ( !process.HasExited )
 				{
 					Application.DoEvents();
 
 					if ( ShouldCancelProcessing )
 					{
-						process.Close();
+						KillProcessAndWait(process);
 						break;
 					}
 				}
 
 				if ( ShouldCancelProcessing )
 				{
-					if ( !process.HasExited )
-					{
-						process.Kill();
-						process.WaitForExit(3000);
-					}
-
+					KillProcessAndWait(process);
 					return new List<FileInfo>();
 				}
 
@@ -1855,10 +1848,10 @@ namespace imgdanke
 
 		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, string prependString, string appendString, Label statusLabel, ProgressBar progressBar)
 		{
-			const string DEFAULT_COMMAND = "magick convert \"%1\" \"%2\"";
+			const string DEFAULT_COMMAND = "convert \"%1\" \"%2\"";
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
-				FileName = IS_LINUX ? CONFIG.ImagemagickPathToExe : "cmd.exe",
+				FileName = IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe",
 				UseShellExecute = false,
 				CreateNoWindow = true,
 				WorkingDirectory = CONFIG.SourceFolderPath
@@ -1902,7 +1895,7 @@ namespace imgdanke
 					}
 				}
 
-				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
+				startInfo.Arguments = commandString;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
 				statusLabel.Text = "Processing magick command on \"" + img.Name + "\".";
@@ -1919,27 +1912,20 @@ namespace imgdanke
 					break;
 				}
 
-				process.Start();
-
 				while ( !process.HasExited )
 				{
 					Application.DoEvents();
 
 					if ( ShouldCancelProcessing )
 					{
-						process.Close();
+						KillProcessAndWait(process);
 						break;
 					}
 				}
 
 				if ( ShouldCancelProcessing )
 				{
-					if ( !process.HasExited )
-					{
-						process.Kill();
-						process.WaitForExit(3000);
-					}
-
+					KillProcessAndWait(process);
 					return new List<FileInfo>();
 				}
 
@@ -1960,12 +1946,7 @@ namespace imgdanke
 
 					if ( ShouldCancelProcessing )
 					{
-						if ( !process.HasExited )
-						{
-							process.Kill();
-							process.WaitForExit(3000);
-						}
-
+						KillProcessAndWait(process);
 						return new List<FileInfo>();
 					}
 				}
@@ -2011,7 +1992,7 @@ namespace imgdanke
 		{
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
-				FileName = IS_LINUX ? CONFIG.PingoPathToExe : "cmd.exe",
+				FileName = IS_LINUX ? CONFIG.PingoPathToExe : "pingo.exe",
 				UseShellExecute = false,
 				CreateNoWindow = true,
 				WorkingDirectory = CONFIG.OutputFolderPath
@@ -2026,7 +2007,7 @@ namespace imgdanke
 					break;
 				}
 
-				startInfo.Arguments = (IS_LINUX ? "" : "/C ") + commandString;
+				startInfo.Arguments = commandString;
 				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
 
 				statusLabel.Text = "Processing pingo command on \"" + img.Name + "\".";
@@ -2042,15 +2023,13 @@ namespace imgdanke
 					break;
 				}
 
-				process.Start();
-
 				while ( !process.HasExited )
 				{
 					Application.DoEvents();
 
 					if ( ShouldCancelProcessing )
 					{
-						process.Close();
+						KillProcessAndWait(process);
 						break;
 					}
 				}
@@ -2063,12 +2042,7 @@ namespace imgdanke
 
 						if ( ShouldCancelProcessing )
 						{
-							if ( !process.HasExited )
-							{
-								process.Kill();
-								process.WaitForExit(3000);
-							}
-
+							KillProcessAndWait(process);
 							return;
 						}
 					}
@@ -2113,12 +2087,31 @@ namespace imgdanke
 				}
 			}
 		}
+
 		private static bool DisplayProcessIsNullError(bool isMagickProcess)
 		{
 			return MessageBox.Show("Unable to start the process for '" + (isMagickProcess ? MAGICK_FILENAME : PINGO_FILENAME) + "'. Process returned is null.\nDo you want to cancel further processing?",
 				"Process could not be started",
 				MessageBoxButtons.YesNo,
 				MessageBoxIcon.Exclamation) == DialogResult.Yes;
+		}
+
+		// Returns true if the process has exited, including if the process passed is null, or has already exited
+		// This means that it only returns false if it fails to exit after the timeout period
+		private static void KillProcessAndWait(Process process)
+		{
+			if ( process == null || process.HasExited )
+			{
+				return;
+			}
+
+			string processName = process.ProcessName;
+			process.Kill();
+			
+			if ( !process.WaitForExit(10000) )
+			{
+				MessageBox.Show("Process (" + processName + ") failed to close after the timeout time of 10 seconds. The process may still be running, and you may need to close it manually.", processName + " failed to close", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
 		}
 
 		private static string GetTotalSizeOfFiles(List<FileInfo> imgFiles, ref long totalFilesizeInBytes)
