@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace imgdanke
@@ -108,6 +110,91 @@ namespace imgdanke
 				"Moving file failed",
 				MessageBoxButtons.OK,
 				MessageBoxIcon.Error);
+		}
+
+		internal static void OpenFolderPathInExplorer(string path)
+		{
+			if ( string.IsNullOrEmpty(path) || !DoesDirectoryExist(path) )
+			{
+				return;
+			}
+
+			if ( path.Last() != '/' && path.Last() != '\\' )
+			{
+				path += Path.DirectorySeparatorChar;
+			}
+
+			try
+			{
+				using Process process = Process.Start(path);
+			}
+			catch ( Exception ex )
+			{
+				MessageBox.Show("Unable to open the folder at `" + path + "`. Exception thrown:\n\n`" + ex.Message + "`",
+					"Cannot open path to folder",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation);
+			}
+		}
+
+		internal static void OpenPathToFileInExplorer(string filepath)
+		{
+			if ( string.IsNullOrEmpty(filepath) || !DoesFileExist(filepath) )
+			{
+				return;
+			}
+
+			try
+			{
+				using Process process = Process.Start(filepath);
+			}
+			catch ( Exception ex )
+			{
+				MessageBox.Show("Unable to open the path to file at `" + filepath + "`. Exception thrown:\n\n`" + ex.Message + "`",
+					"Cannot open path to file",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation);
+			}
+		}
+
+		internal static void OpenPathToFileInExplorer(string path, string filename)
+		{
+			if ( string.IsNullOrEmpty(path) || string.IsNullOrEmpty(filename) || !DoesDirectoryExist(path) )
+			{
+				return;
+			}
+
+			OpenPathToFileInExplorer(Path.Combine(path, filename));
+		}
+
+		internal static void OpenFileInDefaultApplication(string filepath)
+		{
+			if ( string.IsNullOrEmpty(filepath) || !DoesFileExist(filepath) )
+			{
+				return;
+			}
+
+			try
+			{
+				using Process process = Process.Start(filepath);
+			}
+			catch ( Exception ex )
+			{
+				MessageBox.Show("Unable to open the file at `" + filepath + "` in its default application. Exception thrown:\n\n`" + ex.Message + "`",
+					"Cannot open file in default application",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation);
+			}
+		}
+
+		internal static void OpenFileInDefaultApplication(string path, string filename)
+		{
+			if ( string.IsNullOrEmpty(path) || string.IsNullOrEmpty(filename) || !DoesDirectoryExist(path) )
+			{
+				return;
+			}
+
+			OpenFileInDefaultApplication(Path.Combine(path, filename));
 		}
 	}
 

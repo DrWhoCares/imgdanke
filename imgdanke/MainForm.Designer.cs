@@ -102,7 +102,11 @@ namespace imgdanke
 			this.ProcessingProgressBar = new System.Windows.Forms.ProgressBar();
 			this.OptionsMenuStrip = new System.Windows.Forms.MenuStrip();
 			this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.OpenUserConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.UserConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.SourceFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.OutputFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ImgdankeFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.SaveCurrentSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1164,7 +1168,7 @@ namespace imgdanke
 			// 
 			this.FileToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.OpenUserConfigToolStripMenuItem,
+            this.OpenToolStripMenuItem,
             this.SaveCurrentSettingsToolStripMenuItem,
             this.CloseToolStripMenuItem});
 			this.FileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -1172,14 +1176,50 @@ namespace imgdanke
 			this.FileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.FileToolStripMenuItem.Text = "File";
 			// 
-			// OpenUserConfigToolStripMenuItem
+			// OpenToolStripMenuItem
 			// 
-			this.OpenUserConfigToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.OpenUserConfigToolStripMenuItem.Name = "OpenUserConfigToolStripMenuItem";
-			this.OpenUserConfigToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-			this.OpenUserConfigToolStripMenuItem.Text = "Open User Config";
-			this.OpenUserConfigToolStripMenuItem.ToolTipText = "Opens the user config file.";
-			this.OpenUserConfigToolStripMenuItem.Click += new System.EventHandler(this.OpenUserConfigToolStripMenuItem_Click);
+			this.OpenToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.OpenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UserConfigToolStripMenuItem,
+            this.SourceFolderToolStripMenuItem,
+            this.OutputFolderToolStripMenuItem,
+            this.ImgdankeFolderToolStripMenuItem});
+			this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
+			this.OpenToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.OpenToolStripMenuItem.Text = "Open...";
+			// 
+			// UserConfigToolStripMenuItem
+			// 
+			this.UserConfigToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.UserConfigToolStripMenuItem.Name = "UserConfigToolStripMenuItem";
+			this.UserConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.UserConfigToolStripMenuItem.Text = "User Config";
+			this.UserConfigToolStripMenuItem.ToolTipText = "Opens the user config file.";
+			this.UserConfigToolStripMenuItem.Click += new System.EventHandler(this.UserConfigToolStripMenuItem_Click);
+			// 
+			// SourceFolderToolStripMenuItem
+			// 
+			this.SourceFolderToolStripMenuItem.Name = "SourceFolderToolStripMenuItem";
+			this.SourceFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.SourceFolderToolStripMenuItem.Text = "Source Folder";
+			this.SourceFolderToolStripMenuItem.ToolTipText = "Opens the Source Folder Path.";
+			this.SourceFolderToolStripMenuItem.Click += new System.EventHandler(this.SourceFolderToolStripMenuItem_Click);
+			// 
+			// OutputFolderToolStripMenuItem
+			// 
+			this.OutputFolderToolStripMenuItem.Name = "OutputFolderToolStripMenuItem";
+			this.OutputFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.OutputFolderToolStripMenuItem.Text = "Output Folder";
+			this.OutputFolderToolStripMenuItem.ToolTipText = "Opens the Output Folder Path.";
+			this.OutputFolderToolStripMenuItem.Click += new System.EventHandler(this.OutputFolderToolStripMenuItem_Click);
+			// 
+			// ImgdankeFolderToolStripMenuItem
+			// 
+			this.ImgdankeFolderToolStripMenuItem.Name = "ImgdankeFolderToolStripMenuItem";
+			this.ImgdankeFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ImgdankeFolderToolStripMenuItem.Text = "imgdanke Folder";
+			this.ImgdankeFolderToolStripMenuItem.ToolTipText = "Opens the path to where the imgdanke executable is.";
+			this.ImgdankeFolderToolStripMenuItem.Click += new System.EventHandler(this.ImgdankeFolderToolStripMenuItem_Click);
 			// 
 			// SaveCurrentSettingsToolStripMenuItem
 			// 
@@ -1328,7 +1368,7 @@ namespace imgdanke
 			// OpenDocumentationFromFileToolStripMenuItem
 			// 
 			this.OpenDocumentationFromFileToolStripMenuItem.Name = "OpenDocumentationFromFileToolStripMenuItem";
-			this.OpenDocumentationFromFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.OpenDocumentationFromFileToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.OpenDocumentationFromFileToolStripMenuItem.Text = "From File";
 			this.OpenDocumentationFromFileToolStripMenuItem.ToolTipText = "Opens the local README.md file.";
 			this.OpenDocumentationFromFileToolStripMenuItem.Click += new System.EventHandler(this.OpenDocumentationFromFileToolStripMenuItem_Click);
@@ -1336,7 +1376,7 @@ namespace imgdanke
 			// OpenDocumentationGitHubToolStripMenuItem
 			// 
 			this.OpenDocumentationGitHubToolStripMenuItem.Name = "OpenDocumentationGitHubToolStripMenuItem";
-			this.OpenDocumentationGitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.OpenDocumentationGitHubToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.OpenDocumentationGitHubToolStripMenuItem.Text = "GitHub";
 			this.OpenDocumentationGitHubToolStripMenuItem.ToolTipText = "Opens the README.md file on the GitHub.\r\nThe URL is: https://github.com/DrWhoCare" +
     "s/imgdanke/blob/master/README.md";
@@ -1492,7 +1532,7 @@ namespace imgdanke
 		private System.Windows.Forms.MenuStrip OptionsMenuStrip;
 		private System.Windows.Forms.ToolStripMenuItem PreferencesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem OpenUserConfigToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem SaveCurrentSettingsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem HelpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem GitHubToolStripMenuItem;
@@ -1510,6 +1550,10 @@ namespace imgdanke
 		private System.Windows.Forms.ToolStripMenuItem CheckForUpdatesOnStartupToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CheckForUpdatesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem DisableFailedToCheckMessageToolStripMenuItem;
+		private ToolStripMenuItem UserConfigToolStripMenuItem;
+		private ToolStripMenuItem SourceFolderToolStripMenuItem;
+		private ToolStripMenuItem OutputFolderToolStripMenuItem;
+		private ToolStripMenuItem ImgdankeFolderToolStripMenuItem;
 	}
 }
 

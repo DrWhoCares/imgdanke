@@ -2170,29 +2170,31 @@ namespace imgdanke
 
 		#region FileTabUI
 
-		private void OpenUserConfigToolStripMenuItem_Click(object sender, EventArgs e)
+		private void UserConfigToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			string localPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			localPath ??= "";
+			localPath = Path.Combine(localPath, UserConfig.CONFIG_FILENAME);
+
+			FileOps.OpenFileInDefaultApplication(localPath);
+		}
+
+		private void SourceFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			FileOps.OpenFolderPathInExplorer(SourceFolderPathTextBox.Text);
+		}
+
+		private void OutputFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			FileOps.OpenFolderPathInExplorer(OutputFolderPathTextBox.Text);
+		}
+
+		private void ImgdankeFolderToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			string localPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 			localPath ??= "";
 
-			if ( string.IsNullOrEmpty(localPath) )
-			{
-				return;
-			}
-
-			localPath = Path.Combine(localPath, UserConfig.CONFIG_FILENAME);
-
-			try
-			{
-				using Process process = Process.Start(localPath);
-			}
-			catch ( Exception ex )
-			{
-				MessageBox.Show("Unable to open the file at `" + localPath + "`. Exception thrown:\n\n`" + ex.Message + "`",
-					"Cannot open " + UserConfig.CONFIG_FILENAME,
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Exclamation);
-			}
+			FileOps.OpenFolderPathInExplorer(localPath);
 		}
 
 		private void SaveCurrentSettingsToolStripMenuItem_Click(object sender, EventArgs e)
