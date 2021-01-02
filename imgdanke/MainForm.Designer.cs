@@ -58,8 +58,6 @@ namespace imgdanke
 			this.PingoOptimizationLevelLabel = new System.Windows.Forms.Label();
 			this.PingoPNGPaletteComboBox = new System.Windows.Forms.ComboBox();
 			this.PingoStripCheckBox = new System.Windows.Forms.CheckBox();
-			this.PingoSARadioButton = new System.Windows.Forms.RadioButton();
-			this.PingoSBRadioButton = new System.Windows.Forms.RadioButton();
 			this.PingoPNGPaletteLabel = new System.Windows.Forms.Label();
 			this.PingoOptimizationLevelComboBox = new System.Windows.Forms.ComboBox();
 			this.PresetSettingsGroupBox = new System.Windows.Forms.GroupBox();
@@ -443,8 +441,6 @@ namespace imgdanke
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoOptimizationLevelLabel);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoPNGPaletteComboBox);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoStripCheckBox);
-			this.PingoSettingsGroupBox.Controls.Add(this.PingoSARadioButton);
-			this.PingoSettingsGroupBox.Controls.Add(this.PingoSBRadioButton);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoPNGPaletteLabel);
 			this.PingoSettingsGroupBox.Controls.Add(this.PingoOptimizationLevelComboBox);
 			this.PingoSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -477,7 +473,7 @@ namespace imgdanke
 			// 
 			this.PingoOptimizationLevelLabel.AutoSize = true;
 			this.PingoOptimizationLevelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PingoOptimizationLevelLabel.Location = new System.Drawing.Point(8, 118);
+			this.PingoOptimizationLevelLabel.Location = new System.Drawing.Point(6, 73);
 			this.PingoOptimizationLevelLabel.Name = "PingoOptimizationLevelLabel";
 			this.PingoOptimizationLevelLabel.Size = new System.Drawing.Size(17, 13);
 			this.PingoOptimizationLevelLabel.TabIndex = 10;
@@ -500,7 +496,7 @@ namespace imgdanke
 			// 
 			this.PingoStripCheckBox.AutoSize = true;
 			this.PingoStripCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PingoStripCheckBox.Location = new System.Drawing.Point(6, 141);
+			this.PingoStripCheckBox.Location = new System.Drawing.Point(4, 96);
 			this.PingoStripCheckBox.Name = "PingoStripCheckBox";
 			this.PingoStripCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.PingoStripCheckBox.Size = new System.Drawing.Size(54, 17);
@@ -511,41 +507,6 @@ namespace imgdanke
 			this.PingoStripCheckBox.UseMnemonic = false;
 			this.PingoStripCheckBox.UseVisualStyleBackColor = false;
 			this.PingoStripCheckBox.CheckedChanged += new System.EventHandler(this.PingoStripCheckBox_CheckedChanged);
-			// 
-			// PingoSARadioButton
-			// 
-			this.PingoSARadioButton.AutoSize = true;
-			this.PingoSARadioButton.Enabled = false;
-			this.PingoSARadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PingoSARadioButton.Location = new System.Drawing.Point(6, 92);
-			this.PingoSARadioButton.Name = "PingoSARadioButton";
-			this.PingoSARadioButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.PingoSARadioButton.Size = new System.Drawing.Size(42, 17);
-			this.PingoSARadioButton.TabIndex = 15;
-			this.PingoSARadioButton.TabStop = true;
-			this.PingoSARadioButton.Text = "sa-";
-			this.MainToolTip.SetToolTip(this.PingoSARadioButton, "Similar to -sb, this is used for higher quality dithering,\r\nbut less extensive (l" +
-        "ower quality/CPU usage) as -sb.");
-			this.PingoSARadioButton.UseMnemonic = false;
-			this.PingoSARadioButton.UseVisualStyleBackColor = false;
-			this.PingoSARadioButton.CheckedChanged += new System.EventHandler(this.PingoSARadioButton_CheckedChanged);
-			// 
-			// PingoSBRadioButton
-			// 
-			this.PingoSBRadioButton.AutoSize = true;
-			this.PingoSBRadioButton.Enabled = false;
-			this.PingoSBRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PingoSBRadioButton.Location = new System.Drawing.Point(6, 69);
-			this.PingoSBRadioButton.Name = "PingoSBRadioButton";
-			this.PingoSBRadioButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.PingoSBRadioButton.Size = new System.Drawing.Size(42, 17);
-			this.PingoSBRadioButton.TabIndex = 14;
-			this.PingoSBRadioButton.TabStop = true;
-			this.PingoSBRadioButton.Text = "sb-";
-			this.MainToolTip.SetToolTip(this.PingoSBRadioButton, "This is used for higher quality dithering, and is better than -sa at doing so.");
-			this.PingoSBRadioButton.UseMnemonic = false;
-			this.PingoSBRadioButton.UseVisualStyleBackColor = false;
-			this.PingoSBRadioButton.CheckedChanged += new System.EventHandler(this.PingoSBRadioButton_CheckedChanged);
 			// 
 			// PingoPNGPaletteLabel
 			// 
@@ -563,6 +524,7 @@ namespace imgdanke
 			this.PingoOptimizationLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.PingoOptimizationLevelComboBox.FormattingEnabled = true;
 			this.PingoOptimizationLevelComboBox.Items.AddRange(new object[] {
+            "",
             "-s0",
             "-s1",
             "-s2",
@@ -572,8 +534,10 @@ namespace imgdanke
             "-s6",
             "-s7",
             "-s8",
-            "-s9"});
-			this.PingoOptimizationLevelComboBox.Location = new System.Drawing.Point(30, 114);
+            "-s9",
+            "-sa",
+            "-sb"});
+			this.PingoOptimizationLevelComboBox.Location = new System.Drawing.Point(28, 69);
 			this.PingoOptimizationLevelComboBox.Name = "PingoOptimizationLevelComboBox";
 			this.PingoOptimizationLevelComboBox.Size = new System.Drawing.Size(47, 21);
 			this.PingoOptimizationLevelComboBox.TabIndex = 6;
@@ -1495,8 +1459,6 @@ namespace imgdanke
 		private System.Windows.Forms.Label PingoCommandLabel;
 		private System.Windows.Forms.TextBox PingoCommandTextBox;
 		private System.Windows.Forms.Label PingoPNGPaletteLabel;
-		private System.Windows.Forms.RadioButton PingoSARadioButton;
-		private System.Windows.Forms.RadioButton PingoSBRadioButton;
 		private System.Windows.Forms.RadioButton PingoEightBppColorPresetRadioButton;
 		private System.Windows.Forms.Button MassFileSelectorButton;
 		private System.Windows.Forms.Button RefreshFileListButton;

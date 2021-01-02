@@ -763,9 +763,7 @@ namespace imgdanke
 			MagickContrastStretchCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
-			PingoSBRadioButton.Checked = false;
-			PingoSARadioButton.Checked = false;
-			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
 			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
@@ -790,8 +788,6 @@ namespace imgdanke
 			MagickContrastStretchCheckBox.Checked = CONFIG.ShouldUseMagickContrastStretch;
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == CONFIG.PingoPNGPaletteValue.ToString());
 			PingoNoDitheringCheckBox.Checked = CONFIG.ShouldUsePingoNoDithering;
-			PingoSBRadioButton.Checked = CONFIG.PingoAdditionalChecks == PingoAdditionalChecks.sb;
-			PingoSARadioButton.Checked = CONFIG.PingoAdditionalChecks == PingoAdditionalChecks.sa;
 			PingoOptimizationLevelComboBox.SelectedIndex = GetIndexOfStringInComboBox(PingoOptimizationLevelComboBox, CONFIG.PingoOptimizeLevel);
 			PingoStripCheckBox.Checked = CONFIG.ShouldUsePingoStrip;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
@@ -823,9 +819,7 @@ namespace imgdanke
 			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
-			PingoSBRadioButton.Checked = false;
-			PingoSARadioButton.Checked = false;
-			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
 			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
@@ -850,9 +844,7 @@ namespace imgdanke
 			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
-			PingoSBRadioButton.Checked = false;
-			PingoSARadioButton.Checked = false;
-			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
 			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
@@ -877,9 +869,7 @@ namespace imgdanke
 			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
-			PingoSBRadioButton.Checked = false;
-			PingoSARadioButton.Checked = false;
-			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
 			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
@@ -905,10 +895,7 @@ namespace imgdanke
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == "24");
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = false;
-			PingoSBRadioButton.Enabled = true;
-			PingoSBRadioButton.Checked = true;
-			PingoSARadioButton.Enabled = true;
-			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
 			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
@@ -934,10 +921,7 @@ namespace imgdanke
 			PingoPNGPaletteComboBox.SelectedIndex = PingoPNGPaletteComboBox.Items.Count - 1;
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = true;
-			PingoSBRadioButton.Enabled = true;
-			PingoSBRadioButton.Checked = true;
-			PingoSARadioButton.Enabled = true;
-			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
 			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
@@ -962,9 +946,7 @@ namespace imgdanke
 			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
-			PingoSBRadioButton.Checked = false;
-			PingoSARadioButton.Checked = false;
-			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
 			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
@@ -989,9 +971,7 @@ namespace imgdanke
 			MagickContrastStretchCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
-			PingoSBRadioButton.Checked = false;
-			PingoSARadioButton.Checked = false;
-			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Max;
+			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
 			PingoStripCheckBox.Checked = !IS_LINUX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
@@ -1137,8 +1117,6 @@ namespace imgdanke
 				? 0 : int.Parse(PingoPNGPaletteComboBox.SelectedValue.ToString());
 
 			PingoNoDitheringCheckBox.Enabled = value > 0;
-			PingoSBRadioButton.Enabled = value > 0;
-			PingoSARadioButton.Enabled = value > 0;
 			CONFIG.PingoPNGPaletteValue = value;
 
 			if ( !ShouldDelayUpdatingCommands )
@@ -1155,36 +1133,6 @@ namespace imgdanke
 			}
 
 			CONFIG.ShouldUsePingoNoDithering = PingoNoDitheringCheckBox.Checked;
-
-			if ( !ShouldDelayUpdatingCommands )
-			{
-				PingoCommandTextBox.Text = ConstructPingoCommandString();
-			}
-		}
-
-		private void PingoSBRadioButton_CheckedChanged(object sender, EventArgs e)
-		{
-			if ( IsInitializing || !PingoSBRadioButton.Checked )
-			{
-				return;
-			}
-
-			CONFIG.PingoAdditionalChecks = PingoAdditionalChecks.sb;
-
-			if ( !ShouldDelayUpdatingCommands )
-			{
-				PingoCommandTextBox.Text = ConstructPingoCommandString();
-			}
-		}
-
-		private void PingoSARadioButton_CheckedChanged(object sender, EventArgs e)
-		{
-			if ( IsInitializing || !PingoSARadioButton.Checked )
-			{
-				return;
-			}
-
-			CONFIG.PingoAdditionalChecks = PingoAdditionalChecks.sa;
 
 			if ( !ShouldDelayUpdatingCommands )
 			{
@@ -1465,20 +1413,6 @@ namespace imgdanke
 				{
 					command += "-nodithering ";
 				}
-
-				switch ( CONFIG.PingoAdditionalChecks )
-				{
-					case PingoAdditionalChecks.None:
-						break;
-					case PingoAdditionalChecks.sb:
-						command += "-sb ";
-						break;
-					case PingoAdditionalChecks.sa:
-						command += "-sa ";
-						break;
-
-					default: throw new ArgumentOutOfRangeException();
-				}
 			}
 
 			command += CONFIG.PingoOptimizeLevel + " ";
@@ -1504,20 +1438,6 @@ namespace imgdanke
 
 			CONFIG.PingoPNGPaletteValue = pngPaletteValue > 0 && pngPaletteValue <= 100 ? pngPaletteValue : 0;
 			CONFIG.ShouldUsePingoNoDithering = PingoNoDitheringCheckBox.Checked;
-
-			if ( PingoSBRadioButton.Checked )
-			{
-				CONFIG.PingoAdditionalChecks = PingoAdditionalChecks.sb;
-			} 
-			else if ( PingoSARadioButton.Checked )
-			{
-				CONFIG.PingoAdditionalChecks = PingoAdditionalChecks.sa;
-			}
-			else
-			{
-				CONFIG.PingoAdditionalChecks = PingoAdditionalChecks.None;
-			}
-
 			CONFIG.PingoOptimizeLevel = PingoOptimizationLevelComboBox.SelectedItem == null ? "" : PingoOptimizationLevelComboBox.SelectedItem.ToString();
 			CONFIG.ShouldUsePingoStrip = PingoStripCheckBox.Checked;
 		}
@@ -1765,16 +1685,12 @@ namespace imgdanke
 				{
 					fullString += "(nodither)";
 				}
-
-				fullString += CONFIG.PingoAdditionalChecks switch
-				{
-					PingoAdditionalChecks.sb => "(-sb)",
-					PingoAdditionalChecks.sa => "(-sa)",
-					_ => "(InvalidPingoChecks)"
-				};
 			}
 
-			fullString += "(-s" + CONFIG.PingoOptimizeLevel.Last() + ")";
+			if ( CONFIG.PingoOptimizeLevel != "Off" )
+			{
+				fullString += "(-s" + CONFIG.PingoOptimizeLevel.Last() + ")";
+			}
 
 			if ( CONFIG.ShouldUsePingoStrip )
 			{

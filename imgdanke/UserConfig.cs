@@ -396,18 +396,6 @@ namespace imgdanke
 			}
 		}
 
-		private PingoAdditionalChecks _pingoAdditionalChecks;
-
-		public PingoAdditionalChecks PingoAdditionalChecks
-		{
-			get => _pingoAdditionalChecks;
-			set
-			{
-				_pingoAdditionalChecks = value;
-				SaveConfig();
-			}
-		}
-
 		private string _pingoOptimizeLevel;
 
 		public string PingoOptimizeLevel
@@ -622,16 +610,10 @@ namespace imgdanke
 		sRGB
 	}
 
-	internal enum PingoAdditionalChecks
-	{
-		None = 0,
-		sb,
-		sa
-	}
-
 	internal enum PingoOptimizationLevels
 	{
-		s0 = 0,
+		Off = 0,
+		s0,
 		s1,
 		s2,
 		s3,
@@ -641,7 +623,10 @@ namespace imgdanke
 		s7,
 		s8,
 		s9,
+		sa,
+		sb,
 		Min = s0,
-		Max = s9
+		Max = sb,
+		Best = s9
 	}
 }

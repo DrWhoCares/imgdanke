@@ -38,8 +38,6 @@ Then simply run the .exe.
    * [Pingo Settings](#pingo-settings)
      * [-pngpalette](#-pngpalette)
        * [-nodithering](#-nodithering)
-       * [-sb](#-sb)
-       * [-sa](#-sa)
      * [-s](#-s)
      * [-strip](#-strip)
    * [Files in Source Folder](#files-in-source-folder)
@@ -149,7 +147,6 @@ This does not set `-posterize 256` as it is redundant because `-colorspace Gray`
 - `-colorspace sRGB`
 - `-normalize`
 - `-pngpalette=24` (16c option)
-- `-sb`
 
 </details>
 
@@ -172,7 +169,6 @@ This does not set `-posterize 256` as it is redundant because `-colorspace Gray`
 - `-colorspace sRGB`
 - `-normalize`
 - `-pngpalette=100` (256c option)
-- `-sb`
 
 </details>
 
@@ -209,7 +205,7 @@ Normalizes the colors of the images. Ensures blacks are #000000 and such. Do not
 
 ### Pingo Settings
 #### -pngpalette
-Uses a set number of bins, so the options provided to you are the different bits (and the resulting colors). Applies dithering, and often produces a far better result than using magick for color images with 256 colors or less. Selecting a value will allow you to select the `-sb` or `-sa` options.
+Uses a set number of bins, so the options provided to you are the different bits (and the resulting colors). Applies dithering, and often produces a far better result than using magick for color images with 256 colors or less.
 *NOTE:* As of pingo v0.99 [rc3 16], the bug with the incorrect values has been fixed.
 <details>
   <summary>The following values are currently possible (via the GUI):</summary>
@@ -237,16 +233,15 @@ Uses a set number of bins, so the options provided to you are the different bits
 
 #### -nodithering
 Disables dithering when performing lossy operations. Can potentially produce a smaller, and more accurate result when using `-pngpalette` values of `75` (184c) or greater. More extensive testing needs to be done to find appropriate recommendations. Enabled by default for the 8bpp color, pingo preset.
-#### -sb
-Runs through a more stringent set of tests to produce a better result. This is recommended over `-sa`.
-#### -sa
-Runs through a more stringent set of tests to produce a better result, but less extensive than `-sb`. 
 #### -s
-*Losslessly* optimizes `.png` files. `-s0` is the least optimal, and `-s9` is the best. `-sb` technically makes `-s9` and `-strip` redundant.
+*Losslessly* optimizes `.png` files. `-s0` is the least optimal, and `-s9` is the best general use-case. `-sb` is the best for pure filesize optimization.
+`-sa` and `-sb` are experimental brute force options (unoptimized for speed). In most cases, `-sb` will produce the same results as `-s9`, but may take more time.
+Overall, `-sb` will sometimes produce better results (never worse), but the overall savings will only be around ~5%.
 This should essentially always be set, there's nothing to lose.
 <details>
   <summary>The following values are currently possible (via the GUI):</summary>
   
+  - `Off`
   - `-s0`
   - `-s1`
   - `-s2`
@@ -257,6 +252,8 @@ This should essentially always be set, there's nothing to lose.
   - `-s7`
   - `-s8`
   - `-s9`
+  - `-sa`
+  - `-sb`
 
 </details>
 
