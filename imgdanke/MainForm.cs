@@ -2347,7 +2347,17 @@ namespace imgdanke
 
 		private void GitHubToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using Process process = Process.Start("https://github.com/DrWhoCares/imgdanke");
+			try
+			{
+				using Process process = Process.Start("");
+			}
+			catch ( Exception ex )
+			{
+				MessageBox.Show("Unable to open `https://github.com/DrWhoCares/imgdanke`. Exception thrown:\n\n`" + ex.Message + "`",
+					"Cannot open README.md",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation);
+			}
 		}
 
 		private void OpenDocumentationFromFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2377,7 +2387,17 @@ namespace imgdanke
 
 		private void OpenDocumentationGitHubToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using Process process = Process.Start("https://github.com/DrWhoCares/imgdanke/blob/master/README.md");
+			try
+			{
+				using Process process = Process.Start("https://github.com/DrWhoCares/imgdanke/blob/master/README.md");
+			}
+			catch ( Exception ex )
+			{
+				MessageBox.Show("Unable to open `https://github.com/DrWhoCares/imgdanke/blob/master/README.md`. Exception thrown:\n\n`" + ex.Message + "`",
+					"Cannot open README.md",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation);
+			}
 		}
 
 		private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
