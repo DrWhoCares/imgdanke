@@ -1586,6 +1586,10 @@ namespace imgdanke
 			ProcessingProgressBar.Maximum = 100;
 			ProcessingCancelButton.Enabled = !isActive;
 			ProcessingCancelButton.Visible = !isActive;
+			OutputSettingsToolStripMenuItem.Enabled = isActive;
+			ShouldOutputToNewFolderToolStripMenuItem.Enabled = isActive;
+			AddTagsToFilenamesToolStripMenuItem.Enabled = isActive;
+			AddTagsToNewFolderToolStripMenuItem.Enabled = isActive;
 
 			if ( string.IsNullOrWhiteSpace(CONFIG.PingoPathToExe) )
 			{
