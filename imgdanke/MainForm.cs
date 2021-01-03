@@ -2171,8 +2171,8 @@ namespace imgdanke
 			//public override Color MenuItemSelected => COLOR_FOREGROUND;
 			//public override Color MenuItemSelectedGradientBegin => COLOR_FOREGROUND;
 			//public override Color MenuItemSelectedGradientEnd => COLOR_FOREGROUND;
-			public override Color MenuStripGradientBegin => COLOR_BACKGROUND;
-			public override Color MenuStripGradientEnd => COLOR_BACKGROUND;
+			public override Color MenuStripGradientBegin => MENU_COLOR_OPTION;
+			public override Color MenuStripGradientEnd => MENU_COLOR_OPTION;
 			//public override Color OverflowButtonGradientBegin => COLOR_FOREGROUND;
 			//public override Color OverflowButtonGradientEnd => COLOR_FOREGROUND;
 			//public override Color OverflowButtonGradientMiddle => COLOR_FOREGROUND;
