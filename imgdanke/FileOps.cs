@@ -137,34 +137,38 @@ namespace imgdanke
 			}
 		}
 
-		internal static void OpenPathToFileInExplorer(string filepath)
+		internal static void OpenPathToFileInExplorer(string path, string filename, bool isLinux)
 		{
-			if ( string.IsNullOrEmpty(filepath) || !DoesFileExist(filepath) )
+			if ( !DoesDirectoryExist(path) )
+			{
+				return;
+			}
+
+			string localPath = Path.Combine(path, filename);
+
+			if ( !DoesFileExist(localPath) )
 			{
 				return;
 			}
 
 			try
 			{
-				using Process process = Process.Start(filepath);
+				if ( isLinux )
+				{
+					using Process process = Process.Start("xdg-open", localPath);
+				}
+				else
+				{
+					using Process process = Process.Start("explorer.exe", "/select, \"" + localPath + "\"");
+				}
 			}
 			catch ( Exception ex )
 			{
-				MessageBox.Show("Unable to open the path to file at `" + filepath + "`. Exception thrown:\n\n`" + ex.Message + "`",
-					"Cannot open path to file",
+				MessageBox.Show("Unable to open the path to `" + filename + "` at `" + localPath + "`. Exception thrown:\n\n`" + ex.Message + "`",
+					"Cannot open path to " + filename,
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Exclamation);
 			}
-		}
-
-		internal static void OpenPathToFileInExplorer(string path, string filename)
-		{
-			if ( string.IsNullOrEmpty(path) || string.IsNullOrEmpty(filename) || !DoesDirectoryExist(path) )
-			{
-				return;
-			}
-
-			OpenPathToFileInExplorer(Path.Combine(path, filename));
 		}
 
 		internal static void OpenFileInDefaultApplication(string filepath)

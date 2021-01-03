@@ -125,6 +125,9 @@ namespace imgdanke
 			this.OpenDocumentationGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.FilesContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.OpenPathToFileContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.OpenImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -154,6 +157,7 @@ namespace imgdanke
 			this.MagickAndPingoSplitContainer.Panel2.SuspendLayout();
 			this.MagickAndPingoSplitContainer.SuspendLayout();
 			this.OptionsMenuStrip.SuspendLayout();
+			this.FilesContextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MagickCommandTextBox
@@ -852,6 +856,7 @@ namespace imgdanke
 			this.FilesInSourceFolderListBox.TabIndex = 0;
 			this.FilesInSourceFolderListBox.TabStop = false;
 			this.FilesInSourceFolderListBox.SelectedIndexChanged += new System.EventHandler(this.FilesInSourceFolderListBox_SelectedIndexChanged);
+			this.FilesInSourceFolderListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FilesInSourceFolderListBox_MouseDown);
 			// 
 			// PingoCommandLabel
 			// 
@@ -1192,7 +1197,7 @@ namespace imgdanke
 			// 
 			this.UserConfigToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.UserConfigToolStripMenuItem.Name = "UserConfigToolStripMenuItem";
-			this.UserConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.UserConfigToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.UserConfigToolStripMenuItem.Text = "User Config";
 			this.UserConfigToolStripMenuItem.ToolTipText = "Opens the user config file.";
 			this.UserConfigToolStripMenuItem.Click += new System.EventHandler(this.UserConfigToolStripMenuItem_Click);
@@ -1200,7 +1205,7 @@ namespace imgdanke
 			// SourceFolderToolStripMenuItem
 			// 
 			this.SourceFolderToolStripMenuItem.Name = "SourceFolderToolStripMenuItem";
-			this.SourceFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.SourceFolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.SourceFolderToolStripMenuItem.Text = "Source Folder";
 			this.SourceFolderToolStripMenuItem.ToolTipText = "Opens the Source Folder Path.";
 			this.SourceFolderToolStripMenuItem.Click += new System.EventHandler(this.SourceFolderToolStripMenuItem_Click);
@@ -1208,7 +1213,7 @@ namespace imgdanke
 			// OutputFolderToolStripMenuItem
 			// 
 			this.OutputFolderToolStripMenuItem.Name = "OutputFolderToolStripMenuItem";
-			this.OutputFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.OutputFolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.OutputFolderToolStripMenuItem.Text = "Output Folder";
 			this.OutputFolderToolStripMenuItem.ToolTipText = "Opens the Output Folder Path.";
 			this.OutputFolderToolStripMenuItem.Click += new System.EventHandler(this.OutputFolderToolStripMenuItem_Click);
@@ -1216,7 +1221,7 @@ namespace imgdanke
 			// ImgdankeFolderToolStripMenuItem
 			// 
 			this.ImgdankeFolderToolStripMenuItem.Name = "ImgdankeFolderToolStripMenuItem";
-			this.ImgdankeFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ImgdankeFolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.ImgdankeFolderToolStripMenuItem.Text = "imgdanke Folder";
 			this.ImgdankeFolderToolStripMenuItem.ToolTipText = "Opens the path to where the imgdanke executable is.";
 			this.ImgdankeFolderToolStripMenuItem.Click += new System.EventHandler(this.ImgdankeFolderToolStripMenuItem_Click);
@@ -1396,6 +1401,31 @@ namespace imgdanke
 			this.MainToolTip.BackColor = System.Drawing.SystemColors.GrayText;
 			this.MainToolTip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			// 
+			// FilesContextMenuStrip
+			// 
+			this.FilesContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OpenPathToFileContextMenuItem,
+            this.OpenImageToolStripMenuItem});
+			this.FilesContextMenuStrip.Name = "FilesContextMenuStrip";
+			this.FilesContextMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			this.FilesContextMenuStrip.Size = new System.Drawing.Size(155, 48);
+			// 
+			// OpenPathToFileContextMenuItem
+			// 
+			this.OpenPathToFileContextMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.OpenPathToFileContextMenuItem.Name = "OpenPathToFileContextMenuItem";
+			this.OpenPathToFileContextMenuItem.Size = new System.Drawing.Size(154, 22);
+			this.OpenPathToFileContextMenuItem.Text = "Open Path To...";
+			this.OpenPathToFileContextMenuItem.Click += new System.EventHandler(this.OpenPathToFileContextMenuItem_Click);
+			// 
+			// OpenImageToolStripMenuItem
+			// 
+			this.OpenImageToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.OpenImageToolStripMenuItem.Name = "OpenImageToolStripMenuItem";
+			this.OpenImageToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+			this.OpenImageToolStripMenuItem.Text = "Open Image...";
+			this.OpenImageToolStripMenuItem.Click += new System.EventHandler(this.OpenImageToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1454,6 +1484,7 @@ namespace imgdanke
 			this.MagickAndPingoSplitContainer.ResumeLayout(false);
 			this.OptionsMenuStrip.ResumeLayout(false);
 			this.OptionsMenuStrip.PerformLayout();
+			this.FilesContextMenuStrip.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1554,6 +1585,9 @@ namespace imgdanke
 		private ToolStripMenuItem SourceFolderToolStripMenuItem;
 		private ToolStripMenuItem OutputFolderToolStripMenuItem;
 		private ToolStripMenuItem ImgdankeFolderToolStripMenuItem;
+		private ContextMenuStrip FilesContextMenuStrip;
+		private ToolStripMenuItem OpenPathToFileContextMenuItem;
+		private ToolStripMenuItem OpenImageToolStripMenuItem;
 	}
 }
 

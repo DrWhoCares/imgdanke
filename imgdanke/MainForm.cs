@@ -108,7 +108,9 @@ namespace imgdanke
 		private void InitializeDesignerOptions()
 		{
 			OptionsMenuStrip.Renderer = new DarkContextMenuRenderer();
+			FilesContextMenuStrip.Renderer = new DarkContextMenuRenderer();
 			PreferencesToolStripMenuItem.DropDown.Closing += DropDown_Closing;
+			FilesInSourceFolderListBox.ContextMenuStrip = FilesContextMenuStrip;
 		}
 		private void InitializeWindowSettings()
 		{
@@ -1301,6 +1303,29 @@ namespace imgdanke
 		{
 			string subpath = fileInfo.FullName.Substring(workingPath.Length);
 			return (subpath.First() == '\\' || subpath.First() == '/') ? subpath.Substring(1) : subpath;
+		}
+
+		private void FilesInSourceFolderListBox_MouseDown(object sender, MouseEventArgs e)
+		{
+			if ( e.Button != MouseButtons.Right )
+			{
+				return;
+			}
+
+			FilesInSourceFolderListBox.SelectedIndices.Clear();
+			FilesInSourceFolderListBox.SelectedIndex = FilesInSourceFolderListBox.IndexFromPoint(e.X, e.Y);
+		}
+
+		private void OpenPathToFileContextMenuItem_Click(object sender, EventArgs e)
+		{
+			FileInfo fileInfo = ((FileInfoWithSubpath)FilesInSourceFolderListBox.SelectedItem).ImageInfo;
+			FileOps.OpenPathToFileInExplorer(fileInfo.DirectoryName, fileInfo.Name, IS_LINUX);
+		}
+
+		private void OpenImageToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			FileInfo fileInfo = ((FileInfoWithSubpath)FilesInSourceFolderListBox.SelectedItem).ImageInfo;
+			FileOps.OpenFileInDefaultApplication(fileInfo.DirectoryName, fileInfo.Name);
 		}
 
 		#endregion
