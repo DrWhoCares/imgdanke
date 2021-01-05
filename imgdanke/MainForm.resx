@@ -120,9 +120,6 @@
   <metadata name="MainToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>169, 17</value>
   </metadata>
-  <metadata name="MainToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>169, 17</value>
-  </metadata>
   <data name="MagickPosterizeTextBox.ToolTip" xml:space="preserve">
     <value>Reduces the colors using posterization, value must be 256 or less.
 1 or 0 is useless and will produce a black image.

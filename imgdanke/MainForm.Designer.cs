@@ -43,6 +43,7 @@ namespace imgdanke
 			this.SourceFolderPathLabel = new System.Windows.Forms.Label();
 			this.OutputFolderPathLabel = new System.Windows.Forms.Label();
 			this.ImagemagickSettingsGroupBox = new System.Windows.Forms.GroupBox();
+			this.MagickAutoLevelCheckBox = new System.Windows.Forms.CheckBox();
 			this.MagickContrastStretchCheckBox = new System.Windows.Forms.CheckBox();
 			this.MagickDepthTextBox = new System.Windows.Forms.TextBox();
 			this.MagickDepthLabel = new System.Windows.Forms.Label();
@@ -293,6 +294,7 @@ namespace imgdanke
 			// ImagemagickSettingsGroupBox
 			// 
 			this.ImagemagickSettingsGroupBox.AutoSize = true;
+			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickAutoLevelCheckBox);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickContrastStretchCheckBox);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickDepthTextBox);
 			this.ImagemagickSettingsGroupBox.Controls.Add(this.MagickDepthLabel);
@@ -311,6 +313,22 @@ namespace imgdanke
 			this.ImagemagickSettingsGroupBox.TabIndex = 5;
 			this.ImagemagickSettingsGroupBox.TabStop = false;
 			this.ImagemagickSettingsGroupBox.Text = "Imagemagick Settings";
+			// 
+			// MagickAutoLevelCheckBox
+			// 
+			this.MagickAutoLevelCheckBox.AutoSize = true;
+			this.MagickAutoLevelCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.MagickAutoLevelCheckBox.Location = new System.Drawing.Point(2, 197);
+			this.MagickAutoLevelCheckBox.Name = "MagickAutoLevelCheckBox";
+			this.MagickAutoLevelCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.MagickAutoLevelCheckBox.Size = new System.Drawing.Size(86, 17);
+			this.MagickAutoLevelCheckBox.TabIndex = 11;
+			this.MagickAutoLevelCheckBox.Text = "auto-level-";
+			this.MainToolTip.SetToolTip(this.MagickAutoLevelCheckBox, "Similar to -normalize, this is used to help achieve #000 blacks and #FFF whites f" +
+        "or grayscale images.");
+			this.MagickAutoLevelCheckBox.UseMnemonic = false;
+			this.MagickAutoLevelCheckBox.UseVisualStyleBackColor = false;
+			this.MagickAutoLevelCheckBox.CheckedChanged += new System.EventHandler(this.MagickAutoLevelCheckBox_CheckedChanged);
 			// 
 			// MagickContrastStretchCheckBox
 			// 
@@ -1588,6 +1606,7 @@ namespace imgdanke
 		private ContextMenuStrip FilesContextMenuStrip;
 		private ToolStripMenuItem OpenPathToFileContextMenuItem;
 		private ToolStripMenuItem OpenImageToolStripMenuItem;
+		private CheckBox MagickAutoLevelCheckBox;
 	}
 }
 

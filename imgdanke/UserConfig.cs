@@ -368,6 +368,18 @@ namespace imgdanke
 			}
 		}
 
+		private bool _shouldUseMagickAutoLevel;
+
+		public bool ShouldUseMagickAutoLevel
+		{
+			get => _shouldUseMagickAutoLevel;
+			set
+			{
+				_shouldUseMagickAutoLevel = value;
+				SaveConfig();
+			}
+		}
+
 		#endregion
 
 		#region pingo Settings

@@ -763,6 +763,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = false;
 			MagickContrastStretchCheckBox.Checked = false;
+			MagickAutoLevelCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
@@ -788,6 +789,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = CONFIG.MagickPosterizeValue > 0 ? CONFIG.MagickPosterizeValue.ToString() : "";
 			MagickNormalizeCheckBox.Checked = CONFIG.ShouldUseMagickNormalize;
 			MagickContrastStretchCheckBox.Checked = CONFIG.ShouldUseMagickContrastStretch;
+			MagickAutoLevelCheckBox.Checked = CONFIG.ShouldUseMagickAutoLevel;
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == CONFIG.PingoPNGPaletteValue.ToString());
 			PingoNoDitheringCheckBox.Checked = CONFIG.ShouldUsePingoNoDithering;
 			PingoOptimizationLevelComboBox.SelectedIndex = GetIndexOfStringInComboBox(PingoOptimizationLevelComboBox, CONFIG.PingoOptimizeLevel);
@@ -819,6 +821,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "2";
 			MagickNormalizeCheckBox.Checked = true;
 			MagickContrastStretchCheckBox.Checked = true;
+			MagickAutoLevelCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
@@ -842,8 +845,9 @@ namespace imgdanke
 			MagickColorsTextBox.Text = "";
 			MagickDepthTextBox.Text = "";
 			MagickPosterizeTextBox.Text = "16";
-			MagickNormalizeCheckBox.Checked = true;
-			MagickContrastStretchCheckBox.Checked = true;
+			MagickNormalizeCheckBox.Checked = false;
+			MagickContrastStretchCheckBox.Checked = false;
+			MagickAutoLevelCheckBox.Checked = true;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
@@ -869,6 +873,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = true;
 			MagickContrastStretchCheckBox.Checked = true;
+			MagickAutoLevelCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
@@ -894,6 +899,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = false;
 			MagickContrastStretchCheckBox.Checked = false;
+			MagickAutoLevelCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = PNG_PALETTE_ITEMS.ToList().FindIndex(i => i.Value == "24");
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = false;
@@ -920,6 +926,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "";
 			MagickNormalizeCheckBox.Checked = false;
 			MagickContrastStretchCheckBox.Checked = false;
+			MagickAutoLevelCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = PingoPNGPaletteComboBox.Items.Count - 1;
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = true;
@@ -946,6 +953,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "256";
 			MagickNormalizeCheckBox.Checked = true;
 			MagickContrastStretchCheckBox.Checked = true;
+			MagickAutoLevelCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
@@ -971,6 +979,7 @@ namespace imgdanke
 			MagickPosterizeTextBox.Text = "256";
 			MagickNormalizeCheckBox.Checked = true;
 			MagickContrastStretchCheckBox.Checked = true;
+			MagickAutoLevelCheckBox.Checked = false;
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
@@ -1097,6 +1106,21 @@ namespace imgdanke
 			}
 
 			CONFIG.ShouldUseMagickContrastStretch = MagickContrastStretchCheckBox.Checked;
+
+			if ( !ShouldDelayUpdatingCommands )
+			{
+				MagickCommandTextBox.Text = ConstructMagickCommandString();
+			}
+		}
+
+		private void MagickAutoLevelCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if ( IsInitializing )
+			{
+				return;
+			}
+
+			CONFIG.ShouldUseMagickAutoLevel = MagickAutoLevelCheckBox.Checked;
 
 			if ( !ShouldDelayUpdatingCommands )
 			{
@@ -1400,6 +1424,11 @@ namespace imgdanke
 				command += "-contrast-stretch 0%x0% ";
 			}
 
+			if ( CONFIG.ShouldUseMagickAutoLevel )
+			{
+				command += "-auto-level ";
+			}
+
 			command += MAGICK_COMMAND_SUFFIX;
 
 			return command;
@@ -1697,6 +1726,11 @@ namespace imgdanke
 			if ( CONFIG.ShouldUseMagickContrastStretch )
 			{
 				fullString += "(cs)";
+			}
+
+			if ( CONFIG.ShouldUseMagickAutoLevel )
+			{
+				fullString += "(al)";
 			}
 
 			return fullString;
