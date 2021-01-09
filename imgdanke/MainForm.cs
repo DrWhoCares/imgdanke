@@ -111,7 +111,15 @@ namespace imgdanke
 			FilesContextMenuStrip.Renderer = new DarkContextMenuRenderer();
 			PreferencesToolStripMenuItem.DropDown.Closing += DropDown_Closing;
 			FilesInSourceFolderListBox.ContextMenuStrip = FilesContextMenuStrip;
+
+			ShouldOutputToNewFolderToolStripMenuItem.Checked = CONFIG.ShouldOutputToNewFolder;
+			UseSourceDirAsOutputDirToolStripMenuItem.Checked = CONFIG.ShouldUseSourceFolderAsOutputFolder;
+			AddTagsToFilenamesToolStripMenuItem.Checked = CONFIG.ShouldAddTagsToFilenames;
+			AddTagsToNewFolderToolStripMenuItem.Checked = CONFIG.ShouldAddTagsToOutputFolder;
+			CheckForUpdatesOnStartupToolStripMenuItem.Checked = CONFIG.ShouldCheckForUpdatesOnStartup;
+			DisableFailedToCheckMessageToolStripMenuItem.Checked = CONFIG.ShouldDisableFailedToCheckForUpdatesMessage;
 		}
+
 		private void InitializeWindowSettings()
 		{
 			//SetControlStyleFlagsViaReflection();
@@ -131,9 +139,6 @@ namespace imgdanke
 			{
 				Size = CONFIG.LastWindowSize;
 			}
-
-			DisableFailedToCheckMessageToolStripMenuItem.Checked = CONFIG.ShouldDisableFailedToCheckForUpdatesMessage;
-			CheckForUpdatesOnStartupToolStripMenuItem.Checked = CONFIG.ShouldCheckForUpdatesOnStartup;
 
 			EnsureWindowIsWithinBounds();
 		}
@@ -359,8 +364,8 @@ namespace imgdanke
 		{
 			ReplaceOriginalsCheckBox.Checked = CONFIG.ShouldReplaceOriginals;
 
-			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals;
-			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals;
+			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals && !CONFIG.ShouldUseSourceFolderAsOutputFolder;
+			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals && !CONFIG.ShouldUseSourceFolderAsOutputFolder;
 		}
 
 		private void InitializePresetSetting()
@@ -672,6 +677,14 @@ namespace imgdanke
 
 		private void OutputFolderPathTextBox_TextChanged(object sender, EventArgs e)
 		{
+			OutputFolderPathButton.Enabled = !CONFIG.ShouldUseSourceFolderAsOutputFolder;
+			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldUseSourceFolderAsOutputFolder;
+
+			if ( CONFIG.ShouldUseSourceFolderAsOutputFolder && CONFIG.OutputFolderPath != SourceFolderPathTextBox.Text )
+			{
+				OutputFolderPathTextBox.Text = SourceFolderPathTextBox.Text;
+			}
+
 			CONFIG.OutputFolderPath = OutputFolderPathTextBox.Text;
 			StartButton.Enabled = VerifyReadyToApply();
 		}
@@ -709,8 +722,8 @@ namespace imgdanke
 		{
 			CONFIG.ShouldReplaceOriginals = ReplaceOriginalsCheckBox.Checked;
 
-			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals;
-			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals;
+			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals && !CONFIG.ShouldUseSourceFolderAsOutputFolder;
+			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals && !CONFIG.ShouldUseSourceFolderAsOutputFolder;
 			MaintainFolderStructureCheckBox.Visible = !CONFIG.ShouldReplaceOriginals && CONFIG.ShouldIncludeSubfolders;
 
 			StartButton.Enabled = VerifyReadyToApply();
@@ -1631,8 +1644,8 @@ namespace imgdanke
 			PingoCommandTextBox.Enabled = isActive;
 			SourceFolderPathTextBox.Enabled = isActive;
 			SourceFolderPathButton.Enabled = isActive;
-			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals;
-			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals;
+			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals && !CONFIG.ShouldUseSourceFolderAsOutputFolder;
+			OutputFolderPathButton.Enabled = !CONFIG.ShouldReplaceOriginals && !CONFIG.ShouldUseSourceFolderAsOutputFolder;
 			DeleteOriginalsAfterCheckBox.Enabled = isActive;
 			ReplaceOriginalsCheckBox.Enabled = isActive;
 			MaintainFolderStructureCheckBox.Enabled = isActive;
@@ -2330,6 +2343,18 @@ namespace imgdanke
 		private void ShouldOutputToNewFolderToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			CONFIG.ShouldOutputToNewFolder = ShouldOutputToNewFolderToolStripMenuItem.Checked;
+		}
+
+		private void UseSourceDirAsOutputDirToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			CONFIG.ShouldUseSourceFolderAsOutputFolder = UseSourceDirAsOutputDirToolStripMenuItem.Checked;
+			OutputFolderPathButton.Enabled = !CONFIG.ShouldUseSourceFolderAsOutputFolder;
+			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldUseSourceFolderAsOutputFolder;
+
+			if ( CONFIG.ShouldUseSourceFolderAsOutputFolder )
+			{
+				OutputFolderPathTextBox.Text = SourceFolderPathTextBox.Text;
+			}
 		}
 
 		private void AddTagsToFilenamesToolStripMenuItem_Click(object sender, EventArgs e)

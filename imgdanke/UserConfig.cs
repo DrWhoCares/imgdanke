@@ -461,6 +461,18 @@ namespace imgdanke
 			}
 		}
 
+		private bool _shouldUseSourceFolderAsOutputFolder;
+
+		public bool ShouldUseSourceFolderAsOutputFolder
+		{
+			get => _shouldUseSourceFolderAsOutputFolder;
+			set
+			{
+				_shouldUseSourceFolderAsOutputFolder = value;
+				SaveConfig();
+			}
+		}
+
 		private string _newOutputFolderBaseName;
 
 		public string NewOutputFolderBaseName

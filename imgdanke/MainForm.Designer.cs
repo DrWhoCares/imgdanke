@@ -129,6 +129,7 @@ namespace imgdanke
 			this.FilesContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.OpenPathToFileContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.OpenImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.UseSourceDirAsOutputDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -1270,6 +1271,7 @@ namespace imgdanke
 			this.PreferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OutputSettingsToolStripMenuItem,
             this.ShouldOutputToNewFolderToolStripMenuItem,
+            this.UseSourceDirAsOutputDirToolStripMenuItem,
             this.AddTagsToFilenamesToolStripMenuItem,
             this.AddTagsToNewFolderToolStripMenuItem,
             this.CheckForUpdatesToolStripSeparator,
@@ -1444,6 +1446,15 @@ namespace imgdanke
 			this.OpenImageToolStripMenuItem.Text = "Open Image...";
 			this.OpenImageToolStripMenuItem.Click += new System.EventHandler(this.OpenImageToolStripMenuItem_Click);
 			// 
+			// UseSourceDirAsOutputDirToolStripMenuItem
+			// 
+			this.UseSourceDirAsOutputDirToolStripMenuItem.CheckOnClick = true;
+			this.UseSourceDirAsOutputDirToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.UseSourceDirAsOutputDirToolStripMenuItem.Name = "UseSourceDirAsOutputDirToolStripMenuItem";
+			this.UseSourceDirAsOutputDirToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+			this.UseSourceDirAsOutputDirToolStripMenuItem.Text = "Use Source Dir As Output Dir";
+			this.UseSourceDirAsOutputDirToolStripMenuItem.Click += new System.EventHandler(this.UseSourceDirAsOutputDirToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1607,6 +1618,7 @@ namespace imgdanke
 		private ToolStripMenuItem OpenPathToFileContextMenuItem;
 		private ToolStripMenuItem OpenImageToolStripMenuItem;
 		private CheckBox MagickAutoLevelCheckBox;
+		private ToolStripMenuItem UseSourceDirAsOutputDirToolStripMenuItem;
 	}
 }
 
