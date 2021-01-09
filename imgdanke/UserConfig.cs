@@ -284,6 +284,19 @@ namespace imgdanke
 		#endregion
 
 		#region Imagemagick Settings
+
+		private bool _shouldAvoidMagickPNGCompression;
+
+		public bool ShouldAvoidMagickPNGCompression
+		{
+			get => _shouldAvoidMagickPNGCompression;
+			set
+			{
+				_shouldAvoidMagickPNGCompression = value;
+				SaveConfig();
+			}
+		}
+
 		private string _magickDither;
 
 		public string MagickDither

@@ -756,6 +756,7 @@ namespace imgdanke
 
 			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.None;
+			CONFIG.ShouldAvoidMagickPNGCompression = true;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.Invalid;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.Invalid;
 			MagickColorsTextBox.Text = "";
@@ -796,6 +797,7 @@ namespace imgdanke
 			PingoStripCheckBox.Checked = CONFIG.ShouldUsePingoStrip;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			UpdateShouldAvoidMagickPNGCompression();
 			ShouldDelayUpdatingCommands = false;
 		}
 
@@ -814,6 +816,7 @@ namespace imgdanke
 
 			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.Gray1Bpp;
+			CONFIG.ShouldAvoidMagickPNGCompression = true;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.Gray;
 			MagickColorsTextBox.Text = "";
@@ -840,6 +843,7 @@ namespace imgdanke
 
 			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.Gray4Bpp;
+			CONFIG.ShouldAvoidMagickPNGCompression = true;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.Gray;
 			MagickColorsTextBox.Text = "";
@@ -866,6 +870,7 @@ namespace imgdanke
 
 			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.Gray8Bpp;
+			CONFIG.ShouldAvoidMagickPNGCompression = true;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.Gray;
 			MagickColorsTextBox.Text = "";
@@ -892,6 +897,7 @@ namespace imgdanke
 
 			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.PingoColor4Bpp;
+			CONFIG.ShouldAvoidMagickPNGCompression = true;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.Invalid;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
 			MagickColorsTextBox.Text = "";
@@ -919,6 +925,7 @@ namespace imgdanke
 
 			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.PingoColor8Bpp;
+			CONFIG.ShouldAvoidMagickPNGCompression = true;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.Invalid;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
 			MagickColorsTextBox.Text = "";
@@ -946,6 +953,7 @@ namespace imgdanke
 
 			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.MagickColor4Bpp;
+			CONFIG.ShouldAvoidMagickPNGCompression = true;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
 			MagickColorsTextBox.Text = "16";
@@ -972,6 +980,7 @@ namespace imgdanke
 
 			ShouldDelayUpdatingCommands = true;
 			CONFIG.PresetSetting = PresetSettings.MagickColor8Bpp;
+			CONFIG.ShouldAvoidMagickPNGCompression = true;
 			MagickDitherComboBox.SelectedIndex = (int)MagickDitherOptions.None;
 			MagickColorspaceComboBox.SelectedIndex = (int)MagickColorspaceOptions.sRGB;
 			MagickColorsTextBox.Text = "256";
@@ -1178,7 +1187,28 @@ namespace imgdanke
 			if ( !ShouldDelayUpdatingCommands )
 			{
 				PingoCommandTextBox.Text = ConstructPingoCommandString();
+				UpdateShouldAvoidMagickPNGCompression();
 			}
+		}
+
+		private void UpdateShouldAvoidMagickPNGCompression()
+		{
+			bool previousValue = CONFIG.ShouldAvoidMagickPNGCompression;
+
+			// Magick's PNG compression can be avoided in any case where we plan on using pingo
+			CONFIG.ShouldAvoidMagickPNGCompression = IsPingoPNGOptimizationGoingToBeUsed();
+
+			if ( CONFIG.ShouldAvoidMagickPNGCompression != previousValue )
+			{
+				MagickCommandTextBox.Text = ConstructMagickCommandString();
+			}
+		}
+
+		private bool IsPingoPNGOptimizationGoingToBeUsed()
+		{
+			return !string.IsNullOrWhiteSpace(PingoCommandTextBox.Text)
+					&& CONFIG.OutputExtension.ToLowerInvariant() == ".png"
+					&& !string.IsNullOrWhiteSpace(CONFIG.PingoOptimizeLevel);
 		}
 
 		private void PingoStripCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -1248,6 +1278,7 @@ namespace imgdanke
 		private void OutputExtensionTextBox_TextChanged(object sender, EventArgs e)
 		{
 			CONFIG.OutputExtension = OutputExtensionTextBox.Text.ToLowerInvariant();
+			UpdateShouldAvoidMagickPNGCompression();
 			StartButton.Enabled = VerifyReadyToApply();
 		}
 
@@ -1388,6 +1419,11 @@ namespace imgdanke
 			EnsureMagickConfigValuesAreUpdated();
 
 			string command = MAGICK_COMMAND_PREFIX;
+
+			if ( CONFIG.ShouldAvoidMagickPNGCompression )
+			{
+				command += "-quality 10 ";
+			}
 
 			if ( !string.IsNullOrWhiteSpace(CONFIG.MagickDither) )
 			{
