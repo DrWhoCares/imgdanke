@@ -1355,7 +1355,7 @@ namespace imgdanke
 			this.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem";
 			this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.CheckForUpdatesToolStripMenuItem.Text = "Check For Updates";
-			this.CheckForUpdatesToolStripMenuItem.ToolTipText = "Toggles the check for any updates that happens on startup.";
+			this.CheckForUpdatesToolStripMenuItem.ToolTipText = "Does a manual check for any new updates.";
 			this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
 			// 
 			// HelpToolStripMenuItem
@@ -1453,6 +1453,7 @@ namespace imgdanke
 			this.UseSourceDirAsOutputDirToolStripMenuItem.Name = "UseSourceDirAsOutputDirToolStripMenuItem";
 			this.UseSourceDirAsOutputDirToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
 			this.UseSourceDirAsOutputDirToolStripMenuItem.Text = "Use Source Dir As Output Dir";
+			this.UseSourceDirAsOutputDirToolStripMenuItem.ToolTipText = "Toggles whether or not to use the Source Folder Path as the Output Folder Path.";
 			this.UseSourceDirAsOutputDirToolStripMenuItem.Click += new System.EventHandler(this.UseSourceDirAsOutputDirToolStripMenuItem_Click);
 			// 
 			// MainForm
