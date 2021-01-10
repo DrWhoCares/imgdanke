@@ -113,6 +113,7 @@ namespace imgdanke
 			this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.OutputSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ShouldOutputToNewFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.UseSourceDirAsOutputDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.AddTagsToFilenamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.AddTagsToNewFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CheckForUpdatesToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -129,7 +130,6 @@ namespace imgdanke
 			this.FilesContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.OpenPathToFileContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.OpenImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.UseSourceDirAsOutputDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -453,7 +453,9 @@ namespace imgdanke
 			this.MagickDitherComboBox.FormattingEnabled = true;
 			this.MagickDitherComboBox.Items.AddRange(new object[] {
             "",
-            "-dither None"});
+            "-dither None",
+            "-dither FloydSteinberg",
+            "-dither Riemersma"});
 			this.MagickDitherComboBox.Location = new System.Drawing.Point(6, 19);
 			this.MagickDitherComboBox.Name = "MagickDitherComboBox";
 			this.MagickDitherComboBox.Size = new System.Drawing.Size(123, 21);
@@ -1300,6 +1302,16 @@ namespace imgdanke
 			this.ShouldOutputToNewFolderToolStripMenuItem.ToolTipText = "Toggles whether or not images should be output to a newly created folder.";
 			this.ShouldOutputToNewFolderToolStripMenuItem.Click += new System.EventHandler(this.ShouldOutputToNewFolderToolStripMenuItem_Click);
 			// 
+			// UseSourceDirAsOutputDirToolStripMenuItem
+			// 
+			this.UseSourceDirAsOutputDirToolStripMenuItem.CheckOnClick = true;
+			this.UseSourceDirAsOutputDirToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.UseSourceDirAsOutputDirToolStripMenuItem.Name = "UseSourceDirAsOutputDirToolStripMenuItem";
+			this.UseSourceDirAsOutputDirToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+			this.UseSourceDirAsOutputDirToolStripMenuItem.Text = "Use Source Dir As Output Dir";
+			this.UseSourceDirAsOutputDirToolStripMenuItem.ToolTipText = "Toggles whether or not to use the Source Folder Path as the Output Folder Path.";
+			this.UseSourceDirAsOutputDirToolStripMenuItem.Click += new System.EventHandler(this.UseSourceDirAsOutputDirToolStripMenuItem_Click);
+			// 
 			// AddTagsToFilenamesToolStripMenuItem
 			// 
 			this.AddTagsToFilenamesToolStripMenuItem.CheckOnClick = true;
@@ -1445,16 +1457,6 @@ namespace imgdanke
 			this.OpenImageToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
 			this.OpenImageToolStripMenuItem.Text = "Open Image...";
 			this.OpenImageToolStripMenuItem.Click += new System.EventHandler(this.OpenImageToolStripMenuItem_Click);
-			// 
-			// UseSourceDirAsOutputDirToolStripMenuItem
-			// 
-			this.UseSourceDirAsOutputDirToolStripMenuItem.CheckOnClick = true;
-			this.UseSourceDirAsOutputDirToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.UseSourceDirAsOutputDirToolStripMenuItem.Name = "UseSourceDirAsOutputDirToolStripMenuItem";
-			this.UseSourceDirAsOutputDirToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-			this.UseSourceDirAsOutputDirToolStripMenuItem.Text = "Use Source Dir As Output Dir";
-			this.UseSourceDirAsOutputDirToolStripMenuItem.ToolTipText = "Toggles whether or not to use the Source Folder Path as the Output Folder Path.";
-			this.UseSourceDirAsOutputDirToolStripMenuItem.Click += new System.EventHandler(this.UseSourceDirAsOutputDirToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
