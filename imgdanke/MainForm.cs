@@ -22,6 +22,7 @@ namespace imgdanke
 		private static readonly string PINGO_FILENAME = IS_LINUX ? "pingo" : "pingo.exe";
 		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 		private static readonly Regex INVALID_PATH_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidPathChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+		private static readonly Regex PINGO_OPTIMIZE_OPTIONS_REGEX = new Regex("-s[0-9,a,b]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 		private static readonly Color MENU_COLOR_OPTION = Color.FromArgb(216, 216, 216);
 		private static readonly Color MENU_COLOR_OPTION_HIGHLIGHTED = Color.FromArgb(100, 100, 100);
 		private static readonly Color COLOR_BACKGROUND = Color.FromArgb(55, 55, 55);
@@ -1221,7 +1222,8 @@ namespace imgdanke
 		{
 			return !string.IsNullOrWhiteSpace(PingoCommandTextBox.Text)
 					&& CONFIG.OutputExtension.ToLowerInvariant() == ".png"
-					&& !string.IsNullOrWhiteSpace(CONFIG.PingoOptimizeLevel);
+					&& !string.IsNullOrWhiteSpace(CONFIG.PingoOptimizeLevel)
+					&& PINGO_OPTIMIZE_OPTIONS_REGEX.IsMatch(PingoCommandTextBox.Text);
 		}
 
 		private void PingoStripCheckBox_CheckedChanged(object sender, EventArgs e)
