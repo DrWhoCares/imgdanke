@@ -1554,6 +1554,7 @@ namespace imgdanke
 		private void PingoCommandTextBox_TextChanged(object sender, EventArgs e)
 		{
 			CONFIG.PingoCommandString = string.IsNullOrWhiteSpace(PingoCommandTextBox.Text) ? "" : PingoCommandTextBox.Text;
+			UpdateShouldAvoidMagickPNGCompression();
 			StartButton.Enabled = VerifyReadyToApply();
 		}
 
