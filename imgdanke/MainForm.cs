@@ -640,6 +640,12 @@ namespace imgdanke
 
 			CONFIG.SourceFolderPath = SourceFolderPathTextBox.Text;
 			BuildFilesInSourceFolderList();
+
+			if ( CONFIG.ShouldUseSourceFolderAsOutputFolder && CONFIG.OutputFolderPath != SourceFolderPathTextBox.Text )
+			{
+				OutputFolderPathTextBox.Text = SourceFolderPathTextBox.Text;
+			}
+
 			StartButton.Enabled = VerifyReadyToApply();
 		}
 
