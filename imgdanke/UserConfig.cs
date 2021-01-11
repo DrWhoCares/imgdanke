@@ -6,23 +6,35 @@ namespace imgdanke
 {
 	internal class UserConfig
 	{
-		public const string CONFIG_FILENAME = "imgdanke_UserConfig.json";
+		internal const string CONFIG_FILENAME = "imgdanke_UserConfig.json";
 
 		#region Functions
-		public static UserConfig LoadConfig()
+
+		internal static UserConfig LoadConfig()
 		{
-			if ( !FileOps.DoesFileExist(CONFIG_FILENAME) )
+			string pathToConfig = CONFIG_FILENAME;
+
+			// See if it's where it's being called from, which in most cases, will be next to the executable
+			if ( !FileOps.DoesFileExist(pathToConfig) )
 			{
-				return new UserConfig();
+				pathToConfig = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+				pathToConfig ??= "";
+				pathToConfig = Path.Combine(pathToConfig, CONFIG_FILENAME);
+
+				// See if it's next to the executable via reflection
+				if ( !FileOps.DoesFileExist(pathToConfig) )
+				{
+					return new UserConfig();
+				}
 			}
 
-			var resultConfig = JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(CONFIG_FILENAME));
+			var resultConfig = JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(pathToConfig));
 			resultConfig.Defaults();
 
 			return resultConfig;
 		}
 
-		public UserConfig()
+		internal UserConfig()
 		{
 			Defaults();
 			_shouldCheckForUpdatesOnStartup = true;
@@ -43,7 +55,7 @@ namespace imgdanke
 			_newOutputFolderBaseName ??= "";
 		}
 
-		public void SaveConfig()
+		internal void SaveConfig()
 		{
 			File.WriteAllText(CONFIG_FILENAME, JsonConvert.SerializeObject(this));
 		}
@@ -55,7 +67,7 @@ namespace imgdanke
 
 		private Point _lastWindowLocation;
 
-		public Point LastWindowLocation
+		internal Point LastWindowLocation
 		{
 			get => _lastWindowLocation;
 			set
@@ -67,7 +79,7 @@ namespace imgdanke
 
 		private bool _shouldStartMaximized;
 
-		public bool ShouldStartMaximized
+		internal bool ShouldStartMaximized
 		{
 			get => _shouldStartMaximized;
 			set
@@ -79,7 +91,7 @@ namespace imgdanke
 
 		private bool _shouldCheckForUpdatesOnStartup;
 
-		public bool ShouldCheckForUpdatesOnStartup
+		internal bool ShouldCheckForUpdatesOnStartup
 		{
 			get => _shouldCheckForUpdatesOnStartup;
 			set
@@ -91,7 +103,7 @@ namespace imgdanke
 
 		private bool _shouldDisableFailedToCheckForUpdatesMessage;
 
-		public bool ShouldDisableFailedToCheckForUpdatesMessage
+		internal bool ShouldDisableFailedToCheckForUpdatesMessage
 		{
 			get => _shouldDisableFailedToCheckForUpdatesMessage;
 			set
@@ -103,7 +115,7 @@ namespace imgdanke
 
 		private bool _shouldSuppressPingoNotFoundWarning;
 
-		public bool ShouldSuppressPingoNotFoundWarning
+		internal bool ShouldSuppressPingoNotFoundWarning
 		{
 			get => _shouldSuppressPingoNotFoundWarning;
 			set
@@ -115,7 +127,7 @@ namespace imgdanke
 
 		private Size _lastWindowSize;
 
-		public Size LastWindowSize
+		internal Size LastWindowSize
 		{
 			get => _lastWindowSize;
 			set
@@ -127,7 +139,7 @@ namespace imgdanke
 
 		private string _imagemagickPathToExe;
 
-		public string ImagemagickPathToExe
+		internal string ImagemagickPathToExe
 		{
 			get => _imagemagickPathToExe;
 			set
@@ -139,7 +151,7 @@ namespace imgdanke
 
 		private string _pingoPathToExe;
 
-		public string PingoPathToExe
+		internal string PingoPathToExe
 		{
 			get => _pingoPathToExe;
 			set
@@ -151,7 +163,7 @@ namespace imgdanke
 
 		private string _sourceFolderPath;
 
-		public string SourceFolderPath
+		internal string SourceFolderPath
 		{
 			get => _sourceFolderPath;
 			set
@@ -163,7 +175,7 @@ namespace imgdanke
 
 		private string _outputFolderPath;
 
-		public string OutputFolderPath
+		internal string OutputFolderPath
 		{
 			get => _outputFolderPath;
 			set
@@ -175,7 +187,7 @@ namespace imgdanke
 
 		private bool _shouldDeleteOriginals;
 
-		public bool ShouldDeleteOriginals
+		internal bool ShouldDeleteOriginals
 		{
 			get => _shouldDeleteOriginals;
 			set
@@ -187,7 +199,7 @@ namespace imgdanke
 
 		private bool _shouldReplaceOriginals;
 
-		public bool ShouldReplaceOriginals
+		internal bool ShouldReplaceOriginals
 		{
 			get => _shouldReplaceOriginals;
 			set
@@ -199,7 +211,7 @@ namespace imgdanke
 
 		private string _outputExtension;
 
-		public string OutputExtension
+		internal string OutputExtension
 		{
 			get => _outputExtension;
 			set
@@ -211,7 +223,7 @@ namespace imgdanke
 
 		private bool _shouldIncludeSubfolders;
 
-		public bool ShouldIncludeSubfolders
+		internal bool ShouldIncludeSubfolders
 		{
 			get => _shouldIncludeSubfolders;
 			set
@@ -223,7 +235,7 @@ namespace imgdanke
 
 		private bool _shouldMaintainFolderStructure;
 
-		public bool ShouldMaintainFolderStructure
+		internal bool ShouldMaintainFolderStructure
 		{
 			get => _shouldMaintainFolderStructure;
 			set
@@ -235,7 +247,7 @@ namespace imgdanke
 
 		private bool _shouldIncludePSDs;
 
-		public bool ShouldIncludePSDs
+		internal bool ShouldIncludePSDs
 		{
 			get => _shouldIncludePSDs;
 			set
@@ -247,7 +259,7 @@ namespace imgdanke
 
 		private string _magickCommandString;
 
-		public string MagickCommandString
+		internal string MagickCommandString
 		{
 			get => _magickCommandString;
 			set
@@ -259,7 +271,7 @@ namespace imgdanke
 
 		private string _pingoCommandString;
 
-		public string PingoCommandString
+		internal string PingoCommandString
 		{
 			get => _pingoCommandString;
 			set
@@ -271,7 +283,7 @@ namespace imgdanke
 
 		private PresetSettings _presetSetting;
 
-		public PresetSettings PresetSetting
+		internal PresetSettings PresetSetting
 		{
 			get => _presetSetting;
 			set
@@ -287,7 +299,7 @@ namespace imgdanke
 
 		private bool _shouldAvoidMagickPNGCompression;
 
-		public bool ShouldAvoidMagickPNGCompression
+		internal bool ShouldAvoidMagickPNGCompression
 		{
 			get => _shouldAvoidMagickPNGCompression;
 			set
@@ -299,7 +311,7 @@ namespace imgdanke
 
 		private string _magickDither;
 
-		public string MagickDither
+		internal string MagickDither
 		{
 			get => _magickDither;
 			set
@@ -311,7 +323,7 @@ namespace imgdanke
 
 		private string _magickColorspace;
 
-		public string MagickColorspace
+		internal string MagickColorspace
 		{
 			get => _magickColorspace;
 			set
@@ -323,7 +335,7 @@ namespace imgdanke
 
 		private int _magickColorsValue;
 
-		public int MagickColorsValue
+		internal int MagickColorsValue
 		{
 			get => _magickColorsValue;
 			set
@@ -335,7 +347,7 @@ namespace imgdanke
 
 		private int _magickDepthValue;
 
-		public int MagickDepthValue
+		internal int MagickDepthValue
 		{
 			get => _magickDepthValue;
 			set
@@ -347,7 +359,7 @@ namespace imgdanke
 
 		private int _magickPosterizeValue;
 
-		public int MagickPosterizeValue
+		internal int MagickPosterizeValue
 		{
 			get => _magickPosterizeValue;
 			set
@@ -359,7 +371,7 @@ namespace imgdanke
 
 		private bool _shouldUseMagickNormalize;
 
-		public bool ShouldUseMagickNormalize
+		internal bool ShouldUseMagickNormalize
 		{
 			get => _shouldUseMagickNormalize;
 			set
@@ -371,7 +383,7 @@ namespace imgdanke
 
 		private bool _shouldUseMagickContrastStretch;
 
-		public bool ShouldUseMagickContrastStretch
+		internal bool ShouldUseMagickContrastStretch
 		{
 			get => _shouldUseMagickContrastStretch;
 			set
@@ -383,7 +395,7 @@ namespace imgdanke
 
 		private bool _shouldUseMagickAutoLevel;
 
-		public bool ShouldUseMagickAutoLevel
+		internal bool ShouldUseMagickAutoLevel
 		{
 			get => _shouldUseMagickAutoLevel;
 			set
@@ -399,7 +411,7 @@ namespace imgdanke
 
 		private int _pingoPNGPaletteValue;
 
-		public int PingoPNGPaletteValue
+		internal int PingoPNGPaletteValue
 		{
 			get => _pingoPNGPaletteValue;
 			set
@@ -411,7 +423,7 @@ namespace imgdanke
 
 		private bool _shouldUsePingoNoDithering;
 
-		public bool ShouldUsePingoNoDithering
+		internal bool ShouldUsePingoNoDithering
 		{
 			get => _shouldUsePingoNoDithering;
 			set
@@ -423,7 +435,7 @@ namespace imgdanke
 
 		private string _pingoOptimizeLevel;
 
-		public string PingoOptimizeLevel
+		internal string PingoOptimizeLevel
 		{
 			get => _pingoOptimizeLevel;
 			set
@@ -435,7 +447,7 @@ namespace imgdanke
 
 		private bool _shouldUsePingoStrip;
 
-		public bool ShouldUsePingoStrip
+		internal bool ShouldUsePingoStrip
 		{
 			get => _shouldUsePingoStrip;
 			set
@@ -451,7 +463,7 @@ namespace imgdanke
 
 		private bool _shouldOutputToNewFolder;
 
-		public bool ShouldOutputToNewFolder
+		internal bool ShouldOutputToNewFolder
 		{
 			get => _shouldOutputToNewFolder;
 			set
@@ -463,7 +475,7 @@ namespace imgdanke
 
 		private bool _shouldUseSourceFolderAsOutputFolder;
 
-		public bool ShouldUseSourceFolderAsOutputFolder
+		internal bool ShouldUseSourceFolderAsOutputFolder
 		{
 			get => _shouldUseSourceFolderAsOutputFolder;
 			set
@@ -475,7 +487,7 @@ namespace imgdanke
 
 		private string _newOutputFolderBaseName;
 
-		public string NewOutputFolderBaseName
+		internal string NewOutputFolderBaseName
 		{
 			get => _newOutputFolderBaseName;
 			set
@@ -487,7 +499,7 @@ namespace imgdanke
 
 		private string _newOutputFolderPath;
 
-		public string NewOutputFolderPath
+		internal string NewOutputFolderPath
 		{
 			get => _newOutputFolderPath;
 			set
@@ -499,7 +511,7 @@ namespace imgdanke
 
 		private string _tagsStringToAppendToFilenames;
 
-		public string TagsStringToAppendToFilenames
+		internal string TagsStringToAppendToFilenames
 		{
 			get => _tagsStringToAppendToFilenames;
 			set
@@ -513,7 +525,7 @@ namespace imgdanke
 
 		private bool _shouldAddTagsToFilenames;
 
-		public bool ShouldAddTagsToFilenames
+		internal bool ShouldAddTagsToFilenames
 		{
 			get => _shouldAddTagsToFilenames;
 			set
@@ -525,7 +537,7 @@ namespace imgdanke
 
 		private bool _shouldAddPresetToFilenames;
 
-		public bool ShouldAddPresetToFilenames
+		internal bool ShouldAddPresetToFilenames
 		{
 			get => _shouldAddPresetToFilenames;
 			set
@@ -537,7 +549,7 @@ namespace imgdanke
 
 		private bool _shouldAddMagickSettingsToFilenames;
 
-		public bool ShouldAddMagickSettingsToFilenames
+		internal bool ShouldAddMagickSettingsToFilenames
 		{
 			get => _shouldAddMagickSettingsToFilenames;
 			set
@@ -549,7 +561,7 @@ namespace imgdanke
 
 		private bool _shouldAddPingoSettingsToFilenames;
 
-		public bool ShouldAddPingoSettingsToFilenames
+		internal bool ShouldAddPingoSettingsToFilenames
 		{
 			get => _shouldAddPingoSettingsToFilenames;
 			set
@@ -561,7 +573,7 @@ namespace imgdanke
 
 		private bool _shouldAddTagsToOutputFolder;
 
-		public bool ShouldAddTagsToOutputFolder
+		internal bool ShouldAddTagsToOutputFolder
 		{
 			get => _shouldAddTagsToOutputFolder;
 			set
@@ -573,7 +585,7 @@ namespace imgdanke
 
 		private bool _shouldAddPresetToOutputFolder;
 
-		public bool ShouldAddPresetToOutputFolder
+		internal bool ShouldAddPresetToOutputFolder
 		{
 			get => _shouldAddPresetToOutputFolder;
 			set
@@ -585,7 +597,7 @@ namespace imgdanke
 
 		private bool _shouldAddMagickSettingsToOutputFolder;
 
-		public bool ShouldAddMagickSettingsToOutputFolder
+		internal bool ShouldAddMagickSettingsToOutputFolder
 		{
 			get => _shouldAddMagickSettingsToOutputFolder;
 			set
@@ -597,7 +609,7 @@ namespace imgdanke
 
 		private bool _shouldAddPingoSettingsToOutputFolder;
 
-		public bool ShouldAddPingoSettingsToOutputFolder
+		internal bool ShouldAddPingoSettingsToOutputFolder
 		{
 			get => _shouldAddPingoSettingsToOutputFolder;
 			set
@@ -606,12 +618,6 @@ namespace imgdanke
 				SaveConfig();
 			}
 		}
-
-		#endregion
-
-		#region TagsToOutputFolder
-
-
 
 		#endregion
 
