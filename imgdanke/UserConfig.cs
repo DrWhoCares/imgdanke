@@ -11,12 +11,23 @@ namespace imgdanke
 		#region Functions
 		public static UserConfig LoadConfig()
 		{
-			if ( !FileOps.DoesFileExist(CONFIG_FILENAME) )
+			string pathToConfig = CONFIG_FILENAME;
+
+			// See if it's where it's being called from, which in most cases, will be next to the executable
+			if ( !FileOps.DoesFileExist(pathToConfig) )
 			{
-				return new UserConfig();
+				pathToConfig = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+				pathToConfig ??= "";
+				pathToConfig = Path.Combine(pathToConfig, CONFIG_FILENAME);
+
+				// See if it's next to the executable via reflection
+				if ( !FileOps.DoesFileExist(pathToConfig) )
+				{
+					return new UserConfig();
+				}
 			}
 
-			var resultConfig = JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(CONFIG_FILENAME));
+			var resultConfig = JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(pathToConfig));
 			resultConfig.Defaults();
 
 			return resultConfig;
