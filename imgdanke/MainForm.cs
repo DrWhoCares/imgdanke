@@ -1885,7 +1885,6 @@ namespace imgdanke
 
 		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, string prependString, string appendString, Label statusLabel, ProgressBar progressBar)
 		{
-			const string DEFAULT_COMMAND = "convert \"%1\" \"%2\"";
 			ProcessStartInfo startInfo = new ProcessStartInfo
 			{
 				FileName = IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe",
@@ -1903,7 +1902,7 @@ namespace imgdanke
 					return new List<FileInfo>();
 				}
 
-				if ( commandString == DEFAULT_COMMAND && img.Extension.ToLowerInvariant() == CONFIG.OutputExtension && img.DirectoryName == CONFIG.OutputFolderPath && string.IsNullOrWhiteSpace(prependString) && string.IsNullOrWhiteSpace(appendString) )
+				if ( IsDefaultMagickCommand(commandString) && img.Extension.ToLowerInvariant() == CONFIG.OutputExtension && img.DirectoryName == CONFIG.OutputFolderPath && string.IsNullOrWhiteSpace(prependString) && string.IsNullOrWhiteSpace(appendString) )
 				{
 					// Avoid processing the magick command if it won't actually do anything. Still need to process it if the extension would change
 					newImgFiles.Add(new FileInfo(img.FullName));
@@ -1995,6 +1994,14 @@ namespace imgdanke
 			}
 
 			return newImgFiles;
+		}
+
+		private static bool IsDefaultMagickCommand(string commandString)
+		{
+			const string DEFAULT_COMMAND = "convert \"%1\" \"%2\"";
+			const string DEFAULT_COMMAND_WITH_PINGO = "convert \"%1\" -quality 10 \"%2\"";
+
+			return commandString == DEFAULT_COMMAND_WITH_PINGO || commandString == DEFAULT_COMMAND;
 		}
 
 		private static string DetermineOutputFilepath(FileInfo fileInfo)
