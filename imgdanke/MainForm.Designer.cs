@@ -869,6 +869,7 @@ namespace imgdanke
 			// 
 			// FilesInSourceFolderListBox
 			// 
+			this.FilesInSourceFolderListBox.AllowDrop = true;
 			this.FilesInSourceFolderListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
 			this.FilesInSourceFolderListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.FilesInSourceFolderListBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -882,6 +883,8 @@ namespace imgdanke
 			this.FilesInSourceFolderListBox.TabIndex = 0;
 			this.FilesInSourceFolderListBox.TabStop = false;
 			this.FilesInSourceFolderListBox.SelectedIndexChanged += new System.EventHandler(this.FilesInSourceFolderListBox_SelectedIndexChanged);
+			this.FilesInSourceFolderListBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.FilesInSourceFolderListBox_DragDrop);
+			this.FilesInSourceFolderListBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.FilesInSourceFolderListBox_DragEnter);
 			this.FilesInSourceFolderListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FilesInSourceFolderListBox_MouseDown);
 			// 
 			// PingoCommandLabel

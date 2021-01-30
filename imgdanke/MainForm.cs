@@ -1408,6 +1408,41 @@ namespace imgdanke
 			return (subpath.First() == '\\' || subpath.First() == '/') ? subpath.Substring(1) : subpath;
 		}
 
+		private void FilesInSourceFolderListBox_DragEnter(object sender, DragEventArgs e)
+		{
+			e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Link : DragDropEffects.None;
+		}
+
+		private void FilesInSourceFolderListBox_DragDrop(object sender, DragEventArgs e)
+		{
+			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+			if ( !files.Any() )
+			{
+				return;
+			}
+
+			if ( FileOps.DoesDirectoryExist(files.First()) )
+			{
+				SourceFolderPathTextBox.Text = files.First();
+			}
+			else if ( FileOps.DoesFileExist(files.First()) )
+			{
+				SourceFolderPathTextBox.Text = new FileInfo(files.First()).DirectoryName;
+
+				FilesInSourceFolderListBox.BeginUpdate();
+				UnselectAllItemsInListBox(FilesInSourceFolderListBox);
+				Array.Sort(files);
+
+				foreach ( FileInfo filename in files.Select(f => new FileInfo(f)) )
+				{
+					FilesInSourceFolderListBox.SetSelected(FilesInSourceFolderListBox.FindStringExact(filename.Name), true);
+				}
+
+				FilesInSourceFolderListBox.EndUpdate();
+			}
+		}
+
 		private void FilesInSourceFolderListBox_MouseDown(object sender, MouseEventArgs e)
 		{
 			if ( e.Button != MouseButtons.Right )
