@@ -57,6 +57,8 @@ namespace imgdanke
 		private static bool ShouldDelayUpdatingCommands;
 		private static bool EnableFormLevelDoubleBuffering = true;
 		private static int OriginalExStyle = -1;
+		private static List<FileInfoWithSubpath> FilesInSourceFolderList;
+		private static List<FileInfoWithSubpath> FilesInSourceFolderListDataSource;
 
 		private static readonly OutputSettingsForm OUTPUT_SETTINGS_FORM = new OutputSettingsForm();
 
@@ -119,6 +121,9 @@ namespace imgdanke
 			AddTagsToNewFolderToolStripMenuItem.Checked = CONFIG.ShouldAddTagsToOutputFolder;
 			CheckForUpdatesOnStartupToolStripMenuItem.Checked = CONFIG.ShouldCheckForUpdatesOnStartup;
 			DisableFailedToCheckMessageToolStripMenuItem.Checked = CONFIG.ShouldDisableFailedToCheckForUpdatesMessage;
+
+			FilesInSourceFolderListBox.DisplayMember = "Subpath";
+			FilesInSourceFolderListBox.ValueMember = "Subpath";
 		}
 
 		private void InitializeWindowSettings()
@@ -1273,20 +1278,19 @@ namespace imgdanke
 		private static void UnselectAllItemsInListBox(ListBox listBox)
 		{
 			int previousTopIndex = listBox.TopIndex;
+			listBox.BeginUpdate();
 			listBox.ClearSelected();
 			listBox.TopIndex = previousTopIndex;
+			listBox.EndUpdate();
 		}
 
 		private static void SelectAllInListBox(ListBox listBox)
 		{
 			int previousTopIndex = listBox.TopIndex;
 			listBox.BeginUpdate();
-
-			for ( int itemIndex = 0; itemIndex < listBox.Items.Count; ++itemIndex )
-			{
-				listBox.SetSelected(itemIndex, true);
-			}
-
+			listBox.Select();
+			SendKeys.Send("{HOME}+{END}");
+			SendKeys.Flush();
 			listBox.EndUpdate();
 			listBox.TopIndex = previousTopIndex;
 		}
@@ -1326,6 +1330,21 @@ namespace imgdanke
 			BuildFilesInSourceFolderList();
 		}
 
+		private void FilesListSearchTextBox_TextChanged(object sender, EventArgs e)
+		{
+			FilesInSourceFolderListDataSource = new List<FileInfoWithSubpath>(FilesInSourceFolderList);
+
+			for ( int i = FilesInSourceFolderListDataSource.Count - 1; i >= 0; --i )
+			{
+				if ( !FilesInSourceFolderListDataSource[i].ImageInfo.Name.Contains(FilesListSearchTextBox.Text) )
+				{
+					FilesInSourceFolderListDataSource.RemoveAt(i);
+				}
+			}
+
+			UpdateFilesInSourceFolderListDataSource();
+		}
+
 		private void BuildFilesInSourceFolderList()
 		{
 			if ( !FileOps.DoesDirectoryExist(SourceFolderPathTextBox.Text) )
@@ -1334,10 +1353,9 @@ namespace imgdanke
 			}
 			else
 			{
-				FilesInSourceFolderListBox.DataSource = GetImageFilesList(SourceFolderPathTextBox.Text);
-				FilesInSourceFolderListBox.DisplayMember = "Subpath";
-				FilesInSourceFolderListBox.ValueMember = "Subpath";
-				FilesInSourceFolderListBox.SelectedIndex = -1;
+				FilesInSourceFolderList = GetImageFilesList(SourceFolderPathTextBox.Text);
+				FilesInSourceFolderListDataSource = FilesInSourceFolderList;
+				UpdateFilesInSourceFolderListDataSource();
 			}
 
 			GC.Collect();
@@ -1347,7 +1365,16 @@ namespace imgdanke
 
 		private void ClearFilesInSourceFolderList()
 		{
-			FilesInSourceFolderListBox.DataSource = null;
+			FilesInSourceFolderListDataSource.Clear();
+			UpdateFilesInSourceFolderListDataSource();
+		}
+
+		private void UpdateFilesInSourceFolderListDataSource()
+		{
+			FilesInSourceFolderListBox.BeginUpdate();
+			FilesInSourceFolderListBox.DataSource = FilesInSourceFolderListDataSource;
+			FilesInSourceFolderListBox.SelectedIndex = -1;
+			FilesInSourceFolderListBox.EndUpdate();
 		}
 
 		private static List<FileInfoWithSubpath> GetImageFilesList(string imageFilesFullPath)

@@ -130,6 +130,8 @@ namespace imgdanke
 			this.FilesContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.OpenPathToFileContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.OpenImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.FilesListSearchTextBox = new System.Windows.Forms.TextBox();
+			this.FilesListSearchLabel = new System.Windows.Forms.Label();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -170,7 +172,7 @@ namespace imgdanke
 			this.MagickCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.MagickCommandTextBox.Location = new System.Drawing.Point(6, 30);
 			this.MagickCommandTextBox.Name = "MagickCommandTextBox";
-			this.MagickCommandTextBox.Size = new System.Drawing.Size(1077, 20);
+			this.MagickCommandTextBox.Size = new System.Drawing.Size(947, 20);
 			this.MagickCommandTextBox.TabIndex = 7;
 			this.MainToolTip.SetToolTip(this.MagickCommandTextBox, "The imagemagick command to be run, %1 and %2 getting replaced by the input and ou" +
         "tput files, respectively.\r\nCommand is skipped if nothing will happen.");
@@ -209,7 +211,7 @@ namespace imgdanke
 			this.SourceFolderPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.SourceFolderPathTextBox.Location = new System.Drawing.Point(40, 23);
 			this.SourceFolderPathTextBox.Name = "SourceFolderPathTextBox";
-			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(1042, 20);
+			this.SourceFolderPathTextBox.Size = new System.Drawing.Size(913, 20);
 			this.SourceFolderPathTextBox.TabIndex = 1;
 			this.MainToolTip.SetToolTip(this.SourceFolderPathTextBox, "The path to the source images.");
 			this.SourceFolderPathTextBox.TextChanged += new System.EventHandler(this.SourceFolderPathTextBox_TextChanged);
@@ -250,7 +252,7 @@ namespace imgdanke
 			this.OutputFolderPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.OutputFolderPathTextBox.Location = new System.Drawing.Point(40, 71);
 			this.OutputFolderPathTextBox.Name = "OutputFolderPathTextBox";
-			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(1042, 20);
+			this.OutputFolderPathTextBox.Size = new System.Drawing.Size(913, 20);
 			this.OutputFolderPathTextBox.TabIndex = 3;
 			this.MainToolTip.SetToolTip(this.OutputFolderPathTextBox, "The path to where the processed images will be output.");
 			this.OutputFolderPathTextBox.TextChanged += new System.EventHandler(this.OutputFolderPathTextBox_TextChanged);
@@ -310,7 +312,7 @@ namespace imgdanke
 			this.ImagemagickSettingsGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.ImagemagickSettingsGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.ImagemagickSettingsGroupBox.Name = "ImagemagickSettingsGroupBox";
-			this.ImagemagickSettingsGroupBox.Size = new System.Drawing.Size(138, 249);
+			this.ImagemagickSettingsGroupBox.Size = new System.Drawing.Size(138, 253);
 			this.ImagemagickSettingsGroupBox.TabIndex = 5;
 			this.ImagemagickSettingsGroupBox.TabStop = false;
 			this.ImagemagickSettingsGroupBox.Text = "Imagemagick Settings";
@@ -476,7 +478,7 @@ namespace imgdanke
 			this.PingoSettingsGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.PingoSettingsGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.PingoSettingsGroupBox.Name = "PingoSettingsGroupBox";
-			this.PingoSettingsGroupBox.Size = new System.Drawing.Size(155, 249);
+			this.PingoSettingsGroupBox.Size = new System.Drawing.Size(155, 253);
 			this.PingoSettingsGroupBox.TabIndex = 6;
 			this.PingoSettingsGroupBox.TabStop = false;
 			this.PingoSettingsGroupBox.Text = "pingo Settings";
@@ -592,7 +594,7 @@ namespace imgdanke
 			this.PresetSettingsGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.PresetSettingsGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.PresetSettingsGroupBox.Name = "PresetSettingsGroupBox";
-			this.PresetSettingsGroupBox.Size = new System.Drawing.Size(157, 249);
+			this.PresetSettingsGroupBox.Size = new System.Drawing.Size(157, 253);
 			this.PresetSettingsGroupBox.TabIndex = 4;
 			this.PresetSettingsGroupBox.TabStop = false;
 			this.PresetSettingsGroupBox.Text = "Preset Settings";
@@ -749,7 +751,7 @@ namespace imgdanke
 			this.FilesInSourceFolderGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
 			this.FilesInSourceFolderGroupBox.Location = new System.Drawing.Point(0, 0);
 			this.FilesInSourceFolderGroupBox.Name = "FilesInSourceFolderGroupBox";
-			this.FilesInSourceFolderGroupBox.Size = new System.Drawing.Size(502, 249);
+			this.FilesInSourceFolderGroupBox.Size = new System.Drawing.Size(502, 253);
 			this.FilesInSourceFolderGroupBox.TabIndex = 6;
 			this.FilesInSourceFolderGroupBox.TabStop = false;
 			this.FilesInSourceFolderGroupBox.Text = "Files in Source Folder";
@@ -765,19 +767,22 @@ namespace imgdanke
 			// 
 			// FileUIAndFileListSplitContainer.Panel1
 			// 
+			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.FilesListSearchLabel);
+			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.FilesListSearchTextBox);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.IncludePSDsCheckBox);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.IncludeSubfoldersCheckBox);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.MassFileSelectorButton);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.OutputExtensionLabel);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.RefreshFileListButton);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.OutputExtensionTextBox);
+			this.FileUIAndFileListSplitContainer.Panel1MinSize = 45;
 			// 
 			// FileUIAndFileListSplitContainer.Panel2
 			// 
 			this.FileUIAndFileListSplitContainer.Panel2.Controls.Add(this.FilesInSourceFolderListBox);
 			this.FileUIAndFileListSplitContainer.Panel2MinSize = 201;
-			this.FileUIAndFileListSplitContainer.Size = new System.Drawing.Size(496, 230);
-			this.FileUIAndFileListSplitContainer.SplitterDistance = 25;
+			this.FileUIAndFileListSplitContainer.Size = new System.Drawing.Size(496, 234);
+			this.FileUIAndFileListSplitContainer.SplitterDistance = 45;
 			this.FileUIAndFileListSplitContainer.TabIndex = 14;
 			// 
 			// IncludePSDsCheckBox
@@ -873,7 +878,7 @@ namespace imgdanke
 			this.FilesInSourceFolderListBox.Location = new System.Drawing.Point(0, 0);
 			this.FilesInSourceFolderListBox.Name = "FilesInSourceFolderListBox";
 			this.FilesInSourceFolderListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(496, 201);
+			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(496, 210);
 			this.FilesInSourceFolderListBox.TabIndex = 0;
 			this.FilesInSourceFolderListBox.TabStop = false;
 			this.FilesInSourceFolderListBox.SelectedIndexChanged += new System.EventHandler(this.FilesInSourceFolderListBox_SelectedIndexChanged);
@@ -897,7 +902,7 @@ namespace imgdanke
 			this.PingoCommandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.PingoCommandTextBox.Location = new System.Drawing.Point(6, 76);
 			this.PingoCommandTextBox.Name = "PingoCommandTextBox";
-			this.PingoCommandTextBox.Size = new System.Drawing.Size(1077, 20);
+			this.PingoCommandTextBox.Size = new System.Drawing.Size(947, 20);
 			this.PingoCommandTextBox.TabIndex = 11;
 			this.MainToolTip.SetToolTip(this.PingoCommandTextBox, "The pingo command to be run, %1 gets replaced by the input file, as pingo only mo" +
         "difies in-place.\r\nCommand will be skipped if textbox is empty.");
@@ -933,7 +938,7 @@ namespace imgdanke
 			// MainSplitContainer.Panel1
 			// 
 			this.MainSplitContainer.Panel1.Controls.Add(this.OutputAndSettingsSplitContainer);
-			this.MainSplitContainer.Panel1MinSize = 346;
+			this.MainSplitContainer.Panel1MinSize = 350;
 			// 
 			// MainSplitContainer.Panel2
 			// 
@@ -954,7 +959,7 @@ namespace imgdanke
 			this.MainSplitContainer.Panel2.Controls.Add(this.StatusMessageLabel);
 			this.MainSplitContainer.Panel2MinSize = 168;
 			this.MainSplitContainer.Size = new System.Drawing.Size(966, 527);
-			this.MainSplitContainer.SplitterDistance = 346;
+			this.MainSplitContainer.SplitterDistance = 350;
 			this.MainSplitContainer.TabIndex = 13;
 			// 
 			// OutputAndSettingsSplitContainer
@@ -983,7 +988,7 @@ namespace imgdanke
 			// 
 			this.OutputAndSettingsSplitContainer.Panel2.Controls.Add(this.SettingsAndFilesSplitContainer);
 			this.OutputAndSettingsSplitContainer.Panel2MinSize = 249;
-			this.OutputAndSettingsSplitContainer.Size = new System.Drawing.Size(964, 344);
+			this.OutputAndSettingsSplitContainer.Size = new System.Drawing.Size(964, 348);
 			this.OutputAndSettingsSplitContainer.SplitterDistance = 91;
 			this.OutputAndSettingsSplitContainer.TabIndex = 10;
 			// 
@@ -1051,7 +1056,7 @@ namespace imgdanke
 			// 
 			this.SettingsAndFilesSplitContainer.Panel2.Controls.Add(this.FilesInSourceFolderGroupBox);
 			this.SettingsAndFilesSplitContainer.Panel2MinSize = 336;
-			this.SettingsAndFilesSplitContainer.Size = new System.Drawing.Size(964, 249);
+			this.SettingsAndFilesSplitContainer.Size = new System.Drawing.Size(964, 253);
 			this.SettingsAndFilesSplitContainer.SplitterDistance = 458;
 			this.SettingsAndFilesSplitContainer.TabIndex = 7;
 			// 
@@ -1071,7 +1076,7 @@ namespace imgdanke
 			// 
 			this.PresetsAndSettingsSplitContainer.Panel2.Controls.Add(this.MagickAndPingoSplitContainer);
 			this.PresetsAndSettingsSplitContainer.Panel2MinSize = 297;
-			this.PresetsAndSettingsSplitContainer.Size = new System.Drawing.Size(458, 249);
+			this.PresetsAndSettingsSplitContainer.Size = new System.Drawing.Size(458, 253);
 			this.PresetsAndSettingsSplitContainer.SplitterDistance = 157;
 			this.PresetsAndSettingsSplitContainer.TabIndex = 7;
 			// 
@@ -1091,7 +1096,7 @@ namespace imgdanke
 			// 
 			this.MagickAndPingoSplitContainer.Panel2.Controls.Add(this.PingoSettingsGroupBox);
 			this.MagickAndPingoSplitContainer.Panel2MinSize = 155;
-			this.MagickAndPingoSplitContainer.Size = new System.Drawing.Size(297, 249);
+			this.MagickAndPingoSplitContainer.Size = new System.Drawing.Size(297, 253);
 			this.MagickAndPingoSplitContainer.SplitterDistance = 138;
 			this.MagickAndPingoSplitContainer.TabIndex = 7;
 			// 
@@ -1458,6 +1463,30 @@ namespace imgdanke
 			this.OpenImageToolStripMenuItem.Text = "Open Image...";
 			this.OpenImageToolStripMenuItem.Click += new System.EventHandler(this.OpenImageToolStripMenuItem_Click);
 			// 
+			// FilesListSearchTextBox
+			// 
+			this.FilesListSearchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.FilesListSearchTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.FilesListSearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.FilesListSearchTextBox.Location = new System.Drawing.Point(63, 26);
+			this.FilesListSearchTextBox.Name = "FilesListSearchTextBox";
+			this.FilesListSearchTextBox.Size = new System.Drawing.Size(425, 20);
+			this.FilesListSearchTextBox.TabIndex = 21;
+			this.MainToolTip.SetToolTip(this.FilesListSearchTextBox, "The imagemagick command to be run, %1 and %2 getting replaced by the input and ou" +
+        "tput files, respectively.\r\nCommand is skipped if nothing will happen.");
+			this.FilesListSearchTextBox.TextChanged += new System.EventHandler(this.FilesListSearchTextBox_TextChanged);
+			// 
+			// FilesListSearchLabel
+			// 
+			this.FilesListSearchLabel.AutoSize = true;
+			this.FilesListSearchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.FilesListSearchLabel.Location = new System.Drawing.Point(6, 30);
+			this.FilesListSearchLabel.Name = "FilesListSearchLabel";
+			this.FilesListSearchLabel.Size = new System.Drawing.Size(51, 13);
+			this.FilesListSearchLabel.TabIndex = 22;
+			this.FilesListSearchLabel.Text = "Search:";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1622,6 +1651,8 @@ namespace imgdanke
 		private ToolStripMenuItem OpenImageToolStripMenuItem;
 		private CheckBox MagickAutoLevelCheckBox;
 		private ToolStripMenuItem UseSourceDirAsOutputDirToolStripMenuItem;
+		private Label FilesListSearchLabel;
+		private TextBox FilesListSearchTextBox;
 	}
 }
 
