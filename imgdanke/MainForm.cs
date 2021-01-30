@@ -820,8 +820,8 @@ namespace imgdanke
 			PingoNoDitheringCheckBox.Checked = CONFIG.ShouldUsePingoNoDithering;
 			PingoOptimizationLevelComboBox.SelectedIndex = GetIndexOfStringInComboBox(PingoOptimizationLevelComboBox, CONFIG.PingoOptimizeLevel);
 			PingoStripCheckBox.Checked = CONFIG.ShouldUsePingoStrip;
-			MagickCommandTextBox.Text = ConstructMagickCommandString();
-			PingoCommandTextBox.Text = ConstructPingoCommandString();
+			MagickCommandTextBox.Text = CONFIG.MagickCommandString;
+			PingoCommandTextBox.Text = CONFIG.PingoCommandString;
 			UpdateShouldAvoidMagickPNGCompression();
 			ShouldDelayUpdatingCommands = false;
 		}
