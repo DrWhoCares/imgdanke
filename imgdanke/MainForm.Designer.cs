@@ -780,7 +780,7 @@ namespace imgdanke
 			// FileUIAndFileListSplitContainer.Panel2
 			// 
 			this.FileUIAndFileListSplitContainer.Panel2.Controls.Add(this.FilesInSourceFolderListBox);
-			this.FileUIAndFileListSplitContainer.Panel2MinSize = 201;
+			this.FileUIAndFileListSplitContainer.Panel2MinSize = 181;
 			this.FileUIAndFileListSplitContainer.Size = new System.Drawing.Size(496, 234);
 			this.FileUIAndFileListSplitContainer.SplitterDistance = 45;
 			this.FileUIAndFileListSplitContainer.TabIndex = 14;
