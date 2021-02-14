@@ -6,17 +6,20 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Onova;
 using Onova.Services;
 using Exception = System.Exception;
+using FileInfo = System.IO.FileInfo;
 
 namespace imgdanke
 {
 	public partial class MainForm : Form
 	{
+		private const string TEMP_FOLDER_NAME = "/__danketmp/";
 		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 		private static readonly string MAGICK_FILENAME = IS_LINUX ? "magick" : "magick.exe";
 		private static readonly string PINGO_FILENAME = IS_LINUX ? "pingo" : "pingo.exe";
@@ -1457,7 +1460,7 @@ namespace imgdanke
 		private void OpenPathToFileContextMenuItem_Click(object sender, EventArgs e)
 		{
 			FileInfo fileInfo = ((FileInfoWithSubpath)FilesInSourceFolderListBox.SelectedItem).ImageInfo;
-			FileOps.OpenPathToFileInExplorer(fileInfo.DirectoryName, fileInfo.Name, IS_LINUX);
+			FileOps.OpenPathToFileInExplorer(fileInfo.DirectoryName, fileInfo.Name);
 		}
 
 		private void OpenImageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1496,61 +1499,59 @@ namespace imgdanke
 
 		private string ConstructMagickCommandString()
 		{
-			const string MAGICK_COMMAND_PREFIX = "convert \"%1\" ";
-			const string MAGICK_COMMAND_SUFFIX = "\"%2\"";
-
 			EnsureMagickConfigValuesAreUpdated();
 
-			string command = MAGICK_COMMAND_PREFIX;
+			StringBuilder commandBuilder = new StringBuilder(256);
+			commandBuilder.Append("mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"%1" + TEMP_FOLDER_NAME + "\" ");
 
 			if ( CONFIG.ShouldAvoidMagickPNGCompression )
 			{
-				command += "-quality 10 ";
+				commandBuilder.Append("-quality 10 ");
 			}
 
 			if ( !string.IsNullOrWhiteSpace(CONFIG.MagickDither) )
 			{
-				command += CONFIG.MagickDither + " ";
+				commandBuilder.Append(CONFIG.MagickDither + " ");
 			}
 
 			if ( !string.IsNullOrWhiteSpace(CONFIG.MagickColorspace) )
 			{
-				command += CONFIG.MagickColorspace + " ";
+				commandBuilder.Append(CONFIG.MagickColorspace + " ");
 			}
 
 			if ( CONFIG.MagickColorsValue > 0 )
 			{
-				command += "-colors " + CONFIG.MagickColorsValue + " ";
+				commandBuilder.Append("-colors " + CONFIG.MagickColorsValue + " ");
 			}
 
 			if ( CONFIG.MagickDepthValue > 0 )
 			{
-				command += "-depth " + CONFIG.MagickDepthValue + " ";
+				commandBuilder.Append("-depth " + CONFIG.MagickDepthValue + " ");
 			}
 
 			if ( CONFIG.MagickPosterizeValue > 0 )
 			{
-				command += "-posterize " + CONFIG.MagickPosterizeValue + " ";
+				commandBuilder.Append("-posterize " + CONFIG.MagickPosterizeValue + " ");
 			}
 
 			if ( CONFIG.ShouldUseMagickNormalize )
 			{
-				command += "-normalize ";
+				commandBuilder.Append("-normalize ");
 			}
 
 			if ( CONFIG.ShouldUseMagickContrastStretch )
 			{
-				command += "-contrast-stretch 0%x0% ";
+				commandBuilder.Append("-contrast-stretch 0%x0% ");
 			}
 
 			if ( CONFIG.ShouldUseMagickAutoLevel )
 			{
-				command += "-auto-level ";
+				commandBuilder.Append("-auto-level ");
 			}
 
-			command += MAGICK_COMMAND_SUFFIX;
+			commandBuilder.Append("*" + CONFIG.OutputExtension);
 
-			return command;
+			return commandBuilder.ToString();
 		}
 
 		private void EnsureMagickConfigValuesAreUpdated()
@@ -1572,32 +1573,30 @@ namespace imgdanke
 
 		private string ConstructPingoCommandString()
 		{
-			const string PINGO_COMMAND_SUFFIX = "\"%1\"";
-
 			EnsurePingoConfigValuesAreUpdated();
 
-			string command = "";
+			StringBuilder commandBuilder = new StringBuilder(44);
 
 			if ( CONFIG.PingoPNGPaletteValue > 0 && CONFIG.PingoPNGPaletteValue <= 100 )
 			{
-				command += "-pngpalette=" + CONFIG.PingoPNGPaletteValue + " ";
+				commandBuilder.Append("-pngpalette=" + CONFIG.PingoPNGPaletteValue + " ");
 
 				if ( CONFIG.ShouldUsePingoNoDithering )
 				{
-					command += "-nodithering ";
+					commandBuilder.Append("-nodithering ");
 				}
 			}
 
-			command += CONFIG.PingoOptimizeLevel + " ";
+			commandBuilder.Append(CONFIG.PingoOptimizeLevel + " ");
 
 			if ( CONFIG.ShouldUsePingoStrip )
 			{
-				command += "-strip ";
+				commandBuilder.Append("-strip ");
 			}
 
-			command += PINGO_COMMAND_SUFFIX;
+			commandBuilder.Append("\"%1\"");
 
-			return command;
+			return commandBuilder.ToString();
 		}
 
 		private void EnsurePingoConfigValuesAreUpdated()
@@ -1652,60 +1651,16 @@ namespace imgdanke
 				return;
 			}
 
+			string tempFolderPath = CONFIG.OutputFolderPath + TEMP_FOLDER_NAME;
 			Stopwatch stopwatch = Stopwatch.StartNew();
-			long previousTotalFilesize = 0;
-			long newTotalFilesize = 0;
-			ProcessingProgressBar.Maximum = (imgFiles.Count * 2) + imgFiles.Where(f => f.Extension.ToLowerInvariant() == ".psd").ToList().Count;
-
-			InitializeTagsStrings();
-
-			List<FileInfo> origFiles = CONFIG.ShouldDeleteOriginals ? imgFiles : new List<FileInfo>();
-
-			if ( !ShouldCancelProcessing && CONFIG.ShouldIncludePSDs )
-			{
-				imgFiles = ConvertAnyPSDs(imgFiles, PrependToOutputTextBox.Text, AppendToOutputTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
-			}
-
-			if ( !ShouldCancelProcessing )
-			{
-				PreviousSizeLabel.Text = "Prev Size: " + GetTotalSizeOfFiles(imgFiles, ref previousTotalFilesize);
-			}
-
-			if ( !ShouldCancelProcessing && VerifyMagickCommandIsReadyAndValid() )
-			{
-				imgFiles = CallMagickCommand(imgFiles, MagickCommandTextBox.Text, PrependToOutputTextBox.Text, AppendToOutputTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
-			}
-
-			if ( !ShouldCancelProcessing && !string.IsNullOrWhiteSpace(CONFIG.PingoPathToExe) && VerifyPingoCommandIsReadyAndValid() )
-			{
-				CallPingoCommand(imgFiles, PingoCommandTextBox.Text, StatusMessageLabel, ProcessingProgressBar);
-			}
-
-			if ( !ShouldCancelProcessing )
-			{
-				NewSizeLabel.Text = "New Size: " + GetTotalSizeOfFiles(imgFiles, ref newTotalFilesize);
-				long filesizeDiff = -(newTotalFilesize - previousTotalFilesize);
-				TotalSavingsLabel.Text = "Total Savings: " + GetBytesAsReadableString(filesizeDiff) + " or " + GetTotalSavingsPercentage(previousTotalFilesize, filesizeDiff);
-			}
-
-			if ( !ShouldCancelProcessing && CONFIG.ShouldDeleteOriginals )
-			{
-				ProcessDeletingOriginalFiles(origFiles, imgFiles);
-			}
-
-			BuildFilesInSourceFolderList();
-			ToggleUI(true);
+			InitializeProcessing(imgFiles, tempFolderPath);
+			ProcessFiles(ref imgFiles, tempFolderPath);
+			FinalizeProcessing(imgFiles, tempFolderPath);
 			stopwatch.Stop();
 
-			if ( ShouldCancelProcessing )
-			{
-				StatusMessageLabel.Text = "Command(s) canceled. Some files may have already been processed, or may be in an invalid state.";
-			}
-			else
-			{
-				StatusMessageLabel.Text = "Command(s) completed. Total time elapsed: " + TimeSpan.FromMilliseconds(stopwatch.ElapsedMilliseconds).ToString(@"hh\:mm\:ss");
-			}
-
+			UpdateStatusMessageForEndProcessing(stopwatch.ElapsedMilliseconds);
+			BuildFilesInSourceFolderList();
+			ToggleUI(true);
 			ShouldCancelProcessing = false;
 		}
 
@@ -1753,8 +1708,46 @@ namespace imgdanke
 			}
 		}
 
-		private void InitializeTagsStrings()
+		private void UpdateStatusMessageForEndProcessing(long elapsedMilliseconds)
 		{
+			if ( ShouldCancelProcessing )
+			{
+				StatusMessageLabel.Text = "Command(s) canceled. Some files may have already been processed, or may be in an invalid state.";
+			}
+			else
+			{
+				StatusMessageLabel.Text = "Command(s) completed. Total time elapsed: " + TimeSpan.FromMilliseconds(elapsedMilliseconds).ToString(@"hh\:mm\:ss");
+			}
+		}
+
+		#region Processing Initialization
+
+		private void InitializeProcessing(List<FileInfo> imgFiles, string tempFolderPath)
+		{
+			if ( ShouldCancelProcessing )
+			{
+				return;
+			}
+
+			ProcessingProgressBar.Maximum = (imgFiles.Count * 3) + imgFiles.Where(f => f.Extension.ToLowerInvariant() == ".psd").ToList().Count;
+			InitializeTagsStrings();
+
+			if ( !ShouldCancelProcessing )
+			{
+				if ( !FileOps.DeleteFilesInFolder(tempFolderPath) )
+				{
+					ShouldCancelProcessing = true;
+				}
+			}
+		}
+
+		private static void InitializeTagsStrings()
+		{
+			if ( ShouldCancelProcessing )
+			{
+				return;
+			}
+
 			if ( CONFIG.ShouldAddTagsToFilenames )
 			{
 				string fullString = "";
@@ -1883,179 +1876,181 @@ namespace imgdanke
 			return fullString;
 		}
 
-		private static List<FileInfo> ConvertAnyPSDs(List<FileInfo> originalImgFiles, string prependString, string appendString, Label statusLabel, ProgressBar progressBar)
+		#endregion
+
+		#region Main Processing
+
+		private void ProcessFiles(ref List<FileInfo> imgFiles, string tempFolderPath)
 		{
-			List<FileInfo> psdFiles = originalImgFiles.Where(f => f.Extension.ToLowerInvariant() == ".psd").ToList();
-
-			if ( !psdFiles.Any() )
+			if ( ShouldCancelProcessing )
 			{
-				return originalImgFiles;
+				return;
 			}
 
-			List<FileInfo> newImgFiles = originalImgFiles.Where(f => f.Extension.ToLowerInvariant() != ".psd").ToList();
+			List<FileInfo> origFiles = CONFIG.ShouldDeleteOriginals ? imgFiles : new List<FileInfo>();
 
-			foreach ( FileInfo psdFile in psdFiles )
+			MagickCopyFilesToTempFolder(imgFiles, tempFolderPath);
+			UpdateFileInfosToTempFolder(ref imgFiles, tempFolderPath, out long previousTotalFilesize);
+			RenameCopiedFiles(ref imgFiles, PrependToOutputTextBox.Text, AppendToOutputTextBox.Text);
+			ProcessingProgressBar.Value += imgFiles.Count;
+
+			if ( !ShouldCancelProcessing )
 			{
-				ProcessStartInfo startInfo = new ProcessStartInfo
-				{
-					FileName = IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe",
-					UseShellExecute = false,
-					CreateNoWindow = true,
-					WorkingDirectory = CONFIG.SourceFolderPath
-				};
-
-				string outputFilename = DetermineOutputFilepath(psdFile) + prependString + psdFile.Name.Replace(psdFile.Extension, "")
-										+ appendString + (CONFIG.ShouldAddTagsToFilenames ? CONFIG.TagsStringToAppendToFilenames : "") + ".tmp" + CONFIG.OutputExtension;
-				startInfo.Arguments = "convert \"" + psdFile.FullName + "[0]\" \"" + outputFilename + "\"";
-				statusLabel.Text = "Converting \"" + psdFile.Name + "\" via magick convert.";
-
-				using Process process = Process.Start(startInfo);
-
-				if ( process == null )
-				{
-					if ( DisplayProcessIsNullError(true) )
-					{
-						ShouldCancelProcessing = true;
-					}
-
-					break;
-				}
-
-				while ( !process.HasExited )
-				{
-					Application.DoEvents();
-
-					if ( ShouldCancelProcessing )
-					{
-						KillProcessAndWait(process);
-						break;
-					}
-				}
-
-				if ( ShouldCancelProcessing )
-				{
-					KillProcessAndWait(process);
-					return new List<FileInfo>();
-				}
-
-				newImgFiles.Add(new FileInfo(outputFilename));
-				++progressBar.Value;
+				PreviousSizeLabel.Text = "Prev Size: " + GetBytesAsReadableString(previousTotalFilesize);
 			}
 
-			return newImgFiles;
+			ProcessMagickCommand(tempFolderPath);
+			ProcessingProgressBar.Value += imgFiles.Count;
+			ProcessPingoCommand(tempFolderPath);
+			ProcessingProgressBar.Value += imgFiles.Count;
+
+			if ( !ShouldCancelProcessing )
+			{
+				long newTotalFilesize = 0;
+				NewSizeLabel.Text = "New Size: " + GetTotalSizeOfFiles(imgFiles, ref newTotalFilesize);
+				long filesizeDiff = -(newTotalFilesize - previousTotalFilesize);
+				TotalSavingsLabel.Text = "Total Savings: " + GetBytesAsReadableString(filesizeDiff) + " or " + GetTotalSavingsPercentage(previousTotalFilesize, filesizeDiff);
+			}
+
+			ProcessDeletingOriginalFiles(origFiles, imgFiles);
 		}
 
-		private static List<FileInfo> CallMagickCommand(List<FileInfo> imgFiles, string commandString, string prependString, string appendString, Label statusLabel, ProgressBar progressBar)
+		private void MagickCopyFilesToTempFolder(List<FileInfo> imgFiles, string tempFolderPath)
 		{
-			ProcessStartInfo startInfo = new ProcessStartInfo
+			if ( ShouldCancelProcessing )
 			{
-				FileName = IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe",
-				UseShellExecute = false,
-				CreateNoWindow = true,
-				WorkingDirectory = CONFIG.SourceFolderPath
-			};
+				return;
+			}
 
-			List<FileInfo> newImgFiles = new List<FileInfo>();
+			StatusMessageLabel.Text = "Copying files/creating hardlinks to temp working folder...";
+			List<FileInfo> filesToHardLink = new List<FileInfo>();
+			List<FileInfo> filesToCopy = new List<FileInfo>();
 
 			foreach ( FileInfo img in imgFiles )
 			{
-				if ( ShouldCancelProcessing )
+				if ( ShouldFileBeCopied(img) )
 				{
-					return new List<FileInfo>();
-				}
-
-				if ( IsDefaultMagickCommand(commandString) && img.Extension.ToLowerInvariant() == CONFIG.OutputExtension && img.DirectoryName == CONFIG.OutputFolderPath && string.IsNullOrWhiteSpace(prependString) && string.IsNullOrWhiteSpace(appendString) )
-				{
-					// Avoid processing the magick command if it won't actually do anything. Still need to process it if the extension would change
-					newImgFiles.Add(new FileInfo(img.FullName));
-					++progressBar.Value;
-					continue;
-				}
-
-				bool isFromPSD = img.Name.Contains(".tmp");
-				string tempFilename;
-				string filenameAlone = img.Name.Replace(img.Extension, "");
-
-				if ( isFromPSD )
-				{
-					tempFilename = img.FullName;
+					filesToCopy.Add(img);
 				}
 				else
 				{
-					if ( CONFIG.ShouldReplaceOriginals )
-					{
-						tempFilename = DetermineOutputFilepath(img) + filenameAlone + CONFIG.OutputExtension;
-					}
-					else
-					{
-						tempFilename = DetermineOutputFilepath(img) + prependString + filenameAlone + appendString
-										+ (CONFIG.ShouldAddTagsToFilenames ? CONFIG.TagsStringToAppendToFilenames : "") + ".tmp" + CONFIG.OutputExtension;
-					}
+					filesToHardLink.Add(img);
 				}
-
-				startInfo.Arguments = commandString;
-				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
-				startInfo.Arguments = startInfo.Arguments.Replace("%2", tempFilename);
-				statusLabel.Text = "Processing magick command on \"" + img.Name + "\".";
-
-				using Process process = Process.Start(startInfo);
-
-				if ( process == null )
-				{
-					if ( DisplayProcessIsNullError(true) )
-					{
-						ShouldCancelProcessing = true;
-					}
-
-					break;
-				}
-
-				while ( !process.HasExited )
-				{
-					Application.DoEvents();
-
-					if ( ShouldCancelProcessing )
-					{
-						KillProcessAndWait(process);
-						break;
-					}
-				}
-
-				if ( ShouldCancelProcessing )
-				{
-					KillProcessAndWait(process);
-					return new List<FileInfo>();
-				}
-
-				string newLocation;
-
-				if ( CONFIG.ShouldReplaceOriginals )
-				{
-					newLocation = tempFilename.Replace(filenameAlone, prependString + filenameAlone.Replace(".tmp", "") + appendString + (CONFIG.ShouldAddTagsToFilenames ? CONFIG.TagsStringToAppendToFilenames : ""));
-				}
-				else
-				{
-					newLocation = tempFilename.Replace(".tmp", "");
-				}
-
-				while ( !FileOps.IsFileReady(tempFilename) )
-				{
-					Application.DoEvents();
-
-					if ( ShouldCancelProcessing )
-					{
-						KillProcessAndWait(process);
-						return new List<FileInfo>();
-					}
-				}
-
-				FileOps.Move(tempFilename, newLocation);
-
-				newImgFiles.Add(new FileInfo(newLocation));
-				++progressBar.Value;
 			}
 
-			return newImgFiles;
+			if ( ShouldCancelProcessing )
+			{
+				return;
+			}
+
+			if ( filesToHardLink.Any() )
+			{
+				if ( !FileOps.CreateHardLinksToFiles(filesToHardLink, tempFolderPath) )
+				{
+					ShouldCancelProcessing = true;
+					return;
+				}
+			}
+
+			if ( ShouldCancelProcessing || !filesToCopy.Any() )
+			{
+				return;
+			}
+
+			StartAndWaitForProcess(IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe", CONFIG.SourceFolderPath, "mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"" + tempFolderPath + "\" " + GetOriginalImagePaths(filesToCopy));
+		}
+
+		private bool ShouldFileBeCopied(FileInfo img)
+		{
+			return !string.IsNullOrWhiteSpace(PrependToOutputTextBox.Text)
+					|| !string.IsNullOrWhiteSpace(AppendToOutputTextBox.Text)
+					|| (CONFIG.ShouldAddTagsToFilenames && !string.IsNullOrWhiteSpace(CONFIG.TagsStringToAppendToFilenames))
+					|| img.Extension.ToLowerInvariant() != CONFIG.OutputExtension;
+		}
+
+		private string GetOriginalImagePaths(List<FileInfo> imgFiles)
+		{
+			StringBuilder argumentBuilder = new StringBuilder((imgFiles.Max(f => f.FullName).Length * imgFiles.Count) + (imgFiles.Count * 6));
+
+			foreach ( FileInfo img in imgFiles )
+			{
+				argumentBuilder.Append("\"");
+				argumentBuilder.Append(img.FullName);
+
+				if ( CONFIG.ShouldIncludePSDs && img.Extension == ".psd" )
+				{
+					argumentBuilder.Append("[0]");
+				}
+
+				argumentBuilder.Append("\" ");
+			}
+
+			return argumentBuilder.ToString();
+		}
+
+		private void UpdateFileInfosToTempFolder(ref List<FileInfo> imgFiles, string tempFolderPath, out long previousTotalFilesize)
+		{
+			previousTotalFilesize = 0;
+
+			if ( ShouldCancelProcessing )
+			{
+				return;
+			}
+
+			// Update the FileInfos to the new output location in the temp folder (and new file extensions if applicable)
+			for ( int imgIndex = 0; imgIndex < imgFiles.Count; ++imgIndex )
+			{
+				FileInfo img = imgFiles[imgIndex];
+				bool isOriginallyPSD = img.Extension.ToLowerInvariant() == ".psd";
+
+				if ( !isOriginallyPSD )
+				{
+					previousTotalFilesize += img.Length;
+				}
+
+				imgFiles[imgIndex] = new FileInfo(tempFolderPath
+					+ (img.Extension == CONFIG.OutputExtension ? img.Name : img.Name.Replace(img.Extension, CONFIG.OutputExtension)));
+
+				if ( isOriginallyPSD )
+				{
+					previousTotalFilesize += imgFiles[imgIndex].Length;
+				}
+			}
+		}
+
+		private void RenameCopiedFiles(ref List<FileInfo> imgFiles, string prependToOutputString, string appendToOutputString)
+		{
+			if ( ShouldCancelProcessing || !ShouldRenameFiles() )
+			{
+				return;
+			}
+
+			StatusMessageLabel.Text = "Renaming files to final filenames...";
+			string prependString = "\"" + prependToOutputString;
+			string appendString = appendToOutputString + (CONFIG.ShouldAddTagsToFilenames ? CONFIG.TagsStringToAppendToFilenames : "");
+
+			foreach ( FileInfo img in imgFiles )
+			{
+				FileOps.RenameFile(img, prependString + img.Name.Replace(img.Extension, "") + appendString + img.Extension + "\"");
+			}
+		}
+
+		private bool ShouldRenameFiles()
+		{
+			return !string.IsNullOrWhiteSpace(PrependToOutputTextBox.Text)
+					|| !string.IsNullOrWhiteSpace(AppendToOutputTextBox.Text)
+					|| CONFIG.ShouldAddTagsToFilenames && !string.IsNullOrWhiteSpace(CONFIG.TagsStringToAppendToFilenames);
+		}
+
+		private void ProcessMagickCommand(string tempFolderPath)
+		{
+			if ( ShouldCancelProcessing || !VerifyMagickCommandIsReadyAndValid() || IsDefaultMagickCommand(CONFIG.MagickCommandString) )
+			{
+				return;
+			}
+
+			StatusMessageLabel.Text = "Processing magick command on files...";
+			StartAndWaitForProcess(IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe", tempFolderPath, CONFIG.MagickCommandString.Replace("%1" + TEMP_FOLDER_NAME, tempFolderPath));
 		}
 
 		private static bool IsDefaultMagickCommand(string commandString)
@@ -2064,6 +2059,129 @@ namespace imgdanke
 			const string DEFAULT_COMMAND_WITH_PINGO = "convert \"%1\" -quality 10 \"%2\"";
 
 			return commandString == DEFAULT_COMMAND_WITH_PINGO || commandString == DEFAULT_COMMAND;
+		}
+
+		private void ProcessPingoCommand(string tempFolderPath)
+		{
+			if ( ShouldCancelProcessing || string.IsNullOrWhiteSpace(CONFIG.PingoPathToExe) || !VerifyPingoCommandIsReadyAndValid() )
+			{
+				return;
+			}
+
+			StatusMessageLabel.Text = "Processing pingo command on files...";
+			StartAndWaitForProcess(IS_LINUX ? CONFIG.PingoPathToExe : "pingo.exe", tempFolderPath, CONFIG.PingoCommandString.Replace("%1", "*" + CONFIG.OutputExtension));
+		}
+
+		private void ProcessDeletingOriginalFiles(List<FileInfo> origFiles, List<FileInfo> imgFiles)
+		{
+			if ( ShouldCancelProcessing || !CONFIG.ShouldDeleteOriginals )
+			{
+				return;
+			}
+
+			StatusMessageLabel.Text = "Deleting original files...";
+
+			foreach ( FileInfo origFile in origFiles )
+			{
+				if ( ShouldCancelProcessing )
+				{
+					break;
+				}
+
+				bool shouldSkipDeletion = false;
+
+				foreach ( FileInfo imgFile in imgFiles )
+				{
+					if ( origFile.FullName == imgFile.FullName )
+					{
+						shouldSkipDeletion = true;
+						break;
+					}
+				}
+
+				if ( shouldSkipDeletion )
+				{
+					continue;
+				}
+
+				if ( FileOps.DoesFileExist(origFile.FullName) && origFile.Extension.ToLowerInvariant() != ".psd" )
+				{
+					FileOps.DeleteFile(origFile.FullName);
+				}
+			}
+		}
+
+		private static void FinalizeProcessing(List<FileInfo> imgFiles, string tempFolderPath)
+		{
+			if ( ShouldCancelProcessing )
+			{
+				return;
+			}
+
+			foreach ( FileInfo img in imgFiles )
+			{
+				if ( ShouldCancelProcessing )
+				{
+					return;
+				}
+
+				FileOps.Move(img.FullName, DetermineOutputFilepath(img) + img.Name);
+			}
+
+			if ( ShouldCancelProcessing )
+			{
+				return;
+			}
+
+			FileOps.DeleteFolder(tempFolderPath, true);
+		}
+
+		#endregion
+
+		#region Processing Utility Funcs
+
+		private static void StartAndWaitForProcess(string executableName, string workingDirPath, string arguments)
+		{
+			if ( ShouldCancelProcessing )
+			{
+				return;
+			}
+
+			using Process process = Process.Start(new ProcessStartInfo
+			{
+				FileName = executableName,
+				UseShellExecute = false,
+				CreateNoWindow = true,
+				WorkingDirectory = workingDirPath,
+				Arguments = arguments
+			});
+
+			if ( process == null )
+			{
+				if ( DisplayProcessIsNullError(true) )
+				{
+					ShouldCancelProcessing = true;
+				}
+
+				return;
+			}
+
+			while ( !process.HasExited )
+			{
+				Application.DoEvents();
+
+				if ( ShouldCancelProcessing )
+				{
+					KillProcessAndWait(process);
+					break;
+				}
+			}
+
+			if ( ShouldCancelProcessing )
+			{
+				KillProcessAndWait(process);
+			}
+
 		}
 
 		private static string DetermineOutputFilepath(FileInfo fileInfo)
@@ -2094,106 +2212,6 @@ namespace imgdanke
 			return outputFolderName;
 		}
 
-		private static void CallPingoCommand(List<FileInfo> imgFiles, string commandString, Label statusLabel, ProgressBar progressBar)
-		{
-			ProcessStartInfo startInfo = new ProcessStartInfo
-			{
-				FileName = IS_LINUX ? CONFIG.PingoPathToExe : "pingo.exe",
-				UseShellExecute = false,
-				CreateNoWindow = true,
-				WorkingDirectory = CONFIG.OutputFolderPath
-			};
-
-			for ( int imgIndex = 0; imgIndex < imgFiles.Count; ++imgIndex )
-			{
-				FileInfo img = imgFiles[imgIndex];
-
-				if ( ShouldCancelProcessing )
-				{
-					break;
-				}
-
-				startInfo.Arguments = commandString;
-				startInfo.Arguments = startInfo.Arguments.Replace("%1", img.FullName);
-
-				statusLabel.Text = "Processing pingo command on \"" + img.Name + "\".";
-				using Process process = Process.Start(startInfo);
-
-				if ( process == null )
-				{
-					if ( DisplayProcessIsNullError(false) )
-					{
-						ShouldCancelProcessing = true;
-					}
-
-					break;
-				}
-
-				while ( !process.HasExited )
-				{
-					Application.DoEvents();
-
-					if ( ShouldCancelProcessing )
-					{
-						KillProcessAndWait(process);
-						break;
-					}
-				}
-
-				if ( img.Name.Contains(".tmp") )
-				{
-					while ( !FileOps.IsFileReady(img.FullName) )
-					{
-						Application.DoEvents();
-
-						if ( ShouldCancelProcessing )
-						{
-							KillProcessAndWait(process);
-							return;
-						}
-					}
-
-					string newFilepath = img.DirectoryName + "/" + img.Name.Replace(".tmp", "");
-					FileOps.Move(img.FullName, newFilepath);
-					imgFiles[imgIndex] = new FileInfo(newFilepath);
-				}
-
-				++progressBar.Value;
-			}
-		}
-
-		private static void ProcessDeletingOriginalFiles(List<FileInfo> origFiles, List<FileInfo> imgFiles)
-		{
-			foreach ( FileInfo origFile in origFiles )
-			{
-				if ( ShouldCancelProcessing )
-				{
-					break;
-				}
-
-				bool shouldSkipDeletion = false;
-
-				foreach ( FileInfo imgFile in imgFiles )
-				{
-					if ( origFile.FullName == imgFile.FullName )
-					{
-						shouldSkipDeletion = true;
-						break;
-					}
-				}
-
-				if ( shouldSkipDeletion )
-				{
-					continue;
-				}
-
-				if ( FileOps.DoesFileExist(origFile.FullName) && origFile.Extension.ToLowerInvariant() != ".psd" )
-				{
-					FileOps.Delete(origFile.FullName);
-				}
-			}
-		}
-
 		private static bool DisplayProcessIsNullError(bool isMagickProcess)
 		{
 			return MessageBox.Show("Unable to start the process for '" + (isMagickProcess ? MAGICK_FILENAME : PINGO_FILENAME) + "'. Process returned is null.\nDo you want to cancel further processing?",
@@ -2213,7 +2231,7 @@ namespace imgdanke
 
 			string processName = process.ProcessName;
 			process.Kill();
-			
+
 			if ( !process.WaitForExit(10000) )
 			{
 				MessageBox.Show("Process (" + processName + ") failed to close after the timeout time of 10 seconds. The process may still be running, and you may need to close it manually.", processName + " failed to close", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -2268,6 +2286,8 @@ namespace imgdanke
 		{
 			return Math.Round((filesizeDiffAbs / previousTotalFilesize) * 100.0, 2, MidpointRounding.AwayFromZero).ToString("0.##") + "%";
 		}
+
+		#endregion
 
 		#endregion
 

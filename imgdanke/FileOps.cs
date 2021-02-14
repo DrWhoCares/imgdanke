@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace imgdanke
@@ -9,6 +11,8 @@ namespace imgdanke
 
 	internal static class FileOps
 	{
+		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+
 		internal static bool DoesFileExist(string path)
 		{
 			// File.Exists() can potentially throw, and if so, may cause issues, so we need to make it so that checking for a file always returns false if it fails
@@ -49,7 +53,7 @@ namespace imgdanke
 			}
 		}
 
-		internal static bool Delete(string path)
+		internal static bool DeleteFile(string path)
 		{
 			try
 			{
@@ -66,7 +70,138 @@ namespace imgdanke
 			}
 		}
 
-		internal static bool Move(string origPath, string newPath, bool shouldDeleteIfExists = true)
+		internal static bool DeleteFolder(string path, bool shouldWaitUntilEmptyToDelete)
+		{
+			if ( !shouldWaitUntilEmptyToDelete && !IsFolderEmpty(path) )
+			{
+				return false; // Avoid deleting folders with any items in them
+			}
+
+			try
+			{
+				if ( shouldWaitUntilEmptyToDelete )
+				{
+					DirectoryInfo folder = new DirectoryInfo(path);
+
+					while ( DoesDirectoryExist(folder.FullName) )
+					{
+						if ( IsFolderEmpty(folder.FullName) )
+						{
+							folder.Delete();
+							folder.Refresh();
+						}
+
+						folder.Refresh();
+					}
+				}
+				else
+				{
+					Directory.Delete(path);
+				}
+
+				return true;
+			}
+			catch ( Exception e )
+			{
+				MessageBox.Show("Attempting to delete folder at 'path' (" + path + ") threw an exception:\n\n" + e.Message,
+					"Deleting folder failed",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+				return false;
+			}
+		}
+
+		// Returns true if the folder is empty by the end of the operation. Returns false otherwise
+		internal static bool DeleteFilesInFolder(string path)
+		{
+			if ( !DoesDirectoryExist(path) )
+			{
+				Directory.CreateDirectory(path);
+				return true;
+			}
+
+			if ( IsFolderEmpty(path) )
+			{
+				return true;
+			}
+
+			if ( MessageBox.Show("The temp folder at 'path' (" + path + ") is not empty. This should only happen if you canceled the previous operation or something went wrong." + "\n\nClick OK to delete and continue, click Cancel to cancel processing.",
+				"Temp folder is not empty",
+				MessageBoxButtons.OKCancel,
+				MessageBoxIcon.Warning) == DialogResult.Cancel )
+			{
+				return false;
+			}
+
+			try
+			{
+				// Need to ensure the folder was deleted before attempting to recreate the directory, because Directory.Delete() will delete the root folder as well
+				DeleteFolderRecursively(path);
+
+				if ( !Directory.Exists(path) )
+				{
+					Directory.CreateDirectory(path);
+				}
+
+				return true;
+			}
+			catch ( Exception e )
+			{
+				MessageBox.Show("Attempting to delete folder at 'path' (" + path + ") threw an exception:\n\n" + e.Message,
+					"Deleting folder failed",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+				return false;
+			}
+		}
+
+		private static bool DeleteFolderRecursively(string path)
+		{
+			try
+			{
+				DirectoryInfo folder = new DirectoryInfo(path);
+				folder.Delete(true);
+				folder.Refresh();
+
+				while ( DoesDirectoryExist(folder.FullName) )
+				{
+					folder.Refresh();
+				}
+
+				return true;
+			}
+			catch ( Exception e )
+			{
+				MessageBox.Show("Attempting to delete folder at 'path' (" + path + ") threw an exception:\n\n" + e.Message,
+					"Deleting folder failed",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+				return false;
+			}
+		}
+
+		private static bool IsFolderEmpty(string path)
+		{
+			try
+			{
+				return !Directory.EnumerateFileSystemEntries(path).Any();
+			}
+			catch ( Exception e )
+			{
+				MessageBox.Show("Attempting to check if folder at 'path' (" + path + ") is empty threw an exception:\n\n" + e.Message,
+					"Checking if folder is empty failed",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+				return false;
+			}
+		}
+
+		internal static bool RenameFile(FileInfo file, string newName, bool shouldOverwrite = true)
+		{
+			return Move(file.FullName, file.DirectoryName + "/" + newName, shouldOverwrite);
+		}
+
+		internal static bool Move(string origPath, string newPath, bool shouldOverwrite = true)
 		{
 			if ( origPath == newPath )
 			{
@@ -81,13 +216,13 @@ namespace imgdanke
 
 			if ( DoesFileExist(newPath) )
 			{
-				if ( shouldDeleteIfExists )
+				if ( shouldOverwrite )
 				{
-					Delete(newPath);
+					DeleteFile(newPath);
 				}
 				else
 				{
-					DisplayMoveError("File to move's destination at 'newPath' (" + origPath + ") already exists and 'shouldDeleteIfExists' is false. This should never happen.");
+					DisplayMoveError("File to move's destination at 'newPath' (" + origPath + ") already exists and 'shouldOverwrite' is false. This should never happen.");
 					return false;
 				}
 			}
@@ -137,7 +272,7 @@ namespace imgdanke
 			}
 		}
 
-		internal static void OpenPathToFileInExplorer(string path, string filename, bool isLinux)
+		internal static void OpenPathToFileInExplorer(string path, string filename)
 		{
 			if ( !DoesDirectoryExist(path) )
 			{
@@ -153,7 +288,7 @@ namespace imgdanke
 
 			try
 			{
-				if ( isLinux )
+				if ( IS_LINUX )
 				{
 					using Process process = Process.Start("xdg-open", localPath);
 				}
@@ -200,6 +335,66 @@ namespace imgdanke
 
 			OpenFileInDefaultApplication(Path.Combine(path, filename));
 		}
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+		private static extern bool CreateHardLink(string lpFileName, string lpExistingFileName, IntPtr lpSecurityAttributes);
+
+		private static bool CreateHardLinkToFile(FileInfo file, string pathToTempWorkingFolder)
+		{
+			try
+			{
+				if ( !IS_LINUX )
+				{
+					return CreateHardLink(pathToTempWorkingFolder + file.Name, file.FullName, IntPtr.Zero);
+				}
+
+				ProcessStartInfo startInfo = new ProcessStartInfo
+				{
+					FileName = "ln",
+					CreateNoWindow = true,
+					Arguments = "-s \"" + file.FullName + "\" " + "\"" + pathToTempWorkingFolder + file.Name + "\""
+				};
+
+				using Process process = Process.Start(startInfo);
+
+				if ( process == null )
+				{
+					return false;
+				}
+
+				process.WaitForExit(5000);
+				return process.ExitCode == 0;
+
+			}
+			catch ( Exception ex )
+			{
+				MessageBox.Show("Unable to create a hard link to the file `" + file.FullName + "` at path `" + pathToTempWorkingFolder + file.Name + "` in its default application. Exception thrown:\n\n`" + ex.Message + "`\n\nProcessing will cancel.",
+					"Cannot create hard link to file",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation);
+				return false;
+			}
+		}
+
+		// Returns true if it successfully creates the links to files. Returns false if something goes wrong
+		internal static bool CreateHardLinksToFiles(List<FileInfo> files, string tempFolderPath)
+		{
+			//if ( !DeleteFilesInFolder(tempFolderPath) )
+			//{
+			//	return false;
+			//}
+
+			foreach ( FileInfo file in files )
+			{
+				if ( !CreateHardLinkToFile(file, tempFolderPath) )
+				{
+					return false;
+				}
+			}
+
+			return !IsFolderEmpty(tempFolderPath);
+		}
+
 	}
 
 }
