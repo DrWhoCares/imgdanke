@@ -186,6 +186,10 @@ namespace imgdanke
 			{
 				return !Directory.EnumerateFileSystemEntries(path).Any();
 			}
+			catch ( DirectoryNotFoundException )
+			{
+				return true; // If we can't find the directory, assume it's been deleted
+			}
 			catch ( Exception e )
 			{
 				MessageBox.Show("Attempting to check if folder at 'path' (" + path + ") is empty threw an exception:\n\n" + e.Message,
