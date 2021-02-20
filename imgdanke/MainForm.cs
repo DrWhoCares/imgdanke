@@ -1430,7 +1430,7 @@ namespace imgdanke
 		private static string GetSubpathFromFileInfo(FileInfo fileInfo, string workingPath)
 		{
 			string subpath = fileInfo.FullName.Substring(workingPath.Length);
-			return (subpath.First() == '\\' || subpath.First() == '/') ? subpath.Substring(1) : subpath;
+			return (subpath[0] == '\\' || subpath[0] == '/') ? subpath.Substring(1) : subpath;
 		}
 
 		private void FilesInSourceFolderListBox_DragEnter(object sender, DragEventArgs e)
@@ -1447,13 +1447,15 @@ namespace imgdanke
 				return;
 			}
 
-			if ( FileOps.DoesDirectoryExist(files.First()) )
+			string firstFile = files[0];
+
+			if ( FileOps.DoesDirectoryExist(firstFile) )
 			{
-				SourceFolderPathTextBox.Text = files.First();
+				SourceFolderPathTextBox.Text = firstFile;
 			}
-			else if ( FileOps.DoesFileExist(files.First()) )
+			else if ( FileOps.DoesFileExist(firstFile) )
 			{
-				SourceFolderPathTextBox.Text = new FileInfo(files.First()).DirectoryName;
+				SourceFolderPathTextBox.Text = new FileInfo(firstFile).DirectoryName;
 
 				FilesInSourceFolderListBox.BeginUpdate();
 				UnselectAllItemsInListBox(FilesInSourceFolderListBox);
