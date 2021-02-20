@@ -65,6 +65,18 @@ namespace imgdanke
 
 		private static readonly OutputSettingsForm OUTPUT_SETTINGS_FORM = new OutputSettingsForm();
 
+		private class ImgInfo
+		{
+			internal ImgInfo(FileInfo orig)
+			{
+				OrigInfo = orig;
+				NewInfo = new FileInfo(orig.FullName);
+			}
+
+			internal FileInfo NewInfo { get; set; }
+			internal FileInfo OrigInfo { get; }
+		}
+
 		public sealed override string Text
 		{
 			get => base.Text;
@@ -1646,7 +1658,7 @@ namespace imgdanke
 		private void StartButton_Click(object sender, EventArgs e)
 		{
 			ToggleUI(false);
-			List<FileInfo> imgFiles = FilesInSourceFolderListBox.SelectedItems.Cast<FileInfoWithSubpath>().Select(f => f.ImageInfo).ToList();
+			List<ImgInfo> imgFiles = FilesInSourceFolderListBox.SelectedItems.Cast<FileInfoWithSubpath>().Select(f => new ImgInfo(f.ImageInfo)).ToList();
 
 			if ( !imgFiles.Any() )
 			{
@@ -1656,13 +1668,11 @@ namespace imgdanke
 				return;
 			}
 
-			List<FileInfo> origFiles = CONFIG.ShouldDeleteOriginals || CONFIG.ShouldReplaceOriginals ? new List<FileInfo>(imgFiles) : new List<FileInfo>();
-
 			string tempFolderPath = CONFIG.OutputFolderPath + TEMP_FOLDER_NAME;
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			InitializeProcessing(imgFiles, tempFolderPath);
 			ProcessFiles(ref imgFiles, tempFolderPath);
-			FinalizeProcessing(origFiles, imgFiles, tempFolderPath);
+			FinalizeProcessing(imgFiles, tempFolderPath);
 			stopwatch.Stop();
 
 			UpdateStatusMessageForEndProcessing(stopwatch.ElapsedMilliseconds);
@@ -1730,14 +1740,14 @@ namespace imgdanke
 
 		#region Processing Initialization
 
-		private void InitializeProcessing(List<FileInfo> imgFiles, string tempFolderPath)
+		private void InitializeProcessing(List<ImgInfo> imgFiles, string tempFolderPath)
 		{
 			if ( ShouldCancelProcessing )
 			{
 				return;
 			}
 
-			ProcessingProgressBar.Maximum = (imgFiles.Count * 3) + imgFiles.Where(f => f.Extension.ToLowerInvariant() == ".psd").ToList().Count;
+			ProcessingProgressBar.Maximum = (imgFiles.Count * 3) + imgFiles.Where(f => f.OrigInfo.Extension.ToLowerInvariant() == ".psd").ToList().Count;
 			InitializeTagsStrings();
 
 			if ( !ShouldCancelProcessing && !FileOps.DeleteFilesInFolder(tempFolderPath) )
@@ -1885,7 +1895,7 @@ namespace imgdanke
 
 		#region Main Processing
 
-		private void ProcessFiles(ref List<FileInfo> imgFiles, string tempFolderPath)
+		private void ProcessFiles(ref List<ImgInfo> imgFiles, string tempFolderPath)
 		{
 			if ( ShouldCancelProcessing )
 			{
@@ -1916,7 +1926,7 @@ namespace imgdanke
 			}
 		}
 
-		private void MagickCopyFilesToTempFolder(List<FileInfo> imgFiles, string tempFolderPath)
+		private void MagickCopyFilesToTempFolder(List<ImgInfo> imgFiles, string tempFolderPath)
 		{
 			if ( ShouldCancelProcessing )
 			{
@@ -1927,15 +1937,15 @@ namespace imgdanke
 			List<FileInfo> filesToHardLink = new List<FileInfo>();
 			List<FileInfo> filesToCopy = new List<FileInfo>();
 
-			foreach ( FileInfo img in imgFiles )
+			foreach ( ImgInfo img in imgFiles )
 			{
-				if ( ShouldFileBeCopied(img) )
+				if ( ShouldFileBeCopied(img.OrigInfo) )
 				{
-					filesToCopy.Add(img);
+					filesToCopy.Add(img.OrigInfo);
 				}
 				else
 				{
-					filesToHardLink.Add(img);
+					filesToHardLink.Add(img.OrigInfo);
 				}
 			}
 
@@ -1958,7 +1968,7 @@ namespace imgdanke
 				return;
 			}
 
-			StartAndWaitForProcess(IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe", CONFIG.SourceFolderPath, "mogrify -format " + CONFIG.OutputExtension.Substring(1) + (CONFIG.ShouldReplaceOriginals ? " " : " -path \"" + tempFolderPath + "\" ") + GetOriginalImagePaths(filesToCopy));
+			StartAndWaitForProcess(IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe", CONFIG.SourceFolderPath, "mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"" + tempFolderPath + "\" " + GetOriginalImagePaths(filesToCopy));
 		}
 
 		private bool ShouldFileBeCopied(FileInfo img)
@@ -1986,10 +1996,11 @@ namespace imgdanke
 				argumentBuilder.Append("\" ");
 			}
 
+			--argumentBuilder.Length; // Remove the last space character
 			return argumentBuilder.ToString();
 		}
 
-		private void UpdateFileInfosToTempFolder(ref List<FileInfo> imgFiles, string tempFolderPath, out long previousTotalFilesize)
+		private void UpdateFileInfosToTempFolder(ref List<ImgInfo> imgFiles, string tempFolderPath, out long previousTotalFilesize)
 		{
 			previousTotalFilesize = 0;
 
@@ -1999,9 +2010,9 @@ namespace imgdanke
 			}
 
 			// Update the FileInfos to the new output location in the temp folder (and new file extensions if applicable)
-			for ( int imgIndex = 0; imgIndex < imgFiles.Count; ++imgIndex )
+			foreach ( ImgInfo imgInfo in imgFiles )
 			{
-				FileInfo img = imgFiles[imgIndex];
+				FileInfo img = imgInfo.OrigInfo;
 				bool isOriginallyPSD = img.Extension.ToLowerInvariant() == ".psd";
 
 				if ( !isOriginallyPSD )
@@ -2009,17 +2020,17 @@ namespace imgdanke
 					previousTotalFilesize += img.Length;
 				}
 
-				imgFiles[imgIndex] = new FileInfo(tempFolderPath
-					+ (img.Extension == CONFIG.OutputExtension ? img.Name : img.Name.Replace(img.Extension, CONFIG.OutputExtension)));
+				imgInfo.NewInfo = new FileInfo(tempFolderPath + (img.Extension == CONFIG.OutputExtension
+											? img.Name : img.Name.Replace(img.Extension, CONFIG.OutputExtension)));
 
 				if ( isOriginallyPSD )
 				{
-					previousTotalFilesize += imgFiles[imgIndex].Length;
+					previousTotalFilesize += imgInfo.NewInfo.Length;
 				}
 			}
 		}
 
-		private void RenameCopiedFiles(ref List<FileInfo> imgFiles)
+		private void RenameCopiedFiles(ref List<ImgInfo> imgFiles)
 		{
 			if ( ShouldCancelProcessing || !ShouldRenameFiles() )
 			{
@@ -2029,12 +2040,12 @@ namespace imgdanke
 			StatusMessageLabel.Text = "Renaming file(s) to final filename(s)...";
 			string appendString = AppendToOutputTextBox.Text + (CONFIG.ShouldAddTagsToFilenames ? CONFIG.TagsStringToAppendToFilenames : "");
 
-			for ( int imgIndex = 0; imgIndex < imgFiles.Count; ++imgIndex )
+			foreach ( ImgInfo imgInfo in imgFiles )
 			{
-				FileInfo img = imgFiles[imgIndex];
+				FileInfo img = imgInfo.NewInfo;
 				string newName = PrependToOutputTextBox.Text + img.Name.Replace(img.Extension, "") + appendString + img.Extension;
 				FileOps.RenameFile(img, newName);
-				imgFiles[imgIndex] = new FileInfo(img.DirectoryName + "/" + newName);
+				imgInfo.NewInfo = new FileInfo(img.DirectoryName + "/" + newName);
 			}
 		}
 
@@ -2075,15 +2086,15 @@ namespace imgdanke
 			StartAndWaitForProcess(IS_LINUX ? CONFIG.PingoPathToExe : "pingo.exe", tempFolderPath, CONFIG.PingoCommandString.Replace("%1", "*" + CONFIG.OutputExtension));
 		}
 
-		private void FinalizeProcessing(List<FileInfo> origFiles, List<FileInfo> imgFiles, string tempFolderPath)
+		private void FinalizeProcessing(List<ImgInfo> imgFiles, string tempFolderPath)
 		{
 			if ( ShouldCancelProcessing )
 			{
 				return;
 			}
 
-			MoveFilesToFinalLocation(origFiles, imgFiles);
-			ProcessDeletingOriginalFiles(origFiles, imgFiles);
+			MoveFilesToFinalLocation(imgFiles);
+			ProcessDeletingOriginalFiles(imgFiles);
 
 			if ( ShouldCancelProcessing )
 			{
@@ -2093,7 +2104,7 @@ namespace imgdanke
 			FileOps.DeleteFolder(tempFolderPath, true);
 		}
 
-		private void MoveFilesToFinalLocation(List<FileInfo> origFiles, List<FileInfo> imgFiles)
+		private void MoveFilesToFinalLocation(List<ImgInfo> imgFiles)
 		{
 			if ( ShouldCancelProcessing )
 			{
@@ -2102,25 +2113,24 @@ namespace imgdanke
 
 			StatusMessageLabel.Text = "Moving file(s) to final location(s)...";
 
-			for ( int imgIndex = 0; imgIndex < imgFiles.Count; ++imgIndex )
+			foreach ( ImgInfo imgInfo in imgFiles )
 			{
 				if ( ShouldCancelProcessing )
 				{
 					return;
 				}
 
-				FileInfo img = imgFiles[imgIndex];
-				string newFilepath = DetermineOutputFilepath(img, origFiles);
-				ShouldCancelProcessing = !FileOps.Move(img.FullName, newFilepath);
+				string newFilepath = DetermineOutputFilepath(imgInfo);
+				ShouldCancelProcessing = !FileOps.Move(imgInfo.NewInfo.FullName, newFilepath);
 
 				if ( !ShouldCancelProcessing )
 				{
-					imgFiles[imgIndex] = new FileInfo(newFilepath);
+					imgInfo.NewInfo = new FileInfo(newFilepath);
 				}
 			}
 		}
 
-		private void ProcessDeletingOriginalFiles(List<FileInfo> origFiles, List<FileInfo> imgFiles)
+		private void ProcessDeletingOriginalFiles(List<ImgInfo> imgFiles)
 		{
 			if ( ShouldCancelProcessing || !CONFIG.ShouldDeleteOriginals )
 			{
@@ -2129,25 +2139,19 @@ namespace imgdanke
 
 			StatusMessageLabel.Text = "Deleting original file(s)...";
 
-			foreach ( FileInfo origFile in origFiles )
+			foreach ( ImgInfo imgInfo in imgFiles )
 			{
 				if ( ShouldCancelProcessing )
 				{
 					break;
 				}
 
-				foreach ( FileInfo imgFile in imgFiles )
-				{
-					if ( ShouldCancelProcessing )
-					{
-						break;
-					}
+				FileInfo origFile = imgInfo.OrigInfo;
 
-					if ( origFile.FullName != imgFile.FullName && FileOps.DoesFileExist(origFile.FullName) && origFile.Extension.ToLowerInvariant() != ".psd" )
-					{
-						FileOps.DeleteFile(origFile.FullName);
-						break;
-					}
+				if ( origFile.FullName != imgInfo.NewInfo.FullName && FileOps.DoesFileExist(origFile.FullName) && origFile.Extension.ToLowerInvariant() != ".psd" )
+				{
+					FileOps.DeleteFile(origFile.FullName);
+					break;
 				}
 			}
 		}
@@ -2200,19 +2204,13 @@ namespace imgdanke
 
 		}
 
-		private static string DetermineOutputFilepath(FileInfo img, List<FileInfo> origFiles)
+		private static string DetermineOutputFilepath(ImgInfo imgInfo)
 		{
+			FileInfo img = imgInfo.NewInfo;
+
 			if ( CONFIG.ShouldReplaceOriginals )
 			{
-				foreach ( FileInfo origImg in origFiles )
-				{
-					if ( origImg.FullName == img.FullName || (origImg.Extension.ToLowerInvariant() == ".psd" && origImg.FullName.Replace(origImg.Extension, img.Extension) == img.FullName) )
-					{
-						return origImg.DirectoryName + "/" + img.Name;
-					}
-				}
-
-				return img.DirectoryName + "/" + img.Name;
+				return imgInfo.OrigInfo.DirectoryName + "/" + img.Name;
 			}
 
 			if ( CONFIG.ShouldIncludeSubfolders && CONFIG.ShouldMaintainFolderStructure )
@@ -2262,11 +2260,12 @@ namespace imgdanke
 			}
 		}
 
-		private static string GetTotalSizeOfFiles(List<FileInfo> imgFiles, ref long totalFilesizeInBytes)
+		private static string GetTotalSizeOfFiles(List<ImgInfo> imgFiles, ref long totalFilesizeInBytes)
 		{
-			foreach ( FileInfo file in imgFiles )
+			foreach ( ImgInfo file in imgFiles )
 			{
-				totalFilesizeInBytes += file.Length;
+				file.NewInfo.Refresh(); // Required to ensure the FileInfo is up to date at this moment
+				totalFilesizeInBytes += file.NewInfo.Length;
 			}
 
 			return GetBytesAsReadableString(totalFilesizeInBytes);
