@@ -67,15 +67,20 @@ namespace imgdanke
 
 		private class ImgInfo
 		{
+			internal FileInfo NewInfo { get; set; }
+			internal FileInfo OrigInfo { get; }
+
 			internal ImgInfo(FileInfo orig)
 			{
 				OrigInfo = orig;
 				NewInfo = new FileInfo(orig.FullName);
 			}
 
-			internal FileInfo NewInfo { get; set; }
-			internal FileInfo OrigInfo { get; }
+			internal bool IsOrigPSD() => IsPSD(OrigInfo);
+			internal bool AreFilesTheSame() => NewInfo.FullName == OrigInfo.FullName;
 		}
+
+		private static bool IsPSD(FileInfo file) => file.Extension.ToLowerInvariant() == ".psd";
 
 		public sealed override string Text
 		{
@@ -1747,7 +1752,7 @@ namespace imgdanke
 				return;
 			}
 
-			ProcessingProgressBar.Maximum = (imgFiles.Count * 3) + imgFiles.Where(f => f.OrigInfo.Extension.ToLowerInvariant() == ".psd").ToList().Count;
+			ProcessingProgressBar.Maximum = (imgFiles.Count * 3) + imgFiles.Where(f => f.IsOrigPSD()).ToList().Count;
 			InitializeTagsStrings();
 
 			if ( !ShouldCancelProcessing && !FileOps.DeleteFilesInFolder(tempFolderPath) )
@@ -1988,7 +1993,7 @@ namespace imgdanke
 				argumentBuilder.Append("\"");
 				argumentBuilder.Append(img.FullName);
 
-				if ( CONFIG.ShouldIncludePSDs && img.Extension == ".psd" )
+				if ( CONFIG.ShouldIncludePSDs && IsPSD(img) )
 				{
 					argumentBuilder.Append("[0]");
 				}
@@ -2013,7 +2018,7 @@ namespace imgdanke
 			foreach ( ImgInfo imgInfo in imgFiles )
 			{
 				FileInfo img = imgInfo.OrigInfo;
-				bool isOriginallyPSD = img.Extension.ToLowerInvariant() == ".psd";
+				bool isOriginallyPSD = imgInfo.IsOrigPSD();
 
 				if ( !isOriginallyPSD )
 				{
@@ -2146,11 +2151,12 @@ namespace imgdanke
 					break;
 				}
 
-				FileInfo origFile = imgInfo.OrigInfo;
+				imgInfo.OrigInfo.Refresh();
+				imgInfo.NewInfo.Refresh();
 
-				if ( origFile.FullName != imgInfo.NewInfo.FullName && FileOps.DoesFileExist(origFile.FullName) && origFile.Extension.ToLowerInvariant() != ".psd" )
+				if ( !imgInfo.IsOrigPSD() && FileOps.DoesFileExist(imgInfo.OrigInfo.FullName) && !imgInfo.AreFilesTheSame() )
 				{
-					FileOps.DeleteFile(origFile.FullName);
+					FileOps.DeleteFile(imgInfo.OrigInfo.FullName);
 					break;
 				}
 			}
