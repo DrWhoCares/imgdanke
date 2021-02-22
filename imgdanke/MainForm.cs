@@ -449,7 +449,7 @@ namespace imgdanke
 
 		private void InitializeShouldIncludePSDs()
 		{
-			IncludePSDsCheckBox.Checked = CONFIG.ShouldIncludePSDs;
+			IncludePSDsCheckBox.Checked = CONFIG.ValidInputExtensions.Contains(".psd");
 		}
 
 		private void InitializeMagickCommandString()
@@ -1351,7 +1351,19 @@ namespace imgdanke
 				return;
 			}
 
-			CONFIG.ShouldIncludePSDs = IncludePSDsCheckBox.Checked;
+			if ( IncludePSDsCheckBox.Checked )
+			{
+				if ( !CONFIG.ValidInputExtensions.Contains(".psd") )
+				{
+					CONFIG.ValidInputExtensions.Add(".psd");
+				}
+			}
+			else
+			{
+				CONFIG.ValidInputExtensions.Remove(".psd");
+			}
+
+			CONFIG.SaveConfig();
 			BuildFilesInSourceFolderList();
 		}
 
@@ -1420,11 +1432,7 @@ namespace imgdanke
 		{
 			return new DirectoryInfo(imageFilesFullPath)
 				.EnumerateFiles("*.*", CONFIG.ShouldIncludeSubfolders ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)
-				.Where(s => s.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
-						|| s.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
-						|| s.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
-						|| s.Name.EndsWith(".webp", StringComparison.OrdinalIgnoreCase)
-						|| (CONFIG.ShouldIncludePSDs && s.Name.EndsWith(".psd", StringComparison.OrdinalIgnoreCase)));
+				.Where(s => CONFIG.ValidInputExtensions.Any(x => string.Equals(x, s.Extension, StringComparison.OrdinalIgnoreCase)));
 		}
 
 		private static string GetSubpathFromFileInfo(FileInfo fileInfo, string workingPath)
@@ -1995,7 +2003,7 @@ namespace imgdanke
 				argumentBuilder.Append("\"");
 				argumentBuilder.Append(img.FullName);
 
-				if ( CONFIG.ShouldIncludePSDs && IsPSD(img) )
+				if ( IsPSD(img) )
 				{
 					argumentBuilder.Append("[0]");
 				}
@@ -2441,6 +2449,26 @@ namespace imgdanke
 		private void SaveCurrentSettingsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			CONFIG.SaveConfig();
+		}
+
+		private void EditValidInputExtensionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using EditListItemsDialog dialog = new EditListItemsDialog(CONFIG.ValidInputExtensions, Location);
+
+			if ( dialog.ShowDialog() == DialogResult.OK )
+			{
+				CONFIG.ValidInputExtensions = new List<string>(dialog.ListItems);
+			}
+		}
+
+		private void EditValidOutputExtensionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using EditListItemsDialog dialog = new EditListItemsDialog(CONFIG.ValidOutputExtensions, Location);
+
+			if ( dialog.ShowDialog() == DialogResult.OK )
+			{
+				CONFIG.ValidOutputExtensions = new List<string>(dialog.ListItems);
+			}
 		}
 
 		private void CloseToolStripMenuItem_Click(object sender, EventArgs e)

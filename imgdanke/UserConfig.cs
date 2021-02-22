@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace imgdanke
@@ -30,6 +32,16 @@ namespace imgdanke
 			var resultConfig = JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(pathToConfig));
 			resultConfig.Defaults();
 
+			if ( resultConfig._validInputExtensions.Count == 0 )
+			{
+				resultConfig._validInputExtensions = new List<string> { ".png", ".jpg", ".jpeg", ".psd", ".tif", ".gif", ".webp" };
+			}
+
+			if ( resultConfig._validOutputExtensions.Count == 0 )
+			{
+				resultConfig._validOutputExtensions = new List<string> { ".png", ".jpg" };
+			}
+
 			return resultConfig;
 		}
 
@@ -45,19 +57,22 @@ namespace imgdanke
 			_pingoPathToExe ??= "";
 			_sourceFolderPath ??= "";
 			_outputFolderPath ??= "";
+			_validInputExtensions ??= new List<string>();
+			_validOutputExtensions ??= new List<string>();
 			_outputExtension ??= ".png";
 			_magickCommandString ??= "";
 			_pingoCommandString ??= "";
 			_magickDither ??= "";
 			_magickColorspace ??= "";
 			_pingoOptimizeLevel ??= "";
-			_newOutputFolderBaseName ??= "";
+			_newOutputFolderBaseName ??= "_danke";
 		}
 
 		public void SaveConfig()
 		{
 			File.WriteAllText(CONFIG_FILENAME, JsonConvert.SerializeObject(this));
 		}
+
 		#endregion
 
 		#region Member Variables
@@ -208,6 +223,30 @@ namespace imgdanke
 			}
 		}
 
+		private List<string> _validInputExtensions;
+
+		public List<string> ValidInputExtensions
+		{
+			get => _validInputExtensions;
+			set
+			{
+				_validInputExtensions = value;
+				SaveConfig();
+			}
+		}
+
+		private List<string> _validOutputExtensions;
+
+		public List<string> ValidOutputExtensions
+		{
+			get => _validOutputExtensions;
+			set
+			{
+				_validOutputExtensions = value;
+				SaveConfig();
+			}
+		}
+
 		private string _outputExtension;
 
 		public string OutputExtension
@@ -240,18 +279,6 @@ namespace imgdanke
 			set
 			{
 				_shouldMaintainFolderStructure = value;
-				SaveConfig();
-			}
-		}
-
-		private bool _shouldIncludePSDs;
-
-		public bool ShouldIncludePSDs
-		{
-			get => _shouldIncludePSDs;
-			set
-			{
-				_shouldIncludePSDs = value;
 				SaveConfig();
 			}
 		}

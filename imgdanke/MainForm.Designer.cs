@@ -75,6 +75,8 @@ namespace imgdanke
 			this.FourBppGrayPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.FilesInSourceFolderGroupBox = new System.Windows.Forms.GroupBox();
 			this.FileUIAndFileListSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.FilesListSearchLabel = new System.Windows.Forms.Label();
+			this.FilesListSearchTextBox = new System.Windows.Forms.TextBox();
 			this.IncludePSDsCheckBox = new System.Windows.Forms.CheckBox();
 			this.IncludeSubfoldersCheckBox = new System.Windows.Forms.CheckBox();
 			this.MassFileSelectorButton = new System.Windows.Forms.Button();
@@ -109,6 +111,10 @@ namespace imgdanke
 			this.OutputFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ImgdankeFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.SaveCurrentSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.EditValidExtensionsTopToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+			this.EditValidInputExtensionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.EditValidOutputExtensionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.EditValidExtensionsBottomToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.OutputSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,8 +136,6 @@ namespace imgdanke
 			this.FilesContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.OpenPathToFileContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.OpenImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.FilesListSearchTextBox = new System.Windows.Forms.TextBox();
-			this.FilesListSearchLabel = new System.Windows.Forms.Label();
 			this.ImagemagickSettingsGroupBox.SuspendLayout();
 			this.PingoSettingsGroupBox.SuspendLayout();
 			this.PresetSettingsGroupBox.SuspendLayout();
@@ -785,6 +789,30 @@ namespace imgdanke
 			this.FileUIAndFileListSplitContainer.SplitterDistance = 45;
 			this.FileUIAndFileListSplitContainer.TabIndex = 14;
 			// 
+			// FilesListSearchLabel
+			// 
+			this.FilesListSearchLabel.AutoSize = true;
+			this.FilesListSearchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.FilesListSearchLabel.Location = new System.Drawing.Point(6, 30);
+			this.FilesListSearchLabel.Name = "FilesListSearchLabel";
+			this.FilesListSearchLabel.Size = new System.Drawing.Size(51, 13);
+			this.FilesListSearchLabel.TabIndex = 22;
+			this.FilesListSearchLabel.Text = "Search:";
+			// 
+			// FilesListSearchTextBox
+			// 
+			this.FilesListSearchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.FilesListSearchTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.FilesListSearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.FilesListSearchTextBox.Location = new System.Drawing.Point(63, 26);
+			this.FilesListSearchTextBox.Name = "FilesListSearchTextBox";
+			this.FilesListSearchTextBox.Size = new System.Drawing.Size(425, 20);
+			this.FilesListSearchTextBox.TabIndex = 21;
+			this.MainToolTip.SetToolTip(this.FilesListSearchTextBox, "The imagemagick command to be run, %1 and %2 getting replaced by the input and ou" +
+        "tput files, respectively.\r\nCommand is skipped if nothing will happen.");
+			this.FilesListSearchTextBox.TextChanged += new System.EventHandler(this.FilesListSearchTextBox_TextChanged);
+			// 
 			// IncludePSDsCheckBox
 			// 
 			this.IncludePSDsCheckBox.AutoSize = true;
@@ -879,7 +907,7 @@ namespace imgdanke
 			this.FilesInSourceFolderListBox.Location = new System.Drawing.Point(0, 0);
 			this.FilesInSourceFolderListBox.Name = "FilesInSourceFolderListBox";
 			this.FilesInSourceFolderListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(496, 210);
+			this.FilesInSourceFolderListBox.Size = new System.Drawing.Size(496, 185);
 			this.FilesInSourceFolderListBox.TabIndex = 0;
 			this.FilesInSourceFolderListBox.TabStop = false;
 			this.FilesInSourceFolderListBox.SelectedIndexChanged += new System.EventHandler(this.FilesInSourceFolderListBox_SelectedIndexChanged);
@@ -1204,6 +1232,10 @@ namespace imgdanke
 			this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenToolStripMenuItem,
             this.SaveCurrentSettingsToolStripMenuItem,
+            this.EditValidExtensionsTopToolStripSeparator,
+            this.EditValidInputExtensionsToolStripMenuItem,
+            this.EditValidOutputExtensionsToolStripMenuItem,
+            this.EditValidExtensionsBottomToolStripSeparator,
             this.CloseToolStripMenuItem});
 			this.FileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
@@ -1219,7 +1251,7 @@ namespace imgdanke
             this.OutputFolderToolStripMenuItem,
             this.ImgdankeFolderToolStripMenuItem});
 			this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
-			this.OpenToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.OpenToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
 			this.OpenToolStripMenuItem.Text = "Open...";
 			// 
 			// UserConfigToolStripMenuItem
@@ -1259,18 +1291,48 @@ namespace imgdanke
 			// 
 			this.SaveCurrentSettingsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.SaveCurrentSettingsToolStripMenuItem.Name = "SaveCurrentSettingsToolStripMenuItem";
-			this.SaveCurrentSettingsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.SaveCurrentSettingsToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
 			this.SaveCurrentSettingsToolStripMenuItem.Text = "Save Current Settings";
 			this.SaveCurrentSettingsToolStripMenuItem.ToolTipText = "A manual option to save the current settings to the user config file.\r\nSettings a" +
     "re saved any time any setting is changed, so this option is\r\nsomewhat redundant." +
     "";
 			this.SaveCurrentSettingsToolStripMenuItem.Click += new System.EventHandler(this.SaveCurrentSettingsToolStripMenuItem_Click);
 			// 
+			// EditValidExtensionsTopToolStripSeparator
+			// 
+			this.EditValidExtensionsTopToolStripSeparator.Name = "EditValidExtensionsTopToolStripSeparator";
+			this.EditValidExtensionsTopToolStripSeparator.Size = new System.Drawing.Size(193, 6);
+			// 
+			// EditValidInputExtensionsToolStripMenuItem
+			// 
+			this.EditValidInputExtensionsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.EditValidInputExtensionsToolStripMenuItem.Name = "EditValidInputExtensionsToolStripMenuItem";
+			this.EditValidInputExtensionsToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+			this.EditValidInputExtensionsToolStripMenuItem.Text = "Edit Valid Input Exts...";
+			this.EditValidInputExtensionsToolStripMenuItem.ToolTipText = "Open up a dialog to edit the valid file extensions to be parsed when building the" +
+    " Files In Source Folder List.";
+			this.EditValidInputExtensionsToolStripMenuItem.Click += new System.EventHandler(this.EditValidInputExtensionsToolStripMenuItem_Click);
+			// 
+			// EditValidOutputExtensionsToolStripMenuItem
+			// 
+			this.EditValidOutputExtensionsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.EditValidOutputExtensionsToolStripMenuItem.Name = "EditValidOutputExtensionsToolStripMenuItem";
+			this.EditValidOutputExtensionsToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+			this.EditValidOutputExtensionsToolStripMenuItem.Text = "Edit Valid Output Exts...";
+			this.EditValidOutputExtensionsToolStripMenuItem.ToolTipText = "Open up a dialog to edit the valid file extensions to be available in the Output " +
+    "Ext List.";
+			this.EditValidOutputExtensionsToolStripMenuItem.Click += new System.EventHandler(this.EditValidOutputExtensionsToolStripMenuItem_Click);
+			// 
+			// EditValidExtensionsBottomToolStripSeparator
+			// 
+			this.EditValidExtensionsBottomToolStripSeparator.Name = "EditValidExtensionsBottomToolStripSeparator";
+			this.EditValidExtensionsBottomToolStripSeparator.Size = new System.Drawing.Size(193, 6);
+			// 
 			// CloseToolStripMenuItem
 			// 
 			this.CloseToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem";
-			this.CloseToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.CloseToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
 			this.CloseToolStripMenuItem.Text = "Exit";
 			this.CloseToolStripMenuItem.ToolTipText = "Closes the program, canceling any current processing.";
 			this.CloseToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
@@ -1466,30 +1528,6 @@ namespace imgdanke
 			this.OpenImageToolStripMenuItem.Text = "Open Image...";
 			this.OpenImageToolStripMenuItem.Click += new System.EventHandler(this.OpenImageToolStripMenuItem_Click);
 			// 
-			// FilesListSearchTextBox
-			// 
-			this.FilesListSearchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.FilesListSearchTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.FilesListSearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.FilesListSearchTextBox.Location = new System.Drawing.Point(63, 26);
-			this.FilesListSearchTextBox.Name = "FilesListSearchTextBox";
-			this.FilesListSearchTextBox.Size = new System.Drawing.Size(425, 20);
-			this.FilesListSearchTextBox.TabIndex = 21;
-			this.MainToolTip.SetToolTip(this.FilesListSearchTextBox, "The imagemagick command to be run, %1 and %2 getting replaced by the input and ou" +
-        "tput files, respectively.\r\nCommand is skipped if nothing will happen.");
-			this.FilesListSearchTextBox.TextChanged += new System.EventHandler(this.FilesListSearchTextBox_TextChanged);
-			// 
-			// FilesListSearchLabel
-			// 
-			this.FilesListSearchLabel.AutoSize = true;
-			this.FilesListSearchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.FilesListSearchLabel.Location = new System.Drawing.Point(6, 30);
-			this.FilesListSearchLabel.Name = "FilesListSearchLabel";
-			this.FilesListSearchLabel.Size = new System.Drawing.Size(51, 13);
-			this.FilesListSearchLabel.TabIndex = 22;
-			this.FilesListSearchLabel.Text = "Search:";
-			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1656,6 +1694,10 @@ namespace imgdanke
 		private ToolStripMenuItem UseSourceDirAsOutputDirToolStripMenuItem;
 		private Label FilesListSearchLabel;
 		private TextBox FilesListSearchTextBox;
+		private ToolStripSeparator EditValidExtensionsTopToolStripSeparator;
+		private ToolStripMenuItem EditValidOutputExtensionsToolStripMenuItem;
+		private ToolStripMenuItem EditValidInputExtensionsToolStripMenuItem;
+		private ToolStripSeparator EditValidExtensionsBottomToolStripSeparator;
 	}
 }
 
