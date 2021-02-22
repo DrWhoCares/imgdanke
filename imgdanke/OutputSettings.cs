@@ -47,6 +47,11 @@ namespace imgdanke
 			AddTagsToOutputFolderCheckBox.Checked = MainForm.CONFIG.ShouldAddTagsToOutputFolder;
 		}
 
+		private void OutputSettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			HandleSettingOutputToNewFolderToDefaultValue();
+		}
+
 		#endregion
 
 		#region FolderSettings
@@ -74,6 +79,19 @@ namespace imgdanke
 		private void OutputToNewFolderFolderNameTextBox_TextChanged(object sender, System.EventArgs e)
 		{
 			MainForm.CONFIG.NewOutputFolderBaseName = string.IsNullOrWhiteSpace(OutputToNewFolderFolderNameTextBox.Text) ? "" : OutputToNewFolderFolderNameTextBox.Text;
+		}
+
+		private void OutputToNewFolderFolderNameTextBox_Leave(object sender, System.EventArgs e)
+		{
+			HandleSettingOutputToNewFolderToDefaultValue();
+		}
+
+		private void HandleSettingOutputToNewFolderToDefaultValue()
+		{
+			if ( string.IsNullOrWhiteSpace(OutputToNewFolderFolderNameTextBox.Text) )
+			{
+				OutputToNewFolderFolderNameTextBox.Text = "_danke";
+			}
 		}
 
 		#endregion

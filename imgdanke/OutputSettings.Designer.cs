@@ -68,10 +68,12 @@ namespace imgdanke
 			this.OutputToNewFolderFolderNameTextBox.Name = "OutputToNewFolderFolderNameTextBox";
 			this.OutputToNewFolderFolderNameTextBox.Size = new System.Drawing.Size(252, 20);
 			this.OutputToNewFolderFolderNameTextBox.TabIndex = 17;
+			this.OutputToNewFolderFolderNameTextBox.Text = "_danke";
 			this.MainToolTip.SetToolTip(this.OutputToNewFolderFolderNameTextBox, "The name of the new folder to be created if Output To New Folder is checked.\r\nTag" +
         "s will be appened to this if also checked.");
 			this.OutputToNewFolderFolderNameTextBox.TextChanged += new System.EventHandler(this.OutputToNewFolderFolderNameTextBox_TextChanged);
 			this.OutputToNewFolderFolderNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OutputToNewFolderFolderNameTextBox_KeyPress);
+			this.OutputToNewFolderFolderNameTextBox.Leave += new System.EventHandler(this.OutputToNewFolderFolderNameTextBox_Leave);
 			// 
 			// OutputToNewFolderCheckBox
 			// 
@@ -289,6 +291,7 @@ namespace imgdanke
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "OutputSettingsForm";
 			this.Text = "imgdanke - Output Settings";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OutputSettingsForm_FormClosing);
 			this.VisibleChanged += new System.EventHandler(this.OutputSettingsForm_VisibleChanged);
 			this.MainSplitContainer.Panel1.ResumeLayout(false);
 			this.MainSplitContainer.Panel1.PerformLayout();
