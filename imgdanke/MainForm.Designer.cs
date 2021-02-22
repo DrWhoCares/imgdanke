@@ -1436,7 +1436,7 @@ namespace imgdanke
 			this.CheckForUpdatesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem";
 			this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-			this.CheckForUpdatesToolStripMenuItem.Text = "Check For Updates";
+			this.CheckForUpdatesToolStripMenuItem.Text = "Force Check For Updates";
 			this.CheckForUpdatesToolStripMenuItem.ToolTipText = "Does a manual check for any new updates.";
 			this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
 			// 
