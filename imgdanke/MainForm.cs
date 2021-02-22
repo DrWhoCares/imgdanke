@@ -657,16 +657,18 @@ namespace imgdanke
 
 		private void SourceFolderPathTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if ( !FileOps.DoesDirectoryExist(SourceFolderPathTextBox.Text) )
+			CONFIG.SourceFolderPath = SourceFolderPathTextBox.Text;
+
+			if ( FileOps.DoesDirectoryExist(SourceFolderPathTextBox.Text) )
+			{
+				BuildFilesInSourceFolderList();
+			}
+			else
 			{
 				ClearFilesInSourceFolderList();
-				return;
 			}
 
-			CONFIG.SourceFolderPath = SourceFolderPathTextBox.Text;
-			BuildFilesInSourceFolderList();
-
-			if ( CONFIG.ShouldUseSourceFolderAsOutputFolder && CONFIG.OutputFolderPath != SourceFolderPathTextBox.Text )
+			if ( (CONFIG.ShouldUseSourceFolderAsOutputFolder || CONFIG.ShouldReplaceOriginals) && CONFIG.OutputFolderPath != SourceFolderPathTextBox.Text )
 			{
 				OutputFolderPathTextBox.Text = SourceFolderPathTextBox.Text;
 			}
@@ -2505,8 +2507,8 @@ namespace imgdanke
 		private void UseSourceDirAsOutputDirToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			CONFIG.ShouldUseSourceFolderAsOutputFolder = UseSourceDirAsOutputDirToolStripMenuItem.Checked;
-			OutputFolderPathButton.Enabled = !CONFIG.ShouldUseSourceFolderAsOutputFolder;
-			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldUseSourceFolderAsOutputFolder;
+			OutputFolderPathButton.Enabled = !CONFIG.ShouldUseSourceFolderAsOutputFolder && !CONFIG.ShouldReplaceOriginals;
+			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldUseSourceFolderAsOutputFolder && !CONFIG.ShouldReplaceOriginals;
 
 			if ( CONFIG.ShouldUseSourceFolderAsOutputFolder )
 			{
