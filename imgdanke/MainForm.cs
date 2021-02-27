@@ -1806,19 +1806,22 @@ namespace imgdanke
 			{
 				string fullPath = CONFIG.OutputFolderPath + "/" + CONFIG.NewOutputFolderBaseName;
 
-				if ( CONFIG.ShouldAddPresetToOutputFolder )
+				if ( CONFIG.ShouldAddTagsToOutputFolder )
 				{
-					fullPath += GetPresetTagsString();
-				}
+					if ( CONFIG.ShouldAddPresetToOutputFolder )
+					{
+						fullPath += GetPresetTagsString();
+					}
 
-				if ( CONFIG.ShouldAddMagickSettingsToOutputFolder )
-				{
-					fullPath += GetMagickSettingsTagsString();
-				}
+					if ( CONFIG.ShouldAddMagickSettingsToOutputFolder )
+					{
+						fullPath += GetMagickSettingsTagsString();
+					}
 
-				if ( CONFIG.ShouldAddPingoSettingsToOutputFolder )
-				{
-					fullPath += GetPingoSettingsTagsString();
+					if ( CONFIG.ShouldAddPingoSettingsToOutputFolder )
+					{
+						fullPath += GetPingoSettingsTagsString();
+					}
 				}
 
 				CONFIG.NewOutputFolderPath = fullPath + "/";
