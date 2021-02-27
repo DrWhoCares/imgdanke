@@ -153,4 +153,7 @@
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(SolutionDir)README.md" "$(TargetDir)" /q /v /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
