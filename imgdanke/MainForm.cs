@@ -1404,6 +1404,11 @@ namespace imgdanke
 
 		private void ClearFilesInSourceFolderList()
 		{
+			if ( FilesInSourceFolderListDataSource == null )
+			{
+				return;
+			}
+
 			FilesInSourceFolderListDataSource.Clear();
 			UpdateFilesInSourceFolderListDataSource();
 		}
