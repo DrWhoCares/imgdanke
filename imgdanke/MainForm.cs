@@ -1802,7 +1802,7 @@ namespace imgdanke
 				CONFIG.TagsStringToAppendToFilenames = fullString;
 			}
 
-			if ( CONFIG.ShouldOutputToNewFolder )
+			if ( CONFIG.ShouldOutputToNewFolder && !CONFIG.ShouldReplaceOriginals )
 			{
 				string fullPath = CONFIG.OutputFolderPath + "/" + CONFIG.NewOutputFolderBaseName;
 
