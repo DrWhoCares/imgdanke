@@ -243,9 +243,9 @@ namespace imgdanke
 			this.StatusMessageLabel.AutoSize = true;
 			this.StatusMessageLabel.Location = new System.Drawing.Point(168, 136);
 			this.StatusMessageLabel.Name = "StatusMessageLabel";
-			this.StatusMessageLabel.Size = new System.Drawing.Size(374, 13);
+			this.StatusMessageLabel.Size = new System.Drawing.Size(289, 13);
 			this.StatusMessageLabel.TabIndex = 5;
-			this.StatusMessageLabel.Text = "Use %1 as a placeholder for the input filename and %2 for the output filename.";
+			this.StatusMessageLabel.Text = "Select a Source Folder Path, then select images to process.";
 			// 
 			// OutputFolderPathTextBox
 			// 
@@ -1252,13 +1252,13 @@ namespace imgdanke
             this.ImgdankeFolderToolStripMenuItem});
 			this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
 			this.OpenToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-			this.OpenToolStripMenuItem.Text = "Open...";
+			this.OpenToolStripMenuItem.Text = "Open";
 			// 
 			// UserConfigToolStripMenuItem
 			// 
 			this.UserConfigToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.UserConfigToolStripMenuItem.Name = "UserConfigToolStripMenuItem";
-			this.UserConfigToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.UserConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.UserConfigToolStripMenuItem.Text = "User Config";
 			this.UserConfigToolStripMenuItem.ToolTipText = "Opens the user config file.";
 			this.UserConfigToolStripMenuItem.Click += new System.EventHandler(this.UserConfigToolStripMenuItem_Click);
@@ -1266,7 +1266,7 @@ namespace imgdanke
 			// SourceFolderToolStripMenuItem
 			// 
 			this.SourceFolderToolStripMenuItem.Name = "SourceFolderToolStripMenuItem";
-			this.SourceFolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.SourceFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.SourceFolderToolStripMenuItem.Text = "Source Folder";
 			this.SourceFolderToolStripMenuItem.ToolTipText = "Opens the Source Folder Path.";
 			this.SourceFolderToolStripMenuItem.Click += new System.EventHandler(this.SourceFolderToolStripMenuItem_Click);
@@ -1274,7 +1274,7 @@ namespace imgdanke
 			// OutputFolderToolStripMenuItem
 			// 
 			this.OutputFolderToolStripMenuItem.Name = "OutputFolderToolStripMenuItem";
-			this.OutputFolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.OutputFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.OutputFolderToolStripMenuItem.Text = "Output Folder";
 			this.OutputFolderToolStripMenuItem.ToolTipText = "Opens the Output Folder Path.";
 			this.OutputFolderToolStripMenuItem.Click += new System.EventHandler(this.OutputFolderToolStripMenuItem_Click);
@@ -1282,7 +1282,7 @@ namespace imgdanke
 			// ImgdankeFolderToolStripMenuItem
 			// 
 			this.ImgdankeFolderToolStripMenuItem.Name = "ImgdankeFolderToolStripMenuItem";
-			this.ImgdankeFolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.ImgdankeFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.ImgdankeFolderToolStripMenuItem.Text = "imgdanke Folder";
 			this.ImgdankeFolderToolStripMenuItem.ToolTipText = "Opens the path to where the imgdanke executable is.";
 			this.ImgdankeFolderToolStripMenuItem.Click += new System.EventHandler(this.ImgdankeFolderToolStripMenuItem_Click);
