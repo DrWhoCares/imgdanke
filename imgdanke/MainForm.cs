@@ -1614,7 +1614,12 @@ namespace imgdanke
 		{
 			EnsurePingoConfigValuesAreUpdated();
 
-			StringBuilder commandBuilder = new StringBuilder(44);
+			StringBuilder commandBuilder = new StringBuilder(IS_LINUX ? 52 : 44);
+
+			if ( IS_LINUX )
+			{
+				commandBuilder.Append("-c 'pingo ");
+			}
 
 			if ( CONFIG.PingoPNGPaletteValue > 0 && CONFIG.PingoPNGPaletteValue <= 100 )
 			{
@@ -1633,7 +1638,12 @@ namespace imgdanke
 				commandBuilder.Append("-strip ");
 			}
 
-			commandBuilder.Append("\"%1\"");
+			commandBuilder.Append(IS_LINUX ? "%1" : "\"%1\"");
+
+			if ( IS_LINUX )
+			{
+				commandBuilder.Append("'");
+			}
 
 			return commandBuilder.ToString();
 		}
@@ -2108,7 +2118,7 @@ namespace imgdanke
 			}
 
 			StatusMessageLabel.Text = "Processing pingo command on file(s)...";
-			StartAndWaitForProcess(IS_LINUX ? CONFIG.PingoPathToExe : "pingo.exe", tempFolderPath, CONFIG.PingoCommandString.Replace("%1", "*" + CONFIG.OutputExtension));
+			StartAndWaitForProcess(IS_LINUX ? "sh" : "pingo.exe", tempFolderPath, CONFIG.PingoCommandString.Replace("%1", IS_LINUX ? "*" + CONFIG.OutputExtension : tempFolderPath));
 		}
 
 		private void FinalizeProcessing(List<ImgInfo> imgFiles, string tempFolderPath)
@@ -2227,7 +2237,6 @@ namespace imgdanke
 			{
 				KillProcessAndWait(process);
 			}
-
 		}
 
 		private static string DetermineOutputFilepath(ImgInfo imgInfo)
