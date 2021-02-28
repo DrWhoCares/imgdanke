@@ -610,12 +610,8 @@ namespace imgdanke
 		private void MainForm_ResizeEnd(object sender, EventArgs e)
 		{
 			CONFIG.LastWindowSize = Size;
-			CONFIG.ShouldStartMaximized = WindowState == FormWindowState.Maximized;
-		}
-
-		private void MainForm_LocationChanged(object sender, EventArgs e)
-		{
 			CONFIG.LastWindowLocation = Location;
+			CONFIG.ShouldStartMaximized = WindowState == FormWindowState.Maximized;
 		}
 
 		private void MainForm_SizeChanged(object sender, EventArgs e)
