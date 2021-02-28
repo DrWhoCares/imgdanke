@@ -709,12 +709,10 @@ namespace imgdanke
 			// NoPresetRadioButton
 			// 
 			this.NoPresetRadioButton.AutoSize = true;
-			this.NoPresetRadioButton.Checked = true;
 			this.NoPresetRadioButton.Location = new System.Drawing.Point(5, 19);
 			this.NoPresetRadioButton.Name = "NoPresetRadioButton";
 			this.NoPresetRadioButton.Size = new System.Drawing.Size(72, 17);
 			this.NoPresetRadioButton.TabIndex = 0;
-			this.NoPresetRadioButton.TabStop = true;
 			this.NoPresetRadioButton.Text = "No Preset";
 			this.MainToolTip.SetToolTip(this.NoPresetRadioButton, "Clears all options, only leaving the basic lossless pingo optimizations.");
 			this.NoPresetRadioButton.UseMnemonic = false;

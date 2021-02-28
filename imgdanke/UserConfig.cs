@@ -664,8 +664,7 @@ namespace imgdanke
 
 	internal enum PresetSettings
 	{
-		Invalid = 0,
-		None,
+		None = 0,
 		Custom,
 		Gray1Bpp,
 		Gray4Bpp,
