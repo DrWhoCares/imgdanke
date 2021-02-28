@@ -1544,6 +1544,7 @@ namespace imgdanke
 			this.Text = "imgdanke";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.Shown += new System.EventHandler(this.MainForm_Shown);
+			this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
 			this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
 			this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
 			this.ImagemagickSettingsGroupBox.ResumeLayout(false);
