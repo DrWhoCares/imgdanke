@@ -460,7 +460,7 @@ namespace imgdanke
 			}
 			else
 			{
-				CONFIG.MagickCommandString = "";
+				CONFIG.MagickCommandString = ConstructMagickCommandString();
 			}
 		}
 
@@ -472,7 +472,7 @@ namespace imgdanke
 			}
 			else
 			{
-				CONFIG.PingoCommandString = "";
+				CONFIG.PingoCommandString = ConstructPingoCommandString();
 			}
 		}
 
@@ -1664,13 +1664,13 @@ namespace imgdanke
 
 		private void MagickCommandTextBox_TextChanged(object sender, EventArgs e)
 		{
-			CONFIG.MagickCommandString = string.IsNullOrWhiteSpace(MagickCommandTextBox.Text) ? "" : MagickCommandTextBox.Text;
+			CONFIG.MagickCommandString = string.IsNullOrWhiteSpace(MagickCommandTextBox.Text) ? ConstructMagickCommandString() : MagickCommandTextBox.Text;
 			StartButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void PingoCommandTextBox_TextChanged(object sender, EventArgs e)
 		{
-			CONFIG.PingoCommandString = string.IsNullOrWhiteSpace(PingoCommandTextBox.Text) ? "" : PingoCommandTextBox.Text;
+			CONFIG.PingoCommandString = string.IsNullOrWhiteSpace(PingoCommandTextBox.Text) ? ConstructPingoCommandString() : PingoCommandTextBox.Text;
 			UpdateShouldAvoidMagickPNGCompression();
 			StartButton.Enabled = VerifyReadyToApply();
 		}
