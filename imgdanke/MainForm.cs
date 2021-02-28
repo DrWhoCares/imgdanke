@@ -30,7 +30,7 @@ namespace imgdanke
 		private static readonly Color MENU_COLOR_OPTION_HIGHLIGHTED = Color.FromArgb(100, 100, 100);
 		private static readonly Color COLOR_BACKGROUND = Color.FromArgb(55, 55, 55);
 		//private static readonly Color COLOR_FOREGROUND = Color.FromArgb(216, 216, 216);
-		internal static readonly UserConfig CONFIG = UserConfig.LoadConfig();
+		internal static readonly UserConfig CONFIG = UserConfig.LoadConfig(IS_LINUX);
 
 		private static readonly BindingList<KeyValuePair<string, string>> PNG_PALETTE_ITEMS = new BindingList<KeyValuePair<string, string>>
 		{

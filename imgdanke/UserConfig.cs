@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
@@ -8,27 +9,31 @@ namespace imgdanke
 	internal class UserConfig
 	{
 		public const string CONFIG_FILENAME = "imgdanke_UserConfig.json";
+		private static string _pathToFile = CONFIG_FILENAME;
 
 		#region Functions
-		public static UserConfig LoadConfig()
+		public static UserConfig LoadConfig(bool isLinux)
 		{
-			string pathToConfig = CONFIG_FILENAME;
-
-			// See if it's where it's being called from, which in most cases, will be next to the executable
-			if ( !FileOps.DoesFileExist(pathToConfig) )
+			if ( isLinux )
 			{
-				pathToConfig = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-				pathToConfig ??= "";
-				pathToConfig = Path.Combine(pathToConfig, CONFIG_FILENAME);
+				_pathToFile = Environment.GetEnvironmentVariable("HOME") + "/.config/imgdanke/";
 
-				// See if it's next to the executable via reflection
-				if ( !FileOps.DoesFileExist(pathToConfig) )
+				if ( !FileOps.DoesDirectoryExist(_pathToFile) )
 				{
-					return new UserConfig();
+					Directory.CreateDirectory(_pathToFile);
 				}
+
+				_pathToFile += CONFIG_FILENAME;
+			}
+			else if ( !FileOps.DoesFileExist(_pathToFile) )
+			{
+				// See if it's where it's being called from, which in most cases, will be next to the executable
+				_pathToFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+				_pathToFile ??= "";
+				_pathToFile = Path.Combine(_pathToFile, CONFIG_FILENAME);
 			}
 
-			var resultConfig = JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(pathToConfig));
+			UserConfig resultConfig = !FileOps.DoesFileExist(_pathToFile) ? new UserConfig() : JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(_pathToFile));
 			resultConfig.Defaults();
 
 			if ( resultConfig._validInputExtensions.Count == 0 )
@@ -69,7 +74,7 @@ namespace imgdanke
 
 		public void SaveConfig()
 		{
-			File.WriteAllText(CONFIG_FILENAME, JsonConvert.SerializeObject(this));
+			File.WriteAllText(_pathToFile, JsonConvert.SerializeObject(this));
 		}
 
 		#endregion
