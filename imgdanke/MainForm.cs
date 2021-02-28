@@ -1539,8 +1539,8 @@ namespace imgdanke
 		{
 			EnsureMagickConfigValuesAreUpdated();
 
-			StringBuilder commandBuilder = new StringBuilder(256);
-			commandBuilder.Append("mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"%1" + TEMP_FOLDER_NAME + "\" ");
+			StringBuilder commandBuilder = new StringBuilder(244);
+			commandBuilder.Append("mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"%1\" ");
 
 			if ( CONFIG.ShouldAvoidMagickPNGCompression )
 			{
@@ -2098,7 +2098,7 @@ namespace imgdanke
 			}
 
 			StatusMessageLabel.Text = "Processing magick command on file(s)...";
-			StartAndWaitForProcess(IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe", tempFolderPath, CONFIG.MagickCommandString.Replace("%1" + TEMP_FOLDER_NAME, tempFolderPath));
+			StartAndWaitForProcess(IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe", tempFolderPath, CONFIG.MagickCommandString.Replace("%1", tempFolderPath));
 		}
 
 		private static bool IsDefaultMagickCommand(string commandString)
