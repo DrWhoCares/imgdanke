@@ -235,6 +235,12 @@ namespace imgdanke
 			set
 			{
 				_validInputExtensions = value;
+
+				if ( _validInputExtensions.Count == 0 )
+				{
+					_validInputExtensions = new List<string> { ".png", ".jpg", ".jpeg", ".psd", ".tif", ".gif", ".webp" };
+				}
+
 				SaveConfig();
 			}
 		}
@@ -247,6 +253,12 @@ namespace imgdanke
 			set
 			{
 				_validOutputExtensions = value;
+
+				if ( _validOutputExtensions.Count == 0 )
+				{
+					_validOutputExtensions = new List<string> { ".png", ".jpg" };
+				}
+
 				SaveConfig();
 			}
 		}
