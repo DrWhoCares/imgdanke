@@ -287,8 +287,8 @@ namespace imgdanke
 			InitializeOutputFolderPath();
 			InitializeDeleteOriginals();
 			InitializeReplaceOriginals();
-			InitializePresetSetting();
 			InitializeOutputExtension();
+			InitializePresetSetting();
 			InitializeShouldIncludeSubfolders();
 			InitializeShouldIncludePSDs();
 			InitializeMagickCommandString();
@@ -394,6 +394,18 @@ namespace imgdanke
 			OutputFolderPathTextBox.Enabled = !CONFIG.ShouldReplaceOriginals && !CONFIG.ShouldUseSourceFolderAsOutputFolder;
 		}
 
+		private void InitializeOutputExtension()
+		{
+			if ( VerifyOutputExtensionIsValid() )
+			{
+				UpdateOutputExtensionComboBoxItems();
+			}
+			else
+			{
+				CONFIG.OutputExtension = ".png";
+			}
+		}
+
 		private void InitializePresetSetting()
 		{
 			switch ( CONFIG.PresetSetting )
@@ -425,18 +437,6 @@ namespace imgdanke
 				case PresetSettings.MagickColor8Bpp:
 					MagickEightBppColorPresetRadioButton.Checked = true;
 					break;
-			}
-		}
-
-		private void InitializeOutputExtension()
-		{
-			if ( VerifyOutputExtensionIsValid() )
-			{
-				OutputExtensionTextBox.Text = CONFIG.OutputExtension;
-			}
-			else
-			{
-				CONFIG.OutputExtension = "";
 			}
 		}
 
@@ -1326,9 +1326,9 @@ namespace imgdanke
 			BuildFilesInSourceFolderList();
 		}
 
-		private void OutputExtensionTextBox_TextChanged(object sender, EventArgs e)
+		private void OutputExtensionComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			CONFIG.OutputExtension = OutputExtensionTextBox.Text.ToLowerInvariant();
+			CONFIG.OutputExtension = OutputExtensionComboBox.SelectedItem?.ToString().ToLowerInvariant();
 			UpdateShouldAvoidMagickPNGCompression();
 			StartButton.Enabled = VerifyReadyToApply();
 		}
@@ -2486,7 +2486,17 @@ namespace imgdanke
 			if ( dialog.ShowDialog() == DialogResult.OK )
 			{
 				CONFIG.ValidOutputExtensions = new List<string>(dialog.ListItems);
+				UpdateOutputExtensionComboBoxItems();
 			}
+		}
+
+		private void UpdateOutputExtensionComboBoxItems()
+		{
+			OutputExtensionComboBox.BeginUpdate();
+			OutputExtensionComboBox.Items.Clear();
+			OutputExtensionComboBox.Items.AddRange(CONFIG.ValidOutputExtensions.ToArray());
+			OutputExtensionComboBox.SelectedIndex = GetIndexOfStringInComboBox(OutputExtensionComboBox, CONFIG.OutputExtension);
+			OutputExtensionComboBox.EndUpdate();
 		}
 
 		private void CloseToolStripMenuItem_Click(object sender, EventArgs e)

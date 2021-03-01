@@ -75,6 +75,7 @@ namespace imgdanke
 			this.FourBppGrayPresetRadioButton = new System.Windows.Forms.RadioButton();
 			this.FilesInSourceFolderGroupBox = new System.Windows.Forms.GroupBox();
 			this.FileUIAndFileListSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.OutputExtensionComboBox = new System.Windows.Forms.ComboBox();
 			this.FilesListSearchLabel = new System.Windows.Forms.Label();
 			this.FilesListSearchTextBox = new System.Windows.Forms.TextBox();
 			this.IncludePSDsCheckBox = new System.Windows.Forms.CheckBox();
@@ -82,7 +83,6 @@ namespace imgdanke
 			this.MassFileSelectorButton = new System.Windows.Forms.Button();
 			this.OutputExtensionLabel = new System.Windows.Forms.Label();
 			this.RefreshFileListButton = new System.Windows.Forms.Button();
-			this.OutputExtensionTextBox = new System.Windows.Forms.TextBox();
 			this.FilesInSourceFolderListBox = new System.Windows.Forms.ListBox();
 			this.PingoCommandLabel = new System.Windows.Forms.Label();
 			this.PingoCommandTextBox = new System.Windows.Forms.TextBox();
@@ -769,6 +769,7 @@ namespace imgdanke
 			// 
 			// FileUIAndFileListSplitContainer.Panel1
 			// 
+			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.OutputExtensionComboBox);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.FilesListSearchLabel);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.FilesListSearchTextBox);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.IncludePSDsCheckBox);
@@ -776,7 +777,6 @@ namespace imgdanke
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.MassFileSelectorButton);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.OutputExtensionLabel);
 			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.RefreshFileListButton);
-			this.FileUIAndFileListSplitContainer.Panel1.Controls.Add(this.OutputExtensionTextBox);
 			this.FileUIAndFileListSplitContainer.Panel1MinSize = 45;
 			// 
 			// FileUIAndFileListSplitContainer.Panel2
@@ -786,6 +786,19 @@ namespace imgdanke
 			this.FileUIAndFileListSplitContainer.Size = new System.Drawing.Size(496, 234);
 			this.FileUIAndFileListSplitContainer.SplitterDistance = 45;
 			this.FileUIAndFileListSplitContainer.TabIndex = 14;
+			// 
+			// OutputExtensionComboBox
+			// 
+			this.OutputExtensionComboBox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+			this.OutputExtensionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.OutputExtensionComboBox.FormattingEnabled = true;
+			this.OutputExtensionComboBox.Location = new System.Drawing.Point(225, 2);
+			this.OutputExtensionComboBox.Name = "OutputExtensionComboBox";
+			this.OutputExtensionComboBox.Size = new System.Drawing.Size(47, 21);
+			this.OutputExtensionComboBox.TabIndex = 17;
+			this.MainToolTip.SetToolTip(this.OutputExtensionComboBox, "The output file\'s extension, list is determined by the Valid Output Extensions li" +
+        "st in the File Menu.");
+			this.OutputExtensionComboBox.SelectedIndexChanged += new System.EventHandler(this.OutputExtensionComboBox_SelectedIndexChanged);
 			// 
 			// FilesListSearchLabel
 			// 
@@ -881,17 +894,6 @@ namespace imgdanke
 			this.RefreshFileListButton.UseMnemonic = false;
 			this.RefreshFileListButton.UseVisualStyleBackColor = true;
 			this.RefreshFileListButton.Click += new System.EventHandler(this.RefreshFileListButton_Click);
-			// 
-			// OutputExtensionTextBox
-			// 
-			this.OutputExtensionTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.OutputExtensionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.OutputExtensionTextBox.Location = new System.Drawing.Point(230, 4);
-			this.OutputExtensionTextBox.Name = "OutputExtensionTextBox";
-			this.OutputExtensionTextBox.Size = new System.Drawing.Size(34, 20);
-			this.OutputExtensionTextBox.TabIndex = 10;
-			this.MainToolTip.SetToolTip(this.OutputExtensionTextBox, "The output file\'s extension, requires a period at the beginning.");
-			this.OutputExtensionTextBox.TextChanged += new System.EventHandler(this.OutputExtensionTextBox_TextChanged);
 			// 
 			// FilesInSourceFolderListBox
 			// 
@@ -1256,7 +1258,7 @@ namespace imgdanke
 			// 
 			this.UserConfigToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.UserConfigToolStripMenuItem.Name = "UserConfigToolStripMenuItem";
-			this.UserConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.UserConfigToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.UserConfigToolStripMenuItem.Text = "User Config";
 			this.UserConfigToolStripMenuItem.ToolTipText = "Opens the user config file.";
 			this.UserConfigToolStripMenuItem.Click += new System.EventHandler(this.UserConfigToolStripMenuItem_Click);
@@ -1264,7 +1266,7 @@ namespace imgdanke
 			// SourceFolderToolStripMenuItem
 			// 
 			this.SourceFolderToolStripMenuItem.Name = "SourceFolderToolStripMenuItem";
-			this.SourceFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.SourceFolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.SourceFolderToolStripMenuItem.Text = "Source Folder";
 			this.SourceFolderToolStripMenuItem.ToolTipText = "Opens the Source Folder Path.";
 			this.SourceFolderToolStripMenuItem.Click += new System.EventHandler(this.SourceFolderToolStripMenuItem_Click);
@@ -1272,7 +1274,7 @@ namespace imgdanke
 			// OutputFolderToolStripMenuItem
 			// 
 			this.OutputFolderToolStripMenuItem.Name = "OutputFolderToolStripMenuItem";
-			this.OutputFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.OutputFolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.OutputFolderToolStripMenuItem.Text = "Output Folder";
 			this.OutputFolderToolStripMenuItem.ToolTipText = "Opens the Output Folder Path.";
 			this.OutputFolderToolStripMenuItem.Click += new System.EventHandler(this.OutputFolderToolStripMenuItem_Click);
@@ -1280,7 +1282,7 @@ namespace imgdanke
 			// ImgdankeFolderToolStripMenuItem
 			// 
 			this.ImgdankeFolderToolStripMenuItem.Name = "ImgdankeFolderToolStripMenuItem";
-			this.ImgdankeFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ImgdankeFolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.ImgdankeFolderToolStripMenuItem.Text = "imgdanke Folder";
 			this.ImgdankeFolderToolStripMenuItem.ToolTipText = "Opens the path to where the imgdanke executable is.";
 			this.ImgdankeFolderToolStripMenuItem.Click += new System.EventHandler(this.ImgdankeFolderToolStripMenuItem_Click);
@@ -1634,7 +1636,6 @@ namespace imgdanke
 		private System.Windows.Forms.Button MassFileSelectorButton;
 		private System.Windows.Forms.Button RefreshFileListButton;
 		private System.Windows.Forms.Label OutputExtensionLabel;
-		private System.Windows.Forms.TextBox OutputExtensionTextBox;
 		private System.Windows.Forms.Button ProcessingCancelButton;
 		private System.Windows.Forms.ComboBox PingoPNGPaletteComboBox;
 		private System.Windows.Forms.Label PingoOptimizationLevelLabel;
@@ -1696,6 +1697,7 @@ namespace imgdanke
 		private ToolStripMenuItem EditValidOutputExtensionsToolStripMenuItem;
 		private ToolStripMenuItem EditValidInputExtensionsToolStripMenuItem;
 		private ToolStripSeparator EditValidExtensionsBottomToolStripSeparator;
+		private ComboBox OutputExtensionComboBox;
 	}
 }
 
