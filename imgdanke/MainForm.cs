@@ -2439,11 +2439,7 @@ namespace imgdanke
 
 		private void UserConfigToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			string localPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-			localPath ??= "";
-			localPath = Path.Combine(localPath, UserConfig.CONFIG_FILENAME);
-
-			FileOps.OpenFileInDefaultApplication(localPath);
+			FileOps.OpenFileInDefaultApplication(UserConfig.PathToFile);
 		}
 
 		private void SourceFolderToolStripMenuItem_Click(object sender, EventArgs e)

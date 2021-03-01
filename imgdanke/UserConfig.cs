@@ -8,32 +8,32 @@ namespace imgdanke
 {
 	internal class UserConfig
 	{
-		public const string CONFIG_FILENAME = "imgdanke_UserConfig.json";
-		private static string _pathToFile = CONFIG_FILENAME;
+		private const string CONFIG_FILENAME = "imgdanke_UserConfig.json";
+		internal static string PathToFile = CONFIG_FILENAME;
 
 		#region Functions
-		public static UserConfig LoadConfig(bool isLinux)
+		internal static UserConfig LoadConfig(bool isLinux)
 		{
 			if ( isLinux )
 			{
-				_pathToFile = Environment.GetEnvironmentVariable("HOME") + "/.config/imgdanke/";
+				PathToFile = Environment.GetEnvironmentVariable("HOME") + "/.config/imgdanke/";
 
-				if ( !FileOps.DoesDirectoryExist(_pathToFile) )
+				if ( !FileOps.DoesDirectoryExist(PathToFile) )
 				{
-					Directory.CreateDirectory(_pathToFile);
+					Directory.CreateDirectory(PathToFile);
 				}
 
-				_pathToFile += CONFIG_FILENAME;
+				PathToFile += CONFIG_FILENAME;
 			}
-			else if ( !FileOps.DoesFileExist(_pathToFile) )
+			else if ( !FileOps.DoesFileExist(PathToFile) )
 			{
 				// See if it's where it's being called from, which in most cases, will be next to the executable
-				_pathToFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-				_pathToFile ??= "";
-				_pathToFile = Path.Combine(_pathToFile, CONFIG_FILENAME);
+				PathToFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+				PathToFile ??= "";
+				PathToFile = Path.Combine(PathToFile, CONFIG_FILENAME);
 			}
 
-			UserConfig resultConfig = !FileOps.DoesFileExist(_pathToFile) ? new UserConfig() : JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(_pathToFile));
+			UserConfig resultConfig = !FileOps.DoesFileExist(PathToFile) ? new UserConfig() : JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(PathToFile));
 			resultConfig.Defaults();
 
 			if ( resultConfig._validInputExtensions.Count == 0 )
@@ -49,7 +49,7 @@ namespace imgdanke
 			return resultConfig;
 		}
 
-		public UserConfig()
+		internal UserConfig()
 		{
 			Defaults();
 			_shouldCheckForUpdatesOnStartup = true;
@@ -74,7 +74,7 @@ namespace imgdanke
 
 		public void SaveConfig()
 		{
-			File.WriteAllText(_pathToFile, JsonConvert.SerializeObject(this));
+			File.WriteAllText(PathToFile, JsonConvert.SerializeObject(this));
 		}
 
 		#endregion
