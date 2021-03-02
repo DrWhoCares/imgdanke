@@ -5,7 +5,7 @@ Download the latest appropriate release of imagemagick and pingo and ensure they
 You can run imgdanke without pingo if you want, or are unable to run pingo (such as on Linux where it may not be possible). Some options will be disabled.
 Then simply run the .exe.
 
-![image](https://user-images.githubusercontent.com/12800223/87372171-85ba8000-c54c-11ea-9e5f-8af9587151d3.png)
+![MainWindow](https://user-images.githubusercontent.com/12800223/109585884-e988bd80-7ac9-11eb-9a28-3767206ac663.png)
 
 ## Table of Contents
  * [Technical Details](#technical-details)
@@ -86,13 +86,13 @@ Then simply run the .exe.
 
 ## imgdanke
 ### Technical Details
-imgdanke is a utility built using C# and the .NET Framework (v4.7.2).
+imgdanke is a utility built using C# and the .NET Framework (v4.8).
 
 It also makes use of these packages:
-- [Newtonsoft.Json v12.0.3](https://www.newtonsoft.com/json)
+- [System.Text.Json v5.0.1](https://github.com/dotnet/runtime)
 - [WindowsAPICodePack-Core v1.1.2](https://github.com/aybe/Windows-API-Code-Pack-1.1)
 - [WindowsAPICodePack-Shell v1.1.1](https://github.com/aybe/Windows-API-Code-Pack-1.1)
-- [Onova v2.6.0](https://github.com/Tyrrrz/Onova) (and its dependencies)
+- [Onova v2.6.2](https://github.com/Tyrrrz/Onova) (and its dependencies)
 
 Using Onova, the program will automatically check for new releases on Github and prompt the user to install on startup.
 Settings are stored in the config file located next to the .exe (after first startup) called `imgdanke_UserConfig.json`.
@@ -112,6 +112,7 @@ Opens the path to where the imgdanke executable is currently stored in explorer.
 Manually does a save of the current settings. Almost entirely redundant, since the config is saved after almost any config value is updated.
 ### Edit Valid Input Exts
 Opens up a new dialog box that allows you to edit the valid file extensions which will be parsed for populating the [Files in Source Folder](#files-in-source-folder) ListBox.
+![ValidExtensionsDialog](https://user-images.githubusercontent.com/12800223/109586229-729ff480-7aca-11eb-8e1d-c6a937d68b69.png)
 ### Edit Valid Output Exts
 Opens up a new dialog box that allows you to edit the valid file extensions which will be selectable in the [Output Extension](#output-extension) ComboBox.
 ### Exit
@@ -119,6 +120,7 @@ Closes the program.
 
 ## Preferences Menu
 ### Output Settings
+![OutputSettingsDialog](https://user-images.githubusercontent.com/12800223/109586490-ea6e1f00-7aca-11eb-9204-1f0e149151f4.png)
 #### Output To New Folder
 If checked, the final output of the files will be a new folder in the [Output Folder Path](#output-folder-path).
 The name of the folder is determined by the Output Setting's [Folder Name](#folder-name) TextBox. Additionally, if [Should Add Tags To New Output Folder](#should-add-tags-to-new-output-folder) is checked, any selected tags will be added.
@@ -130,7 +132,7 @@ The base name of the newly created folder for the final location of the files to
 If checked, any selected tags will be appended to the final output filename(s).
 [Add Tags To Filenames](#add-tags-to-filenames) is a shortcut for this setting.
 ##### Filename Tags Include Preset
-If checked, and [Should Add Tags To Filenames](#should-add-tags-to-filenames) is true, *one* of the following tags will be added to the final output filename(s):
+If checked, and [Should Add Tags To Filenames](#should-add-tags-to-filenames) is true, *one* of the following tags will be appended to the final output filename(s):
 - `(NoPreset)`
 - `(CustomPreset)`
 - `(Gray1bpp)`
@@ -141,7 +143,7 @@ If checked, and [Should Add Tags To Filenames](#should-add-tags-to-filenames) is
 - `(MagickColor4bpp)`
 - `(MagickColor8bpp)`
 ##### Filename Tags Include magick Settings
-If checked, and [Should Add Tags To Filenames](#should-add-tags-to-filenames) is true, the value of the magick options selected will be added to the final output filename(s).
+If checked, and [Should Add Tags To Filenames](#should-add-tags-to-filenames) is true, the value of the magick options selected will be appended to the final output filename(s).
 Some of them have prepended values, or a static value, and are listed below:
 - [-dither](#-dither) is just the value, e.g. `(None)`
 - [-colorspace](#-colorspace) is just the value, e.g. `(Gray)`
@@ -152,7 +154,7 @@ Some of them have prepended values, or a static value, and are listed below:
 - [-contrast-stretch](#-contrast-stretch) is just `(cs)`
 - [-auto-level](#-auto-level) is just `(al)`
 ##### Filename Tags Include pingo Settings
-If checked, and [Should Add Tags To Filenames](#should-add-tags-to-filenames) is true, the value of the pingo options selected will be added to the final output filename(s).
+If checked, and [Should Add Tags To Filenames](#should-add-tags-to-filenames) is true, the value of the pingo options selected will be appended to the final output filename(s).
 Some of them have prepended values, or a static value, and are listed below:
 - [-pngpalette](#-pngpalette) is `pngpal` and the value, e.g. `(pngpal24)`
 - [-nodithering](#-nodithering) is just `(nodither)`
@@ -163,11 +165,17 @@ Some of them have prepended values, or a static value, and are listed below:
 If checked, any selected tags will be appended to the newly created folder that files will be output to.
 [Add Tags To New Folder](#add-tags-to-new-folder) is a shortcut for this setting.
 ##### Folder Tags Include Preset
+If checked, and [Should Add Tags To New Output Folder](#should-add-tags-to-new-output-folder) is true, *one* of the preset tags will be appended to the newly created folder that files will be output to.
+Tags work exactly the same as [Filename Tags Include Preset](#filename-tags-include-preset).
 ##### Folder Tags Include magick Settings
+If checked, and [Should Add Tags To New Output Folder](#should-add-tags-to-new-output-folder) is true, then the value of magick options selected will be appended to the newly created folder that files will be output to.
+Tags work exactly the same as [Filename Tags Include magick Settings](#filename-tags-include-magick-settings).
 ##### Folder Tags Include pingo Settings
+If checked, and [Should Add Tags To New Output Folder](#should-add-tags-to-new-output-folder) is true, then the value of pingo options selected will be appended to the newly created folder that files will be output to.
+Tags work exactly the same as [Filename Tags Include pingo Settings](#filename-tags-include-pingo-settings).
 ### Should Output To New Folder
 If checked, the final output of the files will be a new folder in the [Output Folder Path](#output-folder-path).
-The name of the folder is determined by the Output Setting's [Folder Name](#folder-name) TextBox. Additionally, if [Should Add Tags To New Output Folder](#should-add-tags-to-new-output-folder) is checked, any selected tags will be added.
+The name of the folder is determined by the Output Setting's [Folder Name](#folder-name) TextBox. Additionally, if [Should Add Tags To New Output Folder](#should-add-tags-to-new-output-folder) is checked, any selected tags will be appended.
 This is just a shortcut to the same option in the [Output Settings](#output-settings) dialog box.
 ### Use Source Dir As Output Dir
 If checked, [Output Folder Path](#output-folder-path) will be disabled, and the value of it will be replaced by [Source Folder Path](#source-folder-path).
@@ -400,6 +408,8 @@ If checked, PSD files will also be parsed and included in the list of files. If 
 The checkbox is just a shortcut to adding or removing `.psd` from the list of valid input extensions.
 #### File Selection
 The commands will be applied to the selected files. All files are automatically selected by default. The list is refreshed every time you finish a command, or press the "Refresh List" button.
+You can drag and drop files onto this list and it will update the [Source Folder Path](#source-folder-path) and select the file(s) you dropped onto it.
+Additionally, you can right-click any file in the list to get a context menu that allows you to either open the file in your default image viewer, or open the path to the file in explorer.
 
 ### Commands
 The magick command will always happen before the pingo command.
