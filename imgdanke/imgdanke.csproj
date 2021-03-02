@@ -150,6 +150,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)README.md" "$(TargetDir)" /q /v /y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(SolutionDir)README.md" "$(TargetDir)" /q /v /y
+mkdir "$(TargetDir)lib"
+move /y "$(TargetDir)*.dll" "$(TargetDir)lib"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>rmdir "$(TargetDir)lib" /s /q</PreBuildEvent>
   </PropertyGroup>
 </Project>
