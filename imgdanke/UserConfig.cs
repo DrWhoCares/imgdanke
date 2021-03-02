@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Windows.Forms;
 
 namespace imgdanke
 {
-	internal class UserConfig
+	public class UserConfig
 	{
 		private const string CONFIG_FILENAME = "imgdanke_UserConfig.json";
 		internal static string PathToFile = CONFIG_FILENAME;
 
 		#region Functions
-		internal static UserConfig LoadConfig(bool isLinux)
+
+		public static UserConfig LoadConfig(bool isLinux)
 		{
 			if ( isLinux )
 			{
@@ -33,23 +35,41 @@ namespace imgdanke
 				PathToFile = Path.Combine(PathToFile, CONFIG_FILENAME);
 			}
 
-			UserConfig resultConfig = !FileOps.DoesFileExist(PathToFile) ? new UserConfig() : JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText(PathToFile));
-			resultConfig.Defaults();
+			UserConfig config = CreateOrDeserializeConfig();
+			config.Defaults();
 
-			if ( resultConfig._validInputExtensions.Count == 0 )
+			if ( config._validInputExtensions.Count == 0 )
 			{
-				resultConfig._validInputExtensions = new List<string> { ".png", ".jpg", ".jpeg", ".psd", ".tif", ".gif", ".webp" };
+				config._validInputExtensions = new List<string> { ".png", ".jpg", ".jpeg", ".psd", ".tif", ".gif", ".webp" };
 			}
 
-			if ( resultConfig._validOutputExtensions.Count == 0 )
+			if ( config._validOutputExtensions.Count == 0 )
 			{
-				resultConfig._validOutputExtensions = new List<string> { ".png", ".jpg" };
+				config._validOutputExtensions = new List<string> { ".png", ".jpg" };
 			}
 
-			return resultConfig;
+			return config;
 		}
 
-		internal UserConfig()
+		private static UserConfig CreateOrDeserializeConfig()
+		{
+			try
+			{
+				return (!FileOps.DoesFileExist(PathToFile) ? new UserConfig() : JsonSerializer.Deserialize<UserConfig>(File.ReadAllText(PathToFile))) ?? new UserConfig();
+			}
+			catch ( Exception e )
+			{
+				MessageBox.Show("Exception thrown while attempting to deserialize the UserConfig, UserConfig will be deleted after pressing OK and a fresh new one will be made.\n\nThis may have been caused by upgrading to v1.2021.3.1 or greater from an older version, if so, this is not a bug. Error Message:\n\n" + e.Message,
+					"Exception thrown when deserializing UserConfig",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+
+				FileOps.DeleteFile(PathToFile);
+				return new UserConfig();
+			}
+		}
+
+		public UserConfig()
 		{
 			Defaults();
 			_shouldCheckForUpdatesOnStartup = true;
@@ -74,7 +94,7 @@ namespace imgdanke
 
 		public void SaveConfig()
 		{
-			File.WriteAllText(PathToFile, JsonConvert.SerializeObject(this));
+			File.WriteAllText(PathToFile, JsonSerializer.Serialize(this));
 		}
 
 		#endregion
@@ -674,7 +694,7 @@ namespace imgdanke
 		#endregion
 	}
 
-	internal enum PresetSettings
+	public enum PresetSettings
 	{
 		None = 0,
 		Custom,
@@ -687,20 +707,20 @@ namespace imgdanke
 		MagickColor8Bpp
 	}
 
-	internal enum MagickDitherOptions
+	public enum MagickDitherOptions
 	{
 		Invalid = 0,
 		None
 	}
 
-	internal enum MagickColorspaceOptions
+	public enum MagickColorspaceOptions
 	{
 		Invalid = 0,
 		Gray,
 		sRGB
 	}
 
-	internal enum PingoOptimizationLevels
+	public enum PingoOptimizationLevels
 	{
 		Off = 0,
 		s0,
