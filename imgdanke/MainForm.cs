@@ -1973,7 +1973,7 @@ namespace imgdanke
 
 			foreach ( ImgInfo img in imgFiles )
 			{
-				if ( ShouldFileBeCopied(img.OrigInfo) )
+				if ( ShouldFileBeCopied(img.OrigInfo, tempFolderPath) )
 				{
 					filesToCopy.Add(img.OrigInfo);
 				}
@@ -2005,12 +2005,13 @@ namespace imgdanke
 			StartAndWaitForProcess(IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe", CONFIG.SourceFolderPath, "mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"" + tempFolderPath + "\" " + GetOriginalImagePaths(filesToCopy));
 		}
 
-		private bool ShouldFileBeCopied(FileInfo img)
+		private bool ShouldFileBeCopied(FileInfo img, string tempFolderPath)
 		{
 			return !string.IsNullOrWhiteSpace(PrependToOutputTextBox.Text)
 					|| !string.IsNullOrWhiteSpace(AppendToOutputTextBox.Text)
 					|| (CONFIG.ShouldAddTagsToFilenames && !string.IsNullOrWhiteSpace(CONFIG.TagsStringToAppendToFilenames))
-					|| img.Extension.ToLowerInvariant() != CONFIG.OutputExtension;
+					|| img.Extension.ToLowerInvariant() != CONFIG.OutputExtension
+					|| Path.GetPathRoot(img.FullName) != Path.GetPathRoot(tempFolderPath);
 		}
 
 		private string GetOriginalImagePaths(List<FileInfo> imgFiles)
