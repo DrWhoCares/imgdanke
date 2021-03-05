@@ -2,7 +2,7 @@
 A small GUI wrapper utility around [imagemagick](https://imagemagick.org/index.php) and [pingo](https://css-ig.net/pingo) for image optimization.
 Download the latest release here: [https://github.com/DrWhoCares/imgdanke/releases](https://github.com/DrWhoCares/imgdanke/releases).
 Download the latest appropriate release of imagemagick and pingo and ensure they are either on your PATH, or that `magick.exe` and `pingo.exe` are in the same folder (or any subfolder) as `imgdanke.exe`.
-You can run imgdanke without pingo if you want, or are unable to run pingo (such as on Linux where it may not be possible). Some options will be disabled.
+You can run imgdanke without pingo if you want, or are unable to run pingo (such as on Unix where it may not be possible). Some options will be disabled.
 Then simply run the .exe.
 
 ![MainWindow](https://user-images.githubusercontent.com/12800223/109585884-e988bd80-7ac9-11eb-9a28-3767206ac663.png)

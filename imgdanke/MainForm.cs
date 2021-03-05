@@ -20,9 +20,9 @@ namespace imgdanke
 	public partial class MainForm : Form
 	{
 		private const string TEMP_FOLDER_NAME = "/__danketmp/";
-		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-		private static readonly string MAGICK_FILENAME = IS_LINUX ? "magick" : "magick.exe";
-		private static readonly string PINGO_FILENAME = IS_LINUX ? "pingo" : "pingo.exe";
+		private static readonly bool IS_UNIX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+		private static readonly string MAGICK_FILENAME = IS_UNIX ? "magick" : "magick.exe";
+		private static readonly string PINGO_FILENAME = IS_UNIX ? "pingo" : "pingo.exe";
 		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 		private static readonly Regex INVALID_PATH_CHARS_REGEX = new("[" + Regex.Escape(new string(Path.GetInvalidPathChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 		private static readonly Regex PINGO_OPTIMIZE_OPTIONS_REGEX = new("-s[0-9,a,b]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
@@ -30,7 +30,7 @@ namespace imgdanke
 		private static readonly Color MENU_COLOR_OPTION_HIGHLIGHTED = Color.FromArgb(100, 100, 100);
 		private static readonly Color COLOR_BACKGROUND = Color.FromArgb(55, 55, 55);
 		//private static readonly Color COLOR_FOREGROUND = Color.FromArgb(216, 216, 216);
-		internal static readonly UserConfig CONFIG = UserConfig.LoadConfig(IS_LINUX);
+		internal static readonly UserConfig CONFIG = UserConfig.LoadConfig(IS_UNIX);
 
 		private static readonly BindingList<KeyValuePair<string, string>> PNG_PALETTE_ITEMS = new()
 		{
@@ -651,7 +651,7 @@ namespace imgdanke
 
 		private void SourceFolderPathButton_Click(object sender, EventArgs e)
 		{
-			SourceFolderPathTextBox.Text = IS_LINUX ? OpenFolderDialogLinux() : OpenFolderDialogWindows();
+			SourceFolderPathTextBox.Text = IS_UNIX ? OpenFolderDialogUnix() : OpenFolderDialogWindows();
 		}
 
 		private void SourceFolderPathTextBox_TextChanged(object sender, EventArgs e)
@@ -705,7 +705,7 @@ namespace imgdanke
 
 		private void OutputFolderPathButton_Click(object sender, EventArgs e)
 		{
-			OutputFolderPathTextBox.Text = IS_LINUX ? OpenFolderDialogLinux() : OpenFolderDialogWindows();
+			OutputFolderPathTextBox.Text = IS_UNIX ? OpenFolderDialogUnix() : OpenFolderDialogWindows();
 		}
 
 		private void OutputFolderPathTextBox_TextChanged(object sender, EventArgs e)
@@ -777,7 +777,7 @@ namespace imgdanke
 			CONFIG.ShouldMaintainFolderStructure = MaintainFolderStructureCheckBox.Checked;
 		}
 
-		private static string OpenFolderDialogLinux()
+		private static string OpenFolderDialogUnix()
 		{
 			using FolderBrowserDialog folderBrowserDialog = new();
 
@@ -818,7 +818,7 @@ namespace imgdanke
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
-			PingoStripCheckBox.Checked = !IS_LINUX;
+			PingoStripCheckBox.Checked = !IS_UNIX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			UpdateShouldAvoidMagickPNGCompression();
@@ -878,7 +878,7 @@ namespace imgdanke
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
-			PingoStripCheckBox.Checked = !IS_LINUX;
+			PingoStripCheckBox.Checked = !IS_UNIX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			UpdateShouldAvoidMagickPNGCompression();
@@ -905,7 +905,7 @@ namespace imgdanke
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
-			PingoStripCheckBox.Checked = !IS_LINUX;
+			PingoStripCheckBox.Checked = !IS_UNIX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			UpdateShouldAvoidMagickPNGCompression();
@@ -932,7 +932,7 @@ namespace imgdanke
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
-			PingoStripCheckBox.Checked = !IS_LINUX;
+			PingoStripCheckBox.Checked = !IS_UNIX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			UpdateShouldAvoidMagickPNGCompression();
@@ -960,7 +960,7 @@ namespace imgdanke
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
-			PingoStripCheckBox.Checked = !IS_LINUX;
+			PingoStripCheckBox.Checked = !IS_UNIX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			UpdateShouldAvoidMagickPNGCompression();
@@ -988,7 +988,7 @@ namespace imgdanke
 			PingoNoDitheringCheckBox.Enabled = true;
 			PingoNoDitheringCheckBox.Checked = true;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
-			PingoStripCheckBox.Checked = !IS_LINUX;
+			PingoStripCheckBox.Checked = !IS_UNIX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			UpdateShouldAvoidMagickPNGCompression();
@@ -1015,7 +1015,7 @@ namespace imgdanke
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
-			PingoStripCheckBox.Checked = !IS_LINUX;
+			PingoStripCheckBox.Checked = !IS_UNIX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			UpdateShouldAvoidMagickPNGCompression();
@@ -1042,7 +1042,7 @@ namespace imgdanke
 			PingoPNGPaletteComboBox.SelectedIndex = 0;
 			PingoNoDitheringCheckBox.Checked = false;
 			PingoOptimizationLevelComboBox.SelectedIndex = (int)PingoOptimizationLevels.Best;
-			PingoStripCheckBox.Checked = !IS_LINUX;
+			PingoStripCheckBox.Checked = !IS_UNIX;
 			MagickCommandTextBox.Text = ConstructMagickCommandString();
 			PingoCommandTextBox.Text = ConstructPingoCommandString();
 			UpdateShouldAvoidMagickPNGCompression();
@@ -1613,9 +1613,9 @@ namespace imgdanke
 		{
 			EnsurePingoConfigValuesAreUpdated();
 
-			StringBuilder commandBuilder = new(IS_LINUX ? 52 : 44);
+			StringBuilder commandBuilder = new(IS_UNIX ? 52 : 44);
 
-			if ( IS_LINUX )
+			if ( IS_UNIX )
 			{
 				commandBuilder.Append("-c 'pingo ");
 			}
@@ -1637,9 +1637,9 @@ namespace imgdanke
 				commandBuilder.Append("-strip ");
 			}
 
-			commandBuilder.Append(IS_LINUX ? "%1" : "\"%1\"");
+			commandBuilder.Append(IS_UNIX ? "%1" : "\"%1\"");
 
-			if ( IS_LINUX )
+			if ( IS_UNIX )
 			{
 				commandBuilder.Append("'");
 			}
@@ -2002,7 +2002,7 @@ namespace imgdanke
 				return;
 			}
 
-			StartAndWaitForProcess(IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe", CONFIG.SourceFolderPath, "mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"" + tempFolderPath + "\" " + GetOriginalImagePaths(filesToCopy));
+			StartAndWaitForProcess(IS_UNIX ? CONFIG.ImagemagickPathToExe : "magick.exe", CONFIG.SourceFolderPath, "mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"" + tempFolderPath + "\" " + GetOriginalImagePaths(filesToCopy));
 		}
 
 		private bool ShouldFileBeCopied(FileInfo img, string tempFolderPath)
@@ -2099,7 +2099,7 @@ namespace imgdanke
 			}
 
 			StatusMessageLabel.Text = "Processing magick command on file(s)...";
-			StartAndWaitForProcess(IS_LINUX ? CONFIG.ImagemagickPathToExe : "magick.exe", tempFolderPath, CONFIG.MagickCommandString.Replace("%1", tempFolderPath));
+			StartAndWaitForProcess(IS_UNIX ? CONFIG.ImagemagickPathToExe : "magick.exe", tempFolderPath, CONFIG.MagickCommandString.Replace("%1", tempFolderPath));
 		}
 
 		private static bool IsDefaultMagickCommand(string commandString)
@@ -2118,7 +2118,7 @@ namespace imgdanke
 			}
 
 			StatusMessageLabel.Text = "Processing pingo command on file(s)...";
-			StartAndWaitForProcess(IS_LINUX ? "sh" : "pingo.exe", tempFolderPath, CONFIG.PingoCommandString.Replace("%1", IS_LINUX ? "*" + CONFIG.OutputExtension : tempFolderPath));
+			StartAndWaitForProcess(IS_UNIX ? "sh" : "pingo.exe", tempFolderPath, CONFIG.PingoCommandString.Replace("%1", IS_UNIX ? "*" + CONFIG.OutputExtension : tempFolderPath));
 		}
 
 		private void FinalizeProcessing(List<ImgInfo> imgFiles, string tempFolderPath)

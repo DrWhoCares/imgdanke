@@ -11,7 +11,7 @@ namespace imgdanke
 
 	internal static class FileOps
 	{
-		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+		private static readonly bool IS_UNIX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
 		internal static bool DoesFileExist(string path)
 		{
@@ -292,7 +292,7 @@ namespace imgdanke
 
 			try
 			{
-				if ( IS_LINUX )
+				if ( IS_UNIX )
 				{
 					using Process process = Process.Start("xdg-open", localPath);
 				}
@@ -347,7 +347,7 @@ namespace imgdanke
 		{
 			try
 			{
-				if ( !IS_LINUX )
+				if ( !IS_UNIX )
 				{
 					return CreateHardLink(pathToTempWorkingFolder + file.Name, file.FullName, IntPtr.Zero);
 				}

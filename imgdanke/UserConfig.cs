@@ -14,9 +14,9 @@ namespace imgdanke
 
 		#region Functions
 
-		public static UserConfig LoadConfig(bool isLinux)
+		public static UserConfig LoadConfig(bool isUnix)
 		{
-			if ( isLinux )
+			if ( isUnix )
 			{
 				PathToFile = Environment.GetEnvironmentVariable("HOME") + "/.config/imgdanke/";
 
