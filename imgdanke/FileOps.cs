@@ -81,7 +81,7 @@ namespace imgdanke
 			{
 				if ( shouldWaitUntilEmptyToDelete )
 				{
-					DirectoryInfo folder = new DirectoryInfo(path);
+					DirectoryInfo folder = new(path);
 
 					while ( DoesDirectoryExist(folder.FullName) )
 					{
@@ -159,7 +159,7 @@ namespace imgdanke
 		{
 			try
 			{
-				DirectoryInfo folder = new DirectoryInfo(path);
+				DirectoryInfo folder = new(path);
 				folder.Delete(true);
 				folder.Refresh();
 
@@ -352,11 +352,11 @@ namespace imgdanke
 					return CreateHardLink(pathToTempWorkingFolder + file.Name, file.FullName, IntPtr.Zero);
 				}
 
-				ProcessStartInfo startInfo = new ProcessStartInfo
+				ProcessStartInfo startInfo = new()
 				{
 					FileName = "ln",
 					CreateNoWindow = true,
-					Arguments = "-s \"" + file.FullName + "\" " + "\"" + pathToTempWorkingFolder + file.Name + "\""
+					Arguments = "-s \"" + file.FullName + "\" \"" + pathToTempWorkingFolder + file.Name + "\""
 				};
 
 				using Process process = Process.Start(startInfo);

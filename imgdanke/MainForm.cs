@@ -23,16 +23,16 @@ namespace imgdanke
 		private static readonly bool IS_LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 		private static readonly string MAGICK_FILENAME = IS_LINUX ? "magick" : "magick.exe";
 		private static readonly string PINGO_FILENAME = IS_LINUX ? "pingo" : "pingo.exe";
-		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-		private static readonly Regex INVALID_PATH_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidPathChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-		private static readonly Regex PINGO_OPTIMIZE_OPTIONS_REGEX = new Regex("-s[0-9,a,b]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+		private static readonly Regex INVALID_PATH_CHARS_REGEX = new("[" + Regex.Escape(new string(Path.GetInvalidPathChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+		private static readonly Regex PINGO_OPTIMIZE_OPTIONS_REGEX = new("-s[0-9,a,b]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 		private static readonly Color MENU_COLOR_OPTION = Color.FromArgb(216, 216, 216);
 		private static readonly Color MENU_COLOR_OPTION_HIGHLIGHTED = Color.FromArgb(100, 100, 100);
 		private static readonly Color COLOR_BACKGROUND = Color.FromArgb(55, 55, 55);
 		//private static readonly Color COLOR_FOREGROUND = Color.FromArgb(216, 216, 216);
 		internal static readonly UserConfig CONFIG = UserConfig.LoadConfig(IS_LINUX);
 
-		private static readonly BindingList<KeyValuePair<string, string>> PNG_PALETTE_ITEMS = new BindingList<KeyValuePair<string, string>>
+		private static readonly BindingList<KeyValuePair<string, string>> PNG_PALETTE_ITEMS = new()
 		{
 			new KeyValuePair<string, string>("", ""),
 			new KeyValuePair<string, string>("2c", "9"),
@@ -63,7 +63,7 @@ namespace imgdanke
 		private static List<FileInfoWithSubpath> FilesInSourceFolderList;
 		private static List<FileInfoWithSubpath> FilesInSourceFolderListDataSource;
 
-		private static readonly OutputSettingsForm OUTPUT_SETTINGS_FORM = new OutputSettingsForm();
+		private static readonly OutputSettingsForm OUTPUT_SETTINGS_FORM = new();
 
 		private class ImgInfo
 		{
@@ -230,7 +230,7 @@ namespace imgdanke
 				return;
 			}
 
-			using UpdateManager updateManager = new UpdateManager(
+			using UpdateManager updateManager = new(
 				new GithubPackageResolver("DrWhoCares", "imgdanke", "imgdanke_*.zip"),
 				new ZipPackageExtractor()
 			);
@@ -779,14 +779,14 @@ namespace imgdanke
 
 		private static string OpenFolderDialogLinux()
 		{
-			using FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+			using FolderBrowserDialog folderBrowserDialog = new();
 
 			return folderBrowserDialog.ShowDialog() == DialogResult.OK ? folderBrowserDialog.SelectedPath : "";
 		}
 
 		private static string OpenFolderDialogWindows()
 		{
-			using CommonOpenFileDialog folderBrowserDialog = new CommonOpenFileDialog
+			using CommonOpenFileDialog folderBrowserDialog = new()
 			{
 				IsFolderPicker = true
 			};
@@ -1422,7 +1422,7 @@ namespace imgdanke
 
 		private static List<FileInfoWithSubpath> GetImageFilesList(string imageFilesFullPath)
 		{
-			List<FileInfoWithSubpath> imageFilesWithSubpaths = new List<FileInfoWithSubpath>();
+			List<FileInfoWithSubpath> imageFilesWithSubpaths = new();
 
 			foreach ( FileInfo fileInfo in GetImageFiles(imageFilesFullPath).OrderByAlphaNumeric(DirectoryOrderer.GetDirectoryName) )
 			{
@@ -1529,7 +1529,7 @@ namespace imgdanke
 
 		private static bool IsAllDigits(string str) => str.All(char.IsDigit);
 
-		private static string GetStringWithOnlyDigits(string str) => new string(str.Where(char.IsDigit).ToArray());
+		private static string GetStringWithOnlyDigits(string str) => new(str.Where(char.IsDigit).ToArray());
 
 		#endregion
 
@@ -1539,7 +1539,7 @@ namespace imgdanke
 		{
 			EnsureMagickConfigValuesAreUpdated();
 
-			StringBuilder commandBuilder = new StringBuilder(244);
+			StringBuilder commandBuilder = new(244);
 			commandBuilder.Append("mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"%1\" ");
 
 			if ( CONFIG.ShouldAvoidMagickPNGCompression )
@@ -1613,7 +1613,7 @@ namespace imgdanke
 		{
 			EnsurePingoConfigValuesAreUpdated();
 
-			StringBuilder commandBuilder = new StringBuilder(IS_LINUX ? 52 : 44);
+			StringBuilder commandBuilder = new(IS_LINUX ? 52 : 44);
 
 			if ( IS_LINUX )
 			{
@@ -1968,8 +1968,8 @@ namespace imgdanke
 			}
 
 			StatusMessageLabel.Text = "Copying file(s)/creating hardlink(s) to temp working folder...";
-			List<FileInfo> filesToHardLink = new List<FileInfo>();
-			List<FileInfo> filesToCopy = new List<FileInfo>();
+			List<FileInfo> filesToHardLink = new();
+			List<FileInfo> filesToCopy = new();
 
 			foreach ( ImgInfo img in imgFiles )
 			{
@@ -2016,7 +2016,7 @@ namespace imgdanke
 
 		private string GetOriginalImagePaths(List<FileInfo> imgFiles)
 		{
-			StringBuilder argumentBuilder = new StringBuilder((imgFiles.Max(f => f.FullName).Length * imgFiles.Count) + (imgFiles.Count * 6));
+			StringBuilder argumentBuilder = new((imgFiles.Max(f => f.FullName).Length * imgFiles.Count) + (imgFiles.Count * 6));
 
 			foreach ( FileInfo img in imgFiles )
 			{
@@ -2359,20 +2359,20 @@ namespace imgdanke
 
 			protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
 			{
-				Rectangle rect = new Rectangle(Point.Empty, e.Item.Size);
-				using SolidBrush brush = new SolidBrush(MENU_COLOR_OPTION);
+				Rectangle rect = new(Point.Empty, e.Item.Size);
+				using SolidBrush brush = new(MENU_COLOR_OPTION);
 				e.Graphics.FillRectangle(brush, rect);
-				using Pen pen = new Pen(Color.Black);
+				using Pen pen = new(Color.Black);
 				int y = rect.Height / 2;
 				e.Graphics.DrawLine(pen, rect.Left, y, rect.Right - 1, y);
 			}
 
 			protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
 			{
-				Rectangle rect = new Rectangle(Point.Empty, e.Item.Size);
+				Rectangle rect = new(Point.Empty, e.Item.Size);
 				Color color = e.Item.Selected ? MENU_COLOR_OPTION_HIGHLIGHTED : MENU_COLOR_OPTION;
 
-				using SolidBrush brush = new SolidBrush(color);
+				using SolidBrush brush = new(color);
 				e.Graphics.FillRectangle(brush, rect);
 			}
 		}
@@ -2468,7 +2468,7 @@ namespace imgdanke
 
 		private void EditValidInputExtensionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using EditListItemsDialog dialog = new EditListItemsDialog(CONFIG.ValidInputExtensions, Location);
+			using EditListItemsDialog dialog = new(CONFIG.ValidInputExtensions, Location);
 
 			if ( dialog.ShowDialog() == DialogResult.OK )
 			{
@@ -2478,7 +2478,7 @@ namespace imgdanke
 
 		private void EditValidOutputExtensionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using EditListItemsDialog dialog = new EditListItemsDialog(CONFIG.ValidOutputExtensions, Location);
+			using EditListItemsDialog dialog = new(CONFIG.ValidOutputExtensions, Location);
 
 			if ( dialog.ShowDialog() == DialogResult.OK )
 			{
