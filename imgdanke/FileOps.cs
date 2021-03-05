@@ -372,7 +372,7 @@ namespace imgdanke
 			}
 			catch ( Exception ex )
 			{
-				MessageBox.Show("Unable to create a hard link to the file `" + file.FullName + "` at path `" + pathToTempWorkingFolder + file.Name + "` in its default application. Exception thrown:\n\n`" + ex.Message + "`\n\nProcessing will cancel.",
+				MessageBox.Show("Unable to create a hard link to the file `" + file.FullName + "` at path `" + pathToTempWorkingFolder + file.Name + "`. Exception thrown:\n\n`" + ex.Message + "`\n\nProcessing will cancel.",
 					"Cannot create hard link to file",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Exclamation);
@@ -383,15 +383,14 @@ namespace imgdanke
 		// Returns true if it successfully creates the links to files. Returns false if something goes wrong
 		internal static bool CreateHardLinksToFiles(List<FileInfo> files, string tempFolderPath)
 		{
-			//if ( !DeleteFilesInFolder(tempFolderPath) )
-			//{
-			//	return false;
-			//}
-
 			foreach ( FileInfo file in files )
 			{
 				if ( !CreateHardLinkToFile(file, tempFolderPath) )
 				{
+					MessageBox.Show("Unable to create a hard link to the file `" + file.FullName + "` at path `" + tempFolderPath + file.Name + "`\n\nProcessing will cancel.",
+						"Cannot create hard link to file",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Exclamation);
 					return false;
 				}
 			}
