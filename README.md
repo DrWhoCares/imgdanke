@@ -338,8 +338,7 @@ Normalizes the colors of the images. Ensures blacks are #000000 and such. It's n
 Performs a contrast stretch to help ensure blackest black color is #000000 and whitest white color is #FFFFFF. It's not recommended to apply this more than once, especially for color images. On grayscale images it will likely have no effect if applied twice, but that is not always the case.
 #### -auto-level
 [Magick Command-line reference](https://imagemagick.org/script/command-line-options.php#auto-level)
-An alternative method to ensuring blackest black color is #000000 and whitest white color is #FFFFFF. I suggest reading the documentation, but in testing, it seems it produces slightly better results for 4bpp grayscale images.
-It's not recommended to apply this more than once, especially for color images. On grayscale images it will likely have no effect if applied twice, but that is not always the case.
+An alternative method to ensuring blackest black color is #000000 and whitest white color is #FFFFFF. I suggest reading the documentation, but in testing, it seems it produces slightly better results for 4bpp grayscale images. It is pointless to call this more than once on the same image.
 
 ### Pingo Settings
 #### -pngpalette
