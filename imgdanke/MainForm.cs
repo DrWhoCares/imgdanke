@@ -19,7 +19,7 @@ namespace imgdanke
 {
 	public partial class MainForm : Form
 	{
-		private const string TEMP_FOLDER_NAME = "/__danketmp/";
+		private const string TEMP_FOLDER_NAME = "imgdanke/";
 		private static readonly bool IS_UNIX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 		private static readonly string MAGICK_FILENAME = IS_UNIX ? "magick" : "magick.exe";
 		private static readonly string PINGO_FILENAME = IS_UNIX ? "pingo" : "pingo.exe";
@@ -1699,14 +1699,14 @@ namespace imgdanke
 				return;
 			}
 
-			string tempFolderPath = CONFIG.OutputFolderPath + TEMP_FOLDER_NAME;
+			string tempFolderPath = Path.GetTempPath() + TEMP_FOLDER_NAME;
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			InitializeProcessing(imgFiles, tempFolderPath);
 			ProcessFiles(ref imgFiles, tempFolderPath);
 			FinalizeProcessing(imgFiles, tempFolderPath);
 			stopwatch.Stop();
 
-			UpdateStatusMessageForEndProcessing(stopwatch.ElapsedMilliseconds);
+			UpdateStatusMessageForEndProcessing(stopwatch.ElapsedMilliseconds, tempFolderPath);
 			BuildFilesInSourceFolderList();
 			ToggleUI(true);
 			ShouldCancelProcessing = false;
@@ -1757,10 +1757,18 @@ namespace imgdanke
 			}
 		}
 
-		private void UpdateStatusMessageForEndProcessing(long elapsedMilliseconds)
+		private void UpdateStatusMessageForEndProcessing(long elapsedMilliseconds, string tempFolderPath)
 		{
 			if ( ShouldCancelProcessing )
 			{
+				if ( MessageBox.Show("Since processing was canceled, would you like to open the path to the temporary folder to view the files?",
+					"Open path to temporary folder?",
+					MessageBoxButtons.YesNo,
+					MessageBoxIcon.Question) == DialogResult.Yes )
+				{
+					FileOps.OpenFolderPathInExplorer(Directory.Exists(tempFolderPath) ? tempFolderPath : Path.GetTempPath());
+				}
+
 				StatusMessageLabel.Text = "Command(s) canceled. Some files may have already been processed, or may be in an invalid state.";
 			}
 			else
