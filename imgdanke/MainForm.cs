@@ -1371,6 +1371,33 @@ namespace imgdanke
 		private void FilesListSearchTextBox_TextChanged(object sender, EventArgs e)
 		{
 			FilesInSourceFolderListDataSource = new List<FileInfoWithSubpath>(FilesInSourceFolderList);
+			RemoveNonMatchingFilesInSourceFolderListBox();
+			UpdateFilesInSourceFolderListDataSource();
+		}
+
+		private void RemoveNonMatchingFilesInSourceFolderListBox()
+		{
+			if ( FilesListSearchTextBox.Text.Contains('*') )
+			{
+				try
+				{
+					Regex regex = new(Regex.Escape(FilesListSearchTextBox.Text).Replace(@"\*", ".*").Replace(@"\?", "."));
+
+					for ( int i = FilesInSourceFolderListDataSource.Count - 1; i >= 0; --i )
+					{
+						if ( !regex.IsMatch(FilesInSourceFolderListDataSource[i].ImageInfo.Name) )
+						{
+							FilesInSourceFolderListDataSource.RemoveAt(i);
+						}
+					}
+
+					return;
+				}
+				catch ( Exception )
+				{
+					// ignored
+				}
+			}
 
 			for ( int i = FilesInSourceFolderListDataSource.Count - 1; i >= 0; --i )
 			{
@@ -1379,8 +1406,6 @@ namespace imgdanke
 					FilesInSourceFolderListDataSource.RemoveAt(i);
 				}
 			}
-
-			UpdateFilesInSourceFolderListDataSource();
 		}
 
 		private void BuildFilesInSourceFolderList()
