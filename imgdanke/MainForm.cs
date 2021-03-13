@@ -2256,9 +2256,9 @@ namespace imgdanke
 				return imgInfo.OrigInfo.DirectoryName + "/" + img.Name;
 			}
 
-			if ( CONFIG.ShouldIncludeSubfolders && CONFIG.ShouldMaintainFolderStructure )
+			if ( CONFIG.ShouldMaintainFolderStructure && CONFIG.ShouldIncludeSubfolders )
 			{
-				return DetermineSubfolderPath(img) + "/" + img.Name;
+				return DetermineSubfolderPath(imgInfo.OrigInfo) + "/" + img.Name;
 			}
 
 			if ( CONFIG.ShouldOutputToNewFolder )
@@ -2271,7 +2271,7 @@ namespace imgdanke
 
 		private static string DetermineSubfolderPath(FileInfo fileInfo)
 		{
-			string outputFolderName = CONFIG.OutputFolderPath + (CONFIG.OutputFolderPath == CONFIG.SourceFolderPath ? "/_OUTPUT" : "") + fileInfo.DirectoryName?.Replace(CONFIG.SourceFolderPath, "");
+			string outputFolderName = CONFIG.OutputFolderPath + fileInfo.DirectoryName?.Replace(CONFIG.SourceFolderPath, "");
 			Directory.CreateDirectory(outputFolderName);
 
 			return outputFolderName;
