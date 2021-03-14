@@ -1661,7 +1661,10 @@ namespace imgdanke
 				}
 			}
 
-			commandBuilder.Append(CONFIG.PingoOptimizeLevel + " ");
+			if ( !string.IsNullOrWhiteSpace(CONFIG.PingoOptimizeLevel) )
+			{
+				commandBuilder.Append(CONFIG.PingoOptimizeLevel + " ");
+			}
 
 			if ( CONFIG.ShouldUsePingoStrip )
 			{
@@ -2151,13 +2154,18 @@ namespace imgdanke
 
 		private void ProcessPingoCommand(string tempFolderPath)
 		{
-			if ( ShouldCancelProcessing || string.IsNullOrWhiteSpace(CONFIG.PingoPathToExe) || !VerifyPingoCommandIsReadyAndValid() )
+			if ( ShouldCancelProcessing || string.IsNullOrWhiteSpace(CONFIG.PingoPathToExe) || !VerifyPingoCommandIsReadyAndValid() || IsDefaultPingoCommand(CONFIG.PingoCommandString) )
 			{
 				return;
 			}
 
 			StatusMessageLabel.Text = "Processing pingo command on file(s)...";
 			StartAndWaitForProcess(IS_UNIX ? "sh" : "pingo.exe", tempFolderPath, CONFIG.PingoCommandString.Replace("%1", IS_UNIX ? "*" + CONFIG.OutputExtension : tempFolderPath));
+		}
+
+		private static bool IsDefaultPingoCommand(string commandString)
+		{
+			return IS_UNIX ? commandString == "-c 'pingo %1'" : commandString == "\"%1\"";
 		}
 
 		private void FinalizeProcessing(List<ImgInfo> imgFiles, string tempFolderPath)
