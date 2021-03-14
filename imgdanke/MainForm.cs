@@ -1377,6 +1377,11 @@ namespace imgdanke
 
 		private void RemoveNonMatchingFilesInSourceFolderListBox()
 		{
+			if ( string.IsNullOrWhiteSpace(FilesListSearchTextBox.Text) )
+			{
+				return;
+			}
+
 			if ( FilesListSearchTextBox.Text.Contains('*') )
 			{
 				try
@@ -1418,6 +1423,7 @@ namespace imgdanke
 			{
 				FilesInSourceFolderList = GetImageFilesList(SourceFolderPathTextBox.Text);
 				FilesInSourceFolderListDataSource = FilesInSourceFolderList;
+				RemoveNonMatchingFilesInSourceFolderListBox();
 				UpdateFilesInSourceFolderListDataSource();
 			}
 
