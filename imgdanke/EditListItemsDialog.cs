@@ -11,7 +11,7 @@ namespace imgdanke
 	{
 		private int LastSelectedItemIndex;
 		private readonly Point OriginalLocation;
-		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
 		internal readonly List<string> ListItems;
 
