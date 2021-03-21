@@ -6,7 +6,7 @@ namespace imgdanke
 {
 	public partial class OutputSettingsForm : Form
 	{
-		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new Regex("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
+		private static readonly Regex INVALID_FILENAME_CHARS_REGEX = new("[" + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
 
 		public sealed override string Text
 		{
