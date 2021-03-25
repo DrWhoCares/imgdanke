@@ -1733,7 +1733,7 @@ namespace imgdanke
 				return;
 			}
 
-			string tempFolderPath = Path.GetTempPath() + TEMP_FOLDER_NAME;
+			string tempFolderPath = GetTempFolderPath();
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			InitializeProcessing(imgFiles, tempFolderPath);
 			ProcessFiles(ref imgFiles, tempFolderPath);
@@ -1789,6 +1789,38 @@ namespace imgdanke
 				NewSizeLabel.Text = "New Size: XXX.XXYY";
 				TotalSavingsLabel.Text = "Total Savings: XXX.XXYY or XX.XX%";
 			}
+		}
+
+		private static string GetTempFolderPath()
+		{
+			string mainTempFolderPathRoot = Path.GetPathRoot(Path.GetTempPath());
+			string sourcePathRoot = Path.GetPathRoot(CONFIG.SourceFolderPath);
+
+			if ( mainTempFolderPathRoot == sourcePathRoot )
+			{
+				return Path.GetTempPath() + "imgdanke/";
+			}
+
+			string tempFolderPath = sourcePathRoot + TEMP_FOLDER_NAME;
+
+			try
+			{
+				Directory.CreateDirectory(tempFolderPath);
+			}
+			catch ( Exception )
+			{
+				try
+				{
+					tempFolderPath = Path.GetPathRoot(CONFIG.OutputFolderPath) + TEMP_FOLDER_NAME;
+					Directory.CreateDirectory(tempFolderPath);
+				}
+				catch ( Exception )
+				{
+					return Path.GetTempPath() + TEMP_FOLDER_NAME;
+				}
+			}
+
+			return tempFolderPath;
 		}
 
 		private void UpdateStatusMessageForEndProcessing(long elapsedMilliseconds, string tempFolderPath)
