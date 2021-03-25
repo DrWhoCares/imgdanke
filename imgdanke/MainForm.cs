@@ -2266,7 +2266,6 @@ namespace imgdanke
 				if ( !imgInfo.IsOrigPSD() && FileOps.DoesFileExist(imgInfo.OrigInfo.FullName) && !imgInfo.AreFilesTheSame() )
 				{
 					FileOps.DeleteFile(imgInfo.OrigInfo.FullName);
-					break;
 				}
 			}
 		}
