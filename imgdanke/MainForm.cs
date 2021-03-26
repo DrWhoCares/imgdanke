@@ -2178,8 +2178,8 @@ namespace imgdanke
 
 		private static bool IsDefaultMagickCommand(string commandString)
 		{
-			const string DEFAULT_COMMAND = "convert \"%1\" \"%2\"";
-			const string DEFAULT_COMMAND_WITH_PINGO = "convert \"%1\" -quality 10 \"%2\"";
+			const string DEFAULT_COMMAND = "mogrify -format png -path \"%1\" *.png";
+			const string DEFAULT_COMMAND_WITH_PINGO = "mogrify -format png -path \"%1\" -quality 10 *.png";
 
 			return commandString == DEFAULT_COMMAND_WITH_PINGO || commandString == DEFAULT_COMMAND;
 		}
