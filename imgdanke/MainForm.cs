@@ -1700,13 +1700,13 @@ namespace imgdanke
 
 		private void MagickCommandTextBox_TextChanged(object sender, EventArgs e)
 		{
-			CONFIG.MagickCommandString = string.IsNullOrWhiteSpace(MagickCommandTextBox.Text) ? ConstructMagickCommandString() : MagickCommandTextBox.Text;
+			CONFIG.MagickCommandString = MagickCommandTextBox.Text;
 			StartButton.Enabled = VerifyReadyToApply();
 		}
 
 		private void PingoCommandTextBox_TextChanged(object sender, EventArgs e)
 		{
-			CONFIG.PingoCommandString = string.IsNullOrWhiteSpace(PingoCommandTextBox.Text) ? ConstructPingoCommandString() : PingoCommandTextBox.Text;
+			CONFIG.PingoCommandString = PingoCommandTextBox.Text;
 			UpdateShouldAvoidMagickPNGCompression();
 			StartButton.Enabled = VerifyReadyToApply();
 		}
