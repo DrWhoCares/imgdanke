@@ -560,12 +560,14 @@ namespace imgdanke
 
 		private static bool VerifyMagickCommandIsValid()
 		{
-			return !string.IsNullOrWhiteSpace(CONFIG.MagickCommandString);
+			return !string.IsNullOrWhiteSpace(CONFIG.MagickCommandString)
+					&& CONFIG.MagickCommandString.Contains("%1");
 		}
 
 		private static bool VerifyPingoCommandIsValid()
 		{
-			return !string.IsNullOrWhiteSpace(CONFIG.PingoCommandString);
+			return !string.IsNullOrWhiteSpace(CONFIG.PingoCommandString)
+					&& CONFIG.PingoCommandString.Contains("%1");
 		}
 
 		private bool VerifyReadyToApply()
