@@ -19,7 +19,7 @@ namespace imgdanke
 {
 	public partial class MainForm : Form
 	{
-		private const string TEMP_FOLDER_NAME = "imgdanke/";
+		private const string TEMP_FOLDER_NAME = "_imgdanketmp/";
 		private static readonly bool IS_UNIX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 		private static readonly string MAGICK_FILENAME = IS_UNIX ? "magick" : "magick.exe";
 		private static readonly string PINGO_FILENAME = IS_UNIX ? "pingo" : "pingo.exe";
