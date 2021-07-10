@@ -737,6 +737,6 @@ namespace imgdanke
 		sb,
 		Min = s0,
 		Max = sb,
-		Best = s9
+		Best = sb
 	}
 }
