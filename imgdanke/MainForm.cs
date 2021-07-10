@@ -2012,8 +2012,9 @@ namespace imgdanke
 				return;
 			}
 
-			MagickCopyFilesToTempFolder(imgFiles, tempFolderPath);
-			UpdateFileInfosToTempFolder(ref imgFiles, tempFolderPath, out long previousTotalFilesize);
+			string tempFolderPathNoTrailingSlash = tempFolderPath.Substring(0, tempFolderPath.Length - 1);
+			MagickCopyFilesToTempFolder(imgFiles, tempFolderPathNoTrailingSlash, out List<string> tempSubfoldersToProcess);
+			UpdateFileInfosToTempFolder(ref imgFiles, tempFolderPathNoTrailingSlash, out long previousTotalFilesize);
 			RenameCopiedFiles(ref imgFiles);
 			ProcessingProgressBar.Value += imgFiles.Count;
 
@@ -2022,7 +2023,7 @@ namespace imgdanke
 				PreviousSizeLabel.Text = "Prev Size: " + GetBytesAsReadableString(previousTotalFilesize);
 			}
 
-			ProcessMagickCommand(tempFolderPath);
+			ProcessMagickCommand(tempSubfoldersToProcess);
 			ProcessingProgressBar.Value += imgFiles.Count;
 			ProcessPingoCommand(tempFolderPath);
 			ProcessingProgressBar.Value += imgFiles.Count;
@@ -2036,26 +2037,48 @@ namespace imgdanke
 			}
 		}
 
-		private void MagickCopyFilesToTempFolder(List<ImgInfo> imgFiles, string tempFolderPath)
+		private void MagickCopyFilesToTempFolder(List<ImgInfo> imgFiles, string tempFolderPath, out List<string> tempSubfoldersToProcess)
 		{
+			tempSubfoldersToProcess = new List<string>();
+
 			if ( ShouldCancelProcessing )
 			{
 				return;
 			}
 
 			StatusMessageLabel.Text = "Copying file(s)/creating hardlink(s) to temp working folder...";
-			List<FileInfo> filesToHardLink = new();
-			List<FileInfo> filesToCopy = new();
+			Dictionary<string, List<FileInfo>> filesToHardLink = new();
+			Dictionary<string, List<FileInfo>> filesToCopy = new();
 
 			foreach ( ImgInfo img in imgFiles )
 			{
+				if ( !tempSubfoldersToProcess.Contains(img.OrigInfo.DirectoryName) )
+				{
+					Debug.Assert(img.OrigInfo.DirectoryName != null, "img.OrigInfo.DirectoryName != null");
+					tempSubfoldersToProcess.Add(tempFolderPath + img.OrigInfo.DirectoryName.Replace(SourceFolderPathTextBox.Text, "") + "/");
+				}
+
 				if ( ShouldFileBeCopied(img.OrigInfo, tempFolderPath) )
 				{
-					filesToCopy.Add(img.OrigInfo);
+					if ( filesToCopy.TryGetValue(img.OrigInfo.DirectoryName!, out List<FileInfo> filesToCopyForSubfolderPath) )
+					{
+						filesToCopyForSubfolderPath.Add(img.OrigInfo);
+					}
+					else
+					{
+						filesToCopy.Add(img.OrigInfo.DirectoryName, new List<FileInfo> { img.OrigInfo });
+					}
 				}
 				else
 				{
-					filesToHardLink.Add(img.OrigInfo);
+					if ( filesToHardLink.TryGetValue(img.OrigInfo.DirectoryName!, out List<FileInfo> filesToHardLinkForSubfolderPath) )
+					{
+						filesToHardLinkForSubfolderPath.Add(img.OrigInfo);
+					}
+					else
+					{
+						filesToHardLink.Add(img.OrigInfo.DirectoryName, new List<FileInfo> { img.OrigInfo });
+					}
 				}
 			}
 
@@ -2066,7 +2089,7 @@ namespace imgdanke
 
 			if ( filesToHardLink.Any() )
 			{
-				if ( !FileOps.CreateHardLinksToFiles(filesToHardLink, tempFolderPath) )
+				if ( !FileOps.CreateHardLinksToFiles(filesToHardLink, tempFolderPath, SourceFolderPathTextBox.Text) )
 				{
 					ShouldCancelProcessing = true;
 					return;
@@ -2078,7 +2101,12 @@ namespace imgdanke
 				return;
 			}
 
-			StartAndWaitForProcess(IS_UNIX ? CONFIG.ImagemagickPathToExe : "magick.exe", CONFIG.SourceFolderPath, "mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"" + tempFolderPath + "\" " + GetOriginalImagePaths(filesToCopy));
+			foreach ( var pathAndInfos in filesToCopy )
+			{
+				string tempSubFolderPath = tempFolderPath + pathAndInfos.Key.Replace(SourceFolderPathTextBox.Text, "") + "/";
+				Directory.CreateDirectory(tempSubFolderPath);
+				StartAndWaitForProcess(IS_UNIX ? CONFIG.ImagemagickPathToExe : "magick.exe", CONFIG.SourceFolderPath, "mogrify -format " + CONFIG.OutputExtension.Substring(1) + " -path \"" + tempSubFolderPath + "\" " + GetOriginalImagePaths(pathAndInfos.Value));
+			}
 		}
 
 		private bool ShouldFileBeCopied(FileInfo img, string tempFolderPath)
@@ -2131,7 +2159,9 @@ namespace imgdanke
 					previousTotalFilesize += img.Length;
 				}
 
-				imgInfo.NewInfo = new FileInfo(tempFolderPath + (img.Extension == CONFIG.OutputExtension
+				Debug.Assert(imgInfo.OrigInfo.DirectoryName != null, "imgInfo.OrigInfo.DirectoryName != null");
+				string tempSubFolderPath = tempFolderPath + imgInfo.OrigInfo.DirectoryName.Replace(SourceFolderPathTextBox.Text, "") + "/";
+				imgInfo.NewInfo = new FileInfo(tempSubFolderPath + (img.Extension == CONFIG.OutputExtension
 											? img.Name : img.Name.Replace(img.Extension, CONFIG.OutputExtension)));
 
 				if ( isOriginallyPSD )
@@ -2167,7 +2197,7 @@ namespace imgdanke
 					|| CONFIG.ShouldAddTagsToFilenames && !string.IsNullOrWhiteSpace(CONFIG.TagsStringToAppendToFilenames);
 		}
 
-		private void ProcessMagickCommand(string tempFolderPath)
+		private void ProcessMagickCommand(List<string> tempSubfoldersToProcess)
 		{
 			if ( ShouldCancelProcessing || !VerifyMagickCommandIsReadyAndValid() || IsDefaultMagickCommand(CONFIG.MagickCommandString) )
 			{
@@ -2175,7 +2205,11 @@ namespace imgdanke
 			}
 
 			StatusMessageLabel.Text = "Processing magick command on file(s)...";
-			StartAndWaitForProcess(IS_UNIX ? CONFIG.ImagemagickPathToExe : "magick.exe", tempFolderPath, CONFIG.MagickCommandString.Replace("%1", tempFolderPath));
+
+			foreach ( string tempSubfolderPath in tempSubfoldersToProcess )
+			{
+				StartAndWaitForProcess(IS_UNIX ? CONFIG.ImagemagickPathToExe : "magick.exe", tempSubfolderPath, CONFIG.MagickCommandString.Replace("%1", tempSubfolderPath));
+			}
 		}
 
 		private static bool IsDefaultMagickCommand(string commandString)

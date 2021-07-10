@@ -77,6 +77,11 @@ namespace imgdanke
 				return false; // Avoid deleting folders with any items in them
 			}
 
+			foreach ( string subfolderPath in Directory.EnumerateDirectories(path) )
+			{
+				DeleteFolder(subfolderPath, true);
+			}
+
 			try
 			{
 				if ( shouldWaitUntilEmptyToDelete )
@@ -90,8 +95,10 @@ namespace imgdanke
 							folder.Delete();
 							folder.Refresh();
 						}
-
-						folder.Refresh();
+						else
+						{
+							folder.Refresh();
+						}
 					}
 				}
 				else
@@ -381,17 +388,23 @@ namespace imgdanke
 		}
 
 		// Returns true if it successfully creates the links to files. Returns false if something goes wrong
-		internal static bool CreateHardLinksToFiles(List<FileInfo> files, string tempFolderPath)
+		internal static bool CreateHardLinksToFiles(Dictionary<string, List<FileInfo>> files, string tempFolderPath, string sourceFolderPath)
 		{
-			foreach ( FileInfo file in files )
+			foreach ( var pathAndInfos in files )
 			{
-				if ( !CreateHardLinkToFile(file, tempFolderPath) )
+				string tempSubFolderPath = tempFolderPath + pathAndInfos.Key.Replace(sourceFolderPath, "") + "/";
+				Directory.CreateDirectory(tempSubFolderPath);
+
+				foreach ( FileInfo file in pathAndInfos.Value )
 				{
-					MessageBox.Show("Unable to create a hard link to the file `" + file.FullName + "` at path `" + tempFolderPath + file.Name + "`\n\nProcessing will cancel.",
-						"Cannot create hard link to file",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Exclamation);
-					return false;
+					if ( !CreateHardLinkToFile(file, tempSubFolderPath) )
+					{
+						MessageBox.Show("Unable to create a hard link to the file `" + file.FullName + "` at path `" + tempSubFolderPath + file.Name + "`\n\nProcessing will cancel.",
+							"Cannot create hard link to file",
+							MessageBoxButtons.OK,
+							MessageBoxIcon.Exclamation);
+						return false;
+					}
 				}
 			}
 
