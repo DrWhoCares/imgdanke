@@ -246,7 +246,7 @@ namespace imgdanke
 					return;
 				}
 
-				DialogResult result = MessageBox.Show("There is a new version (" + check.LastVersion + ") available for download. Would you like to download and install it? Click the Help button to open the changelog.", "New Version Update", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, 0, "https://github.com/DrWhoCares/imgdanke/releases/tag/" + check.LastVersion);
+				DialogResult result = MessageBox.Show("There is a new version (v" + check.LastVersion + ") available for download. Would you like to download and install it? Click the Help button to open the changelog.", "New Version Update", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, 0, "https://github.com/DrWhoCares/imgdanke/releases/tag/v" + check.LastVersion);
 
 				if ( result != DialogResult.Yes )
 				{
