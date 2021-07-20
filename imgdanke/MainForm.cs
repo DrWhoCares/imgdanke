@@ -2052,10 +2052,12 @@ namespace imgdanke
 
 			foreach ( ImgInfo img in imgFiles )
 			{
-				if ( !tempSubfoldersToProcess.Contains(img.OrigInfo.DirectoryName) )
+				Debug.Assert(img.OrigInfo.DirectoryName != null, "img.OrigInfo.DirectoryName != null");
+				string tempSubFolderPath = tempFolderPath + img.OrigInfo.DirectoryName.Replace(SourceFolderPathTextBox.Text, "") + "/";
+
+				if ( !tempSubfoldersToProcess.Contains(tempSubFolderPath) )
 				{
-					Debug.Assert(img.OrigInfo.DirectoryName != null, "img.OrigInfo.DirectoryName != null");
-					tempSubfoldersToProcess.Add(tempFolderPath + img.OrigInfo.DirectoryName.Replace(SourceFolderPathTextBox.Text, "") + "/");
+					tempSubfoldersToProcess.Add(tempSubFolderPath);
 				}
 
 				if ( ShouldFileBeCopied(img.OrigInfo, tempFolderPath) )
